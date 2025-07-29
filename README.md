@@ -20,7 +20,7 @@ scale, animated GIFs and videos, in the form of pinboards.
 ## Timestamps
 
 - **Created:** 2023/11/23 
-- **Modified:** 2025-01-02 
+- **Modified:** 2025-07-29 
 
 ## APIs
 
@@ -34,7 +34,7 @@ This is the description of your API.
 
 #### Tags:
 
- -  Accounts,  Groups,  Analytics,  Audience,  Previews,  Ads,  Credit,  Discounts,  Billing,  Redeem,  Insights,  Audiences,  Custom,  Bid,  Floor,  Profiles,  Bulk,  Downloads,  Request,  Campaigns,  Conversion,  Tags,  Eligible,  Page,  Visit,  Conversions,  Customer,  Customer_lists,  Customers,  Id,  Events,  Audience_insights,  Keywords,  Metrics,  Lead,  Forms,  Test,  Subscriptions,  Reports,  Order,  Lines,  Line,  Product,  Promotions,  Promotion,  Sandbox,  Insertion,  Orders,  Status,  Pin,  Templates,  Template,  Terms,  Service,  Boards,  Board,  Pins,  Sections,  Section,  Employers,  Invites,  Business,  Assets,  Members,  Partners,  Access,  Member,  Catalogs,  Feeds,  Feed,  Ingest,  Processing,  Results,  Item,  Issues,  Items,  Batch,  Multiple,  Counts,  Products,  Filters,  Statistics,  Integrations,  Commerce,  External,  Logs,  Media,  Token,  Save,  Resources,  Countries,  Deliveries,  Questions,  Ready,  State,  Interests,  Interest,  Targeting,  Type,  Search,  Related,  Suggested,  Region,  Top,  Trend,  User,  Videos,  User_account,  Followers,  Following,  User Names,  Verifications,  Users,  Follow
+ - Images
 
 #### Properties
 
@@ -50,6 +50,23 @@ This is the description of your API.
 - [Terms of Service](https://developers.pinterest.com/terms/)
 - [OpenAPI](https://github.com/pinterest/api-description)
 - [GitHub Org](https://github.com/pinterest)
+- [OpenAPI](properties/api-description)
+- [Status](https://www.pintereststatus.com/)
+- [Portal](https://developers.pinterest.com/)
+- [Documentation](https://developers.pinterest.com/docs/overview/welcome/)
+- [ChangeLog](https://developers.pinterest.com/docs/changelog/changelog/)
+- [GettingStarted](https://developers.pinterest.com/docs/getting-started/connect-app/)
+- [Features](https://developers.pinterest.com/docs/api-features/track-conversion-events/)
+- [SDKs](https://developers.pinterest.com/docs/developer-tools/sdk/)
+- [Sandbox](https://developers.pinterest.com/docs/developer-tools/sandbox/)
+- [GettingStarted](https://developers.pinterest.com/docs/developer-tools/quickstart-tools/)
+- [RateLimits](https://developers.pinterest.com/docs/reference/rate-limits/)
+- [Errors](https://developers.pinterest.com/docs/reference/error-codes/)
+- [Pagination](https://developers.pinterest.com/docs/reference/pagination/)
+- [Support](https://developers.pinterest.com/docs/reference/help-and-feedback/)
+- [TermsOfService](https://developers.pinterest.com/terms/)
+- [PrivacyPolicy](https://policy.pinterest.com/en/privacy-policy)
+- [Partners](https://business.pinterest.com/pinterest-business-partners/)
 
 ## Maintainers
 
