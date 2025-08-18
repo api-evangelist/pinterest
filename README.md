@@ -19,8 +19,8 @@ scale, animated GIFs and videos, in the form of pinboards.
 
 ## Timestamps
 
-- **Created:** 2023/11/23 
-- **Modified:** 2025-08-04 
+- **Created:** 2023-11-23 
+- **Modified:** 2025-08-18 
 
 ## APIs
 
@@ -34,7 +34,7 @@ This is the description of your API.
 
 #### Tags:
 
- - Images, Images, Social Media, Videos
+ - Images
 
 #### Properties
 
@@ -68,6 +68,8 @@ This is the description of your API.
 - [PrivacyPolicy](https://policy.pinterest.com/en/privacy-policy)
 - [Partners](https://business.pinterest.com/pinterest-business-partners/)
 - [Plans](https://example.com/plans)
+- [RateLimits](https://developers.pinterest.com/docs/reference/rate-limits/)
+- [OAuthScopes](https://developers.pinterest.com/docs/getting-started/set-up-authentication-and-authorization/#available-scopes)
 
 ## Maintainers
 
