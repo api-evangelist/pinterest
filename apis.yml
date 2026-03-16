@@ -412,7 +412,6 @@ description: |-
   motivation, and inspiration on the internet using images and, on a smaller
   scale, animated GIFs and videos, in the form of pinboards.
 maintainers:
-  - FN: API Evangelist
-    url: http://apievangelist.com
-    email: info@apievangelist.com
+  - FN: Kin Lane
+    email: kin@apievangelist.com
 specificationVersion: '0.18'
