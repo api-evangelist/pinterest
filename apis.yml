@@ -6,7 +6,8 @@ apis:
     name: Pinterest API
     tags:
       - Images
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     humanURL: https://developers.pinterest.com/
     properties:
@@ -21,7 +22,8 @@ tags:
   - Social Media
   - Videos
 type: Contract
-image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: 
+  https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 common:
   - url: https://www.pinterest.com/_/_/policy/developer-guidelines
@@ -173,14 +175,16 @@ common:
         metric: request
         timeframe: minute
       - name: Ads Read
-        description: Fetching information on ads, ad groups, ad campaigns or ad accounts.
+        description: Fetching information on ads, ad groups, ad campaigns or ad 
+          accounts.
         type: ads_read
         tier: Trial
         limit: 1000
         metric: request
         timeframe: day
       - name: Ads Read
-        description: Fetching information on ads, ad groups, ad campaigns or ad accounts.
+        description: Fetching information on ads, ad groups, ad campaigns or ad 
+          accounts.
         type: ads_read
         tier: Standard
         limit: 120000
@@ -205,14 +209,16 @@ common:
         metric: request
         timeframe: minute
       - name: Advanced Auction Read
-        description: Fetching information related to bid options for ads auctions.
+        description: Fetching information related to bid options for ads 
+          auctions.
         type: advanced_auction_read
         tier: Trial
         limit: 1000
         metric: request
         timeframe: day
       - name: Advanced Auction Read
-        description: Fetching information related to bid options for ads auctions.
+        description: Fetching information related to bid options for ads 
+          auctions.
         type: advanced_auction_read
         tier: Standard
         limit: 50
@@ -293,14 +299,16 @@ common:
         metric: request
         timeframe: minute
       - name: Org Write
-        description: Creating, editing or deleting boards, board sections or Pins.
+        description: Creating, editing or deleting boards, board sections or 
+          Pins.
         type: org_write
         tier: Trial
         limit: 300
         metric: request
         timeframe: day
       - name: Org Write
-        description: Creating, editing or deleting boards, board sections or Pins.
+        description: Creating, editing or deleting boards, board sections or 
+          Pins.
         type: org_write
         tier: Standard
         limit: 100
@@ -357,7 +365,8 @@ common:
       - id: boards
         name: Boards
         type: read
-        description: See public boards, including group boards, with boards read.
+        description: See public boards, including group boards, with boards 
+          read.
       - id: boards
         name: Boards
         type: read_secret
@@ -369,7 +378,8 @@ common:
       - id: boards
         name: Boards
         type: write_secret
-        description: Create, update or delete secret boards with boards write_secret.
+        description: Create, update or delete secret boards with boards 
+          write_secret.
       - id: catalogs
         name: Catalogs
         type: read
@@ -393,7 +403,8 @@ common:
       - id: pins
         name: Pins
         type: write_secret
-        description: Create, update or delete secret pins with pins write_secret.
+        description: Create, update or delete secret pins with pins 
+          write_secret.
       - id: user_accounts
         name: User Accounts
         type: read
@@ -405,12 +416,11 @@ common:
 created: '2023-11-23'
 modified: '2025-08-18'
 position: Consuming
-description: |-
-
-  Pinterest is an American image sharing and social media service designed to
-  enable saving and discovery of information like recipes, home, style,
-  motivation, and inspiration on the internet using images and, on a smaller
-  scale, animated GIFs and videos, in the form of pinboards.
+description: >-
+  Pinterest is an American image sharing and social media service designed to enable
+  saving and discovery of information like recipes, home, style, motivation, and inspiration
+  on the internet using images and, on a smaller scale, animated GIFs and videos,
+  in the form of pinboards.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
