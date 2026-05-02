@@ -20,16 +20,17 @@ scale, animated GIFs and videos, in the form of pinboards.
 ## Timestamps
 
 - **Created:** 2023-11-23 
-- **Modified:** 2025-08-18 
+- **Modified:** 2026-04-28
 
 ## APIs
 
 ### Pinterest API
-This is the description of your API.
+
+The Pinterest REST API v5 for managing ads, ad groups, ad accounts, audiences, billing, boards, board sections, pins, catalogs, and analytics on Pinterest.
 
 **Human URL:** [https://developers.pinterest.com/](https://developers.pinterest.com/)
 
-**Base URL:** [https://api.example.com](https://api.example.com)
+**Base URL:** [https://api.pinterest.com/v5](https://api.pinterest.com/v5)
 
 
 #### Tags:
@@ -39,7 +40,7 @@ This is the description of your API.
 #### Properties
 
 - [Documentation](https://developers.pinterest.com/docs/api/v5/)
-- [OpenAPI](properties/pinterest-api-openapi.yml)
+- [OpenAPI](openapi/pinterest-openapi-original.yml)
 
 ## Common Properties
 
@@ -50,7 +51,6 @@ This is the description of your API.
 - [Terms of Service](https://developers.pinterest.com/terms/)
 - [OpenAPI](https://github.com/pinterest/api-description)
 - [GitHub Org](https://github.com/pinterest)
-- [OpenAPI](properties/api-description)
 - [Status](https://www.pintereststatus.com/)
 - [Portal](https://developers.pinterest.com/)
 - [Documentation](https://developers.pinterest.com/docs/overview/welcome/)
