@@ -1,0 +1,78 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Pinterest
+providerId: pinterest
+created: '2026-05-04'
+modified: '2026-05-04'
+reconciled: true
+tags:
+  - Social Media + Ads
+  - Cloud
+  - Multi-Service
+description: Pinterest is a multi-product platform — pricing is per-service. This artifact catalogs the
+  major service families and points to the vendor's pricing calculator. For detailed per-service rates,
+  use the vendor pricing pages directly.
+sources:
+  - https://developers.pinterest.com/docs/api/v5/introduction/
+  - https://focus.finops.org/
+plans:
+  - id: pinterest-platform-overview
+    name: Platform Pricing Overview
+    type: enterprise
+    description: Per-service pay-as-you-go + reserved/committed-use discounts.
+    entries:
+      - label: Per-service rates
+        name: varies
+        type: metered
+        metric: varies
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: see vendor pricing calculator
+        userMultiplied: false
+    elements:
+      - name: Pinterest API v5 (free for OAuth-authorized apps)
+      - name: Marketing API (Ads Manager)
+      - name: Catalogs API (commerce)
+      - name: Conversions API (server-side events)
+      - name: Trial of Pinterest Plus / Premiere
+  - id: pinterest-committed-use
+    name: Committed Use / Reserved
+    type: enterprise
+    description: 1-year and 3-year commitments offer 30-72% discount over on-demand.
+    entries:
+      - label: Annual commitment (custom)
+        name: annual
+        type: subscription
+        metric: year
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: custom
+        userMultiplied: false
+    elements:
+      - name: Reserved Instances / Savings Plans / Committed Use Discounts
+      - name: Volume discounts
+      - name: Negotiated enterprise agreements
+  - id: pinterest-free-tier
+    name: Free Tier / Trial
+    type: freemium
+    description: Most platforms offer a free tier or starting credits.
+    entries:
+      - label: Free tier (varies)
+        name: free
+        type: quota
+        metric: service
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: 12-month free trial allowances
+      - name: Always-free quotas
+      - name: New account credits

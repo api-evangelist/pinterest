@@ -1,13 +1,11 @@
 aid: pinterest
-url: >-
-  https://raw.githubusercontent.com/api-search/images/main/_apis/pinterest/apis.md
+url: https://raw.githubusercontent.com/api-search/images/main/_apis/pinterest/apis.md
 apis:
   - aid: pinterest:pinterest-api
     name: Pinterest API
     tags:
       - Images
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.pinterest.com/v5
     humanURL: https://developers.pinterest.com/
     properties:
@@ -15,17 +13,15 @@ apis:
         type: Documentation
       - url: openapi/pinterest-openapi-original.yml
         type: OpenAPI
-    description: >-
-      The Pinterest REST API v5 for managing ads, ad groups, ad accounts, audiences,
-      billing, boards, board sections, pins, catalogs, and analytics on Pinterest.
+    description: The Pinterest REST API v5 for managing ads, ad groups, ad accounts, audiences, billing,
+      boards, board sections, pins, catalogs, and analytics on Pinterest.
 name: Pinterest
 tags:
   - Images
   - Social Media
   - Videos
 type: Contract
-image: 
-  https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 common:
   - url: https://www.pinterest.com/_/_/policy/developer-guidelines
@@ -61,11 +57,22 @@ common:
     name: Pinterest Developers
     type: GettingStarted
     description: 'null'
-  - url: >-
-      https://developers.pinterest.com/docs/api-features/track-conversion-events/
+  - url: https://developers.pinterest.com/docs/api-features/track-conversion-events/
     name: Pinterest Developers
     type: Features
     description: 'null'
+    data:
+      - 'Pinterest: hundreds of services across Social Media + Ads'
+      - 'Detailed pricing: see https://developers.pinterest.com/docs/api/v5/introduction/'
+      - 'Service: Pinterest API v5 (free for OAuth-authorized apps)'
+      - 'Service: Marketing API (Ads Manager)'
+      - 'Service: Catalogs API (commerce)'
+      - 'Service: Conversions API (server-side events)'
+      - 'Service: Trial of Pinterest Plus / Premiere'
+    sources:
+      - https://developers.pinterest.com/docs/api/v5/introduction/
+      - https://focus.finops.org/
+    updated: '2026-05-04'
   - url: https://developers.pinterest.com/docs/developer-tools/sdk/
     name: Pinterest Developers
     type: SDKs
@@ -154,70 +161,60 @@ common:
         metric: request
         timeframe: minute
       - name: Ads Conversions
-        description: >-
-          Sending batches of conversion events for an ad account. This category
-          applies to requests authenticated with a token acquired through the
-          standard OAuth flow.
+        description: Sending batches of conversion events for an ad account. This category applies to
+          requests authenticated with a token acquired through the standard OAuth flow.
         type: ads_conversions
         tier: Trial
         limit: 1000
         metric: request
         timeframe: day
       - name: Ads Conversions
-        description: >-
-          Sending batches of conversion events for an ad account. This category
-          applies to requests authenticated with a token acquired through the
-          standard OAuth flow.
+        description: Sending batches of conversion events for an ad account. This category applies to
+          requests authenticated with a token acquired through the standard OAuth flow.
         type: ads_conversions
         tier: Standard
         limit: 120000
         metric: request
         timeframe: minute
       - name: Ads Read
-        description: Fetching information on ads, ad groups, ad campaigns or ad 
-          accounts.
+        description: Fetching information on ads, ad groups, ad campaigns or ad accounts.
         type: ads_read
         tier: Trial
         limit: 1000
         metric: request
         timeframe: day
       - name: Ads Read
-        description: Fetching information on ads, ad groups, ad campaigns or ad 
-          accounts.
+        description: Fetching information on ads, ad groups, ad campaigns or ad accounts.
         type: ads_read
         tier: Standard
         limit: 120000
         metric: request
         timeframe: minute
       - name: Ads Write
-        description: >-
-          Creating, editing or deleting ad entities, such as ad accounts, ads,
-          ad groups or campaigns.
+        description: Creating, editing or deleting ad entities, such as ad accounts, ads, ad groups or
+          campaigns.
         type: ads_write
         tier: Trial
         limit: 300
         metric: request
         timeframe: day
       - name: Ads Write
-        description: >-
-          Creating, editing or deleting ad entities, such as ad accounts, ads,
-          ad groups or campaigns.
+        description: Creating, editing or deleting ad entities, such as ad accounts, ads, ad groups or
+          campaigns.
         type: ads_write
         tier: Standard
         limit: 400
         metric: request
         timeframe: minute
       - name: Advanced Auction Read
-        description: Fetching information related to bid options for ads 
-          auctions.
+        description: Fetching information related to bid options for ads auctions.
         type: advanced_auction_read
         tier: Trial
         limit: 1000
         metric: request
         timeframe: day
       - name: Advanced Auction Read
-        description: Fetching information related to bid options for ads 
-          auctions.
+        description: Fetching information related to bid options for ads auctions.
         type: advanced_auction_read
         tier: Standard
         limit: 50
@@ -266,18 +263,14 @@ common:
         metric: request
         timeframe: minute
       - name: Org Analytics
-        description: >-
-          Fetching user-related analytics data, such as account information and
-          top Pins.
+        description: Fetching user-related analytics data, such as account information and top Pins.
         type: org_analytics
         tier: Trial
         limit: 1000
         metric: request
         timeframe: day
       - name: Org Analytics
-        description: >-
-          Fetching user-related analytics data, such as account information and
-          top Pins.
+        description: Fetching user-related analytics data, such as account information and top Pins.
         type: org_analytics
         tier: Standard
         limit: 60
@@ -298,16 +291,14 @@ common:
         metric: request
         timeframe: minute
       - name: Org Write
-        description: Creating, editing or deleting boards, board sections or 
-          Pins.
+        description: Creating, editing or deleting boards, board sections or Pins.
         type: org_write
         tier: Trial
         limit: 300
         metric: request
         timeframe: day
       - name: Org Write
-        description: Creating, editing or deleting boards, board sections or 
-          Pins.
+        description: Creating, editing or deleting boards, board sections or Pins.
         type: org_write
         tier: Standard
         limit: 100
@@ -329,18 +320,14 @@ common:
         timeframe: minute
   - name: OAuth Scopes
     type: OAuthScopes
-    description: >-
-      You must request at least one scope during the OAuth flow. You should only
-      request the scopes required for your product.
-    url: >-
-      https://developers.pinterest.com/docs/getting-started/set-up-authentication-and-authorization/#available-scopes
+    description: You must request at least one scope during the OAuth flow. You should only request the
+      scopes required for your product.
+    url: https://developers.pinterest.com/docs/getting-started/set-up-authentication-and-authorization/#available-scopes
     data:
       - id: read_permissions
         name: Ads
         type: read
-        description: >-
-          See all data related to advertising, such as ads, ad groups and
-          campaigns.
+        description: See all data related to advertising, such as ads, ad groups and campaigns.
       - id: write_permissions
         name: Ads
         type: write
@@ -364,8 +351,7 @@ common:
       - id: boards
         name: Boards
         type: read
-        description: See public boards, including group boards, with boards 
-          read.
+        description: See public boards, including group boards, with boards read.
       - id: boards
         name: Boards
         type: read_secret
@@ -377,8 +363,7 @@ common:
       - id: boards
         name: Boards
         type: write_secret
-        description: Create, update or delete secret boards with boards 
-          write_secret.
+        description: Create, update or delete secret boards with boards write_secret.
       - id: catalogs
         name: Catalogs
         type: read
@@ -402,8 +387,7 @@ common:
       - id: pins
         name: Pins
         type: write_secret
-        description: Create, update or delete secret pins with pins 
-          write_secret.
+        description: Create, update or delete secret pins with pins write_secret.
       - id: user_accounts
         name: User Accounts
         type: read
@@ -413,13 +397,11 @@ common:
         type: write
         description: Update user accounts and followers.
 created: '2023-11-23'
-modified: '2026-04-28'
+modified: '2026-05-04'
 position: Consuming
-description: >-
-  Pinterest is an American image sharing and social media service designed to enable
-  saving and discovery of information like recipes, home, style, motivation, and inspiration
-  on the internet using images and, on a smaller scale, animated GIFs and videos,
-  in the form of pinboards.
+description: Pinterest is an American image sharing and social media service designed to enable saving
+  and discovery of information like recipes, home, style, motivation, and inspiration on the internet
+  using images and, on a smaller scale, animated GIFs and videos, in the form of pinboards.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
