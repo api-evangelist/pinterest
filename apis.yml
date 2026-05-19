@@ -24,6 +24,8 @@ kind: contract
 image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 common:
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/pinterest
   - url: https://www.pinterest.com/_/_/policy/developer-guidelines
     type: Guidelines
   - url: https://www.pinterest.com/_/_/newsroom/
