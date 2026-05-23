@@ -32,6 +32,9 @@ common:
     type: News
   - url: https://medium.com/pinterest-engineering
     type: Blog
+  - url: https://medium.com/feed/pinterest-engineering
+    type: BlogRSS
+    description: Discovered RSS/Atom feed for https://medium.com/pinterest-engineering
   - url: https://help.pinterest.com/contact
     type: Support
   - url: https://developers.pinterest.com/terms/
