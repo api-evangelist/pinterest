@@ -401,6 +401,8 @@ common:
         name: User Accounts
         type: write
         description: Update user accounts and followers.
+  - type: LLMsTxt
+    url: https://developers.pinterest.com/llms.txt
 created: '2023-11-23'
 modified: '2026-05-04'
 position: Consuming
