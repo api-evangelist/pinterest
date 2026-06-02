@@ -13,6 +13,8 @@ apis:
         type: Documentation
       - url: openapi/pinterest-openapi-original.yml
         type: OpenAPI
+      - url: openapi/pinterest-asyncapi.yml
+        type: AsyncAPI
     description: The Pinterest REST API v5 for managing ads, ad groups, ad accounts, audiences, billing,
       boards, board sections, pins, catalogs, and analytics on Pinterest.
 name: Pinterest
@@ -404,7 +406,7 @@ common:
   - type: LLMsTxt
     url: https://developers.pinterest.com/llms.txt
 created: '2023-11-23'
-modified: '2026-05-04'
+modified: '2026-05-30'
 position: Consuming
 description: Pinterest is an American image sharing and social media service designed to enable saving
   and discovery of information like recipes, home, style, motivation, and inspiration on the internet

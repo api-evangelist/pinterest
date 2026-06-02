@@ -1,6 +1,18 @@
 {
   "repo": "pinterest",
-  "feeds": [],
-  "fetched": "2026-05-17T20:48:52Z",
+  "feeds": [
+    {
+      "source": "https://medium.com/pinterest-engineering",
+      "error": "HTTPError"
+    },
+    {
+      "source": "https://medium.com/feed/pinterest-engineering",
+      "feed_url": "https://medium.com/feed/pinterest-engineering",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    }
+  ],
+  "fetched": "2026-06-01T23:35:02Z",
   "post_count": 0
 }

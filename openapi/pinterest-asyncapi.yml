@@ -1,0 +1,222 @@
+asyncapi: '2.6.0'
+id: 'urn:com:pinterest:webhooks'
+info:
+  title: Pinterest Webhooks (Lead Ads)
+  version: 'v5'
+  description: |
+    AsyncAPI description of Pinterest's documented webhook surface.
+
+    As of the v5 REST API, the only publicly documented webhook delivery
+    mechanism on developers.pinterest.com is the Lead Ads subscription
+    surface. Subscribers register an HTTPS `webhook_url` against a specific
+    `lead_form_id` on an ad account; Pinterest then delivers lead data
+    captured from that form to the subscriber URL.
+
+    Important constraints (drawn from the Pinterest v5 OpenAPI):
+      * Lead data is encrypted by Pinterest before delivery. The
+        `cryptographic_algorithm` returned at subscription creation is
+        `AES-256-GCM`, and the `cryptographic_key` is a Base64-encoded
+        symmetric key that the subscriber must store to decrypt deliveries.
+      * The plaintext payload structure delivered to the subscriber URL is
+        not described as a JSON Schema in the Pinterest v5 OpenAPI; only
+        the subscription lifecycle, the encryption envelope parameters,
+        and a `lead_form_test/create` endpoint (which echoes the lead form
+        answer order) are documented. This AsyncAPI therefore models the
+        delivery channel as an encrypted opaque payload and additionally
+        exposes the documented `LeadFormQuestion` order so consumers can
+        understand what answers the lead form will produce.
+
+    Surfaces explicitly checked and NOT found as publicly documented webhooks:
+      * Conversions API (server-side conversion events are sender-initiated
+        REST POSTs to /ad_accounts/{ad_account_id}/events, not webhooks).
+      * Catalog / Catalogs Feeds / Shop API (no webhook subscriptions
+        documented; ingestion is pull-based via feeds).
+      * Ads / Marketing API beyond Lead Ads (async report jobs exist but
+        are polled, not pushed).
+      * Pins / Boards / User Accounts (no webhook subscriptions documented).
+      * OAuth / token lifecycle (no webhook subscriptions documented).
+  contact:
+    name: Pinterest Developers
+    url: https://developers.pinterest.com/
+  license:
+    name: Pinterest Developer Guidelines
+    url: https://developers.pinterest.com/terms/
+  x-source:
+    description: Modeled strictly from the Pinterest v5 OpenAPI subscription
+      operations and schemas in openapi/pinterest-openapi-original.yml.
+    operations:
+      - operationId: ad_accounts_subscriptions/post
+        path: /ad_accounts/{ad_account_id}/leads/subscriptions
+      - operationId: ad_accounts_subscriptions/get_list
+        path: /ad_accounts/{ad_account_id}/leads/subscriptions
+      - operationId: ad_accounts_subscriptions/get_by_id
+        path: /ad_accounts/{ad_account_id}/leads/subscriptions/{subscription_id}
+      - operationId: ad_accounts_subscriptions/del_by_id
+        path: /ad_accounts/{ad_account_id}/leads/subscriptions/{subscription_id}
+      - operationId: lead_form_test/create
+        path: /ad_accounts/{ad_account_id}/lead_forms/{lead_form_id}/test
+defaultContentType: application/json
+servers:
+  subscriber:
+    url: '{webhook_url}'
+    protocol: https
+    description: |
+      Subscriber-hosted HTTPS endpoint registered as `webhook_url` when
+      calling POST /ad_accounts/{ad_account_id}/leads/subscriptions. The
+      Pinterest v5 OpenAPI requires this URL to be HTTPS and to be supplied
+      at subscription creation time.
+    variables:
+      webhook_url:
+        description: The full HTTPS URL provided by the subscriber at
+          subscription creation. Example value taken from the Pinterest
+          OpenAPI schema example.
+        default: https://webhook.example.com/xyz
+channels:
+  lead-ads/delivery:
+    description: |
+      Channel on which Pinterest delivers encrypted lead data captured by
+      a subscribed lead form. One subscription is bound to one
+      `lead_form_id` on one `ad_account_id`; deliveries on this channel
+      are scoped to that binding.
+    bindings:
+      http:
+        type: request
+        method: POST
+        bindingVersion: '0.3.0'
+    subscribe:
+      operationId: receiveLeadAdsDelivery
+      summary: Receive an encrypted Pinterest lead ads delivery.
+      description: |
+        Pinterest POSTs lead data to the subscriber's registered
+        `webhook_url`. The delivered payload is encrypted using the
+        algorithm reported in `cryptographic_algorithm` (documented as
+        `AES-256-GCM`) under the Base64-encoded `cryptographic_key`
+        returned at subscription creation. Decryption yields the lead
+        answers in the order defined by the lead form's `questions`
+        array (see the `LeadFormQuestion` schema).
+      message:
+        $ref: '#/components/messages/LeadAdsEncryptedDelivery'
+components:
+  messages:
+    LeadAdsEncryptedDelivery:
+      name: LeadAdsEncryptedDelivery
+      title: Pinterest Lead Ads encrypted delivery
+      summary: Encrypted lead data delivered to a subscriber webhook_url.
+      contentType: application/json
+      description: |
+        The Pinterest v5 OpenAPI documents the subscription envelope
+        (`cryptographic_algorithm`, `cryptographic_key`, `api_version`,
+        `subscription` identifiers) but does NOT document a JSON Schema
+        for the decrypted webhook payload body. This message therefore
+        models the delivery as an opaque ciphertext together with the
+        documented envelope metadata. Subscribers decrypt the ciphertext
+        with the stored key to obtain the lead form answers, whose order
+        is defined by the `LeadFormQuestion` array of the subscribed
+        lead form.
+      headers:
+        type: object
+        properties:
+          Content-Type:
+            type: string
+            const: application/json
+      payload:
+        $ref: '#/components/schemas/LeadAdsDeliveryEnvelope'
+      x-undocumented:
+        - decrypted-payload-schema
+        - delivery-signature-header
+        - delivery-retry-policy
+  schemas:
+    LeadAdsDeliveryEnvelope:
+      type: object
+      description: |
+        Envelope wrapper modeled from documented subscription fields.
+        The plaintext schema of the decrypted body is not documented in
+        the Pinterest v5 OpenAPI and is therefore left as an opaque
+        ciphertext field rather than fabricated.
+      properties:
+        subscription_id:
+          description: Subscription ID (from AdAccountCreateSubscriptionResponse).
+          type: string
+          pattern: ^\d+$
+          example: '8078432025948590686'
+        ad_account_id:
+          description: Ad account ID this subscription belongs to.
+          type: string
+          pattern: ^\d+$
+          example: '549755885176'
+        lead_form_id:
+          description: Lead form ID this subscription is bound to.
+          type: string
+          pattern: ^\d+$
+          example: '383791336903426390'
+        api_version:
+          description: API version of the subscription (e.g. `v5`).
+          type: string
+          example: v5
+        cryptographic_algorithm:
+          description: Algorithm used to encrypt the delivered lead data.
+          type: string
+          example: AES-256-GCM
+        encrypted_payload:
+          description: |
+            Opaque ciphertext containing the lead form answers. Pinterest's
+            public v5 OpenAPI does not publish a JSON Schema for the
+            decrypted body; subscribers decrypt this with their stored
+            `cryptographic_key` and parse answers in the order defined by
+            the lead form's `questions` array.
+          type: string
+          format: byte
+    LeadFormQuestion:
+      type: object
+      description: |
+        Mirrored from the Pinterest v5 OpenAPI `LeadFormQuestion` schema.
+        Included here so subscribers can reason about the decrypted
+        answer order without leaving the AsyncAPI document.
+      properties:
+        question_type:
+          $ref: '#/components/schemas/LeadFormQuestionType'
+        custom_question_field_type:
+          $ref: '#/components/schemas/LeadFormQuestionFieldType'
+        custom_question_label:
+          type: string
+          nullable: true
+          description: Question label for a custom question.
+        custom_question_options:
+          type: array
+          minItems: 0
+          maxItems: 5
+          nullable: true
+          items:
+            type: string
+          description: Question options for a custom question.
+    LeadFormQuestionType:
+      type: string
+      description: Lead form question type (verbatim enum from v5 OpenAPI).
+      example: FIRST_NAME
+      enum:
+        - CUSTOM
+        - FULL_NAME
+        - FIRST_NAME
+        - LAST_NAME
+        - EMAIL
+        - PHONE_NUMBER
+        - ZIP_CODE
+        - AGE
+        - GENDER
+        - CITY
+        - COUNTRY
+        - PREFERRED_CONTACT_METHOD
+        - STATE_PROVINCE
+        - ADDRESS
+        - DATE_OF_BIRTH
+    LeadFormQuestionFieldType:
+      type: string
+      description: Lead form question field type (verbatim enum from v5 OpenAPI).
+      example: RADIO_LIST
+      nullable: true
+      enum:
+        - TEXT_FIELD
+        - TEXT_AREA
+        - RADIO_LIST
+        - CHECKBOX
+        - null
