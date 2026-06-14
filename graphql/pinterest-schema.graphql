@@ -1,0 +1,1430 @@
+# Pinterest GraphQL Schema
+# Conceptual GraphQL schema derived from the Pinterest REST API v5
+# Source: https://developers.pinterest.com/docs/api/v5/
+
+scalar DateTime
+scalar Date
+scalar JSON
+scalar URL
+
+# -----------------------------------------------------------------------
+# Enums
+# -----------------------------------------------------------------------
+
+enum PinMediaType {
+  IMAGE
+  VIDEO
+  STORY
+}
+
+enum BoardPrivacy {
+  PUBLIC
+  PROTECTED
+  SECRET
+}
+
+enum CampaignObjective {
+  AWARENESS
+  CONSIDERATION
+  VIDEO_VIEW
+  WEB_CONVERSION
+  CATALOG_SALES
+  APP_INSTALL
+}
+
+enum CampaignStatus {
+  ACTIVE
+  PAUSED
+  ARCHIVED
+  DRAFT
+  DELETED_DRAFT
+}
+
+enum AdGroupStatus {
+  ACTIVE
+  PAUSED
+  ARCHIVED
+}
+
+enum AdStatus {
+  ACTIVE
+  PAUSED
+  ARCHIVED
+  DRAFT
+}
+
+enum BidStrategy {
+  AUTOMATIC_BID
+  MAX_BID
+  TARGET_AVG
+}
+
+enum AudienceType {
+  CUSTOMER_LIST
+  VISITOR
+  ENGAGEMENT
+  ACTALIKE
+  INTEREST
+}
+
+enum ConversionEventType {
+  PAGE_VISIT
+  SIGNUP
+  CHECKOUT
+  CUSTOM
+  CART
+  LEAD
+  SEARCH
+  VIEW_CATEGORY
+  WATCH_VIDEO
+  ADD_TO_CART
+}
+
+enum CatalogFeedStatus {
+  ACTIVE
+  INACTIVE
+  DELETED
+}
+
+enum CatalogIngestionStatus {
+  SUCCESS
+  FAILED
+  PROCESSING
+  QUEUED
+}
+
+enum WebhookEvent {
+  PIN_SAVE
+  BOARD_FOLLOW
+  USER_FOLLOW
+  CREATE_PIN
+  CREATE_BOARD
+}
+
+enum Scope {
+  PINS_READ
+  PINS_WRITE
+  BOARDS_READ
+  BOARDS_WRITE
+  ADS_READ
+  ADS_WRITE
+  CATALOGS_READ
+  CATALOGS_WRITE
+  USER_ACCOUNTS_READ
+  USER_ACCOUNTS_WRITE
+  BILLING_READ
+  BILLING_WRITE
+  BIZ_ACCESS_READ
+  BIZ_ACCESS_WRITE
+}
+
+enum RateLimitCategory {
+  ORG_READ
+  ORG_WRITE
+  ORG_ANALYTICS
+  ADS_READ
+  ADS_WRITE
+  ADS_ANALYTICS
+  ADS_CONVERSIONS
+  CATALOGS_READ
+  CATALOGS_WRITE
+  TRENDS_READ
+  ADVANCED_AUCTION_READ
+  ADVANCED_AUCTION_WRITE
+}
+
+# -----------------------------------------------------------------------
+# Interfaces
+# -----------------------------------------------------------------------
+
+interface Node {
+  id: ID!
+}
+
+interface Timestamped {
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+# -----------------------------------------------------------------------
+# Pagination
+# -----------------------------------------------------------------------
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type PinConnection {
+  edges: [PinEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type PinEdge {
+  node: Pin!
+  cursor: String!
+}
+
+type BoardConnection {
+  edges: [BoardEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type BoardEdge {
+  node: Board!
+  cursor: String!
+}
+
+type UserConnection {
+  edges: [UserEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type UserEdge {
+  node: PublicUser!
+  cursor: String!
+}
+
+type CatalogProductConnection {
+  edges: [CatalogProductEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int
+}
+
+type CatalogProductEdge {
+  node: CatalogProduct!
+  cursor: String!
+}
+
+# -----------------------------------------------------------------------
+# Pin Types
+# -----------------------------------------------------------------------
+
+type Pin implements Node & Timestamped {
+  id: ID!
+  title: String
+  description: String
+  link: URL
+  dominantColor: String
+  altText: String
+  boardId: ID!
+  board: Board
+  boardSectionId: ID
+  boardSection: BoardSection
+  creatorId: ID!
+  creator: PublicUser
+  media: PinMedia
+  parentPinId: ID
+  note: String
+  isOwner: Boolean
+  isSaved: Boolean
+  isStandard: Boolean
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type PinDetails implements Node & Timestamped {
+  id: ID!
+  title: String
+  description: String
+  link: URL
+  dominantColor: String
+  altText: String
+  boardId: ID!
+  board: Board
+  boardSectionId: ID
+  boardSection: BoardSection
+  creatorId: ID!
+  creator: PublicUser
+  media: PinMedia
+  parentPinId: ID
+  note: String
+  isOwner: Boolean
+  isSaved: Boolean
+  analytics: PinAnalytics
+  metrics: PinMetrics
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type PinImage {
+  originalUrl: URL
+  width: Int
+  height: Int
+  thumbnailUrl: URL
+  x50Url: URL
+  x60Url: URL
+  x150Url: URL
+  x400Url: URL
+  x600Url: URL
+  x736Url: URL
+  x1200Url: URL
+}
+
+type PinVideo {
+  coverUrl: URL
+  duration: Int
+  height: Int
+  width: Int
+  videoUrl: URL
+  thumbnailUrl: URL
+}
+
+union PinMedia = PinImage | PinVideo
+
+type PinCreative {
+  pinId: ID!
+  creativeType: String
+  imageUrl: URL
+  videoUrl: URL
+  title: String
+  description: String
+  callToAction: String
+  destinationUrl: URL
+}
+
+type PinAd implements Node & Timestamped {
+  id: ID!
+  adAccountId: ID!
+  adGroupId: ID!
+  pinId: ID!
+  pin: Pin
+  status: AdStatus!
+  creative: AdCreative
+  analytics: PinAnalytics
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type PinAnalytics {
+  pinId: ID!
+  startDate: Date
+  endDate: Date
+  impressions: Int
+  saves: Int
+  clicks: Int
+  outboundClicks: Int
+  videoViews: Int
+  engagements: Int
+  engagementRate: Float
+  clickThroughRate: Float
+  saveRate: Float
+}
+
+type PinMetrics {
+  pinId: ID!
+  allTimeImpressions: Int
+  allTimeSaves: Int
+  allTimeClicks: Int
+  allTimeEngagements: Int
+  lifetimeVideoViews: Int
+}
+
+type StoryPin implements Node & Timestamped {
+  id: ID!
+  title: String
+  description: String
+  boardId: ID!
+  board: Board
+  creatorId: ID!
+  creator: PublicUser
+  pageCount: Int
+  pages: [StoryPage!]
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type StoryPage {
+  pageIndex: Int!
+  blocks: [StoryBlock!]
+  backgroundColor: String
+}
+
+type StoryBlock {
+  blockType: String!
+  text: String
+  imageUrl: URL
+  videoUrl: URL
+  fontName: String
+  textColor: String
+  backgroundColor: String
+  x: Float
+  y: Float
+  width: Float
+  height: Float
+  rotation: Float
+}
+
+# -----------------------------------------------------------------------
+# Board Types
+# -----------------------------------------------------------------------
+
+type Board implements Node & Timestamped {
+  id: ID!
+  name: String!
+  description: String
+  owner: PublicUser
+  privacy: BoardPrivacy!
+  isPinnable: Boolean
+  pinCount: Int
+  followerCount: Int
+  collaboratorCount: Int
+  cover: BoardCover
+  media: BoardMedia
+  sections(first: Int, after: String): BoardSectionConnection
+  pins(first: Int, after: String): PinConnection
+  followers(first: Int, after: String): UserConnection
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type BoardDetails implements Node & Timestamped {
+  id: ID!
+  name: String!
+  description: String
+  owner: PublicUser
+  privacy: BoardPrivacy!
+  pinCount: Int
+  followerCount: Int
+  collaboratorCount: Int
+  monthlyViews: Int
+  cover: BoardCover
+  sections: [BoardSection!]
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type BoardSection implements Node {
+  id: ID!
+  name: String!
+  boardId: ID!
+  board: Board
+  pinCount: Int
+  pins(first: Int, after: String): PinConnection
+}
+
+type BoardSectionPin {
+  sectionId: ID!
+  section: BoardSection
+  pinId: ID!
+  pin: Pin
+  addedAt: DateTime
+}
+
+type BoardCover {
+  imageUrl: URL
+  pinId: ID
+  pin: Pin
+}
+
+type BoardMedia {
+  imageCoverUrl: URL
+  pinThumbnailUrls: [URL!]
+}
+
+type BoardFollowers {
+  boardId: ID!
+  followers: UserConnection
+  totalCount: Int
+}
+
+type BoardSectionConnection {
+  edges: [BoardSectionEdge!]!
+  pageInfo: PageInfo!
+}
+
+type BoardSectionEdge {
+  node: BoardSection!
+  cursor: String!
+}
+
+# -----------------------------------------------------------------------
+# User Types
+# -----------------------------------------------------------------------
+
+type User implements Node & Timestamped {
+  id: ID!
+  username: String!
+  firstName: String
+  lastName: String
+  bio: String
+  websiteUrl: URL
+  profileImage: URL
+  accountType: String
+  followerCount: Int
+  followingCount: Int
+  monthlyViews: Int
+  boards(first: Int, after: String): BoardConnection
+  pins(first: Int, after: String): PinConnection
+  businessAccounts: [BusinessAccount!]
+  analytics: UserAnalytics
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type UserProfile {
+  userId: ID!
+  username: String!
+  firstName: String
+  lastName: String
+  bio: String
+  websiteUrl: URL
+  profileImage: URL
+  followerCount: Int
+  followingCount: Int
+  boardCount: Int
+  pinCount: Int
+  monthlyViews: Int
+}
+
+type UserAnalytics {
+  userId: ID!
+  startDate: Date
+  endDate: Date
+  impressions: Int
+  saves: Int
+  profileVisits: Int
+  followers: Int
+  engagements: Int
+  totalAudience: Int
+  engagedAudience: Int
+  topPins: [Pin!]
+  topVideoPins: [Pin!]
+}
+
+type PublicUser implements Node {
+  id: ID!
+  username: String!
+  firstName: String
+  lastName: String
+  bio: String
+  websiteUrl: URL
+  profileImage: URL
+  followerCount: Int
+  followingCount: Int
+  monthlyViews: Int
+}
+
+type LinkedBusinessAccount {
+  userId: ID!
+  user: User
+  businessAccountId: ID!
+  businessAccount: BusinessAccount
+  role: String
+  linkedAt: DateTime
+}
+
+type BusinessAccount implements Node & Timestamped {
+  id: ID!
+  name: String!
+  businessType: String
+  profileImage: URL
+  websiteUrl: URL
+  ownerId: ID
+  owner: User
+  adAccounts: [AdAccount!]
+  linkedUsers: [LinkedBusinessAccount!]
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type BusinessProfile {
+  businessAccountId: ID!
+  name: String!
+  businessType: String
+  profileImage: URL
+  websiteUrl: URL
+  followerCount: Int
+}
+
+# -----------------------------------------------------------------------
+# Ad Account Types
+# -----------------------------------------------------------------------
+
+type AdAccount implements Node & Timestamped {
+  id: ID!
+  name: String!
+  ownerId: ID!
+  owner: User
+  country: String
+  currency: String
+  status: String
+  budget: AdAccountBudget
+  campaigns(first: Int, after: String): CampaignConnection
+  audiences: [Audience!]
+  conversionTags: [ConversionTag!]
+  catalogFeeds: [CatalogFeed!]
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type AdAccountBudget {
+  adAccountId: ID!
+  lifetimeBudget: Float
+  dailySpendCap: Float
+  totalBudgetSpent: Float
+  currency: String
+  billingProfileId: ID
+}
+
+type CampaignConnection {
+  edges: [CampaignEdge!]!
+  pageInfo: PageInfo!
+}
+
+type CampaignEdge {
+  node: Campaign!
+  cursor: String!
+}
+
+# -----------------------------------------------------------------------
+# Campaign Types
+# -----------------------------------------------------------------------
+
+type Campaign implements Node & Timestamped {
+  id: ID!
+  adAccountId: ID!
+  adAccount: AdAccount
+  name: String!
+  status: CampaignStatus!
+  objective: CampaignObjective!
+  lifetimeBudget: Float
+  dailyBudget: Float
+  isFlexibleDailyBudgets: Boolean
+  defaultAdGroupBudgetInMicroCurrency: Int
+  isAutomatedCampaign: Boolean
+  startTime: DateTime
+  endTime: DateTime
+  adGroups: [AdGroup!]
+  analytics: CampaignAnalytics
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type CampaignAnalytics {
+  campaignId: ID!
+  startDate: Date
+  endDate: Date
+  impressions: Int
+  clicks: Int
+  saves: Int
+  spend: Float
+  cpm: Float
+  cpc: Float
+  ctr: Float
+  conversions: Int
+  conversionRate: Float
+  roas: Float
+}
+
+# -----------------------------------------------------------------------
+# Ad Group Types
+# -----------------------------------------------------------------------
+
+type AdGroup implements Node & Timestamped {
+  id: ID!
+  adAccountId: ID!
+  campaignId: ID!
+  campaign: Campaign
+  name: String!
+  status: AdGroupStatus!
+  bidStrategyType: BidStrategy
+  bidInMicroCurrency: Int
+  budgetInMicroCurrency: Int
+  budgetType: String
+  startTime: DateTime
+  endTime: DateTime
+  targetingSpec: AdTargeting
+  placementGroup: String
+  pacing: String
+  ads: [Ad!]
+  analytics: AdGroupAnalytics
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type AdGroupAnalytics {
+  adGroupId: ID!
+  startDate: Date
+  endDate: Date
+  impressions: Int
+  clicks: Int
+  saves: Int
+  spend: Float
+  cpm: Float
+  cpc: Float
+  ctr: Float
+  conversions: Int
+  conversionRate: Float
+}
+
+# -----------------------------------------------------------------------
+# Ad Types
+# -----------------------------------------------------------------------
+
+type Ad implements Node & Timestamped {
+  id: ID!
+  adAccountId: ID!
+  adGroupId: ID!
+  adGroup: AdGroup
+  pinId: ID!
+  pin: Pin
+  name: String
+  status: AdStatus!
+  creative: AdCreative
+  clickUrl: URL
+  viewTrackingUrl: URL
+  analytics: AdGroupAnalytics
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type AdCreative {
+  adId: ID!
+  creativeType: String!
+  title: String
+  description: String
+  callToAction: String
+  imageUrl: URL
+  videoUrl: URL
+  destinationUrl: URL
+  displayUrl: String
+  pinId: ID
+}
+
+type AdTargeting {
+  adGroupId: ID!
+  ages: [String!]
+  genders: [String!]
+  locales: [String!]
+  locations: [String!]
+  interests: [String!]
+  keywords: [String!]
+  audienceIds: [ID!]
+  exclusionAudienceIds: [ID!]
+  appTypes: [String!]
+  deviceTypes: [String!]
+  placements: [String!]
+}
+
+# -----------------------------------------------------------------------
+# Audience Types
+# -----------------------------------------------------------------------
+
+type Audience implements Node & Timestamped {
+  id: ID!
+  adAccountId: ID!
+  name: String!
+  audienceType: AudienceType!
+  description: String
+  rule: AudienceSource
+  size: Int
+  status: String
+  insights: AudienceInsights
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type AudienceSource {
+  audienceId: ID!
+  dataSource: String
+  ingestionSource: String
+  eventSource: JSON
+  ruleType: String
+  lookbackWindow: Int
+  exclusionWindow: Int
+  pixelIds: [ID!]
+  engagementType: String
+}
+
+type AudienceInsights {
+  audienceId: ID!
+  size: Int
+  sizeBreakdown: JSON
+  demographics: AudienceDemographics
+  topInterests: [Interest!]
+}
+
+type AudienceDemographics {
+  genderDistribution: JSON
+  ageDistribution: JSON
+  locationDistribution: JSON
+  deviceDistribution: JSON
+}
+
+type CustomerList implements Node & Timestamped {
+  id: ID!
+  adAccountId: ID!
+  name: String!
+  numBatches: Int
+  numRemovedUserRecords: Int
+  numUploadedUserRecords: Int
+  status: String
+  type: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type Interest {
+  id: ID!
+  name: String!
+  childInterests: [Interest!]
+  level: Int
+}
+
+type Keyword implements Node {
+  id: ID!
+  adGroupId: ID!
+  archived: Boolean
+  bid: Int
+  matchType: String!
+  value: String!
+  metrics: KeywordMetrics
+}
+
+type KeywordMetrics {
+  keywordId: ID!
+  approxCpc: Float
+  approxCpm: Float
+  competition: Float
+  monthlySearch: Int
+  roas: Float
+}
+
+# -----------------------------------------------------------------------
+# Conversion Types
+# -----------------------------------------------------------------------
+
+type Conversion {
+  id: ID!
+  adAccountId: ID!
+  pinId: ID
+  campaignId: ID
+  eventType: ConversionEventType!
+  eventTime: DateTime!
+  value: Float
+  currency: String
+  orderId: String
+  userId: String
+}
+
+type ConversionEvent {
+  eventName: ConversionEventType!
+  eventTime: DateTime!
+  eventId: String
+  eventSourceUrl: URL
+  userId: ConversionUser
+  customData: ConversionCustomData
+  appData: JSON
+  partnerName: String
+  language: String
+}
+
+type ConversionUser {
+  email: [String!]
+  hashedMaids: [String!]
+  clientIpAddress: String
+  clientUserAgent: String
+  fbc: String
+  fbp: String
+  externalId: [String!]
+  gender: String
+  dateOfBirth: String
+  lastName: String
+  firstName: String
+  city: String
+  state: String
+  zip: String
+  country: String
+}
+
+type ConversionCustomData {
+  currency: String
+  value: String
+  contentIds: [String!]
+  contentName: String
+  contents: [JSON!]
+  numItems: Int
+  orderId: String
+  searchString: String
+}
+
+type ConversionTag implements Node & Timestamped {
+  id: ID!
+  adAccountId: ID!
+  name: String!
+  status: String
+  version: String
+  codeSnippet: String
+  enhancedMatchStatus: String
+  configs: ConversionTagConfig
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type ConversionTagConfig {
+  aemEnabled: Boolean
+  mdFrequency: Float
+  aemFnlnEnabled: Boolean
+  aemPhEnabled: Boolean
+  aemGeEnabled: Boolean
+  aemDbEnabled: Boolean
+  aemExternalIdEnabled: Boolean
+}
+
+type ConversionReport {
+  adAccountId: ID!
+  startDate: Date
+  endDate: Date
+  totalConversions: Int
+  totalConversionValue: Float
+  currency: String
+  conversionsByType: JSON
+  conversionsByCampaign: JSON
+}
+
+# -----------------------------------------------------------------------
+# Catalog Types
+# -----------------------------------------------------------------------
+
+type CatalogFeed implements Node & Timestamped {
+  id: ID!
+  adAccountId: ID!
+  name: String!
+  format: String
+  location: URL
+  status: CatalogFeedStatus!
+  defaultCurrency: String
+  defaultAvailability: String
+  defaultCountry: String
+  defaultLocale: String
+  ingestions: [CatalogIngestion!]
+  productGroups: [ProductGroup!]
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type CatalogProduct implements Node {
+  id: ID!
+  catalogId: ID!
+  itemId: String!
+  pinId: ID
+  pin: Pin
+  attributes: CatalogProductAttributes
+  metadata: CatalogProductMetadata
+  status: String
+}
+
+type CatalogProductAttributes {
+  title: String
+  description: String
+  link: URL
+  imageLink: URL
+  price: Float
+  salePrice: Float
+  currency: String
+  availability: String
+  condition: String
+  brand: String
+  googleProductCategory: String
+  productType: String
+  color: String
+  size: String
+  material: String
+  pattern: String
+  gender: String
+  ageGroup: String
+}
+
+type CatalogProductMetadata {
+  itemGroupId: String
+  adwordsRedirect: URL
+  customLabel0: String
+  customLabel1: String
+  customLabel2: String
+  customLabel3: String
+  customLabel4: String
+  checkoutEnabled: Boolean
+}
+
+type CatalogIngestion implements Node {
+  id: ID!
+  catalogId: ID!
+  createdAt: DateTime
+  status: CatalogIngestionStatus!
+  errorMessages: [String!]
+  itemsProcessed: Int
+  itemsSucceeded: Int
+  itemsFailed: Int
+  itemsDeleted: Int
+  reviewStats: CatalogIngestionReviewStats
+}
+
+type CatalogIngestionReviewStats {
+  ingestionId: ID!
+  originalPins: Int
+  innocuousModifiedPins: Int
+  failedPins: Int
+}
+
+type ProductGroup implements Node & Timestamped {
+  id: ID!
+  adAccountId: ID!
+  feedId: ID!
+  feed: CatalogFeed
+  name: String!
+  description: String
+  filters: JSON
+  filterV2: JSON
+  type: String
+  status: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type ProductGroupPromotion implements Node & Timestamped {
+  id: ID!
+  adAccountId: ID!
+  adGroupId: ID!
+  productGroupId: ID!
+  productGroup: ProductGroup
+  status: AdStatus!
+  bidInMicroCurrency: Int
+  boostBid: Boolean
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type ShoppingAd implements Node & Timestamped {
+  id: ID!
+  adAccountId: ID!
+  adGroupId: ID!
+  productGroupPromotionId: ID!
+  productGroupPromotion: ProductGroupPromotion
+  pin: Pin
+  status: AdStatus!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+# -----------------------------------------------------------------------
+# Platform and Auth Types
+# -----------------------------------------------------------------------
+
+type OAuthApp implements Node & Timestamped {
+  id: ID!
+  name: String!
+  clientId: String!
+  description: String
+  websiteUrl: URL
+  redirectUris: [URL!]!
+  scopes: [Scope!]!
+  status: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type AccessToken {
+  accessToken: String!
+  tokenType: String!
+  expiresIn: Int
+  refreshToken: String
+  refreshTokenExpiresIn: Int
+  scope: [Scope!]!
+  userId: ID
+  user: User
+}
+
+type Webhook implements Node & Timestamped {
+  id: ID!
+  adAccountId: ID
+  userId: ID
+  deliveryUrl: URL!
+  signatureHeader: String
+  eventTypes: [WebhookEvent!]!
+  status: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type Notification {
+  id: ID!
+  webhookId: ID!
+  webhook: Webhook
+  eventType: WebhookEvent!
+  payload: JSON
+  deliveredAt: DateTime
+  status: String
+}
+
+type APIKey implements Node & Timestamped {
+  id: ID!
+  name: String!
+  keyPrefix: String
+  scopes: [Scope!]!
+  status: String
+  lastUsedAt: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type RateLimit {
+  category: RateLimitCategory!
+  tier: String!
+  limit: Int!
+  remaining: Int!
+  resetAt: DateTime
+  timeframe: String!
+}
+
+# -----------------------------------------------------------------------
+# Input Types
+# -----------------------------------------------------------------------
+
+input CreatePinInput {
+  boardId: ID!
+  boardSectionId: ID
+  title: String
+  description: String
+  link: URL
+  altText: String
+  mediaSource: PinMediaSourceInput!
+  note: String
+}
+
+input UpdatePinInput {
+  boardId: ID
+  boardSectionId: ID
+  title: String
+  description: String
+  link: URL
+  altText: String
+  note: String
+}
+
+input PinMediaSourceInput {
+  sourceType: String!
+  contentType: String
+  data: String
+  url: URL
+  pinId: ID
+}
+
+input CreateBoardInput {
+  name: String!
+  description: String
+  privacy: BoardPrivacy
+}
+
+input UpdateBoardInput {
+  name: String
+  description: String
+  privacy: BoardPrivacy
+}
+
+input CreateBoardSectionInput {
+  name: String!
+}
+
+input UpdateBoardSectionInput {
+  name: String!
+}
+
+input CreateCampaignInput {
+  name: String!
+  objective: CampaignObjective!
+  status: CampaignStatus
+  lifetimeBudget: Float
+  dailyBudget: Float
+  startTime: DateTime
+  endTime: DateTime
+}
+
+input UpdateCampaignInput {
+  name: String
+  status: CampaignStatus
+  lifetimeBudget: Float
+  dailyBudget: Float
+  startTime: DateTime
+  endTime: DateTime
+}
+
+input CreateAdGroupInput {
+  campaignId: ID!
+  name: String!
+  status: AdGroupStatus
+  bidStrategyType: BidStrategy
+  bidInMicroCurrency: Int
+  budgetInMicroCurrency: Int
+  budgetType: String
+  startTime: DateTime
+  endTime: DateTime
+  targetingSpec: AdTargetingInput
+}
+
+input AdTargetingInput {
+  ages: [String!]
+  genders: [String!]
+  locales: [String!]
+  locations: [String!]
+  interests: [String!]
+  keywords: [String!]
+  audienceIds: [ID!]
+  exclusionAudienceIds: [ID!]
+  appTypes: [String!]
+  deviceTypes: [String!]
+}
+
+input CreateAdInput {
+  adGroupId: ID!
+  pinId: ID!
+  name: String
+  status: AdStatus
+  clickUrl: URL
+}
+
+input UpdateAdInput {
+  name: String
+  status: AdStatus
+  clickUrl: URL
+}
+
+input CreateAudienceInput {
+  name: String!
+  audienceType: AudienceType!
+  description: String
+  rule: AudienceSourceInput!
+}
+
+input AudienceSourceInput {
+  dataSource: String!
+  ingestionSource: String
+  eventSource: JSON
+  ruleType: String
+  lookbackWindow: Int
+  pixelIds: [ID!]
+  engagementType: String
+}
+
+input CreateCustomerListInput {
+  name: String!
+  records: String!
+  listType: String!
+}
+
+input CreateCatalogFeedInput {
+  name: String!
+  format: String!
+  location: URL!
+  defaultCurrency: String
+  defaultAvailability: String
+  defaultCountry: String!
+  defaultLocale: String!
+}
+
+input CreateConversionTagInput {
+  name: String!
+}
+
+input ConversionEventInput {
+  eventName: ConversionEventType!
+  eventTime: DateTime!
+  eventId: String
+  eventSourceUrl: URL
+  userId: ConversionUserInput
+  customData: ConversionCustomDataInput
+  appData: JSON
+  partnerName: String
+  language: String
+}
+
+input ConversionUserInput {
+  email: [String!]
+  hashedMaids: [String!]
+  clientIpAddress: String
+  clientUserAgent: String
+  externalId: [String!]
+  gender: String
+  dateOfBirth: String
+  lastName: String
+  firstName: String
+  city: String
+  state: String
+  zip: String
+  country: String
+}
+
+input ConversionCustomDataInput {
+  currency: String
+  value: String
+  contentIds: [String!]
+  contentName: String
+  numItems: Int
+  orderId: String
+  searchString: String
+}
+
+input CreateWebhookInput {
+  deliveryUrl: URL!
+  eventTypes: [WebhookEvent!]!
+  adAccountId: ID
+}
+
+# -----------------------------------------------------------------------
+# Root Types
+# -----------------------------------------------------------------------
+
+type Query {
+  # Pin queries
+  pin(id: ID!): Pin
+  pinDetails(id: ID!): PinDetails
+  pins(boardId: ID!, first: Int, after: String): PinConnection
+  savedPins(userId: ID, first: Int, after: String): PinConnection
+  pinAnalytics(pinId: ID!, startDate: Date!, endDate: Date!, metrics: [String!]): PinAnalytics
+  pinMetrics(pinId: ID!): PinMetrics
+
+  # Board queries
+  board(id: ID!): Board
+  boardDetails(id: ID!): BoardDetails
+  boards(userId: ID, privacy: BoardPrivacy, first: Int, after: String): BoardConnection
+  boardSection(boardId: ID!, sectionId: ID!): BoardSection
+  boardSections(boardId: ID!): [BoardSection!]
+  boardFollowers(boardId: ID!, first: Int, after: String): BoardFollowers
+
+  # User queries
+  me: User
+  user(username: String!): PublicUser
+  userAnalytics(startDate: Date!, endDate: Date!, metrics: [String!]): UserAnalytics
+
+  # Business account queries
+  businessAccount(id: ID!): BusinessAccount
+  businessAccounts(first: Int, after: String): [BusinessAccount!]
+
+  # Ad account queries
+  adAccount(id: ID!): AdAccount
+  adAccounts(first: Int, after: String): [AdAccount!]
+
+  # Campaign queries
+  campaign(adAccountId: ID!, campaignId: ID!): Campaign
+  campaigns(adAccountId: ID!, status: [CampaignStatus!], first: Int, after: String): CampaignConnection
+  campaignAnalytics(adAccountId: ID!, campaignId: ID!, startDate: Date!, endDate: Date!): CampaignAnalytics
+
+  # Ad group queries
+  adGroup(adAccountId: ID!, adGroupId: ID!): AdGroup
+  adGroups(adAccountId: ID!, campaignId: ID!, first: Int, after: String): [AdGroup!]
+  adGroupAnalytics(adAccountId: ID!, adGroupId: ID!, startDate: Date!, endDate: Date!): AdGroupAnalytics
+
+  # Ad queries
+  ad(adAccountId: ID!, adId: ID!): Ad
+  ads(adAccountId: ID!, adGroupId: ID!, first: Int, after: String): [Ad!]
+
+  # Audience queries
+  audience(adAccountId: ID!, audienceId: ID!): Audience
+  audiences(adAccountId: ID!, first: Int, after: String): [Audience!]
+  audienceInsights(adAccountId: ID!, audienceId: ID!): AudienceInsights
+  customerList(adAccountId: ID!, customerListId: ID!): CustomerList
+  customerLists(adAccountId: ID!): [CustomerList!]
+  interests(interestId: ID): [Interest!]
+
+  # Keyword queries
+  keywords(adAccountId: ID!, adGroupId: ID!): [Keyword!]
+  keywordMetrics(adAccountId: ID!, keywords: [String!]!): [KeywordMetrics!]
+
+  # Catalog queries
+  catalogFeed(adAccountId: ID!, feedId: ID!): CatalogFeed
+  catalogFeeds(adAccountId: ID!): [CatalogFeed!]
+  catalogProduct(catalogId: ID!, itemId: String!): CatalogProduct
+  catalogProducts(catalogId: ID!, first: Int, after: String): CatalogProductConnection
+  catalogIngestion(catalogId: ID!, ingestionId: ID!): CatalogIngestion
+  productGroup(adAccountId: ID!, productGroupId: ID!): ProductGroup
+  productGroups(adAccountId: ID!, feedId: ID!): [ProductGroup!]
+
+  # Conversion queries
+  conversionTag(adAccountId: ID!, tagId: ID!): ConversionTag
+  conversionTags(adAccountId: ID!): [ConversionTag!]
+  conversionReport(adAccountId: ID!, startDate: Date!, endDate: Date!): ConversionReport
+
+  # Webhook queries
+  webhook(id: ID!): Webhook
+  webhooks: [Webhook!]
+
+  # Platform queries
+  rateLimit(category: RateLimitCategory!): RateLimit
+  rateLimits: [RateLimit!]
+}
+
+type Mutation {
+  # Pin mutations
+  createPin(input: CreatePinInput!): Pin
+  updatePin(id: ID!, input: UpdatePinInput!): Pin
+  deletePin(id: ID!): Boolean
+  savePin(pinId: ID!, boardId: ID!, sectionId: ID): Pin
+
+  # Board mutations
+  createBoard(input: CreateBoardInput!): Board
+  updateBoard(id: ID!, input: UpdateBoardInput!): Board
+  deleteBoard(id: ID!): Boolean
+  followBoard(boardId: ID!): Boolean
+  unfollowBoard(boardId: ID!): Boolean
+
+  # Board section mutations
+  createBoardSection(boardId: ID!, input: CreateBoardSectionInput!): BoardSection
+  updateBoardSection(boardId: ID!, sectionId: ID!, input: UpdateBoardSectionInput!): BoardSection
+  deleteBoardSection(boardId: ID!, sectionId: ID!): Boolean
+
+  # Campaign mutations
+  createCampaign(adAccountId: ID!, input: CreateCampaignInput!): Campaign
+  updateCampaign(adAccountId: ID!, campaignId: ID!, input: UpdateCampaignInput!): Campaign
+  deleteCampaign(adAccountId: ID!, campaignId: ID!): Boolean
+
+  # Ad group mutations
+  createAdGroup(adAccountId: ID!, input: CreateAdGroupInput!): AdGroup
+  updateAdGroup(adAccountId: ID!, adGroupId: ID!, input: CreateAdGroupInput!): AdGroup
+
+  # Ad mutations
+  createAd(adAccountId: ID!, input: CreateAdInput!): Ad
+  updateAd(adAccountId: ID!, adId: ID!, input: UpdateAdInput!): Ad
+  deleteAd(adAccountId: ID!, adId: ID!): Boolean
+
+  # Audience mutations
+  createAudience(adAccountId: ID!, input: CreateAudienceInput!): Audience
+  updateAudience(adAccountId: ID!, audienceId: ID!, input: CreateAudienceInput!): Audience
+  createCustomerList(adAccountId: ID!, input: CreateCustomerListInput!): CustomerList
+  addCustomerListUsers(adAccountId: ID!, customerListId: ID!, records: String!): CustomerList
+  removeCustomerListUsers(adAccountId: ID!, customerListId: ID!, records: String!): CustomerList
+
+  # Catalog mutations
+  createCatalogFeed(adAccountId: ID!, input: CreateCatalogFeedInput!): CatalogFeed
+  updateCatalogFeed(adAccountId: ID!, feedId: ID!, input: CreateCatalogFeedInput!): CatalogFeed
+  deleteCatalogFeed(adAccountId: ID!, feedId: ID!): Boolean
+
+  # Conversion mutations
+  createConversionTag(adAccountId: ID!, input: CreateConversionTagInput!): ConversionTag
+  sendConversionEvents(adAccountId: ID!, events: [ConversionEventInput!]!): Boolean
+
+  # Webhook mutations
+  createWebhook(input: CreateWebhookInput!): Webhook
+  deleteWebhook(id: ID!): Boolean
+
+  # User mutations
+  followUser(userId: ID!): Boolean
+  unfollowUser(userId: ID!): Boolean
+}
+
+type Subscription {
+  pinSaved(boardId: ID): Pin
+  boardUpdated(boardId: ID): Board
+  conversionEventReceived(adAccountId: ID!): ConversionEvent
+  webhookDelivered(webhookId: ID!): Notification
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
+}
