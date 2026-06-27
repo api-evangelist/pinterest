@@ -46,7 +46,7 @@ common:
 - url: https://github.com/pinterest/api-description
   type: OpenAPI
 - url: https://github.com/pinterest
-  type: GitHub Org
+  type: GitHubOrg
 - url: https://www.pintereststatus.com/
   name: Status
   type: StatusPage
@@ -100,7 +100,7 @@ common:
   description: 'null'
 - url: https://developers.pinterest.com/docs/reference/error-codes/
   name: Pinterest Developers
-  type: Errors
+  type: ErrorCodes
   description: 'null'
 - url: https://developers.pinterest.com/docs/reference/pagination/
   name: Pinterest Developers
@@ -409,7 +409,7 @@ common:
     name: User Accounts
     type: write
     description: Update user accounts and followers.
-- type: LLMsTxt
+- type: LlmsText
   url: https://developers.pinterest.com/llms.txt
 created: '2023-11-23'
 modified: '2026-05-30'
