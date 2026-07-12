@@ -28,6 +28,8 @@ kind: contract
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 common:
+- type: DomainSecurity
+  url: security/pinterest-domain-security.yml
 - type: LinkedIn
   url: https://www.linkedin.com/company/pinterest
 - url: https://www.pinterest.com/_/_/policy/developer-guidelines
