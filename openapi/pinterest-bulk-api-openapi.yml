@@ -1,0 +1,1532 @@
+openapi: 3.0.3
+info:
+  version: 5.13.0
+  title: Pinterest Bulk API
+  description: This is the description of your API.
+  contact:
+    name: Pinterest, Inc.
+    url: https://developers.pinterest.com/
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  termsOfService: https://developers.pinterest.com/terms/
+servers:
+- url: https://api.pinterest.com/v5
+tags:
+- name: Bulk
+paths:
+  /ad_accounts/{ad_account_id}/bulk/download:
+    post:
+      summary: Get advertiser entities in bulk
+      description: 'Create an asynchronous report that may include information on campaigns, ad groups, product groups, ads,
+
+        and/or keywords; can filter by campaigns. Though the entities may be active, archived, or paused,
+
+        only active entities will return data.'
+      operationId: bulk_download/create
+      security:
+      - pinterest_oauth2:
+        - ads:read
+      x-ratelimit-category: ads_read
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_ad_account_id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkDownloadRequest'
+        description: Parameters to get ad entities in bulk
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkDownloadResponse'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      tags:
+      - Bulk
+  /ad_accounts/{ad_account_id}/bulk/upsert:
+    post:
+      description: 'Either create or update any combination of campaigns, ad groups, product groups, ads, or keywords.
+
+        Note that this request will be processed asynchronously; the response will include a <code>request_id</code>
+
+        that can be used to obtain the status of the request.'
+      operationId: bulk_upsert/create
+      security:
+      - pinterest_oauth2:
+        - ads:write
+      x-ratelimit-category: ads_write
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_ad_account_id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkUpsertRequest'
+        description: Parameters to get create/update ad entities in bulk
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkUpsertResponse'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Create/update ad entities in bulk
+      tags:
+      - Bulk
+  /ad_accounts/{ad_account_id}/bulk/{bulk_request_id}:
+    get:
+      description: 'Get the status of a bulk request by <code>request_id</code>, along with a download URL that will allow you to download the
+
+        new or updated entity data (campaigns, ad groups, product groups, ads, or keywords).'
+      operationId: bulk_request/get
+      security:
+      - pinterest_oauth2:
+        - ads:read
+      x-ratelimit-category: ads_read
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_ad_account_id'
+      - $ref: '#/components/parameters/path_bulk_request_id'
+      - $ref: '#/components/parameters/include_details'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkUpsertStatusResponse'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Download advertiser entities in bulk
+      tags:
+      - Bulk
+components:
+  schemas:
+    AdGroupUpdateRequest:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AdGroupCommon'
+      - type: object
+        properties:
+          id:
+            description: Ad group ID.
+            type: string
+            pattern: ^\d+$
+            example: '2680060704746'
+        required:
+        - id
+    QuizPinResult:
+      description: The result, and link out, based on the users choice.
+      example:
+        organic_pin_id: pinId
+        android_deep_link: https://www.pinterest.com/
+        ios_deep_link: https://www.pinterest.com/
+        destination_url: https://www.pinterest.com/
+      type: object
+      nullable: true
+      properties:
+        organic_pin_id:
+          type: string
+        android_deep_link:
+          type: string
+        ios_deep_link:
+          type: string
+        destination_url:
+          type: string
+        result_id:
+          type: number
+    BulkUpsertStatus:
+      type: string
+      enum:
+      - RUNNING
+      - SUCCEEDED
+      - FAILED
+      example: SUCCEEDED
+    EntityStatus:
+      type: string
+      description: Entity status
+      example: ACTIVE
+      enum:
+      - ACTIVE
+      - PAUSED
+      - ARCHIVED
+      - DRAFT
+      - DELETED_DRAFT
+    CampaignCreateCommon:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/CampaignCommon'
+      - type: object
+        properties:
+          status:
+            type: string
+            default: ACTIVE
+            allOf:
+            - $ref: '#/components/schemas/EntityStatus'
+          is_flexible_daily_budgets:
+            type: boolean
+            default: false
+            allOf:
+            - $ref: '#/components/schemas/CampaignIsFlexibleDailyBudgets'
+          default_ad_group_budget_in_micro_currency:
+            type: integer
+            description: When transitioning from campaign budget optimization to non-campaign budget optimization, the default_ad_group_budget_in_micro_currency will propagate to each child ad groups daily budget. Unit is micro currency of the associated advertiser account.
+            example: 0
+            nullable: true
+          is_automated_campaign:
+            type: boolean
+            default: false
+            allOf:
+            - $ref: '#/components/schemas/CampaignIsAutomatedCampaign'
+    ProductGroupPromotionUpdateRequest:
+      example:
+        product_group_promotion:
+        - catalog_product_group_id: '1234123'
+          slideshow_collections_description: Description
+          collections_hero_pin_id: '123123'
+          catalog_product_group_name: ProductGroupName
+          collections_hero_destination_url: http://www.pinterest.com
+          tracking_url: https://www.pinterest.com
+          slideshow_collections_title: Title
+          status: ACTIVE
+          id: '2680059592705'
+        - catalog_product_group_id: '1231231'
+          slideshow_collections_description: Other description
+          collections_hero_pin_id: '123124'
+          catalog_product_group_name: ProductGroupName
+          collections_hero_destination_url: http://www.pinterest.com
+          tracking_url: https://www.pinterest.com
+          slideshow_collections_title: Title
+          status: ACTIVE
+          id: '2680059592706'
+        ad_group_id: '26823439592705'
+      properties:
+        ad_group_id:
+          description: ID of the ad group the product group belongs to.
+          example: '2680059592705'
+          pattern: ^(AG)?\d+$
+          title: ad_group_id
+          type: string
+        product_group_promotion:
+          items:
+            $ref: '#/components/schemas/ProductGroupPromotion'
+          title: product_group_promotion
+          type: array
+      required:
+      - ad_group_id
+      - product_group_promotion
+      title: ProductGroupPromotionUpdateRequest
+      type: object
+    KeywordUpdate:
+      title: KeywordUpdate
+      type: object
+      properties:
+        id:
+          type: string
+          description: Keyword ID.
+          example: '2886364308355'
+          pattern: ^\d+$
+          title: id
+        archived:
+          type: boolean
+          description: Is keyword archived?
+          example: false
+          title: archived
+        bid:
+          type: integer
+          minimum: 1
+          description: Keyword custom bid in microcurrency - null if inherited from parent ad group.
+          example: 200000
+          nullable: true
+          title: bid
+      required:
+      - id
+    KeywordsRequest:
+      type: object
+      properties:
+        keywords:
+          type: array
+          description: Keyword JSON array. Each array element has 3 fields
+          items:
+            $ref: '#/components/schemas/KeywordsCommon'
+        parent_id:
+          description: Keyword parent entity ID (advertiser, campaign, ad group).
+          example: '383791336903426391'
+          pattern: ^((AG)|C)?\d+$
+          title: parent_id
+          type: string
+      required:
+      - keywords
+      - parent_id
+    KeywordsCommon:
+      type: object
+      properties:
+        bid:
+          type: integer
+          description: Keyword custom bid in microcurrency - null if inherited from parent ad group.
+          example: 200000
+          nullable: true
+        match_type:
+          $ref: '#/components/schemas/MatchTypeResponse'
+        value:
+          type: string
+          description: Keyword value (120 chars max).
+      required:
+      - match_type
+      - value
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    ProductGroupPromotionCreateRequestElement:
+      type: object
+      title: ProductGroupPromotionCreateRequestElement
+      allOf:
+      - $ref: '#/components/schemas/ProductGroupPromotion'
+      - type: object
+        properties:
+          creative_type:
+            $ref: '#/components/schemas/CreativeType'
+    QuizPinQuestion:
+      description: A specific quiz inquiry.
+      example:
+        question_id: 1
+        question_text: Where do you thrive?
+        options:
+        - text: Hangout vibes
+        - text: Time to party!
+        - text: Keeping it lowkey
+      type: object
+      nullable: true
+      properties:
+        question_id:
+          type: number
+        question_text:
+          type: string
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuizPinOption'
+    AdCreateRequest:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AdCommon'
+      - $ref: '#/components/schemas/AdPinId'
+      - type: object
+        title: Request schema for creating ads
+        required:
+        - ad_group_id
+        - pin_id
+        - creative_type
+    ObjectiveType:
+      type: string
+      description: Campaign objective type. If set as one of ["AWARENESS", "CONSIDERATION", "WEB_CONVERSION", "CATALOG_SALES"] the campaign is considered as a Campaign Budget Optimization (CBO) campaign, meaning budget needs to be set at the campaign level rather than at the ad group level. ["WEB_SESSIONS"] is DEPRECATED. For update, only draft campaigns may update objective type.
+      enum:
+      - AWARENESS
+      - CONSIDERATION
+      - VIDEO_VIEW
+      - WEB_CONVERSION
+      - CATALOG_SALES
+      - WEB_SESSIONS
+    AdGroupCreateRequest:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AdGroupCommon'
+      - type: object
+        properties:
+          pacing_delivery_type:
+            type: string
+            allOf:
+            - $ref: '#/components/schemas/PacingDeliveryType'
+            default: STANDARD
+          auto_targeting_enabled:
+            type: boolean
+            allOf:
+            - type: boolean
+              description: Enable auto-targeting for ad group.Default value is True. Also known as <a href="https://help.pinterest.com/en/business/article/expanded-targeting" target="_blank">"expanded targeting"</a>.
+              example: true
+          budget_type:
+            type: string
+            allOf:
+            - $ref: '#/components/schemas/BudgetType'
+            default: DAILY
+        required:
+        - billable_event
+        - campaign_id
+        - name
+    CampaignIsFlexibleDailyBudgets:
+      type: boolean
+      description: Determine if a campaign has flexible daily budgets setup.
+      example: true
+      default: false
+    BulkDownloadResponse:
+      type: object
+      example:
+        request_id: '2680059592705'
+      properties:
+        request_id:
+          description: ID of the bulk request.
+          example: '2680059592705'
+          type: string
+    AdUpdateRequest:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AdCommon'
+      - type: object
+        title: AdUpdateRequest
+        properties:
+          id:
+            type: string
+            example: '687195134316'
+            pattern: ^\d+$
+            description: The ID of this ad.
+            title: id
+          pin_id:
+            type: string
+            description: Pin ID. This field may only be updated for draft ads.
+            example: '394205773611545468'
+            pattern: ^\d+$
+            nullable: true
+        required:
+        - id
+    TargetingSpec:
+      description: Ad group targeting specification defining the ad group target audience. For example, `{"APPTYPE":["iphone"], "GENDER":["male"], "LOCALE":["en-US"], "LOCATION":["501"], "AGE_BUCKET":["25-34"]}`
+      type: object
+      properties:
+        AGE_BUCKET:
+          type: array
+          nullable: true
+          description: Age ranges. If the AGE_BUCKET field is missing, the default behavior in terms of ad delivery is that **All age buckets** will be targeted.
+          example:
+          - 35-44
+          - 50-54
+          items:
+            type: string
+            enum:
+            - 18-24
+            - 21+
+            - 25-34
+            - 35-44
+            - 45-49
+            - 50-54
+            - 55-64
+            - 65+
+        APPTYPE:
+          type: array
+          nullable: true
+          description: Allowed devices. If the APPTYPE field is missing, the default behavior in terms of ad delivery is that **All devices/apptypes** will be targeted.
+          example:
+          - ipad
+          - iphone
+          items:
+            type: string
+            enum:
+            - android_mobile
+            - android_tablet
+            - ipad
+            - iphone
+            - web
+            - web_mobile
+        AUDIENCE_EXCLUDE:
+          type: array
+          nullable: true
+          description: 'Excluded customer list IDs. Used to drive new customer acquisition goals. For example: ["2542620905475"]. Audience lists need to have at least 100 people with Pinterest accounts in them. If the AUDIENCE_EXCLUDE field is missing, the default behavior in terms of ad delivery is that **No users will be excluded**.'
+          items:
+            type: string
+            pattern: ^\d+$
+            minItems: 100
+        AUDIENCE_INCLUDE:
+          type: array
+          nullable: true
+          description: 'Targeted customer list IDs. For example: ["2542620905473"]. Audience lists need to have at least 100 people with Pinterest accounts in them Audience lists need to have at least 100 people with Pinterest accounts in them. If the AUDIENCE_INCLUDE field is missing, the default behavior in terms of ad delivery is that **All users will be included**.'
+          items:
+            type: string
+            pattern: ^\d+$
+            minItems: 100
+        GENDER:
+          type: array
+          nullable: true
+          description: 'Targeted genders. Values: ["unknown","male","female"]. If the GENDER field is missing, the default behavior in terms of ad delivery is that **All genders will be targeted**.'
+          items:
+            type: string
+            enum:
+            - unknown
+            - male
+            - female
+        GEO:
+          type: array
+          nullable: true
+          description: Location region codes, e.g., "BE-VOV" (East Flanders, Belgium) For complete list, <a href="https://help.pinterest.com/sub/helpcenter/partner/pinterest_location_targeting_codes.xlsx" target="_blank">click here</a> or postal codes, e.g., "US-94107". Use either region codes or postal codes but not both. At least one of LOCATION or GEO must be specified. If the GEO field is missing, then only LOCATION values will be targeted (see LOCATION field below).
+          items:
+            type: string
+        INTEREST:
+          type: array
+          description: Array of interest object IDs. If the INTEREST field is missing, the default behavior in terms of ad delivery is that **All interests will be targeted**.
+          items:
+            type: string
+        LOCALE:
+          type: array
+          nullable: true
+          description: 24 ISO 639-1 two letter language codes. If the LOCALE field is missing, the default behavior in terms of ad delivery is that **All languages will be targeted, only english non-sublanguage will be targeted**.
+          items:
+            type: string
+        LOCATION:
+          type: array
+          nullable: true
+          description: 22 ISO Alpha 2 two letter country codes or US Nielsen DMA (Designated Market Area) codes (location region codes) (e.g., ["US", "807"]). For complete list, click here. Location-Country and Location-Metro codes apply. At least one of LOCATION or GEO must be specified. If the LOCATION field is missing, then only GEO values will be targeted (see GEO field above).
+          items:
+            type: string
+        SHOPPING_RETARGETING:
+          type: array
+          nullable: true
+          description: "Array of object: lookback_window\t[Integer]: Number of days ago to start lookback timeframe for dynamic retargeting tag_types [Array of integer]: Event types to target for dynamic retargeting exclusion_window [Integer]: Number of days ago to stop lookback timeframe for dynamic retargeting"
+          items:
+            type: object
+            example:
+              lookback_window: 30
+              exclusion_window: 14
+              tag_types:
+              - 0
+              - 6
+            properties:
+              lookback_window:
+                description: Number of days ago to start lookback timeframe for dynamic retargeting
+                example: 30
+                title: lookback_window
+                type: integer
+              tag_types:
+                description: Event types to target for dynamic retargeting
+                example:
+                - 0
+                - 6
+                items:
+                  type: integer
+                title: tag_types
+                type: array
+              exclusion_window:
+                description: Number of days ago to stop lookback timeframe for dynamic retargeting
+                example: 14
+                title: exclusion_window
+                type: integer
+            title: TargetingSpec_SHOPPING_RETARGETING
+        TARGETING_STRATEGY:
+          type: array
+          nullable: true
+          description: ''
+          items:
+            enum:
+            - CHOOSE_YOUR_OWN
+            - FIND_NEW_CUSTOMERS
+            - RECONNECT_WITH_USERS
+    ActionType:
+      type: string
+      description: Ad group billable event type. For update, only draft ad groups may update billable event.
+      example: CLICKTHROUGH
+      enum:
+      - CLICKTHROUGH
+      - IMPRESSION
+      - VIDEO_V_50_MRC
+    BulkUpsertRequest:
+      type: object
+      description: Two set of objects to be managed asyncronusly by bulk. One for creations, one for modifications.
+      properties:
+        create:
+          $ref: '#/components/schemas/BulkUpsertRequestCreate'
+        update:
+          $ref: '#/components/schemas/BulkUpsertRequestUpdate'
+    BulkOutputFormat:
+      type: string
+      description: Bulk file output format
+      enum:
+      - CSV
+      - JSON
+    BulkUpsertResponse:
+      description: ID of the bulk request.
+      type: object
+      properties:
+        request_id:
+          type: string
+          example: 549763856477-1660864560-1407e16a-c586-4add-94df-d0b160bec0ff, 549763856477-1660864560-d0b160bec0ff
+    CampaignIsAutomatedCampaign:
+      type: boolean
+      description: Specifies whether the campaign was created in the automated campaign flow
+      example: true
+      default: false
+    CampaignUpdateRequest:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/CampaignId'
+      - $ref: '#/components/schemas/CampaignCommon'
+      - $ref: '#/components/schemas/CampaignCreateCommon'
+      - type: object
+        properties:
+          is_campaign_budget_optimization:
+            type: boolean
+            nullable: true
+            allOf:
+            - $ref: '#/components/schemas/CampaignIsCampaignBudgetOptimization'
+          is_flexible_daily_budgets:
+            type: boolean
+            nullable: true
+            allOf:
+            - $ref: '#/components/schemas/CampaignIsFlexibleDailyBudgets'
+          is_automated_campaign:
+            type: boolean
+            nullable: true
+            allOf:
+            - $ref: '#/components/schemas/CampaignIsAutomatedCampaign'
+          status:
+            type: string
+            nullable: true
+            allOf:
+            - $ref: '#/components/schemas/EntityStatus'
+          objective_type:
+            type: string
+            nullable: true
+            allOf:
+            - $ref: '#/components/schemas/ObjectiveType'
+        required:
+        - id
+        - ad_account_id
+    CreativeType:
+      type: string
+      description: Ad creative type enum. For update, only draft ads may update creative type. </p><strong>Note:</strong> SHOP_THE_PIN has been deprecated. Please use COLLECTION instead.
+      enum:
+      - REGULAR
+      - VIDEO
+      - SHOPPING
+      - CAROUSEL
+      - MAX_VIDEO
+      - SHOP_THE_PIN
+      - COLLECTION
+      - IDEA
+      - SHOWCASE
+      - QUIZ
+      example: REGULAR
+      title: CreativeType
+    AdPinId:
+      type: object
+      properties:
+        pin_id:
+          description: Pin ID.
+          example: '394205773611545468'
+          type: string
+          pattern: ^\d+$
+    MatchTypeResponse:
+      type: string
+      description: Keyword match type
+      nullable: true
+      example: BROAD
+      enum:
+      - BROAD
+      - PHRASE
+      - EXACT
+      - EXACT_NEGATIVE
+      - PHRASE_NEGATIVE
+      - null
+    CampaignCommon:
+      type: object
+      description: Campaign Data
+      properties:
+        ad_account_id:
+          description: Campaign's Advertiser ID. If you want to create a campaign in a Business Account shared account you need to specify the Business Access advertiser ID in both the query path param as well as the request body schema.
+          example: '549755885175'
+          type: string
+          pattern: ^\d+$
+        name:
+          type: string
+          description: Campaign name.
+          example: ACME Tools
+        status:
+          type: string
+          allOf:
+          - $ref: '#/components/schemas/EntityStatus'
+        lifetime_spend_cap:
+          description: Campaign total spending cap. Required for Campaign Budget Optimization (CBO) campaigns. This and "daily_spend_cap" cannot be set at the same time.
+          example: 1432744744
+          type: integer
+          nullable: true
+        daily_spend_cap:
+          description: Campaign daily spending cap. Required for Campaign Budget Optimization (CBO) campaigns. This and "lifetime_spend_cap" cannot be set at the same time.
+          example: 1432744744
+          type: integer
+          nullable: true
+        order_line_id:
+          description: Order line ID that appears on the invoice.
+          example: '549755885175'
+          type: string
+          pattern: ^\d+$
+          nullable: true
+        tracking_urls:
+          type: object
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/TrackingUrls'
+        start_time:
+          type: integer
+          description: Campaign start time. Unix timestamp in seconds. Only used for Campaign Budget Optimization (CBO) campaigns.
+          example: 1580865126
+          nullable: true
+        end_time:
+          type: integer
+          description: Campaign end time. Unix timestamp in seconds. Only used for Campaign Budget Optimization (CBO) campaigns.
+          example: 1644023526
+          nullable: true
+        summary_status:
+          type: string
+          allOf:
+          - $ref: '#/components/schemas/CampaignSummaryStatus'
+    BulkUpsertRequestCreate:
+      type: object
+      description: Request for creation of entities in bulk.
+      properties:
+        campaigns:
+          type: array
+          items:
+            $ref: '#/components/schemas/CampaignCreateRequest'
+        ad_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdGroupCreateRequest'
+        ads:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdCreateRequest'
+        product_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductGroupPromotionCreateRequest'
+        keywords:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeywordsRequest'
+    CampaignIsCampaignBudgetOptimization:
+      type: boolean
+      description: Determines if a campaign automatically generate ad-group level budgets given a campaign budget to maximize campaign outcome. When transitioning from non-cbo to cbo, all previous child ad group budget will be cleared.
+      example: true
+      default: false
+    CampaignCreateRequest:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/CampaignCreateCommon'
+      - type: object
+        properties:
+          objective_type:
+            $ref: '#/components/schemas/ObjectiveType'
+        required:
+        - name
+        - objective_type
+        - ad_account_id
+    TrackingUrls:
+      description: Third-party tracking URLs. Up to three tracking URLs - with a max length of 2,000 - are supported for each event type. Tracking URLs set at the ad group or ad level can override those set at the campaign level. For more information, see <a href="https://help.pinterest.com/en/business/article/third-party-and-dynamic-tracking" target="_blank">Third-party and dynamic tracking</a>.
+      example:
+        impression:
+        - URL1
+        - URL2
+        click:
+        - URL1
+        - URL2
+        engagement:
+        - URL1
+        - URL2
+        buyable_button:
+        - URL1
+        - URL2
+        audience_verification:
+        - URL1
+        - URL2
+      type: object
+      nullable: true
+      properties:
+        impression:
+          type: array
+          items:
+            type: string
+        click:
+          type: array
+          items:
+            type: string
+        engagement:
+          type: array
+          items:
+            type: string
+        buyable_button:
+          type: array
+          items:
+            type: string
+        audience_verification:
+          type: array
+          items:
+            type: string
+    BulkUpsertStatusResponse:
+      description: ID of the bulk request.
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/BulkUpsertStatus'
+        result_url:
+          type: string
+          example: https://pinterest-waterloo.s3.us-east-1.amazonaws.com/bulk_framework/AD_ENTITY_UPSERT/549763856637-1659122537-0b4d77d3-f620-48ce-bec9-616106afb8d4/(...)
+    QuizPinOption:
+      description: ' This field contains multiple options to a quiz question.'
+      example:
+        id: 1
+        text: Where do you thrive?
+      type: object
+      nullable: true
+      properties:
+        id:
+          type: number
+        text:
+          type: string
+    CampaignId:
+      properties:
+        id:
+          description: Campaign ID.
+          example: '549755885175'
+          type: string
+          pattern: ^\d+$
+      type: object
+    PacingDeliveryType:
+      type: string
+      description: Ad group pacing delivery type. With ACCELERATED, an ad group budget is spent as fast as possible. With STANDARD, an ad group budget is spent smoothly over a day. When using CBO, only the STANDARD pacing delivery type is allowed.
+      example: STANDARD
+      enum:
+      - STANDARD
+      - ACCELERATED
+    BulkDownloadRequest:
+      type: object
+      description: Ad entities to get in bulk request.
+      properties:
+        entity_types:
+          type: array
+          items:
+            type: string
+            allOf:
+            - $ref: '#/components/schemas/BulkEntityType'
+          minItems: 1
+          maxItems: 5
+          description: All entity types specified will be downloaded. Fewer types result in faster downloads.
+          example:
+          - CAMPAIGN
+          - AD_GROUP
+        entity_ids:
+          type: array
+          items:
+            type: string
+            pattern: ^\d+$
+          description: All entities specified by these IDs as well as their children and grandchildren will be downloaded if the entity type is one of the types requested to be downloaded.
+        updated_since:
+          type: string
+          pattern: ^\d+$
+          example: '1622848072'
+          description: Unix UTC timestamp to retrieve all entities that have changed since this time.
+        campaign_filter:
+          type: object
+          properties:
+            start_time:
+              type: string
+              pattern: ^\d+$
+              example: '1622848072'
+              description: Unix UTC timestamp.
+            end_time:
+              type: string
+              pattern: ^\d+$
+              example: '1622848072'
+              description: Unix UTC timestamp.
+            name:
+              type: string
+              example: campaign name
+              description: Campaign name
+            campaign_status:
+              type: array
+              items:
+                $ref: '#/components/schemas/CampaignSummaryStatus'
+            objective_type:
+              type: array
+              items:
+                $ref: '#/components/schemas/ObjectiveType'
+        output_format:
+          type: string
+          allOf:
+          - $ref: '#/components/schemas/BulkOutputFormat'
+          default: JSON
+    ProductGroupPromotionCreateRequest:
+      example:
+        product_group_promotion:
+        - slideshow_collections_description: Description
+          collections_hero_pin_id: '123123'
+          catalog_product_group_name: catalogProductGroupName
+          collections_hero_destination_url: http://www.pinterest.com
+          tracking_url: https://www.pinterest.com
+          slideshow_collections_title: Title
+          is_mdl: true
+          status: ACTIVE
+          creative_type: REGULAR
+        - slideshow_collections_description: Description
+          collections_hero_pin_id: '123123'
+          catalog_product_group_name: catalogProductGroupName
+          collections_hero_destination_url: http://www.pinterest.com
+          tracking_url: https://www.pinterest.com
+          slideshow_collections_title: Title
+          is_mdl: true
+          status: ACTIVE
+          creative_type: REGULAR
+        ad_group_id: '2680059592705'
+      properties:
+        ad_group_id:
+          description: ID of the Ad Group the Product Group Promotion belongs to.
+          example: '2680059592705'
+          pattern: ^(AG)?\d+$
+          title: ad_group_id
+          type: string
+        product_group_promotion:
+          items:
+            $ref: '#/components/schemas/ProductGroupPromotionCreateRequestElement'
+          title: product_group_promotion
+          type: array
+      required:
+      - ad_group_id
+      - product_group_promotion
+      title: ProductGroupPromotionCreateRequest
+      type: object
+    QuizPinData:
+      description: This field includes all quiz data including questions, options, and results.
+      example:
+        questions:
+        - question_id: 1
+          question_text: Where do you thrive?
+          options:
+          - text: Hangout vibes
+          - text: Time to party!
+          - text: Keeping it lowkey
+        - question_id: 2
+          question_text: Where would you nap?
+          options:
+          - text: Hammock in the mountains
+          - text: Beach towel in the sand
+          - text: Tent under the stars
+        - question_id: 2
+          question_text: Who are you taking?
+          options:
+          - text: No onesolo trip!
+          - text: My best friend
+          - text: The family
+        results:
+        - organicPinId: '1234'
+          android_deep_link: https://www.pinterest.com/
+          iOS_deep_link: https://www.pinterest.com/
+          destination_url: https://www.pinterest.com/
+          result_id: 1
+        - organicPinId: '1234'
+          android_deep_link: https://www.pinterest.com/
+          iOS_deep_link: https://www.pinterest.com/
+          destination_url: https://www.pinterest.com/
+          result_id: 2
+        - organicPinId: '1234'
+          android_deep_link: https://www.pinterest.com/
+          iOS_deep_link: https://www.pinterest.com/
+          destination_url: https://www.pinterest.com/
+          result_id: 3
+      type: object
+      nullable: true
+      properties:
+        questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuizPinQuestion'
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuizPinResult'
+    OptimizationGoalMetadata:
+      type: object
+      properties:
+        conversion_tag_v3_goal_metadata:
+          properties:
+            attribution_windows:
+              properties:
+                click_window_days:
+                  type: integer
+                engagement_window_days:
+                  type: integer
+                view_window_days:
+                  type: integer
+              type: object
+            conversion_event:
+              type: string
+              enum:
+              - PAGE_VISIT
+              - SIGNUP
+              - CHECKOUT
+              - CUSTOM
+              - VIEW_CATEGORY
+              - SEARCH
+              - ADD_TO_CART
+              - WATCH_VIDEO
+              - LEAD
+              - APP_INSTALL
+            conversion_tag_id:
+              type: string
+              pattern: ^[0-9]+$
+            cpa_goal_value_in_micro_currency:
+              type: string
+              pattern: ^[0-9]+$
+            is_roas_optimized:
+              description: Ad group is ROAS optimized
+              nullable: true
+              title: is_roas_optimized
+              type: boolean
+            learning_mode_type:
+              description: Conversion learning model type
+              enum:
+              - NOT_ACTIVE
+              - ACTIVE
+              - null
+              example: ACTIVE
+              nullable: true
+              title: ConversionLearningModeType
+              type: string
+          type: object
+        frequency_goal_metadata:
+          properties:
+            frequency:
+              type: integer
+            timerange:
+              type: string
+              description: User entity counts time range
+              example: DAY
+              enum:
+              - THIRTY_DAY
+              - DAY
+              - SEVEN_DAY
+              - TWENTY_MINUTE
+              - TEN_MINUTE
+              - TWENTY_FOUR_HOUR
+          type: object
+        scrollup_goal_metadata:
+          properties:
+            scrollup_goal_value_in_micro_currency:
+              pattern: ^[0-9]+$
+              type: string
+              nullable: true
+          type: object
+    BulkEntityType:
+      type: string
+      description: Refers ads entity type
+      example: AD
+      enum:
+      - CAMPAIGN
+      - AD_GROUP
+      - PRODUCT_GROUP
+      - AD
+      - KEYWORD
+    AdGroupCommon:
+      type: object
+      properties:
+        name:
+          description: Ad group name.
+          type: string
+          example: 'Ad Group For Pin: 687195905986'
+        status:
+          type: string
+          allOf:
+          - $ref: '#/components/schemas/EntityStatus'
+          description: Ad group/entity status.
+        budget_in_micro_currency:
+          description: Budget in micro currency. This field is **REQUIRED** for non-CBO (campaign budget optimization) campaigns.  A CBO campaign automatically generates ad group budgets from its campaign budget to maximize campaign outcome. A CBO campaign is limited to 70 or less ad groups.
+          type: integer
+          example: 5000000
+          nullable: true
+        bid_in_micro_currency:
+          description: 'Bid price in micro currency. This field is **REQUIRED** for the following campaign objective_type/billable_event combinations: AWARENESS/IMPRESSION, CONSIDERATION/CLICKTHROUGH, CATALOG_SALES/CLICKTHROUGH, VIDEO_VIEW/VIDEO_V_50_MRC.'
+          type: integer
+          example: 5000000
+          nullable: true
+        optimization_goal_metadata:
+          type: object
+          allOf:
+          - $ref: '#/components/schemas/OptimizationGoalMetadata'
+          description: Optimization goals for objective-based performance campaigns. **REQUIRED** when campaign's `objective_type` is set to `"WEB_CONVERSION"`.
+          nullable: true
+        budget_type:
+          type: string
+          allOf:
+          - $ref: '#/components/schemas/BudgetType'
+        start_time:
+          description: Ad group start time. Unix timestamp in seconds. Defaults to current time.
+          type: integer
+          example: 5686848000
+          nullable: true
+        end_time:
+          description: Ad group end time. Unix timestamp in seconds.
+          type: integer
+          example: 5705424000
+          nullable: true
+        targeting_spec:
+          $ref: '#/components/schemas/TargetingSpec'
+        lifetime_frequency_cap:
+          description: Set a limit to the number of times a promoted pin from this campaign can be impressed by a pinner within the past rolling 30 days. Only available for CPM (cost per mille (1000 impressions))  ad groups. A CPM ad group has an IMPRESSION <a href="https://developers.pinterest.com/docs/redoc/#section/Billable-event">billable_event</a> value. This field **REQUIRES** the `end_time` field.
+          type: integer
+          example: 100
+        tracking_urls:
+          type: object
+          allOf:
+          - $ref: '#/components/schemas/TrackingUrls'
+          description: 'Third-party tracking URLs.<br> JSON object with the format: {"<a href="https://developers.pinterest.com/docs/redoc/#section/Tracking-URL-event">Tracking event enum</a>":[URL string array],...}<br> For example: {"impression": ["URL1", "URL2"], "click": ["URL1", "URL2", "URL3"]}.<br>Up to three tracking URLs are supported for each event type. Tracking URLs set at the ad group or ad level can override those set at the campaign level. May be null. Pass in an empty object - {} - to remove tracking URLs.<br><br> For more information, see <a href="https://help.pinterest.com/en/business/article/third-party-and-dynamic-tracking" target="_blank">Third-party and dynamic tracking</a>.'
+          nullable: true
+        auto_targeting_enabled:
+          type: boolean
+          description: Enable auto-targeting for ad group. Also known as <a href="https://help.pinterest.com/en/business/article/expanded-targeting" target="_blank">"expanded targeting"</a>.
+          example: true
+          nullable: true
+        placement_group:
+          type: string
+          allOf:
+          - $ref: '#/components/schemas/PlacementGroupType'
+          description: <a href="https://developers.pinterest.com/docs/redoc/#section/Placement-group">Placement group</a>.
+        pacing_delivery_type:
+          type: string
+          allOf:
+          - $ref: '#/components/schemas/PacingDeliveryType'
+        campaign_id:
+          description: Campaign ID of the ad group.
+          type: string
+          pattern: ^[C]?\d+$
+          example: '626736533506'
+        billable_event:
+          $ref: '#/components/schemas/ActionType'
+        bid_strategy_type:
+          nullable: true
+          description: Bid strategy type
+          enum:
+          - AUTOMATIC_BID
+          - MAX_BID
+          - TARGET_AVG
+          - null
+          example: MAX_BID
+          title: BidStrategyType
+          type: string
+        targeting_template_ids:
+          type: array
+          description: 'Targeting template IDs applied to the ad group. We currently only support 1 targeting template per ad group. To use targeting templates, do not set any other targeting fields: targeting_spec, tracking_urls, auto_targeting_enabled, placement_group. To clear all targeting template IDs, set this field to [''0''].'
+          items:
+            description: Targeting template ID.
+            type: string
+            pattern: ^\d+$
+            example: '643'
+          maxItems: 1
+          nullable: true
+    BulkUpsertRequestUpdate:
+      type: object
+      description: Request for creation of entities in bulk.
+      properties:
+        campaigns:
+          type: array
+          items:
+            $ref: '#/components/schemas/CampaignUpdateRequest'
+        ad_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdGroupUpdateRequest'
+        ads:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdUpdateRequest'
+        product_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductGroupPromotionUpdateRequest'
+        keywords:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeywordUpdate'
+    AdCommon:
+      type: object
+      description: Creation fields
+      properties:
+        ad_group_id:
+          description: ID of the ad group that contains the ad.
+          example: '2680059592705'
+          type: string
+          pattern: ^(AG)?\d+$
+        android_deep_link:
+          description: Deep link URL for Android devices. Not currently available. Using this field will generate an error.
+          nullable: true
+          type: string
+        carousel_android_deep_links:
+          description: Comma-separated deep links for the carousel pin on Android.
+          type: array
+          nullable: true
+          items:
+            type: string
+        carousel_destination_urls:
+          description: Comma-separated destination URLs for the carousel pin to promote.
+          type: array
+          nullable: true
+          items:
+            type: string
+        carousel_ios_deep_links:
+          description: Comma-separated deep links for the carousel pin on iOS.
+          type: array
+          nullable: true
+          items:
+            type: string
+        click_tracking_url:
+          description: Tracking url for the ad clicks.
+          type: string
+          nullable: true
+        creative_type:
+          $ref: '#/components/schemas/CreativeType'
+        destination_url:
+          description: Destination URL.
+          type: string
+          nullable: true
+        ios_deep_link:
+          description: Deep link URL for iOS devices. Not currently available. Using this field will generate an error.
+          type: string
+          nullable: true
+        is_pin_deleted:
+          description: Is original pin deleted?
+          example: false
+          type: boolean
+        is_removable:
+          description: Is pin repinnable?
+          example: false
+          type: boolean
+        name:
+          description: Name of the ad - 255 chars max.
+          type: string
+          nullable: true
+        status:
+          $ref: '#/components/schemas/EntityStatus'
+        tracking_urls:
+          type: object
+          allOf:
+          - $ref: '#/components/schemas/TrackingUrls'
+          nullable: true
+        view_tracking_url:
+          description: Tracking URL for ad impressions.
+          type: string
+          nullable: true
+        lead_form_id:
+          description: Lead form ID for lead ad generation.
+          type: string
+          pattern: ^(AG)?\d+$
+          nullable: true
+        grid_click_type:
+          $ref: '#/components/schemas/GridClickType'
+        customizable_cta_type:
+          type: string
+          description: Select a call to action (CTA) to display below your ad. Available only for ads with direct links enabled. CTA options for consideration and conversion campaigns are LEARN_MORE, SHOP_NOW, BOOK_NOW, SIGN_UP, VISIT_WEBSITE, BUY_NOW, GET_OFFER, ORDER_NOW, ADD_TO_CART (for conversion campaigns with add to cart conversion events only)
+          example: LEARN_MORE
+          nullable: true
+          enum:
+          - GET_OFFER
+          - LEARN_MORE
+          - ORDER_NOW
+          - SHOP_NOW
+          - SIGN_UP
+          - SUBSCRIBE
+          - BUY_NOW
+          - CONTACT_US
+          - GET_QUOTE
+          - VISIT_WEBSITE
+          - APPLY_NOW
+          - BOOK_NOW
+          - REQUEST_DEMO
+          - REGISTER_NOW
+          - FIND_A_DEALER
+          - ADD_TO_CART
+          - WATCH_NOW
+          - READ_MORE
+          - null
+        quiz_pin_data:
+          type: object
+          allOf:
+          - $ref: '#/components/schemas/QuizPinData'
+          description: Before creating a quiz ad, you must create an organic Pin using POST/Create Pin for each result in the quiz. Quiz ads cannot be saved by a Pinner. Quiz ad results can be saved.
+          nullable: true
+    CampaignSummaryStatus:
+      type: string
+      description: Summary status for campaign
+      example: RUNNING
+      enum:
+      - RUNNING
+      - PAUSED
+      - NOT_STARTED
+      - COMPLETED
+      - ADVERTISER_DISABLED
+      - ARCHIVED
+      - DRAFT
+      - DELETED_DRAFT
+    BudgetType:
+      description: Budget type. If DAILY, an ad group's daily spend will not exceed the budget parameter value. If LIFETIME, the end_time parameter is **REQUIRED**, and the ad group spend is spread evenly between the ad group `start_time` and `end_time` range. A CBO campaign automatically generates ad group budgets from its campaign budget to maximize campaign outcome. For CBO campaigns, only "CBO_ADGROUP" is allowed. For WEB_SESSIONS campaigns, only "LIFETIME" is allowed. For update, only draft ad groups may update budget type.
+      example: DAILY
+      enum:
+      - DAILY
+      - LIFETIME
+      - CBO_ADGROUP
+      type: string
+    PlacementGroupType:
+      type: string
+      description: Campaign placement group type
+      example: ALL
+      default: ALL
+      enum:
+      - ALL
+      - SEARCH
+      - BROWSE
+      - OTHER
+    ProductGroupPromotion:
+      properties:
+        id:
+          description: ID of the product group promotion.
+          example: '2680059592705'
+          title: id
+          type: string
+          pattern: ^\d+$
+        ad_group_id:
+          description: ID of the ad group the product group belongs to.
+          example: '2680059592705'
+          pattern: ^(AG)?\d+$
+          title: ad_group_id
+          type: string
+        bid_in_micro_currency:
+          description: The bid in micro currency.
+          example: 14000000
+          title: bid_in_micro_currency
+          type: integer
+          nullable: true
+        included:
+          description: True if the group is BIDDABLE, false if it should be EXCLUDED from serving ads.
+          example: true
+          nullable: true
+          title: included
+          type: boolean
+        definition:
+          description: The full product group definition path
+          example: '*/product_type_0=''kitchen''/product_type_1=''beverage appliances'''
+          nullable: true
+          title: definition
+          type: string
+        relative_definition:
+          description: The definition of the product group, relative to its parent - an attribute name/value pair
+          example: product_type_1='beverage appliances'
+          nullable: true
+          title: relative_definition
+          type: string
+        parent_id:
+          description: The parent Product Group ID of this Product Group
+          example: '1231234'
+          nullable: true
+          title: parent_id
+          type: string
+          pattern: ^\d+$
+        slideshow_collections_title:
+          description: Slideshow Collections Title
+          example: slideshow title
+          nullable: true
+          title: slideshow_collections_title
+          type: string
+        slideshow_collections_description:
+          description: Slideshow Collections Description
+          example: slideshow description
+          nullable: true
+          title: slideshow_collections_description
+          type: string
+        is_mdl:
+          description: If set to true products promoted in this product group will use the Mobile Deep Link specified in your catalog
+          example: true
+          nullable: true
+          title: is_mdl
+          type: boolean
+        status:
+          $ref: '#/components/schemas/EntityStatus'
+        tracking_url:
+          description: Tracking template for proudct group promotions. 4000 limit
+          example: https://www.pinterest.com
+          nullable: true
+          title: tracking_url
+          type: string
+        catalog_product_group_id:
+          description: ID of the catalogs product group that this product group promotion references
+          example: '1231235'
+          title: catalog_product_group_id
+          type: string
+          pattern: ^\d+$
+          nullable: true
+        catalog_product_group_name:
+          description: Catalogs product group name
+          example: catalogProductGroupName
+          title: product_group_promotion_name
+          type: string
+          nullable: true
+        collections_hero_pin_id:
+          description: Hero Pin ID if this PG is promoted as a Collection
+          example: '123123'
+          nullable: true
+          title: collections_hero_pin_id
+          type: string
+          pattern: ^\d+$
+        collections_hero_destination_url:
+          description: Collections Hero Destination Url
+          example: http://www.pinterest.com
+          nullable: true
+          title: collections_hero_destination_url
+          type: string
+        grid_click_type:
+          $ref: '#/components/schemas/GridClickType'
+      type: object
+      title: ProductGroupPromotion
+    GridClickType:
+      type: string
+      description: Where a user is taken after clicking on an ad in grid. </p><strong>Note:</strong>  This parameter is read-only and is set to DIRECT_TO_DESTINATION by default for direct links supported ads.  grid_click_type values provided will be ignored.
+      example: CLOSEUP
+      nullable: true
+      enum:
+      - CLOSEUP
+      - DIRECT_TO_DESTINATION
+  parameters:
+    path_ad_account_id:
+      name: ad_account_id
+      description: Unique identifier of an ad account.
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
+    path_bulk_request_id:
+      name: bulk_request_id
+      description: Unique identifier of a bulk upsert request.
+      in: path
+      required: true
+      schema:
+        type: string
+    include_details:
+      name: include_details
+      description: if set to True then attach the errors/details to all the requests
+      in: query
+      schema:
+        type: boolean
+        default: false
+  securitySchemes:
+    pinterest_oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.pinterest.com/oauth/
+          tokenUrl: https://api.pinterest.com/v5/oauth/token
+          scopes:
+            ads:read: See all of your advertising data, including ads, ad groups, campaigns etc.
+            ads:write: Create, update, or delete ads, ad groups, campaigns etc.
+            billing:read: See all of your billing data, billing profile, etc.
+            billing:write: Create, update, or delete billing data, billing profiles, etc.
+            biz_access:read: See business access data
+            biz_access:write: Create, update, or delete business access data
+            boards:read: See your public boards, including group boards you join
+            boards:read_secret: See your secret boards
+            boards:write: Create, update, or delete your public boards
+            boards:write_secret: Create, update, or delete your secret boards
+            catalogs:read: See all of your catalogs data
+            catalogs:write: Create, update, or delete your catalogs data
+            pins:read: See your public Pins
+            pins:read_secret: See your secret Pins
+            pins:write: Create, update, or delete your public Pins
+            pins:write_secret: Create, update, or delete your secret Pins
+            user_accounts:read: See your user accounts and followers
+            user_accounts:write: Update your user accounts and followers
+    conversion_token:
+      type: http
+      scheme: bearer
+      description: This security scheme only applies to the conversion events endpoint (POST /ad_accounts/{ad_account_id}/events). This endpoint requires a bearer token generated via Ads Manager (ads.pinterest.com).
+    basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Pin and Boards
+  tags:
+  - pins
+  - boards
+  - media
+  - aggregated_comments
+  - aggregated_pin_data
+  - user_account
+- name: Campaign Management
+  tags:
+  - ad_accounts
+  - campaigns
+  - ad_groups
+  - ads
+  - product_group_promotions
+  - bulk
+- name: Targeting
+  tags:
+  - audiences
+  - customer_lists
+  - keywords
+  - targeting_template
+  - audience_insights
+  - audience_sharing
+- name: Ad Formats
+  tags:
+  - lead_forms
+  - lead_ads
+  - leads_export
+- name: Billing
+  tags:
+  - billing
+  - order_lines
+  - terms_of_service
+- name: Business Access
+  tags:
+  - business_access_assets
+  - business_access_invite
+  - business_access_relationships
+- name: Conversions
+  tags:
+  - conversion_events
+  - conversion_tags
+- name: Others
+  tags:
+  - integrations
+  - oauth
+  - resources
+  - search
+  - terms
+- name: Shopping
+  tags:
+  - catalogs
+- name: Deprecated
+  tags:
+  - product_groups

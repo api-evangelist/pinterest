@@ -1,0 +1,227 @@
+openapi: 3.0.3
+info:
+  version: 5.13.0
+  title: Pinterest Previews API
+  description: This is the description of your API.
+  contact:
+    name: Pinterest, Inc.
+    url: https://developers.pinterest.com/
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  termsOfService: https://developers.pinterest.com/terms/
+servers:
+- url: https://api.pinterest.com/v5
+tags:
+- name: Previews
+paths:
+  /ad_accounts/{ad_account_id}/ad_previews:
+    post:
+      summary: Create ad preview with pin or image
+      description: 'Create an ad preview given an ad account ID and either an existing organic pin ID or the URL for an image to be used to create the Pin and the ad. <p/>
+
+        If you are creating a preview from an existing Pin, that Pin must be promotable: that is, it must have a clickthrough link and meet other requirements. (See <a href="https://help.pinterest.com/en/business/article/promoted-pins-overview" target="_blank">Ads Overview</a>.) <p/>
+
+        You can view the returned preview URL on a webpage or iframe for 7 days, after which the URL expires. Collection ads are not currently supported ad preview.'
+      tags:
+      - Previews
+      operationId: ad_previews/create
+      security:
+      - pinterest_oauth2:
+        - ads:write
+      x-ratelimit-category: ads_write
+      x-sandbox: enabled
+      parameters:
+      - $ref: '#/components/parameters/path_ad_account_id'
+      requestBody:
+        description: Create ad preview with pin or image.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdPreviewRequest'
+      responses:
+        '200':
+          description: Successful ad preview creation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdPreviewURLResponse'
+        '400':
+          description: Invalid Pin parameters response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                InvalidPinUrl:
+                  value:
+                    code: 1
+                    message: Whoops! It looks like you entered an invalid URL. Try creating a Pin again with a valid URL.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    AdPreviewRequest:
+      oneOf:
+      - example:
+          image_url: https://somewebsite.com/someimage.jpg
+          title: My Preview Image
+        properties:
+          image_url:
+            description: Image URL.
+            example: https://somewebsite.com/someimage.jpg
+            title: image_url
+            type: string
+          title:
+            description: Title displayed below ad.
+            example: My Preview Image
+            title: title
+            type: string
+        required:
+        - image_url
+        - title
+        title: AdPreviewCreateFromImage
+        type: object
+      - example:
+          pin_id: '7389479023'
+        properties:
+          pin_id:
+            description: Pin ID.
+            example: '7389479023'
+            title: pin_id
+            type: string
+        required:
+        - pin_id
+        title: AdPreviewCreateFromPin
+        type: object
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    AdPreviewURLResponse:
+      example:
+        url: https://ads.pinterest.com/ad-preview/58f1a0e9ab0bd0f99462a0e4c5dd7e8297888c8a36331e88f757abe8f0295d31/
+      properties:
+        url:
+          description: '''Preview URL, expires in 7 days. Can be used in an iframe.
+
+            For example: https://ads.pinterest.com/ad-preview/74667c814dd2b19/
+
+            The preview object ID/key is the last param - 74667c814dd2b19'''
+          example: https://ads.pinterest.com/ad-preview/58f1a0e9ab0bd0f99462a0e4c5dd7e8297888c8a36331e88f757abe8f0295d31/
+          title: url
+          type: string
+      title: AdPreviewURLResponse
+      type: object
+  parameters:
+    path_ad_account_id:
+      name: ad_account_id
+      description: Unique identifier of an ad account.
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
+  securitySchemes:
+    pinterest_oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.pinterest.com/oauth/
+          tokenUrl: https://api.pinterest.com/v5/oauth/token
+          scopes:
+            ads:read: See all of your advertising data, including ads, ad groups, campaigns etc.
+            ads:write: Create, update, or delete ads, ad groups, campaigns etc.
+            billing:read: See all of your billing data, billing profile, etc.
+            billing:write: Create, update, or delete billing data, billing profiles, etc.
+            biz_access:read: See business access data
+            biz_access:write: Create, update, or delete business access data
+            boards:read: See your public boards, including group boards you join
+            boards:read_secret: See your secret boards
+            boards:write: Create, update, or delete your public boards
+            boards:write_secret: Create, update, or delete your secret boards
+            catalogs:read: See all of your catalogs data
+            catalogs:write: Create, update, or delete your catalogs data
+            pins:read: See your public Pins
+            pins:read_secret: See your secret Pins
+            pins:write: Create, update, or delete your public Pins
+            pins:write_secret: Create, update, or delete your secret Pins
+            user_accounts:read: See your user accounts and followers
+            user_accounts:write: Update your user accounts and followers
+    conversion_token:
+      type: http
+      scheme: bearer
+      description: This security scheme only applies to the conversion events endpoint (POST /ad_accounts/{ad_account_id}/events). This endpoint requires a bearer token generated via Ads Manager (ads.pinterest.com).
+    basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Pin and Boards
+  tags:
+  - pins
+  - boards
+  - media
+  - aggregated_comments
+  - aggregated_pin_data
+  - user_account
+- name: Campaign Management
+  tags:
+  - ad_accounts
+  - campaigns
+  - ad_groups
+  - ads
+  - product_group_promotions
+  - bulk
+- name: Targeting
+  tags:
+  - audiences
+  - customer_lists
+  - keywords
+  - targeting_template
+  - audience_insights
+  - audience_sharing
+- name: Ad Formats
+  tags:
+  - lead_forms
+  - lead_ads
+  - leads_export
+- name: Billing
+  tags:
+  - billing
+  - order_lines
+  - terms_of_service
+- name: Business Access
+  tags:
+  - business_access_assets
+  - business_access_invite
+  - business_access_relationships
+- name: Conversions
+  tags:
+  - conversion_events
+  - conversion_tags
+- name: Others
+  tags:
+  - integrations
+  - oauth
+  - resources
+  - search
+  - terms
+- name: Shopping
+  tags:
+  - catalogs
+- name: Deprecated
+  tags:
+  - product_groups

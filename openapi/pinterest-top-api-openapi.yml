@@ -1,0 +1,951 @@
+openapi: 3.0.3
+info:
+  version: 5.13.0
+  title: Pinterest Top API
+  description: This is the description of your API.
+  contact:
+    name: Pinterest, Inc.
+    url: https://developers.pinterest.com/
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  termsOfService: https://developers.pinterest.com/terms/
+servers:
+- url: https://api.pinterest.com/v5
+tags:
+- name: Top
+paths:
+  /trends/keywords/{region}/top/{trend_type}:
+    get:
+      summary: List trending keywords
+      description: '<p>Get the top trending search keywords among the Pinterest user audience.</p>
+
+        <p>Trending keywords can be used to inform ad targeting, budget strategy, and creative decisions about which products and Pins will resonate with your audience.</p>
+
+        <p>Geographic, demographic and interest-based filters are available to narrow down to the top trends among a specific audience. Multiple trend types are supported that can be used to identify newly-popular, evergreen or seasonal keywords.</p>
+
+        <p>For an interactive way to explore this data, please visit <a href="https://trends.pinterest.com">trends.pinterest.com</a>.'
+      operationId: trending_keywords/list
+      security:
+      - pinterest_oauth2:
+        - user_accounts:read
+      x-ratelimit-category: trends_read
+      x-sandbox: enabled
+      parameters:
+      - $ref: '#/components/parameters/path_trend_region'
+      - $ref: '#/components/parameters/path_trend_type'
+      - $ref: '#/components/parameters/query_interest_list'
+      - $ref: '#/components/parameters/query_gender_list'
+      - $ref: '#/components/parameters/query_age_bucket_list'
+      - name: include_keywords
+        description: 'If set, filters the results to top trends which include at least one of the specified keywords.<br />
+
+          If unset, no keyword filtering logic is applied.'
+        example:
+        - recipes
+        - dessert
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/KeywordList'
+      - $ref: '#/components/parameters/query_normalize_against_group'
+      - $ref: '#/components/parameters/query_trending_keyword_limit'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrendingKeywordsResponse'
+          description: Success
+        '400':
+          description: Invalid trending keywords request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 400
+                message: Invalid trending keywords request parameters
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      tags:
+      - Top
+  /user_account/analytics/top_pins:
+    get:
+      summary: Get user account top pins analytics
+      description: 'Gets analytics data about a user''s top pins (limited to the top 50).
+
+        - By default, the "operation user_account" is the token user_account.
+
+
+        Optional: Business Access: Specify an ad_account_id to use the owner of that ad_account as the "operation user_account".'
+      tags:
+      - Top
+      operationId: user_account/analytics/top_pins
+      security:
+      - pinterest_oauth2:
+        - pins:read
+        - user_accounts:read
+      x-ratelimit-category: org_analytics
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/query_start_date'
+      - $ref: '#/components/parameters/query_end_date'
+      - $ref: '#/components/parameters/query_sort_by'
+      - $ref: '#/components/parameters/query_from_claimed_content'
+      - $ref: '#/components/parameters/query_pin_format'
+      - $ref: '#/components/parameters/query_app_types'
+      - $ref: '#/components/parameters/query_content_type'
+      - $ref: '#/components/parameters/query_source'
+      - $ref: '#/components/parameters/query_metric_types'
+      - $ref: '#/components/parameters/query_num_of_pins'
+      - $ref: '#/components/parameters/query_created_in_last_n_days'
+      - $ref: '#/components/parameters/query_ad_account_id'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopPinsAnalyticsResponse'
+          description: Success
+        '403':
+          description: Not authorized to access the user account analytics.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 403
+                message: Not authorized to access the user account analytics.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /user_account/analytics/top_video_pins:
+    get:
+      summary: Get user account top video pins analytics
+      description: 'Gets analytics data about a user''s top video pins (limited to the top 50).
+
+        - By default, the "operation user_account" is the token user_account.
+
+
+        Optional: Business Access: Specify an ad_account_id to use the owner of that ad_account as the "operation user_account".'
+      tags:
+      - Top
+      operationId: user_account/analytics/top_video_pins
+      security:
+      - pinterest_oauth2:
+        - pins:read
+        - user_accounts:read
+      x-ratelimit-category: org_analytics
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/query_start_date'
+      - $ref: '#/components/parameters/query_end_date'
+      - $ref: '#/components/parameters/query_video_pin_sort_by'
+      - $ref: '#/components/parameters/query_from_claimed_content'
+      - $ref: '#/components/parameters/query_pin_format'
+      - $ref: '#/components/parameters/query_app_types'
+      - $ref: '#/components/parameters/query_content_type'
+      - $ref: '#/components/parameters/query_source'
+      - $ref: '#/components/parameters/query_video_pin_metric_types'
+      - $ref: '#/components/parameters/query_num_of_pins'
+      - $ref: '#/components/parameters/query_created_in_last_n_days'
+      - $ref: '#/components/parameters/query_ad_account_id'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopVideoPinsAnalyticsResponse'
+          description: Success
+        '403':
+          description: Not authorized to access the user account analytics.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 403
+                message: Not authorized to access the user account analytics.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    TopVideoPinsAnalyticsResponse:
+      type: object
+      properties:
+        date_availability:
+          type: object
+          properties:
+            latest_available_timestamp:
+              type: number
+              example: 1649116799000
+            is_realtime:
+              type: boolean
+              example: false
+        pins:
+          type: array
+          items:
+            description: Array with metrics, status, and pin id for the requested metric
+            type: object
+            properties:
+              metrics:
+                description: The metric name and daily value for each requested metric
+                type: object
+                additionalProperties:
+                  type: number
+                example:
+                  IMPRESSION: 7
+                  QUARTILE_95_PERCENT_VIEW: 2
+                  SAVE: 1
+                  VIDEO_10S_VIEW: 5
+                  VIDEO_AVG_WATCH_TIME: 86989
+                  VIDEO_MRC_VIEW: 2
+                  VIDEO_START: 2
+                  VIDEO_V50_WATCH_TIME: 173979
+                  OUTBOUND_CLICK: 2
+              data_status:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/DataStatus'
+              pin_id:
+                description: The pin id
+                type: string
+                example: '642396334344813594'
+        sort_by:
+          type: string
+          enum:
+          - SAVE
+          - IMPRESSION
+          - OUTBOUND_CLICK
+          - VIDEO_MRC_VIEW
+          - VIDEO_AVG_WATCH_TIME
+          - VIDEO_V50_WATCH_TIME
+          - QUARTILE_95_PERCENT_VIEW
+          - VIDEO_10S_VIEW
+          - VIDEO_START
+          example: IMPRESSION
+    GenderList:
+      title: Gender
+      type: array
+      example:
+      - female
+      - unknown
+      items:
+        type: string
+        enum:
+        - female
+        - male
+        - unknown
+    AgeBucketList:
+      title: AgeRange
+      type: array
+      example:
+      - 35-44
+      - 50-54
+      items:
+        type: string
+        enum:
+        - 18-24
+        - 25-34
+        - 35-44
+        - 45-49
+        - 50-54
+        - 55-64
+        - 65+
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    L1InterestList:
+      title: Interest
+      type: array
+      example:
+      - beauty
+      - womens_fashion
+      items:
+        type: string
+        enum:
+        - animals
+        - architecture
+        - art
+        - beauty
+        - childrens_fashion
+        - design
+        - diy_and_crafts
+        - education
+        - electronics
+        - entertainment
+        - event_planning
+        - finance
+        - food_and_drinks
+        - gardening
+        - health
+        - home_decor
+        - mens_fashion
+        - parenting
+        - quotes
+        - sport
+        - travel
+        - vehicles
+        - wedding
+        - womens_fashion
+    TopPinsAnalyticsResponse:
+      type: object
+      properties:
+        date_availability:
+          type: object
+          properties:
+            latest_available_timestamp:
+              type: number
+              example: 1649116799000
+            is_realtime:
+              type: boolean
+              example: false
+        pins:
+          type: array
+          items:
+            description: Array with metrics, status, and pin id for the requested metric
+            type: object
+            properties:
+              metrics:
+                $ref: '#/components/schemas/Metrics'
+              data_status:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/DataStatus'
+              pin_id:
+                description: The pin id
+                type: string
+                example: '642396334344813594'
+        sort_by:
+          type: string
+          enum:
+          - ENGAGEMENT
+          - SAVE
+          - IMPRESSION
+          - OUTBOUND_CLICK
+          - PIN_CLICK
+          example: IMPRESSION
+    KeywordList:
+      title: Keywords
+      type: array
+      example:
+      - recipes
+      - dessert
+      items:
+        type: string
+        minLength: 1
+        maxLength: 100
+      minItems: 1
+      maxItems: 50
+    TrendingKeywordsResponse:
+      type: object
+      properties:
+        trends:
+          description: 'The top trending keywords for the specified trend type in the requested region.<br />
+
+            Results are ordered, with the first element in the array representing the #1 top trend.'
+          type: array
+          items:
+            type: object
+            properties:
+              keyword:
+                description: The keyword that is trending.
+                example: couples halloween costumes
+                type: string
+                minLength: 1
+              pct_growth_wow:
+                description: 'The week-over-week percent change in search volume for this keyword.<br />
+
+                  For example, a value of "50" would represent a 50% increase in searches in the last seven days compared to the week prior.<br />
+
+                  **Note**: growth rates are rounded, with a maximum of +/- 10000% change.  A value of 10001 indicates that this keyword experienced > 10000% week-over-week growth.'
+                example: 50
+                type: integer
+              pct_growth_mom:
+                description: 'The month-over-month percent change in search volume for this keyword.<br />
+
+                  For example, a value of "400" would represent a 400% increase in searches in the last 30 days compared to the month prior.<br />
+
+                  **Note**: growth rates are rounded, with a maximum of +/- 10000% change.  A value of 10001 indicates that this keyword experienced > 10000% month-over-month growth.'
+                example: 400
+                type: integer
+              pct_growth_yoy:
+                description: 'The year-over-year percent change in search volume for this keyword.<br />
+
+                  For example, a value of "-5" would represent a 5% decrease in searches in the last 365 days compared to the month prior.<br />
+
+                  **Note**: growth rates are rounded, with a maximum of +/- 10000% change.  A value of 10001 indicates that this keyword experienced > 10000% year-over-year growth.'
+                example: -5
+                type: integer
+              time_series:
+                description: 'A sequence of weekly observations of the relative search volume for this keyword over the past year.<br />
+
+                  These values are normalized to a [0-100] range, and can be used to visualize the history of user interest in this keyword.
+
+                  By default, normalization is applied independently to the time series of each keyword, but the `normalize_against_group` query parameter can be used in cases where you wish to compare relative volume between keywords.<br />
+
+                  **Note**: The date of each observation is in ISO-8601 format and represents the *end* of the week.  For example, a value of `2023-10-31` would include searches that happened between `2023-10-25` and `2023-10-31`.'
+                example:
+                  '2023-10-10': 31
+                  '2023-10-17': 54
+                  '2023-10-24': 77
+                  '2023-10-31': 100
+                type: object
+                properties:
+                  date:
+                    type: string
+                    format: date
+                additionalProperties:
+                  type: integer
+    TrendType:
+      title: TrendType
+      type: string
+      example: monthly
+      enum:
+      - growing
+      - monthly
+      - yearly
+      - seasonal
+    TrendsSupportedRegion:
+      title: Region
+      type: string
+      example: GB+IE
+      enum:
+      - US
+      - CA
+      - DE
+      - FR
+      - ES
+      - IT
+      - DE+AT+CH
+      - GB+IE
+      - IT+ES+PT+GR+MT
+      - PL+RO+HU+SK+CZ
+      - SE+DK+FI+NO
+      - NL+BE+LU
+      - AR
+      - BR
+      - CO
+      - MX
+      - MX+AR+CO+CL
+      - AU+NZ
+    Metrics:
+      description: The metric name and daily value for each requested metric
+      type: object
+      additionalProperties:
+        type: number
+      example:
+        CLOSEUP: 1
+        CLOSEUP_RATE: 0
+        ENGAGEMENT: 1
+        ENGAGEMENT_RATE: 0
+        IMPRESSION: 240
+        OUTBOUND_CLICK: 20
+        OUTBOUND_CLICK_RATE: 0.08
+        PIN_CLICK: 37
+        PIN_CLICK_RATE: 0.15
+        QUARTILE_95_PERCENT_VIEW: 8
+        SAVE: 20
+        SAVE_RATE: 0.18
+        VIDEO_10S_VIEW: 2
+        VIDEO_AVG_WATCH_TIME: 2507.75
+        VIDEO_MRC_VIEW: 20
+        VIDEO_START: 29
+        VIDEO_V50_WATCH_TIME: 10031
+    DataStatus:
+      description: Metrics availablity, e.g., "READY".
+      example: READY
+      type: string
+      enum:
+      - PROCESSING
+      - READY
+      - ESTIMATE
+      - BEFORE_BUSINESS_CREATED
+      - BEFORE_DATA_RETENTION_PERIOD
+      - BEFORE_PIN_DATA_RETENTION_PERIOD
+      - BEFORE_METRIC_START_DATE
+      - BEFORE_CORE_METRIC_START_DATE
+      - BEFORE_PIN_FORMAT_METRIC_START_DATE
+      - BEFORE_AUDIENCE_METRIC_START_DATE
+      - BEFORE_AUDIENCE_MONTHLY_METRIC_START_DATE
+      - BEFORE_VIDEO_METRIC_START_DATE
+      - BEFORE_CONVERSION_METRIC_START_DATE
+      - PURCHASERS_METRIC_SMALLER_THAN_THRESHOLD
+      - IN_BAD_TAG_DATE
+      - BEFORE_PUBLISHED_METRIC_START_DATE
+      - BEFORE_ASSIST_METRIC_START_DATE
+      - BEFORE_PIN_CREATED
+      - BEFORE_ACCOUNT_CLAIMED
+      - BEFORE_DEMOGRAPHIC_FILTERS_START_DATE
+      - AUDIENCE_SEGMENT_SMALLER_THAN_THRESHOLD
+      - AUDIENCE_TOTAL_SMALLER_THAN_THRESHOLD
+      - BEFORE_PRODUCT_GROUP_FILTER_START_DATE
+  parameters:
+    query_interest_list:
+      name: interests
+      description: 'If set, filters the results to trends associated with the specified interests.<br />
+
+        If unset, trends for all interests will be returned.<br />
+
+        The list of supported interests is:
+
+        - `animals` - Animals
+
+        - `architecture` - Architecture
+
+        - `art` - Art
+
+        - `beauty` - Beauty
+
+        - `childrens_fashion` - Children''s Fashion
+
+        - `design` - Design
+
+        - `diy_and_crafts` - DIY & Crafts
+
+        - `education` - Education
+
+        - `electronics` - Electronics
+
+        - `entertainment` - Entertainment
+
+        - `event_planning` - Event Planning
+
+        - `finance` - Finance
+
+        - `food_and_drinks` - Food & Drink
+
+        - `gardening` - Gardening
+
+        - `health` - Health
+
+        - `home_decor` - Home Decor
+
+        - `mens_fashion` - Men''s Fashion
+
+        - `parenting` - Parenting
+
+        - `quotes` - Quotes
+
+        - `sport` - Sports
+
+        - `travel` - Travel
+
+        - `vehicles` - Vehicles
+
+        - `wedding` - Wedding
+
+        - `womens_fashion` - Women''s Fashion'
+      example:
+      - beauty
+      - womens_fashion
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/L1InterestList'
+    query_video_pin_metric_types:
+      description: 'Metric types to get video data for, default is all. '
+      explode: false
+      in: query
+      name: metric_types
+      required: false
+      schema:
+        items:
+          enum:
+          - IMPRESSION
+          - SAVE
+          - VIDEO_MRC_VIEW
+          - VIDEO_AVG_WATCH_TIME
+          - VIDEO_V50_WATCH_TIME
+          - QUARTILE_95_PERCENT_VIEW
+          - VIDEO_10S_VIEW
+          - VIDEO_START
+          - OUTBOUND_CLICK
+          type: string
+        type: array
+      style: form
+    query_end_date:
+      description: 'Metric report end date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days past start_date.'
+      in: query
+      name: end_date
+      required: true
+      schema:
+        type: string
+        format: date
+    query_video_pin_sort_by:
+      description: Specify sorting order for video metrics
+      explode: false
+      in: query
+      name: sort_by
+      required: true
+      schema:
+        enum:
+        - IMPRESSION
+        - SAVE
+        - OUTBOUND_CLICK
+        - VIDEO_MRC_VIEW
+        - VIDEO_AVG_WATCH_TIME
+        - VIDEO_V50_WATCH_TIME
+        - QUARTILE_95_PERCENT_VIEW
+        - VIDEO_10S_VIEW
+        - VIDEO_START
+        type: string
+    query_ad_account_id:
+      name: ad_account_id
+      description: Unique identifier of an ad account.
+      in: query
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
+    query_num_of_pins:
+      name: num_of_pins
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+        default: 10
+      description: Number of pins to include, default is 10. Max is 50.
+      example: 25
+    query_age_bucket_list:
+      name: ages
+      description: 'If set, filters the results to trends among users in the specified age range(s).<br />
+
+        If unset, trends among all age groups will be returned.'
+      example:
+      - 35-44
+      - 50-54
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/AgeBucketList'
+    query_from_claimed_content:
+      description: Filter on Pins that match your claimed domain.
+      in: query
+      name: from_claimed_content
+      required: false
+      schema:
+        default: BOTH
+        enum:
+        - OTHER
+        - CLAIMED
+        - BOTH
+        type: string
+    query_sort_by:
+      description: Specify sorting order for metrics
+      explode: false
+      in: query
+      name: sort_by
+      required: true
+      schema:
+        enum:
+        - ENGAGEMENT
+        - IMPRESSION
+        - OUTBOUND_CLICK
+        - PIN_CLICK
+        - SAVE
+        type: string
+    query_app_types:
+      description: Apps or devices to get data for, default is all.
+      in: query
+      name: app_types
+      required: false
+      schema:
+        default: ALL
+        enum:
+        - ALL
+        - MOBILE
+        - TABLET
+        - WEB
+        type: string
+    query_content_type:
+      description: Filter to paid or organic data. Default is all.
+      in: query
+      name: content_type
+      required: false
+      schema:
+        default: ALL
+        enum:
+        - ALL
+        - PAID
+        - ORGANIC
+        type: string
+    query_source:
+      description: Filter to activity from Pins created and saved by your, or activity created and saved by others from your claimed accounts
+      in: query
+      name: source
+      required: false
+      schema:
+        default: ALL
+        enum:
+        - ALL
+        - YOUR_PINS
+        - OTHER_PINS
+        type: string
+    query_normalize_against_group:
+      name: normalize_against_group
+      description: 'Governs how the resulting time series data will be normalized to a [0-100] scale.<br />
+
+        By default (`false`), the data will be normalized independently for each keyword.  The peak search volume observation in *each* keyword''s time series will be represented by the value 100.  This is ideal for analyzing when an individual keyword is expected to peak in interest.<br />
+
+        If set to `true`, the data will be normalized as a group.  The peak search volume observation across *all* keywords in the response will be represented by the value 100, and all other values scaled accordingly.  Use this option when you wish to compare relative search volume between multiple keywords.'
+      in: query
+      required: false
+      schema:
+        type: boolean
+        example: true
+        default: false
+    query_pin_format:
+      description: Pin formats to get data for, default is all.
+      in: query
+      name: pin_format
+      required: false
+      schema:
+        default: ALL
+        enum:
+        - ALL
+        - ORGANIC_IMAGE
+        - ORGANIC_PRODUCT
+        - ORGANIC_VIDEO
+        - ADS_STANDARD
+        - ADS_PRODUCT
+        - ADS_VIDEO
+        - ADS_IDEA
+        - PRODUCT
+        - REGULAR
+        - VIDEO
+        type: string
+    path_trend_region:
+      name: region
+      description: 'The geographic region of interest. Only top trends within the specified region will be returned.<br />
+
+        The `region` parameter is formatted as ISO 3166-2 country codes delimited by `+`, corresponding to the following geographic areas:
+
+        - `US` - United States
+
+        - `CA` - Canada
+
+        - `DE` - Germany
+
+        - `FR` - France
+
+        - `ES` - Spain
+
+        - `IT` - Italy
+
+        - `DE+AT+CH` - Germanic countries
+
+        - `GB+IE` - Great Britain & Ireland
+
+        - `IT+ES+PT+GR+MT` - Southern Europe
+
+        - `PL+RO+HU+SK+CZ` - Eastern Europe
+
+        - `SE+DK+FI+NO` - Nordic countries
+
+        - `NL+BE+LU` - Benelux
+
+        - `AR` - Argentina
+
+        - `BR` - Brazil
+
+        - `CO` - Colombia
+
+        - `MX` - Mexico
+
+        - `MX+AR+CO+CL` - Hispanic LatAm
+
+        - `AU+NZ` - Australasia'
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/TrendsSupportedRegion'
+    path_trend_type:
+      name: trend_type
+      description: 'The methodology used to rank how trendy a keyword is.
+
+        - `growing` trends have high upward growth in search volume over the last quarter
+
+        - `monthly` trends have high search volume in the last month
+
+        - `yearly` trends have high search volume in the last year
+
+        - `seasonal` trends have high upward growth in search volume over the last month and exhibit a seasonal recurring pattern (typically annual)'
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/TrendType'
+    query_start_date:
+      description: 'Metric report start date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days back from today.'
+      in: query
+      name: start_date
+      required: true
+      schema:
+        type: string
+        format: date
+    query_created_in_last_n_days:
+      name: created_in_last_n_days
+      in: query
+      schema:
+        type: integer
+        enum:
+        - 30
+      description: Get metrics for pins created in the last "n" days.
+      example: 30
+    query_trending_keyword_limit:
+      name: limit
+      description: The maximum number of trending keywords that will be returned. Keywords are returned in trend-ranked order, so a `limit` of 50 will return the top 50 trends.
+      example: 25
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+        default: 50
+    query_metric_types:
+      description: 'Metric types to get data for, default is all. '
+      explode: false
+      in: query
+      name: metric_types
+      required: false
+      schema:
+        items:
+          enum:
+          - ENGAGEMENT
+          - ENGAGEMENT_RATE
+          - IMPRESSION
+          - OUTBOUND_CLICK
+          - OUTBOUND_CLICK_RATE
+          - PIN_CLICK
+          - PIN_CLICK_RATE
+          - SAVE
+          - SAVE_RATE
+          type: string
+        type: array
+      style: form
+    query_gender_list:
+      name: genders
+      description: 'If set, filters the results to trends among users who identify with the specified gender(s).<br />
+
+        If unset, trends among all genders will be returned.<br />
+
+        The `unknown` group includes users with unspecified or customized gender profile settings.'
+      example:
+      - female
+      - unknown
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/GenderList'
+  securitySchemes:
+    pinterest_oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.pinterest.com/oauth/
+          tokenUrl: https://api.pinterest.com/v5/oauth/token
+          scopes:
+            ads:read: See all of your advertising data, including ads, ad groups, campaigns etc.
+            ads:write: Create, update, or delete ads, ad groups, campaigns etc.
+            billing:read: See all of your billing data, billing profile, etc.
+            billing:write: Create, update, or delete billing data, billing profiles, etc.
+            biz_access:read: See business access data
+            biz_access:write: Create, update, or delete business access data
+            boards:read: See your public boards, including group boards you join
+            boards:read_secret: See your secret boards
+            boards:write: Create, update, or delete your public boards
+            boards:write_secret: Create, update, or delete your secret boards
+            catalogs:read: See all of your catalogs data
+            catalogs:write: Create, update, or delete your catalogs data
+            pins:read: See your public Pins
+            pins:read_secret: See your secret Pins
+            pins:write: Create, update, or delete your public Pins
+            pins:write_secret: Create, update, or delete your secret Pins
+            user_accounts:read: See your user accounts and followers
+            user_accounts:write: Update your user accounts and followers
+    conversion_token:
+      type: http
+      scheme: bearer
+      description: This security scheme only applies to the conversion events endpoint (POST /ad_accounts/{ad_account_id}/events). This endpoint requires a bearer token generated via Ads Manager (ads.pinterest.com).
+    basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Pin and Boards
+  tags:
+  - pins
+  - boards
+  - media
+  - aggregated_comments
+  - aggregated_pin_data
+  - user_account
+- name: Campaign Management
+  tags:
+  - ad_accounts
+  - campaigns
+  - ad_groups
+  - ads
+  - product_group_promotions
+  - bulk
+- name: Targeting
+  tags:
+  - audiences
+  - customer_lists
+  - keywords
+  - targeting_template
+  - audience_insights
+  - audience_sharing
+- name: Ad Formats
+  tags:
+  - lead_forms
+  - lead_ads
+  - leads_export
+- name: Billing
+  tags:
+  - billing
+  - order_lines
+  - terms_of_service
+- name: Business Access
+  tags:
+  - business_access_assets
+  - business_access_invite
+  - business_access_relationships
+- name: Conversions
+  tags:
+  - conversion_events
+  - conversion_tags
+- name: Others
+  tags:
+  - integrations
+  - oauth
+  - resources
+  - search
+  - terms
+- name: Shopping
+  tags:
+  - catalogs
+- name: Deprecated
+  tags:
+  - product_groups

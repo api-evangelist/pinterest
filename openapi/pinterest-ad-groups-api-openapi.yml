@@ -1,0 +1,397 @@
+openapi: 3.0.3
+info:
+  version: 5.13.0
+  title: Pinterest Ad_groups API
+  description: This is the description of your API.
+  contact:
+    name: Pinterest, Inc.
+    url: https://developers.pinterest.com/
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  termsOfService: https://developers.pinterest.com/terms/
+servers:
+- url: https://api.pinterest.com/v5
+tags:
+- name: Ad_groups
+paths:
+  /ad_accounts/{ad_account_id}/ad_groups/audience_sizing:
+    post:
+      summary: Get audience sizing
+      description: "Get potential audience size for an ad group with given targeting criteria. \nPotential audience size estimates the number of people you may be able to reach per month with your campaign. \nIt is based on historical advertising data and the targeting criteria you select.\nIt does not guarantee results or take into account factors such as bid, budget, schedule, seasonality or product experiments."
+      operationId: ad_groups/audience_sizing
+      security:
+      - pinterest_oauth2:
+        - ads:read
+      x-ratelimit-category: ads_read
+      x-sandbox: enabled
+      parameters:
+      - $ref: '#/components/parameters/path_ad_account_id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdGroupAudienceSizingRequest'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdGroupAudienceSizingResponse'
+          description: Success
+        '400':
+          description: Invalid ad group audience sizing parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 400
+                message: Invalid ad group audience sizing parameters.
+        '403':
+          description: No access to requested audience list or product group.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 403
+                message: You don't have access to the requested audience list or product group.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      tags:
+      - Ad_groups
+components:
+  schemas:
+    AdGroupAudienceSizingRequest:
+      type: object
+      properties:
+        auto_targeting_enabled:
+          type: boolean
+          description: Enable auto-targeting for ad group. Also known as <a href="https://help.pinterest.com/en/business/article/expanded-targeting" target="_blank">"expanded targeting"</a>.
+          example: true
+          default: true
+        placement_group:
+          type: string
+          allOf:
+          - $ref: '#/components/schemas/PlacementGroupType'
+          default: ALL
+          description: <a href="/docs/redoc/#section/Placement-group">Placement group</a>.
+        creative_types:
+          description: Pin creative types filter. </p><strong>Note:</strong> SHOP_THE_PIN has been deprecated. Please use COLLECTION instead.
+          type: array
+          items:
+            type: string
+            example: REGULAR
+            enum:
+            - REGULAR
+            - VIDEO
+            - SHOPPING
+            - CAROUSEL
+            - MAX_VIDEO
+            - SHOP_THE_PIN
+            - COLLECTION
+            - IDEA
+          nullable: true
+        targeting_spec:
+          $ref: '#/components/schemas/TargetingSpec'
+        product_group_ids:
+          type: array
+          items:
+            type: string
+            pattern: ^\d+$
+            example: '23423422123'
+          description: Targeted product group IDs. </p><strong>Note:</strong> This can only be combined with shopping/catalog sales campaigns. For more information, <a href="https://help.pinterest.com/en/business/article/shopping-ads#section-14571" target="_blank">click here</a>. SHOPPING_RETARGETING must be included in targeting_spec object or this field will be ignored.
+          nullable: true
+        keywords:
+          type: array
+          description: Array of keyword objects. If the keywords field is missing, all keywords will be targeted.
+          items:
+            type: object
+            properties:
+              match_type:
+                $ref: '#/components/schemas/MatchTypeResponse'
+              value:
+                type: string
+                description: Keyword value (120 chars max).
+            required:
+            - match_type
+            - value
+          nullable: true
+    MatchTypeResponse:
+      type: string
+      description: Keyword match type
+      nullable: true
+      example: BROAD
+      enum:
+      - BROAD
+      - PHRASE
+      - EXACT
+      - EXACT_NEGATIVE
+      - PHRASE_NEGATIVE
+      - null
+    TargetingSpec:
+      description: Ad group targeting specification defining the ad group target audience. For example, `{"APPTYPE":["iphone"], "GENDER":["male"], "LOCALE":["en-US"], "LOCATION":["501"], "AGE_BUCKET":["25-34"]}`
+      type: object
+      properties:
+        AGE_BUCKET:
+          type: array
+          nullable: true
+          description: Age ranges. If the AGE_BUCKET field is missing, the default behavior in terms of ad delivery is that **All age buckets** will be targeted.
+          example:
+          - 35-44
+          - 50-54
+          items:
+            type: string
+            enum:
+            - 18-24
+            - 21+
+            - 25-34
+            - 35-44
+            - 45-49
+            - 50-54
+            - 55-64
+            - 65+
+        APPTYPE:
+          type: array
+          nullable: true
+          description: Allowed devices. If the APPTYPE field is missing, the default behavior in terms of ad delivery is that **All devices/apptypes** will be targeted.
+          example:
+          - ipad
+          - iphone
+          items:
+            type: string
+            enum:
+            - android_mobile
+            - android_tablet
+            - ipad
+            - iphone
+            - web
+            - web_mobile
+        AUDIENCE_EXCLUDE:
+          type: array
+          nullable: true
+          description: 'Excluded customer list IDs. Used to drive new customer acquisition goals. For example: ["2542620905475"]. Audience lists need to have at least 100 people with Pinterest accounts in them. If the AUDIENCE_EXCLUDE field is missing, the default behavior in terms of ad delivery is that **No users will be excluded**.'
+          items:
+            type: string
+            pattern: ^\d+$
+            minItems: 100
+        AUDIENCE_INCLUDE:
+          type: array
+          nullable: true
+          description: 'Targeted customer list IDs. For example: ["2542620905473"]. Audience lists need to have at least 100 people with Pinterest accounts in them Audience lists need to have at least 100 people with Pinterest accounts in them. If the AUDIENCE_INCLUDE field is missing, the default behavior in terms of ad delivery is that **All users will be included**.'
+          items:
+            type: string
+            pattern: ^\d+$
+            minItems: 100
+        GENDER:
+          type: array
+          nullable: true
+          description: 'Targeted genders. Values: ["unknown","male","female"]. If the GENDER field is missing, the default behavior in terms of ad delivery is that **All genders will be targeted**.'
+          items:
+            type: string
+            enum:
+            - unknown
+            - male
+            - female
+        GEO:
+          type: array
+          nullable: true
+          description: Location region codes, e.g., "BE-VOV" (East Flanders, Belgium) For complete list, <a href="https://help.pinterest.com/sub/helpcenter/partner/pinterest_location_targeting_codes.xlsx" target="_blank">click here</a> or postal codes, e.g., "US-94107". Use either region codes or postal codes but not both. At least one of LOCATION or GEO must be specified. If the GEO field is missing, then only LOCATION values will be targeted (see LOCATION field below).
+          items:
+            type: string
+        INTEREST:
+          type: array
+          description: Array of interest object IDs. If the INTEREST field is missing, the default behavior in terms of ad delivery is that **All interests will be targeted**.
+          items:
+            type: string
+        LOCALE:
+          type: array
+          nullable: true
+          description: 24 ISO 639-1 two letter language codes. If the LOCALE field is missing, the default behavior in terms of ad delivery is that **All languages will be targeted, only english non-sublanguage will be targeted**.
+          items:
+            type: string
+        LOCATION:
+          type: array
+          nullable: true
+          description: 22 ISO Alpha 2 two letter country codes or US Nielsen DMA (Designated Market Area) codes (location region codes) (e.g., ["US", "807"]). For complete list, click here. Location-Country and Location-Metro codes apply. At least one of LOCATION or GEO must be specified. If the LOCATION field is missing, then only GEO values will be targeted (see GEO field above).
+          items:
+            type: string
+        SHOPPING_RETARGETING:
+          type: array
+          nullable: true
+          description: "Array of object: lookback_window\t[Integer]: Number of days ago to start lookback timeframe for dynamic retargeting tag_types [Array of integer]: Event types to target for dynamic retargeting exclusion_window [Integer]: Number of days ago to stop lookback timeframe for dynamic retargeting"
+          items:
+            type: object
+            example:
+              lookback_window: 30
+              exclusion_window: 14
+              tag_types:
+              - 0
+              - 6
+            properties:
+              lookback_window:
+                description: Number of days ago to start lookback timeframe for dynamic retargeting
+                example: 30
+                title: lookback_window
+                type: integer
+              tag_types:
+                description: Event types to target for dynamic retargeting
+                example:
+                - 0
+                - 6
+                items:
+                  type: integer
+                title: tag_types
+                type: array
+              exclusion_window:
+                description: Number of days ago to stop lookback timeframe for dynamic retargeting
+                example: 14
+                title: exclusion_window
+                type: integer
+            title: TargetingSpec_SHOPPING_RETARGETING
+        TARGETING_STRATEGY:
+          type: array
+          nullable: true
+          description: ''
+          items:
+            enum:
+            - CHOOSE_YOUR_OWN
+            - FIND_NEW_CUSTOMERS
+            - RECONNECT_WITH_USERS
+    AdGroupAudienceSizingResponse:
+      type: object
+      properties:
+        audience_size_lower_bound:
+          description: The lower confidence bound of the estimated potential audience size. "Potential audience size" estimates the number of people you may be able to reach per month with your campaign. It is based on historical advertising data and the targeting criteria you select. It does not guarantee results or take into account factors such as bid, budget, schedule, seasonality or product experiments.
+          type: number
+          example: 100000
+        audience_size_upper_bound:
+          description: The upper confidence bound of the estimated potential audience size. "Potential audience size" estimates the number of people you may be able to reach per month with your campaign. It is based on historical advertising data and the targeting criteria you select. It does not guarantee results or take into account factors such as bid, budget, schedule, seasonality or product experiments.
+          type: number
+          example: 150000
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    PlacementGroupType:
+      type: string
+      description: Campaign placement group type
+      example: ALL
+      default: ALL
+      enum:
+      - ALL
+      - SEARCH
+      - BROWSE
+      - OTHER
+  parameters:
+    path_ad_account_id:
+      name: ad_account_id
+      description: Unique identifier of an ad account.
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
+  securitySchemes:
+    pinterest_oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.pinterest.com/oauth/
+          tokenUrl: https://api.pinterest.com/v5/oauth/token
+          scopes:
+            ads:read: See all of your advertising data, including ads, ad groups, campaigns etc.
+            ads:write: Create, update, or delete ads, ad groups, campaigns etc.
+            billing:read: See all of your billing data, billing profile, etc.
+            billing:write: Create, update, or delete billing data, billing profiles, etc.
+            biz_access:read: See business access data
+            biz_access:write: Create, update, or delete business access data
+            boards:read: See your public boards, including group boards you join
+            boards:read_secret: See your secret boards
+            boards:write: Create, update, or delete your public boards
+            boards:write_secret: Create, update, or delete your secret boards
+            catalogs:read: See all of your catalogs data
+            catalogs:write: Create, update, or delete your catalogs data
+            pins:read: See your public Pins
+            pins:read_secret: See your secret Pins
+            pins:write: Create, update, or delete your public Pins
+            pins:write_secret: Create, update, or delete your secret Pins
+            user_accounts:read: See your user accounts and followers
+            user_accounts:write: Update your user accounts and followers
+    conversion_token:
+      type: http
+      scheme: bearer
+      description: This security scheme only applies to the conversion events endpoint (POST /ad_accounts/{ad_account_id}/events). This endpoint requires a bearer token generated via Ads Manager (ads.pinterest.com).
+    basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Pin and Boards
+  tags:
+  - pins
+  - boards
+  - media
+  - aggregated_comments
+  - aggregated_pin_data
+  - user_account
+- name: Campaign Management
+  tags:
+  - ad_accounts
+  - campaigns
+  - ad_groups
+  - ads
+  - product_group_promotions
+  - bulk
+- name: Targeting
+  tags:
+  - audiences
+  - customer_lists
+  - keywords
+  - targeting_template
+  - audience_insights
+  - audience_sharing
+- name: Ad Formats
+  tags:
+  - lead_forms
+  - lead_ads
+  - leads_export
+- name: Billing
+  tags:
+  - billing
+  - order_lines
+  - terms_of_service
+- name: Business Access
+  tags:
+  - business_access_assets
+  - business_access_invite
+  - business_access_relationships
+- name: Conversions
+  tags:
+  - conversion_events
+  - conversion_tags
+- name: Others
+  tags:
+  - integrations
+  - oauth
+  - resources
+  - search
+  - terms
+- name: Shopping
+  tags:
+  - catalogs
+- name: Deprecated
+  tags:
+  - product_groups

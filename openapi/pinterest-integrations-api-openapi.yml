@@ -1,0 +1,818 @@
+openapi: 3.0.3
+info:
+  version: 5.13.0
+  title: Pinterest Integrations API
+  description: This is the description of your API.
+  contact:
+    name: Pinterest, Inc.
+    url: https://developers.pinterest.com/
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  termsOfService: https://developers.pinterest.com/terms/
+servers:
+- url: https://api.pinterest.com/v5
+tags:
+- name: Integrations
+paths:
+  /integrations/commerce:
+    post:
+      summary: Create commerce integration
+      description: 'Create commerce integration metadata to link an external business ID with a Pinterest merchant & ad account.
+
+        Note: If you''re interested in joining the beta, please reach out to your Pinterest account manager.'
+      operationId: integrations_commerce/post
+      security:
+      - pinterest_oauth2:
+        - ads:write
+      x-ratelimit-category: ads_write
+      x-sandbox: disabled
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntegrationRequest'
+        description: Parameters to get create/update the Integration Metadata
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntegrationMetadata'
+          description: Success
+        '404':
+          description: Integration not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                IntegrationNotFound:
+                  value:
+                    code: 4180
+                    message: Sorry! We could not find your integration.
+        '409':
+          description: Can't access this integration metadata.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                NotIntegrationOwner:
+                  value:
+                    code: 4182
+                    message: Can't access this integration metadata.
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Integrations
+  /integrations/commerce/{external_business_id}:
+    get:
+      summary: Get commerce integration
+      description: 'Get commerce integration metadata associated with the given external business ID.
+
+        Note: If you''re interested in joining the beta, please reach out to your Pinterest account manager.'
+      operationId: integrations_commerce/get
+      security:
+      - pinterest_oauth2:
+        - ads:read
+      x-ratelimit-category: ads_read
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_external_business_id'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntegrationMetadata'
+          description: Success
+        '404':
+          description: Integration not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                IntegrationNotFound:
+                  value:
+                    code: 4180
+                    message: Sorry! We could not find your integration.
+        '409':
+          description: Can't access this integration metadata.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                NotIntegrationOwner:
+                  value:
+                    code: 4182
+                    message: Can't access this integration metadata.
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Integrations
+    patch:
+      summary: Update commerce integration
+      description: 'Update commerce integration metadata for the given external business ID.
+
+        Note: If you''re interested in joining the beta, please reach out to your Pinterest account manager.'
+      operationId: integrations_commerce/patch
+      security:
+      - pinterest_oauth2:
+        - ads:write
+      x-ratelimit-category: ads_write
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_external_business_id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntegrationRequestPatch'
+        description: Parameters to get create/update the Integration Metadata
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntegrationMetadata'
+          description: Success
+        '404':
+          description: Integration not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                IntegrationNotFound:
+                  value:
+                    code: 4180
+                    message: Sorry! We could not find your integration.
+        '409':
+          description: Can't access this integration metadata.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                NotIntegrationOwner:
+                  value:
+                    code: 4182
+                    message: Can't access this integration metadata.
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Integrations
+    delete:
+      summary: Delete commerce integration
+      description: 'Delete commerce integration metadata for the given external business ID.
+
+        Note: If you''re interested in joining the beta, please reach out to your Pinterest account manager.'
+      operationId: integrations_commerce/del
+      security:
+      - pinterest_oauth2:
+        - ads:write
+      x-ratelimit-category: ads_write
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_external_business_id'
+      responses:
+        '204':
+          description: Commerce Integration deleted successfully
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Integrations
+  /integrations/logs:
+    post:
+      summary: Receives batched logs from integration applications.
+      description: 'This endpoint receives batched logs from integration applications on partner platforms.
+
+        Note: If you''re interested in joining the beta, please reach out to your Pinterest account manager.'
+      tags:
+      - Integrations
+      operationId: integrations_logs/post
+      x-ratelimit-category: ads_write
+      security:
+      - pinterest_oauth2:
+        - ads:write
+      x-sandbox: enabled
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntegrationLogsRequest'
+        description: Ingest log information from external integration application.
+        required: true
+      responses:
+        '200':
+          description: Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntegrationLogsSuccessResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailedError'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /integrations:
+    get:
+      summary: Get integration metadata list
+      description: 'Get integration metadata list.
+
+        Note: If you''re interested in joining the beta, please reach out to your Pinterest account manager.'
+      operationId: integrations/get_list
+      security:
+      - pinterest_oauth2:
+        - ads:read
+      x-ratelimit-category: ads_read
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/query_bookmark'
+      - $ref: '#/components/parameters/query_page_size'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Paginated'
+                - type: object
+                  properties:
+                    items:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/IntegrationRecord'
+          description: Success
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Integrations
+  /integrations/{id}:
+    get:
+      summary: Get integration metadata
+      description: 'Get integration metadata by ID.
+
+        Note: If you''re interested in joining the beta, please reach out to your Pinterest account manager.'
+      operationId: integrations/get_by_id
+      security:
+      - pinterest_oauth2:
+        - ads:read
+      x-ratelimit-category: ads_read
+      x-sandbox: disabled
+      parameters:
+      - name: id
+        description: Integration ID.
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntegrationRecord'
+          description: Success
+        '404':
+          description: Integration not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                IntegrationNotFound:
+                  value:
+                    code: 4517
+                    message: Sorry! We could not find your integration.
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Integrations
+components:
+  parameters:
+    query_page_size:
+      name: page_size
+      description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 250
+        default: 25
+    path_external_business_id:
+      name: external_business_id
+      description: External business ID for the integration.
+      in: path
+      required: true
+      schema:
+        type: string
+    query_bookmark:
+      name: bookmark
+      description: Cursor used to fetch the next page of items
+      in: query
+      required: false
+      schema:
+        type: string
+  schemas:
+    DetailedError:
+      title: Detailed Error
+      description: Used for including extra details to a base error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        details:
+          type: object
+      required:
+      - code
+      - message
+      - details
+    IntegrationLogsRequest:
+      type: object
+      additionalProperties: false
+      description: Batch of logs sent from an integration application.
+      required:
+      - logs
+      properties:
+        logs:
+          type: array
+          items:
+            $ref: '#/components/schemas/IntegrationLog'
+    IntegrationMetadata:
+      title: integration
+      description: Integration metadata
+      type: object
+      properties:
+        id:
+          type: string
+          pattern: ^\d+$
+        external_business_id:
+          type: string
+        connected_merchant_id:
+          type: string
+        connected_user_id:
+          type: string
+          readOnly: true
+        connected_advertiser_id:
+          type: string
+          readOnly: true
+        connected_lba_id:
+          type: string
+        connected_tag_id:
+          type: string
+        partner_access_token_expiry:
+          type: number
+        partner_refresh_token_expiry:
+          type: number
+        scopes:
+          type: string
+        created_timestamp:
+          type: number
+        updated_timestamp:
+          type: number
+        additional_id_1:
+          type: string
+        partner_metadata:
+          type: string
+      example:
+        id: '7329167449607351372'
+        external_business_id: '1238401984'
+        connected_merchant_id: '1445572885401'
+        connected_user_id: '871939315263957401'
+        connected_advertiser_id: '549764738871'
+        connected_lba_id: '871939315263957402'
+        connected_tag_id: '2412141155151'
+        partner_access_token_expiry: 1621350033000
+        partner_refresh_token_expiry: 1621350033000
+        scopes: accounts:read
+        created_timestamp: 1621350033000
+        updated_timestamp: 1621350033000
+        additional_id_1: '128464'
+        partner_metadata: ''
+    IntegrationLogClientRequest:
+      type: object
+      additionalProperties: false
+      description: HTTP request details included in the log sent by the client.
+      required:
+      - method
+      - host
+      - path
+      properties:
+        method:
+          type: string
+          enum:
+          - GET
+          - HEAD
+          - POST
+          - PUT
+          - DELETE
+          - CONNECT
+          - OPTIONS
+          - TRACE
+          - PATCH
+        host:
+          type: string
+          description: HTTP request host from host header.
+        path:
+          type: string
+          description: HTTP request path.
+        request_headers:
+          type: object
+          description: HTTP request headers as key-value pairs.
+          additionalProperties:
+            type: string
+        response_headers:
+          type: object
+          description: HTTP response headers as key-value pairs.
+          additionalProperties:
+            type: string
+        response_status_code:
+          type: integer
+    IntegrationLogClientError:
+      type: object
+      additionalProperties: false
+      description: System error details included in the log sent by the client.
+      properties:
+        cause:
+          type: string
+          description: Original cause of the error.
+          maxLength: 512
+        column_number:
+          type: integer
+          description: Column number in the line of the file that raised the error.
+        file_name:
+          type: string
+          description: Filename where the error happened.
+          maxLength: 256
+        line_number:
+          type: integer
+          description: Line number where the error happened.
+        message:
+          type: string
+          description: Human-readable description of the error.
+          maxLength: 512
+        message_detail:
+          type: string
+          description: More detail about the message.
+          maxLength: 1024
+        name:
+          type: string
+          description: Filename where the error happened.
+          maxLength: 256
+        number:
+          type: integer
+          description: Integer that specifies the error code.
+        stack_trace:
+          type: string
+          description: Stack trace of where the error happened.
+    IntegrationRequestPatch:
+      type: object
+      description: Schema used for updating the integration metadata.
+      properties:
+        connected_merchant_id:
+          type: string
+        connected_advertiser_id:
+          type: string
+        connected_lba_id:
+          type: string
+        connected_tag_id:
+          type: string
+        partner_access_token:
+          type: string
+        partner_refresh_token:
+          type: string
+        partner_primary_email:
+          type: string
+        partner_access_token_expiry:
+          type: number
+        partner_refresh_token_expiry:
+          type: number
+        scopes:
+          type: string
+        additional_id_1:
+          type: string
+        partner_metadata:
+          type: string
+    IntegrationRequest:
+      type: object
+      description: Schema used for creating the integration metadata.
+      properties:
+        external_business_id:
+          type: string
+          nullable: true
+          description: External business ID for the integration.
+        connected_merchant_id:
+          type: string
+        connected_advertiser_id:
+          type: string
+        connected_lba_id:
+          type: string
+        connected_tag_id:
+          type: string
+        partner_access_token:
+          type: string
+        partner_refresh_token:
+          type: string
+        partner_primary_email:
+          type: string
+        partner_access_token_expiry:
+          type: integer
+        partner_refresh_token_expiry:
+          type: integer
+        scopes:
+          type: string
+        additional_id_1:
+          type: string
+        partner_metadata:
+          type: string
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    IntegrationLog:
+      type: object
+      additionalProperties: false
+      description: Schema for log sent from an integration application.
+      required:
+      - client_timestamp
+      - event_type
+      - log_level
+      properties:
+        client_timestamp:
+          type: integer
+          description: Timestamp in milliseconds of when the log was executed at the client.
+        event_type:
+          type: string
+          enum:
+          - APP
+          - API
+          description: Log event type
+        log_level:
+          type: string
+          enum:
+          - INFO
+          - WARN
+          - ERROR
+          description: Log level type
+        external_business_id:
+          type: string
+          maxLength: 2048
+          nullable: true
+        advertiser_id:
+          type: string
+          maxLength: 128
+          nullable: true
+        merchant_id:
+          type: string
+          maxLength: 128
+          nullable: true
+        tag_id:
+          type: string
+          maxLength: 128
+          nullable: true
+        feed_profile_id:
+          type: string
+          maxLength: 128
+          nullable: true
+        message:
+          type: string
+          description: Explanation of the event that occured.
+          maxLength: 2048
+        app_version_number:
+          type: string
+          description: Version number of the integration application.
+          maxLength: 20
+        platform_version_number:
+          type: string
+          description: Version number of the platform the integration application is running on.
+          maxLength: 20
+        error:
+          $ref: '#/components/schemas/IntegrationLogClientError'
+        request:
+          $ref: '#/components/schemas/IntegrationLogClientRequest'
+    IntegrationLogsSuccessResponse:
+      description: Response when logs are successfully processed.
+      type: object
+      properties:
+        message:
+          type: string
+    Paginated:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+        bookmark:
+          type: string
+          nullable: true
+      required:
+      - items
+    IntegrationRecord:
+      title: Integration record
+      description: Integration record
+      type: object
+      properties:
+        id:
+          type: string
+          pattern: ^\d+$
+        external_business_id:
+          type: string
+          nullable: true
+        connected_merchant_id:
+          type: string
+          nullable: true
+        connected_user_id:
+          type: string
+          readOnly: true
+        connected_advertiser_id:
+          type: string
+          readOnly: true
+          nullable: true
+        connected_lba_id:
+          type: string
+          nullable: true
+        connected_tag_id:
+          type: string
+          nullable: true
+        partner_access_token:
+          type: string
+          nullable: true
+        partner_refresh_token:
+          type: string
+          nullable: true
+        partner_primary_email:
+          type: string
+          nullable: true
+        partner_access_token_expiry:
+          type: integer
+          nullable: true
+        partner_refresh_token_expiry:
+          type: integer
+          nullable: true
+        scopes:
+          type: string
+          nullable: true
+        partner_metadata:
+          type: string
+          nullable: true
+        additional_id_1:
+          type: string
+          nullable: true
+        created_time:
+          type: integer
+        updated_time:
+          type: integer
+      example:
+        id: '7329123456789012345'
+        external_business_id: '1234567890'
+        connected_merchant_id: '1234567890123'
+        connected_user_id: '123456789012345678'
+        connected_advertiser_id: '123456789012'
+        connected_lba_id: '871234567890123456'
+        connected_tag_id: '2412345678901'
+        partner_access_token: ABCLUOJS5XDMWDE
+        partner_refresh_token: ABCLUOJS5XDMWDE
+        partner_primary_email: partner@server.com
+        partner_access_token_expiry: 1621350033000
+        partner_refresh_token_expiry: 1621350033000
+        scopes: accounts:read
+        partner_metadata: ''
+        additional_id_1: '123456'
+        created_time: 1621350033000
+        updated_time: 1621350033000
+  securitySchemes:
+    pinterest_oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.pinterest.com/oauth/
+          tokenUrl: https://api.pinterest.com/v5/oauth/token
+          scopes:
+            ads:read: See all of your advertising data, including ads, ad groups, campaigns etc.
+            ads:write: Create, update, or delete ads, ad groups, campaigns etc.
+            billing:read: See all of your billing data, billing profile, etc.
+            billing:write: Create, update, or delete billing data, billing profiles, etc.
+            biz_access:read: See business access data
+            biz_access:write: Create, update, or delete business access data
+            boards:read: See your public boards, including group boards you join
+            boards:read_secret: See your secret boards
+            boards:write: Create, update, or delete your public boards
+            boards:write_secret: Create, update, or delete your secret boards
+            catalogs:read: See all of your catalogs data
+            catalogs:write: Create, update, or delete your catalogs data
+            pins:read: See your public Pins
+            pins:read_secret: See your secret Pins
+            pins:write: Create, update, or delete your public Pins
+            pins:write_secret: Create, update, or delete your secret Pins
+            user_accounts:read: See your user accounts and followers
+            user_accounts:write: Update your user accounts and followers
+    conversion_token:
+      type: http
+      scheme: bearer
+      description: This security scheme only applies to the conversion events endpoint (POST /ad_accounts/{ad_account_id}/events). This endpoint requires a bearer token generated via Ads Manager (ads.pinterest.com).
+    basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Pin and Boards
+  tags:
+  - pins
+  - boards
+  - media
+  - aggregated_comments
+  - aggregated_pin_data
+  - user_account
+- name: Campaign Management
+  tags:
+  - ad_accounts
+  - campaigns
+  - ad_groups
+  - ads
+  - product_group_promotions
+  - bulk
+- name: Targeting
+  tags:
+  - audiences
+  - customer_lists
+  - keywords
+  - targeting_template
+  - audience_insights
+  - audience_sharing
+- name: Ad Formats
+  tags:
+  - lead_forms
+  - lead_ads
+  - leads_export
+- name: Billing
+  tags:
+  - billing
+  - order_lines
+  - terms_of_service
+- name: Business Access
+  tags:
+  - business_access_assets
+  - business_access_invite
+  - business_access_relationships
+- name: Conversions
+  tags:
+  - conversion_events
+  - conversion_tags
+- name: Others
+  tags:
+  - integrations
+  - oauth
+  - resources
+  - search
+  - terms
+- name: Shopping
+  tags:
+  - catalogs
+- name: Deprecated
+  tags:
+  - product_groups

@@ -1,0 +1,402 @@
+openapi: 3.0.3
+info:
+  version: 5.13.0
+  title: Pinterest Insights API
+  description: This is the description of your API.
+  contact:
+    name: Pinterest, Inc.
+    url: https://developers.pinterest.com/
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  termsOfService: https://developers.pinterest.com/terms/
+servers:
+- url: https://api.pinterest.com/v5
+tags:
+- name: Insights
+paths:
+  /ad_accounts/{ad_account_id}/audience_insights:
+    get:
+      summary: Get audience insights
+      description: 'Get Audience Insights for an ad account. The response will return insights for 3 types of audiences: the
+
+        ad account''s engaged audience on Pinterest, the ad account''s total audience on Pinterest and Pinterest''s
+
+        total audience.<p/>
+
+        <a href="https://help.pinterest.com/en/business/article/audience-insights" target="_blank">Learn more about Audience Insights</a>.'
+      operationId: audience_insights/get
+      security:
+      - pinterest_oauth2:
+        - ads:read
+      x-ratelimit-category: ads_read
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_ad_account_id'
+      - $ref: '#/components/parameters/query_audience_insight_type'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AudienceInsightsResponse'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      tags:
+      - Insights
+  /ad_accounts/{ad_account_id}/insights/audiences:
+    get:
+      summary: Get audience insights scope and type
+      description: Get the scope and type of available audiences, which along with a date, is an audience that has recently had an interaction (referred to here as a type) on pins. Interacted pins can belong to at least the most common **partner** or **Pinterest** scopes. This means that user interactions made on advertiser or partner pins will have the **partner** scope. You can also have user interactions performed in general on Pinterest with the **Pinterest** scope. In that case, you can then use the returned type and scope values together on requests to other endpoints to retrieve insight metrics for a desired audience.
+      operationId: audience_insights_scope_and_type/get
+      security:
+      - pinterest_oauth2:
+        - ads:read
+      x-ratelimit-category: ads_read
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_ad_account_id'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AudienceDefinitionResponse'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      tags:
+      - Insights
+components:
+  schemas:
+    AudienceDefinitionResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AudienceDefinition'
+    AudienceInsightsResponse:
+      title: AudienceInsightsResponse
+      description: Audience interests and demographics.
+      type: object
+      properties:
+        categories:
+          title: categories
+          description: Category interest distribution
+          type: array
+          items:
+            $ref: '#/components/schemas/AudienceCategory'
+        demographics:
+          $ref: '#/components/schemas/AudienceDemographics'
+        type:
+          $ref: '#/components/schemas/AudienceInsightType'
+        date:
+          title: date
+          description: Generation date
+          type: string
+          nullable: true
+          example: '2022-10-09'
+          pattern: ^\d{4}-\d{2}-\d{2}$
+        size:
+          title: size
+          description: Population count.
+          type: integer
+          example: 10000
+        size_is_upper_bound:
+          title: size_is_upper_bound
+          description: Indicates whether the audience size has been rounded up to the next highest upper boundary.
+          type: boolean
+          example: true
+    AudienceInsightType:
+      default: YOUR_TOTAL_AUDIENCE
+      type: string
+      example: YOUR_TOTAL_AUDIENCE
+      enum:
+      - YOUR_TOTAL_AUDIENCE
+      - YOUR_ENGAGED_AUDIENCE
+      - PINTEREST_TOTAL_AUDIENCE
+    AudienceDefinitionType:
+      description: Generated audience type to request.
+      type: string
+      properties:
+        scope:
+          enum:
+          - IMPRESSION_PLUS_ENGAGEMENT
+          - ENGAGEMENT
+    AudienceDemographics:
+      title: AudienceDemographics
+      description: Audience demographics
+      type: object
+      properties:
+        ages:
+          title: ages
+          description: Ages distribution.
+          type: array
+          items:
+            $ref: '#/components/schemas/AudienceDemographicValue'
+        genders:
+          title: genders
+          description: Gender distribution.
+          type: array
+          items:
+            $ref: '#/components/schemas/AudienceDemographicValue'
+        devices:
+          title: devices
+          description: Device usage distribution.
+          type: array
+          items:
+            $ref: '#/components/schemas/AudienceDemographicValue'
+        metros:
+          title: metros
+          description: Geographic metro area distribution.
+          type: array
+          items:
+            $ref: '#/components/schemas/AudienceDemographicValue'
+        countries:
+          title: countries
+          description: Country area distribution.
+          type: array
+          items:
+            $ref: '#/components/schemas/AudienceDemographicValue'
+    AudienceDemographicValue:
+      title: AudienceDemographicValue
+      description: Demographic detail for a single audience demographic
+      type: object
+      properties:
+        key:
+          title: key
+          description: Unique key for demographic item
+          type: string
+          example: us
+        name:
+          title: name
+          description: Display name for demographic
+          type: string
+          example: United States
+        ratio:
+          title: ratio
+          description: Value of demographic item as a percent of total audience
+          type: number
+          example: 0.551
+      example:
+        name: United States
+        key: us
+        ratio: 0.551
+    AudienceCategory:
+      title: AudienceCategory
+      type: object
+      properties:
+        key:
+          title: key
+          description: Interest unique key (same as ID).
+          type: string
+          example: '1234567'
+        name:
+          title: name
+          description: Interest name.
+          type: string
+          example: travel
+        ratio:
+          title: ratio
+          description: Interest's percent of category's total audience.
+          type: number
+          example: 0.551
+        index:
+          title: index
+          description: Interest affinity index.
+          type: number
+          example: 1.2
+        id:
+          title: id
+          description: Interest ID.
+          type: string
+          example: '1234567'
+        subcategories:
+          title: subcategories
+          description: Subcategory interest distribution
+          type: array
+          items:
+            title: AudienceSubcategory
+            type: object
+            properties:
+              key:
+                title: key
+                description: Interest unique key (same as ID).
+                type: string
+                example: '958862518888'
+              name:
+                title: name
+                description: Subinterest name.
+                type: string
+                example: travel destinations
+              ratio:
+                title: ratio
+                description: Subinterest's percent of category's total audience.
+                type: number
+                example: 0.482
+              index:
+                title: index
+                description: Subinterest affinity index.
+                type: number
+                example: 1.2
+              id:
+                title: id
+                description: Subinterest ID.
+                type: string
+                example: '958862518888'
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    AudienceDefinitionScope:
+      description: Generated audience scope to request.
+      type: string
+      properties:
+        scope:
+          enum:
+          - PARTNER
+          - PINTEREST
+    AudienceDefinition:
+      title: AudienceDefinition
+      description: Queryable audience representation.
+      type: object
+      properties:
+        date:
+          title: date
+          description: Generation date
+          type: string
+          nullable: true
+          example: '2022-10-09'
+        type:
+          $ref: '#/components/schemas/AudienceDefinitionType'
+        scope:
+          $ref: '#/components/schemas/AudienceDefinitionScope'
+      example:
+        date: '2022-10-09'
+        scope: PARTNER
+        type: IMPRESSION_PLUS_ENGAGEMENT
+  parameters:
+    path_ad_account_id:
+      name: ad_account_id
+      description: Unique identifier of an ad account.
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
+    query_audience_insight_type:
+      description: Type of audience insights.
+      explode: false
+      in: query
+      name: audience_insight_type
+      required: true
+      schema:
+        $ref: '#/components/schemas/AudienceInsightType'
+  securitySchemes:
+    pinterest_oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.pinterest.com/oauth/
+          tokenUrl: https://api.pinterest.com/v5/oauth/token
+          scopes:
+            ads:read: See all of your advertising data, including ads, ad groups, campaigns etc.
+            ads:write: Create, update, or delete ads, ad groups, campaigns etc.
+            billing:read: See all of your billing data, billing profile, etc.
+            billing:write: Create, update, or delete billing data, billing profiles, etc.
+            biz_access:read: See business access data
+            biz_access:write: Create, update, or delete business access data
+            boards:read: See your public boards, including group boards you join
+            boards:read_secret: See your secret boards
+            boards:write: Create, update, or delete your public boards
+            boards:write_secret: Create, update, or delete your secret boards
+            catalogs:read: See all of your catalogs data
+            catalogs:write: Create, update, or delete your catalogs data
+            pins:read: See your public Pins
+            pins:read_secret: See your secret Pins
+            pins:write: Create, update, or delete your public Pins
+            pins:write_secret: Create, update, or delete your secret Pins
+            user_accounts:read: See your user accounts and followers
+            user_accounts:write: Update your user accounts and followers
+    conversion_token:
+      type: http
+      scheme: bearer
+      description: This security scheme only applies to the conversion events endpoint (POST /ad_accounts/{ad_account_id}/events). This endpoint requires a bearer token generated via Ads Manager (ads.pinterest.com).
+    basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Pin and Boards
+  tags:
+  - pins
+  - boards
+  - media
+  - aggregated_comments
+  - aggregated_pin_data
+  - user_account
+- name: Campaign Management
+  tags:
+  - ad_accounts
+  - campaigns
+  - ad_groups
+  - ads
+  - product_group_promotions
+  - bulk
+- name: Targeting
+  tags:
+  - audiences
+  - customer_lists
+  - keywords
+  - targeting_template
+  - audience_insights
+  - audience_sharing
+- name: Ad Formats
+  tags:
+  - lead_forms
+  - lead_ads
+  - leads_export
+- name: Billing
+  tags:
+  - billing
+  - order_lines
+  - terms_of_service
+- name: Business Access
+  tags:
+  - business_access_assets
+  - business_access_invite
+  - business_access_relationships
+- name: Conversions
+  tags:
+  - conversion_events
+  - conversion_tags
+- name: Others
+  tags:
+  - integrations
+  - oauth
+  - resources
+  - search
+  - terms
+- name: Shopping
+  tags:
+  - catalogs
+- name: Deprecated
+  tags:
+  - product_groups

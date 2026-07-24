@@ -1,0 +1,342 @@
+openapi: 3.0.3
+info:
+  version: 5.13.0
+  title: Pinterest Promotion API
+  description: This is the description of your API.
+  contact:
+    name: Pinterest, Inc.
+    url: https://developers.pinterest.com/
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  termsOfService: https://developers.pinterest.com/terms/
+servers:
+- url: https://api.pinterest.com/v5
+tags:
+- name: Promotion
+paths:
+  /ad_accounts/{ad_account_id}/product_group_promotions/{product_group_promotion_id}:
+    get:
+      description: Get a product group promotion by id
+      operationId: product_group_promotions/get
+      security:
+      - pinterest_oauth2:
+        - ads:read
+      x-ratelimit-category: ads_read
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_ad_account_id'
+      - $ref: '#/components/parameters/path_product_group_promotion_id'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductGroupPromotionResponse'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Get a product group promotion by id
+      tags:
+      - Promotion
+components:
+  schemas:
+    CreativeType:
+      type: string
+      description: Ad creative type enum. For update, only draft ads may update creative type. </p><strong>Note:</strong> SHOP_THE_PIN has been deprecated. Please use COLLECTION instead.
+      enum:
+      - REGULAR
+      - VIDEO
+      - SHOPPING
+      - CAROUSEL
+      - MAX_VIDEO
+      - SHOP_THE_PIN
+      - COLLECTION
+      - IDEA
+      - SHOWCASE
+      - QUIZ
+      example: REGULAR
+      title: CreativeType
+    EntityStatus:
+      type: string
+      description: Entity status
+      example: ACTIVE
+      enum:
+      - ACTIVE
+      - PAUSED
+      - ARCHIVED
+      - DRAFT
+      - DELETED_DRAFT
+    ProductGroupPromotionResponseElement:
+      type: object
+      title: ProductGroupPromotionResponseElement
+      allOf:
+      - $ref: '#/components/schemas/ProductGroupPromotion'
+      - type: object
+        properties:
+          creative_type:
+            $ref: '#/components/schemas/CreativeType'
+    ProductGroupPromotionResponseItem:
+      type: object
+      title: ProductGroupPromotionResponseItem
+      properties:
+        data:
+          $ref: '#/components/schemas/ProductGroupPromotionResponseElement'
+        exceptions:
+          nullable: true
+          items:
+            nullable: true
+            $ref: '#/components/schemas/Exception'
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    ProductGroupPromotionResponse:
+      type: object
+      title: ProductGroupPromotionResponse
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductGroupPromotionResponseItem'
+    Exception:
+      title: Generic exception class to be used within schemas
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 2
+          description: Exception error code.
+        message:
+          type: string
+          example: Advertiser not found.
+          description: Exception message.
+    ProductGroupPromotion:
+      properties:
+        id:
+          description: ID of the product group promotion.
+          example: '2680059592705'
+          title: id
+          type: string
+          pattern: ^\d+$
+        ad_group_id:
+          description: ID of the ad group the product group belongs to.
+          example: '2680059592705'
+          pattern: ^(AG)?\d+$
+          title: ad_group_id
+          type: string
+        bid_in_micro_currency:
+          description: The bid in micro currency.
+          example: 14000000
+          title: bid_in_micro_currency
+          type: integer
+          nullable: true
+        included:
+          description: True if the group is BIDDABLE, false if it should be EXCLUDED from serving ads.
+          example: true
+          nullable: true
+          title: included
+          type: boolean
+        definition:
+          description: The full product group definition path
+          example: '*/product_type_0=''kitchen''/product_type_1=''beverage appliances'''
+          nullable: true
+          title: definition
+          type: string
+        relative_definition:
+          description: The definition of the product group, relative to its parent - an attribute name/value pair
+          example: product_type_1='beverage appliances'
+          nullable: true
+          title: relative_definition
+          type: string
+        parent_id:
+          description: The parent Product Group ID of this Product Group
+          example: '1231234'
+          nullable: true
+          title: parent_id
+          type: string
+          pattern: ^\d+$
+        slideshow_collections_title:
+          description: Slideshow Collections Title
+          example: slideshow title
+          nullable: true
+          title: slideshow_collections_title
+          type: string
+        slideshow_collections_description:
+          description: Slideshow Collections Description
+          example: slideshow description
+          nullable: true
+          title: slideshow_collections_description
+          type: string
+        is_mdl:
+          description: If set to true products promoted in this product group will use the Mobile Deep Link specified in your catalog
+          example: true
+          nullable: true
+          title: is_mdl
+          type: boolean
+        status:
+          $ref: '#/components/schemas/EntityStatus'
+        tracking_url:
+          description: Tracking template for proudct group promotions. 4000 limit
+          example: https://www.pinterest.com
+          nullable: true
+          title: tracking_url
+          type: string
+        catalog_product_group_id:
+          description: ID of the catalogs product group that this product group promotion references
+          example: '1231235'
+          title: catalog_product_group_id
+          type: string
+          pattern: ^\d+$
+          nullable: true
+        catalog_product_group_name:
+          description: Catalogs product group name
+          example: catalogProductGroupName
+          title: product_group_promotion_name
+          type: string
+          nullable: true
+        collections_hero_pin_id:
+          description: Hero Pin ID if this PG is promoted as a Collection
+          example: '123123'
+          nullable: true
+          title: collections_hero_pin_id
+          type: string
+          pattern: ^\d+$
+        collections_hero_destination_url:
+          description: Collections Hero Destination Url
+          example: http://www.pinterest.com
+          nullable: true
+          title: collections_hero_destination_url
+          type: string
+        grid_click_type:
+          $ref: '#/components/schemas/GridClickType'
+      type: object
+      title: ProductGroupPromotion
+    GridClickType:
+      type: string
+      description: Where a user is taken after clicking on an ad in grid. </p><strong>Note:</strong>  This parameter is read-only and is set to DIRECT_TO_DESTINATION by default for direct links supported ads.  grid_click_type values provided will be ignored.
+      example: CLOSEUP
+      nullable: true
+      enum:
+      - CLOSEUP
+      - DIRECT_TO_DESTINATION
+  parameters:
+    path_ad_account_id:
+      name: ad_account_id
+      description: Unique identifier of an ad account.
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
+    path_product_group_promotion_id:
+      name: product_group_promotion_id
+      description: Unique identifier of a product group promotion
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
+  securitySchemes:
+    pinterest_oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.pinterest.com/oauth/
+          tokenUrl: https://api.pinterest.com/v5/oauth/token
+          scopes:
+            ads:read: See all of your advertising data, including ads, ad groups, campaigns etc.
+            ads:write: Create, update, or delete ads, ad groups, campaigns etc.
+            billing:read: See all of your billing data, billing profile, etc.
+            billing:write: Create, update, or delete billing data, billing profiles, etc.
+            biz_access:read: See business access data
+            biz_access:write: Create, update, or delete business access data
+            boards:read: See your public boards, including group boards you join
+            boards:read_secret: See your secret boards
+            boards:write: Create, update, or delete your public boards
+            boards:write_secret: Create, update, or delete your secret boards
+            catalogs:read: See all of your catalogs data
+            catalogs:write: Create, update, or delete your catalogs data
+            pins:read: See your public Pins
+            pins:read_secret: See your secret Pins
+            pins:write: Create, update, or delete your public Pins
+            pins:write_secret: Create, update, or delete your secret Pins
+            user_accounts:read: See your user accounts and followers
+            user_accounts:write: Update your user accounts and followers
+    conversion_token:
+      type: http
+      scheme: bearer
+      description: This security scheme only applies to the conversion events endpoint (POST /ad_accounts/{ad_account_id}/events). This endpoint requires a bearer token generated via Ads Manager (ads.pinterest.com).
+    basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Pin and Boards
+  tags:
+  - pins
+  - boards
+  - media
+  - aggregated_comments
+  - aggregated_pin_data
+  - user_account
+- name: Campaign Management
+  tags:
+  - ad_accounts
+  - campaigns
+  - ad_groups
+  - ads
+  - product_group_promotions
+  - bulk
+- name: Targeting
+  tags:
+  - audiences
+  - customer_lists
+  - keywords
+  - targeting_template
+  - audience_insights
+  - audience_sharing
+- name: Ad Formats
+  tags:
+  - lead_forms
+  - lead_ads
+  - leads_export
+- name: Billing
+  tags:
+  - billing
+  - order_lines
+  - terms_of_service
+- name: Business Access
+  tags:
+  - business_access_assets
+  - business_access_invite
+  - business_access_relationships
+- name: Conversions
+  tags:
+  - conversion_events
+  - conversion_tags
+- name: Others
+  tags:
+  - integrations
+  - oauth
+  - resources
+  - search
+  - terms
+- name: Shopping
+  tags:
+  - catalogs
+- name: Deprecated
+  tags:
+  - product_groups

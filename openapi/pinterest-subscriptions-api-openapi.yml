@@ -1,0 +1,499 @@
+openapi: 3.0.3
+info:
+  version: 5.13.0
+  title: Pinterest Subscriptions API
+  description: This is the description of your API.
+  contact:
+    name: Pinterest, Inc.
+    url: https://developers.pinterest.com/
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  termsOfService: https://developers.pinterest.com/terms/
+servers:
+- url: https://api.pinterest.com/v5
+tags:
+- name: Subscriptions
+paths:
+  /ad_accounts/{ad_account_id}/leads/subscriptions:
+    post:
+      summary: Create lead ads subscription
+      description: "Create a lead ads webhook subscription.\nSubscriptions allow Pinterest to deliver lead data from Ads Manager directly to the subscriber. Subscriptions can exist for a specific lead form or at ad account level. \n- Only requests for the OWNER or ADMIN of the ad_account will be allowed.\n- Advertisers can set up multiple integrations using ad_account_id + lead_form_id but only one integration per unique records.\n- For data security, egress lead data is encrypted with AES-256-GCM.\n\n<strong>This endpoint is currently in beta and not available to all apps. <a href='/docs/new/about-beta-access/'>Learn more</a>.</strong>"
+      tags:
+      - Subscriptions
+      operationId: ad_accounts_subscriptions/post
+      security:
+      - pinterest_oauth2:
+        - ads:write
+      x-ratelimit-category: ads_write
+      x-sandbox: enabled
+      parameters:
+      - $ref: '#/components/parameters/path_ad_account_id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdAccountCreateSubscriptionRequest'
+        description: Subscription to create.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdAccountCreateSubscriptionResponse'
+          description: Success
+        '400':
+          description: Invalid input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 1
+                message: Advertiser ID must be numeric.
+        '403':
+          description: Can't access this subscription.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                NotIntegrationOwner:
+                  value:
+                    code: 4182
+                    message: Can't access this subscription.
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      summary: Get lead ads subscriptions
+      description: 'Get the advertiser''s list of lead ads subscriptions.
+
+        - Only requests for the OWNER or ADMIN of the ad_account will be allowed.
+
+
+        <strong>This endpoint is currently in beta and not available to all apps. <a href=''/docs/new/about-beta-access/''>Learn more</a>.</strong>'
+      operationId: ad_accounts_subscriptions/get_list
+      security:
+      - pinterest_oauth2:
+        - ads:read
+      x-ratelimit-category: ads_read
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_ad_account_id'
+      - $ref: '#/components/parameters/query_page_size'
+      - $ref: '#/components/parameters/query_bookmark'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Paginated'
+                - type: object
+                  properties:
+                    items:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/AdAccountGetSubscriptionResponse'
+          description: Success
+        '403':
+          description: Can't access this subscription.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                NotIntegrationOwner:
+                  value:
+                    code: 29
+                    message: You are not permitted to access that resource.
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Subscriptions
+  /ad_accounts/{ad_account_id}/leads/subscriptions/{subscription_id}:
+    get:
+      summary: Get lead ads subscription
+      description: 'Get a specific lead ads subscription record.
+
+        - Only requests for the OWNER or ADMIN of the ad_account will be allowed.
+
+
+        <strong>This endpoint is currently in beta and not available to all apps. <a href=''/docs/new/about-beta-access/''>Learn more</a>.</strong>'
+      operationId: ad_accounts_subscriptions/get_by_id
+      security:
+      - pinterest_oauth2:
+        - ads:read
+      x-ratelimit-category: ads_read
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_ad_account_id'
+      - $ref: '#/components/parameters/path_subscription_id'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdAccountGetSubscriptionResponse'
+          description: Success
+        '400':
+          description: Invalid input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 1
+                message: Advertiser ID must be numeric.
+        '403':
+          description: Can't access this subscription.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                NotIntegrationOwner:
+                  value:
+                    code: 29
+                    message: You are not permitted to access that resource.
+        '404':
+          description: Subscription not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                CommerceIntegrationNotFound:
+                  value:
+                    code: 4517
+                    message: Subscription for given ids not found.
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Subscriptions
+    delete:
+      summary: Delete lead ads subscription
+      description: 'Delete an existing lead ads webhook subscription by ID.
+
+        - Only requests for the OWNER or ADMIN of the ad_account will be allowed.
+
+
+        <strong>This endpoint is currently in beta and not available to all apps. <a href=''/docs/new/about-beta-access/''>Learn more</a>.</strong>'
+      operationId: ad_accounts_subscriptions/del_by_id
+      security:
+      - pinterest_oauth2:
+        - ads:write
+      x-ratelimit-category: ads_write
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_ad_account_id'
+      - $ref: '#/components/parameters/path_subscription_id'
+      responses:
+        '204':
+          description: Subscription deleted successfully
+        '400':
+          description: Invalid input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 1
+                message: Advertiser ID must be numeric.
+        '403':
+          description: You are not authorized to delete this subscription.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                NotIntegrationOwner:
+                  value:
+                    code: 29
+                    message: You are not permitted to access that resource.
+        '404':
+          description: Subscription not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                CommerceIntegrationNotFound:
+                  value:
+                    code: 4517
+                    message: Subscription for given ids not found.
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Subscriptions
+components:
+  parameters:
+    query_page_size:
+      name: page_size
+      description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 250
+        default: 25
+    path_ad_account_id:
+      name: ad_account_id
+      description: Unique identifier of an ad account.
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
+    query_bookmark:
+      name: bookmark
+      description: Cursor used to fetch the next page of items
+      in: query
+      required: false
+      schema:
+        type: string
+    path_subscription_id:
+      name: subscription_id
+      description: Unique identifier of a subscription.
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+  schemas:
+    AdAccountGetSubscriptionResponse:
+      title: AdAccountGetSubscriptionsResponse
+      type: object
+      allOf:
+      - type: object
+        description: Lead ads subscription response common fields.
+        properties:
+          lead_form_id:
+            description: Lead form ID.
+            example: '383791336903426390'
+            type: string
+            pattern: ^\d+$
+            nullable: true
+          webhook_url:
+            description: Standard HTTPS webhook URL.
+            example: https://webhook.example.com/xyz
+            type: string
+      - type: object
+        properties:
+          id:
+            description: Subscription ID.
+            example: '8078432025948590686'
+            type: string
+            pattern: ^\d+$
+          user_account_id:
+            description: User account used to subscribe lead data.
+            example: '549755885175'
+            type: string
+            pattern: ^\d+$
+          ad_account_id:
+            description: The Ad Account ID that this lead form belongs to.
+            example: '549755885176'
+            type: string
+            pattern: ^\d+$
+          api_version:
+            description: API version.
+            example: v5
+            type: string
+          cryptographic_key:
+            description: Base64 encoded key for client to decrypt lead data.
+            example: ucvxbV2Tdss0vNeYsdh4Qfa/1Khm2b0PqXvXeTTZh54
+            type: string
+          cryptographic_algorithm:
+            description: Lead data encryption algorithm.
+            example: AES-256-GCM
+            type: string
+          created_time:
+            description: Lead form creation time. Unix timestamp in milliseconds.
+            example: 1699209842000
+            type: integer
+    AdAccountCreateSubscriptionRequest:
+      title: AdAccountCreateSubscriptionRequest
+      type: object
+      example:
+        webhook_url: https://webhook.example.com/xyz
+        lead_form_id: '383791336903426390'
+      properties:
+        webhook_url:
+          description: Standard HTTPS webhook URL.
+          example: https://webhook.example.com/xyz
+          title: webhook_url
+          type: string
+        lead_form_id:
+          description: Lead form ID.
+          example: '383791336903426390'
+          title: Lead form ID
+          type: string
+          pattern: ^\d+$
+        partner_access_token:
+          description: Partner access token. Only for clients that requires authentication. We recommend to avoid this param.
+          type: string
+        partner_refresh_token:
+          description: Partner refresh token. Only for clients that requires authentication. We recommend to avoid this param.
+          type: string
+        partner_metadata:
+          description: Partner metadata. Only for clients that requires special handling. We recommend to avoid this param.
+          type: object
+          properties:
+            subscriber_key:
+              description: Text field value that uniquely identifies a subscriber.
+              type: string
+      required:
+      - webhook_url
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    AdAccountCreateSubscriptionResponse:
+      title: AdAccountCreateSubscriptionResponse
+      type: object
+      properties:
+        id:
+          description: Subscription ID.
+          example: '8078432025948590686'
+          type: string
+          pattern: ^\d+$
+        cryptographic_key:
+          description: Base64 encoded key for client to decrypt lead data.
+          example: ucvxbV2Tdss0vNeYsdh4Qfa/1Khm2b0PqXvXeTTZh54
+          type: string
+        cryptographic_algorithm:
+          description: Lead data encryption algorithm.
+          example: AES-256-GCM
+          type: string
+        created_time:
+          description: Subscription creation time. Unix timestamp in milliseconds.
+          example: 1699209842000
+          type: integer
+    Paginated:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+        bookmark:
+          type: string
+          nullable: true
+      required:
+      - items
+  securitySchemes:
+    pinterest_oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.pinterest.com/oauth/
+          tokenUrl: https://api.pinterest.com/v5/oauth/token
+          scopes:
+            ads:read: See all of your advertising data, including ads, ad groups, campaigns etc.
+            ads:write: Create, update, or delete ads, ad groups, campaigns etc.
+            billing:read: See all of your billing data, billing profile, etc.
+            billing:write: Create, update, or delete billing data, billing profiles, etc.
+            biz_access:read: See business access data
+            biz_access:write: Create, update, or delete business access data
+            boards:read: See your public boards, including group boards you join
+            boards:read_secret: See your secret boards
+            boards:write: Create, update, or delete your public boards
+            boards:write_secret: Create, update, or delete your secret boards
+            catalogs:read: See all of your catalogs data
+            catalogs:write: Create, update, or delete your catalogs data
+            pins:read: See your public Pins
+            pins:read_secret: See your secret Pins
+            pins:write: Create, update, or delete your public Pins
+            pins:write_secret: Create, update, or delete your secret Pins
+            user_accounts:read: See your user accounts and followers
+            user_accounts:write: Update your user accounts and followers
+    conversion_token:
+      type: http
+      scheme: bearer
+      description: This security scheme only applies to the conversion events endpoint (POST /ad_accounts/{ad_account_id}/events). This endpoint requires a bearer token generated via Ads Manager (ads.pinterest.com).
+    basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Pin and Boards
+  tags:
+  - pins
+  - boards
+  - media
+  - aggregated_comments
+  - aggregated_pin_data
+  - user_account
+- name: Campaign Management
+  tags:
+  - ad_accounts
+  - campaigns
+  - ad_groups
+  - ads
+  - product_group_promotions
+  - bulk
+- name: Targeting
+  tags:
+  - audiences
+  - customer_lists
+  - keywords
+  - targeting_template
+  - audience_insights
+  - audience_sharing
+- name: Ad Formats
+  tags:
+  - lead_forms
+  - lead_ads
+  - leads_export
+- name: Billing
+  tags:
+  - billing
+  - order_lines
+  - terms_of_service
+- name: Business Access
+  tags:
+  - business_access_assets
+  - business_access_invite
+  - business_access_relationships
+- name: Conversions
+  tags:
+  - conversion_events
+  - conversion_tags
+- name: Others
+  tags:
+  - integrations
+  - oauth
+  - resources
+  - search
+  - terms
+- name: Shopping
+  tags:
+  - catalogs
+- name: Deprecated
+  tags:
+  - product_groups

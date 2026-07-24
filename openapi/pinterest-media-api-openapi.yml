@@ -1,0 +1,389 @@
+openapi: 3.0.3
+info:
+  version: 5.13.0
+  title: Pinterest Media API
+  description: This is the description of your API.
+  contact:
+    name: Pinterest, Inc.
+    url: https://developers.pinterest.com/
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  termsOfService: https://developers.pinterest.com/terms/
+servers:
+- url: https://api.pinterest.com/v5
+tags:
+- name: Media
+paths:
+  /media:
+    get:
+      summary: List media uploads
+      description: 'List media uploads filtered by given parameters.
+
+
+        <strong><a href=''/docs/content/content-creation/#Creating%20video%20Pins''>Learn more</a></strong> about video Pin creation.'
+      tags:
+      - Media
+      operationId: media/list
+      security:
+      - pinterest_oauth2:
+        - pins:read
+      x-ratelimit-category: org_read
+      x-sandbox: enabled
+      parameters:
+      - $ref: '#/components/parameters/query_bookmark'
+      - $ref: '#/components/parameters/query_page_size'
+      responses:
+        '200':
+          description: response
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Paginated'
+                - type: object
+                  properties:
+                    items:
+                      description: Media
+                      items:
+                        $ref: '#/components/schemas/MediaUploadDetails'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Register media upload
+      description: 'Register your intent to upload media
+
+
+        The response includes all of the information needed to upload the media
+
+        to Pinterest.
+
+
+        To upload the media, make an HTTP POST request (using <tt>curl</tt>, for
+
+        example) to <tt>upload_url</tt> using the <tt>Content-Type</tt> header
+
+        value. Send the media file''s contents as the request''s <tt>file</tt>
+
+        parameter and also include all of the parameters from
+
+        <tt>upload_parameters</tt>.
+
+
+        <strong><a href=''/docs/content/content-creation/#Creating%20video%20Pins''>Learn more</a></strong> about video Pin creation.'
+      tags:
+      - Media
+      operationId: media/create
+      security:
+      - pinterest_oauth2:
+        - pins:read
+        - pins:write
+      x-ratelimit-category: org_write
+      x-sandbox: enabled
+      requestBody:
+        description: Create a media upload request
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MediaUploadRequest'
+      responses:
+        '201':
+          description: response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaUpload'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /media/{media_id}:
+    get:
+      summary: Get media upload details
+      description: 'Get details for a registered media upload, including its current status.
+
+
+        <strong><a href=''/docs/content/content-creation/#Creating%20video%20Pins''>Learn more</a></strong> about video Pin creation.'
+      tags:
+      - Media
+      operationId: media/get
+      security:
+      - pinterest_oauth2:
+        - pins:read
+      x-ratelimit-category: org_read
+      x-sandbox: enabled
+      parameters:
+      - $ref: '#/components/parameters/path_media_id'
+      responses:
+        '200':
+          description: response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaUploadDetails'
+        '404':
+          description: Media upload not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 404
+                message: Media upload not found
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    MediaUploadStatus:
+      description: Media upload status
+      type: string
+      enum:
+      - registered
+      - processing
+      - succeeded
+      - failed
+    MediaUploadDetails:
+      title: Media upload details
+      description: Media upload details
+      type: object
+      properties:
+        media_id:
+          type: string
+          pattern: ^\d+$
+          readOnly: true
+        media_type:
+          allOf:
+          - $ref: '#/components/schemas/MediaUploadType'
+          type: string
+          readOnly: true
+        status:
+          allOf:
+          - $ref: '#/components/schemas/MediaUploadStatus'
+          type: string
+          readOnly: true
+      example:
+        media_id: '12345'
+        media_type: video
+        status: succeeded
+    MediaUpload:
+      type: object
+      title: Media upload
+      description: Media upload that has been registered but not uploaded/processed yet.
+      allOf:
+      - type: object
+        readOnly: true
+        properties:
+          media_id:
+            type: string
+            description: Unique identifier for this media upload. Used to track status and for attaching during Pin creation.
+          media_type:
+            allOf:
+            - $ref: '#/components/schemas/MediaUploadType'
+            type: string
+            example: video
+          upload_url:
+            type: string
+            description: The URL where you will POST your media file.
+            example: https://pinterest-media-upload.s3-accelerate.amazonaws.com/
+          upload_parameters:
+            type: object
+            description: The list of parameter key/value pairs you will need to send with your POST request to upload your media file.
+            properties:
+              x-amz-date:
+                type: string
+              x-amz-signature:
+                type: string
+              x-amz-security-token:
+                type: string
+              x-amz-algorithm:
+                type: string
+              key:
+                type: string
+              policy:
+                type: string
+              x-amz-credential:
+                type: string
+              Content-Type:
+                type: string
+                example: multipart/form-data
+      example:
+        media_id: '12345'
+        media_type: video
+        upload_url: https://pinterest-media-upload.s3-accelerate.amazonaws.com/
+        upload_parameters:
+          x-amz-data: 20220127T185143Z
+          x-amz-signature: fcd6309a6aaee213348666a72abed8b44552a43acb6b340e8e1b288d21a5fe92
+          key: uploads/11/aa/22/3:video:203014033110991560:5212123920968240771
+          policy: eyJleHBpcmF0aW9uIjoiMj..==
+          x-amz-credential: ASIA6QZJ64OPIKV7FRVX/20220127/us-east-1/s3/aws4_request
+          x-amz-security-token: IQoJb3JpZ2luX2VjEJr...==
+          x-amz-algorithm: AWS4-HMAC-SHA256
+          Content-Type: multipart/form-data
+    MediaUploadType:
+      type: string
+      enum:
+      - video
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    Paginated:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+        bookmark:
+          type: string
+          nullable: true
+      required:
+      - items
+    MediaUploadRequest:
+      title: Media upload request
+      description: Media upload request
+      type: object
+      properties:
+        media_type:
+          allOf:
+          - $ref: '#/components/schemas/MediaUploadType'
+          type: string
+          writeOnly: true
+      required:
+      - media_type
+      example:
+        media_type: video
+  parameters:
+    query_page_size:
+      name: page_size
+      description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 250
+        default: 25
+    query_bookmark:
+      name: bookmark
+      description: Cursor used to fetch the next page of items
+      in: query
+      required: false
+      schema:
+        type: string
+    path_media_id:
+      name: media_id
+      description: Media identifier
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+  securitySchemes:
+    pinterest_oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.pinterest.com/oauth/
+          tokenUrl: https://api.pinterest.com/v5/oauth/token
+          scopes:
+            ads:read: See all of your advertising data, including ads, ad groups, campaigns etc.
+            ads:write: Create, update, or delete ads, ad groups, campaigns etc.
+            billing:read: See all of your billing data, billing profile, etc.
+            billing:write: Create, update, or delete billing data, billing profiles, etc.
+            biz_access:read: See business access data
+            biz_access:write: Create, update, or delete business access data
+            boards:read: See your public boards, including group boards you join
+            boards:read_secret: See your secret boards
+            boards:write: Create, update, or delete your public boards
+            boards:write_secret: Create, update, or delete your secret boards
+            catalogs:read: See all of your catalogs data
+            catalogs:write: Create, update, or delete your catalogs data
+            pins:read: See your public Pins
+            pins:read_secret: See your secret Pins
+            pins:write: Create, update, or delete your public Pins
+            pins:write_secret: Create, update, or delete your secret Pins
+            user_accounts:read: See your user accounts and followers
+            user_accounts:write: Update your user accounts and followers
+    conversion_token:
+      type: http
+      scheme: bearer
+      description: This security scheme only applies to the conversion events endpoint (POST /ad_accounts/{ad_account_id}/events). This endpoint requires a bearer token generated via Ads Manager (ads.pinterest.com).
+    basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Pin and Boards
+  tags:
+  - pins
+  - boards
+  - media
+  - aggregated_comments
+  - aggregated_pin_data
+  - user_account
+- name: Campaign Management
+  tags:
+  - ad_accounts
+  - campaigns
+  - ad_groups
+  - ads
+  - product_group_promotions
+  - bulk
+- name: Targeting
+  tags:
+  - audiences
+  - customer_lists
+  - keywords
+  - targeting_template
+  - audience_insights
+  - audience_sharing
+- name: Ad Formats
+  tags:
+  - lead_forms
+  - lead_ads
+  - leads_export
+- name: Billing
+  tags:
+  - billing
+  - order_lines
+  - terms_of_service
+- name: Business Access
+  tags:
+  - business_access_assets
+  - business_access_invite
+  - business_access_relationships
+- name: Conversions
+  tags:
+  - conversion_events
+  - conversion_tags
+- name: Others
+  tags:
+  - integrations
+  - oauth
+  - resources
+  - search
+  - terms
+- name: Shopping
+  tags:
+  - catalogs
+- name: Deprecated
+  tags:
+  - product_groups

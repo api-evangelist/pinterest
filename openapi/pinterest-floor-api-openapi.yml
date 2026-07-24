@@ -1,0 +1,840 @@
+openapi: 3.0.3
+info:
+  version: 5.13.0
+  title: Pinterest Floor API
+  description: This is the description of your API.
+  contact:
+    name: Pinterest, Inc.
+    url: https://developers.pinterest.com/
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  termsOfService: https://developers.pinterest.com/terms/
+servers:
+- url: https://api.pinterest.com/v5
+tags:
+- name: Floor
+paths:
+  /ad_accounts/{ad_account_id}/bid_floor:
+    post:
+      description: "List bid floors for your campaign configuration. Bid floors are given in microcurrency values based on the currency in the bid floor specification. <p/>\n<p>Microcurrency is used to track very small transactions, based on the currency set in the advertisers profile.</p>\n<p>A microcurrency unit is 10^(-6) of the standard unit of currency selected in the advertiser s profile.</p>\n<p><strong>Equivalency equations</strong>, using dollars as an example currency:</p>\n<ul>\n  <li>$1 = 1,000,000 microdollars</li>\n  <li>1 microdollar = $0.000001 </li>\n</ul>\n<p><strong>To convert between currency and microcurrency</strong>, using dollars as an example currency:</p>\n<ul>\n  <li>To convert dollars to microdollars, mutiply dollars by 1,000,000</li>\n  <li>To convert microdollars to dollars, divide microdollars by 1,000,000</li>\n </ul>\nFor more on bid floors see <a class=\"reference external\" href=\"https://help.pinterest.com/en/business/article/set-your-bid\"> Set your bid</a>."
+      operationId: ad_groups_bid_floor/get
+      security:
+      - pinterest_oauth2:
+        - ads:read
+      x-ratelimit-category: ads_read
+      x-sandbox: enabled
+      parameters:
+      - $ref: '#/components/parameters/path_ad_account_id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BidFloorRequest'
+        description: Parameters to get bid_floor info
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BidFloor'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Get bid floors
+      tags:
+      - Floor
+components:
+  schemas:
+    CreativeType:
+      type: string
+      description: Ad creative type enum. For update, only draft ads may update creative type. </p><strong>Note:</strong> SHOP_THE_PIN has been deprecated. Please use COLLECTION instead.
+      enum:
+      - REGULAR
+      - VIDEO
+      - SHOPPING
+      - CAROUSEL
+      - MAX_VIDEO
+      - SHOP_THE_PIN
+      - COLLECTION
+      - IDEA
+      - SHOWCASE
+      - QUIZ
+      example: REGULAR
+      title: CreativeType
+    OptimizationGoalMetadata:
+      type: object
+      properties:
+        conversion_tag_v3_goal_metadata:
+          properties:
+            attribution_windows:
+              properties:
+                click_window_days:
+                  type: integer
+                engagement_window_days:
+                  type: integer
+                view_window_days:
+                  type: integer
+              type: object
+            conversion_event:
+              type: string
+              enum:
+              - PAGE_VISIT
+              - SIGNUP
+              - CHECKOUT
+              - CUSTOM
+              - VIEW_CATEGORY
+              - SEARCH
+              - ADD_TO_CART
+              - WATCH_VIDEO
+              - LEAD
+              - APP_INSTALL
+            conversion_tag_id:
+              type: string
+              pattern: ^[0-9]+$
+            cpa_goal_value_in_micro_currency:
+              type: string
+              pattern: ^[0-9]+$
+            is_roas_optimized:
+              description: Ad group is ROAS optimized
+              nullable: true
+              title: is_roas_optimized
+              type: boolean
+            learning_mode_type:
+              description: Conversion learning model type
+              enum:
+              - NOT_ACTIVE
+              - ACTIVE
+              - null
+              example: ACTIVE
+              nullable: true
+              title: ConversionLearningModeType
+              type: string
+          type: object
+        frequency_goal_metadata:
+          properties:
+            frequency:
+              type: integer
+            timerange:
+              type: string
+              description: User entity counts time range
+              example: DAY
+              enum:
+              - THIRTY_DAY
+              - DAY
+              - SEVEN_DAY
+              - TWENTY_MINUTE
+              - TEN_MINUTE
+              - TWENTY_FOUR_HOUR
+          type: object
+        scrollup_goal_metadata:
+          properties:
+            scrollup_goal_value_in_micro_currency:
+              pattern: ^[0-9]+$
+              type: string
+              nullable: true
+          type: object
+    Currency:
+      type: string
+      description: Currency Codes from ISO 4217
+      example: USD
+      enum:
+      - UNK
+      - USD
+      - GBP
+      - CAD
+      - EUR
+      - AUD
+      - NZD
+      - SEK
+      - ILS
+      - CHF
+      - HKD
+      - JPY
+      - SGD
+      - KRW
+      - NOK
+      - DKK
+      - PLN
+      - RON
+      - HUF
+      - CZK
+      - BRL
+      - MXN
+      - ARS
+      - CLP
+      - COP
+    TargetingSpec:
+      description: Ad group targeting specification defining the ad group target audience. For example, `{"APPTYPE":["iphone"], "GENDER":["male"], "LOCALE":["en-US"], "LOCATION":["501"], "AGE_BUCKET":["25-34"]}`
+      type: object
+      properties:
+        AGE_BUCKET:
+          type: array
+          nullable: true
+          description: Age ranges. If the AGE_BUCKET field is missing, the default behavior in terms of ad delivery is that **All age buckets** will be targeted.
+          example:
+          - 35-44
+          - 50-54
+          items:
+            type: string
+            enum:
+            - 18-24
+            - 21+
+            - 25-34
+            - 35-44
+            - 45-49
+            - 50-54
+            - 55-64
+            - 65+
+        APPTYPE:
+          type: array
+          nullable: true
+          description: Allowed devices. If the APPTYPE field is missing, the default behavior in terms of ad delivery is that **All devices/apptypes** will be targeted.
+          example:
+          - ipad
+          - iphone
+          items:
+            type: string
+            enum:
+            - android_mobile
+            - android_tablet
+            - ipad
+            - iphone
+            - web
+            - web_mobile
+        AUDIENCE_EXCLUDE:
+          type: array
+          nullable: true
+          description: 'Excluded customer list IDs. Used to drive new customer acquisition goals. For example: ["2542620905475"]. Audience lists need to have at least 100 people with Pinterest accounts in them. If the AUDIENCE_EXCLUDE field is missing, the default behavior in terms of ad delivery is that **No users will be excluded**.'
+          items:
+            type: string
+            pattern: ^\d+$
+            minItems: 100
+        AUDIENCE_INCLUDE:
+          type: array
+          nullable: true
+          description: 'Targeted customer list IDs. For example: ["2542620905473"]. Audience lists need to have at least 100 people with Pinterest accounts in them Audience lists need to have at least 100 people with Pinterest accounts in them. If the AUDIENCE_INCLUDE field is missing, the default behavior in terms of ad delivery is that **All users will be included**.'
+          items:
+            type: string
+            pattern: ^\d+$
+            minItems: 100
+        GENDER:
+          type: array
+          nullable: true
+          description: 'Targeted genders. Values: ["unknown","male","female"]. If the GENDER field is missing, the default behavior in terms of ad delivery is that **All genders will be targeted**.'
+          items:
+            type: string
+            enum:
+            - unknown
+            - male
+            - female
+        GEO:
+          type: array
+          nullable: true
+          description: Location region codes, e.g., "BE-VOV" (East Flanders, Belgium) For complete list, <a href="https://help.pinterest.com/sub/helpcenter/partner/pinterest_location_targeting_codes.xlsx" target="_blank">click here</a> or postal codes, e.g., "US-94107". Use either region codes or postal codes but not both. At least one of LOCATION or GEO must be specified. If the GEO field is missing, then only LOCATION values will be targeted (see LOCATION field below).
+          items:
+            type: string
+        INTEREST:
+          type: array
+          description: Array of interest object IDs. If the INTEREST field is missing, the default behavior in terms of ad delivery is that **All interests will be targeted**.
+          items:
+            type: string
+        LOCALE:
+          type: array
+          nullable: true
+          description: 24 ISO 639-1 two letter language codes. If the LOCALE field is missing, the default behavior in terms of ad delivery is that **All languages will be targeted, only english non-sublanguage will be targeted**.
+          items:
+            type: string
+        LOCATION:
+          type: array
+          nullable: true
+          description: 22 ISO Alpha 2 two letter country codes or US Nielsen DMA (Designated Market Area) codes (location region codes) (e.g., ["US", "807"]). For complete list, click here. Location-Country and Location-Metro codes apply. At least one of LOCATION or GEO must be specified. If the LOCATION field is missing, then only GEO values will be targeted (see GEO field above).
+          items:
+            type: string
+        SHOPPING_RETARGETING:
+          type: array
+          nullable: true
+          description: "Array of object: lookback_window\t[Integer]: Number of days ago to start lookback timeframe for dynamic retargeting tag_types [Array of integer]: Event types to target for dynamic retargeting exclusion_window [Integer]: Number of days ago to stop lookback timeframe for dynamic retargeting"
+          items:
+            type: object
+            example:
+              lookback_window: 30
+              exclusion_window: 14
+              tag_types:
+              - 0
+              - 6
+            properties:
+              lookback_window:
+                description: Number of days ago to start lookback timeframe for dynamic retargeting
+                example: 30
+                title: lookback_window
+                type: integer
+              tag_types:
+                description: Event types to target for dynamic retargeting
+                example:
+                - 0
+                - 6
+                items:
+                  type: integer
+                title: tag_types
+                type: array
+              exclusion_window:
+                description: Number of days ago to stop lookback timeframe for dynamic retargeting
+                example: 14
+                title: exclusion_window
+                type: integer
+            title: TargetingSpec_SHOPPING_RETARGETING
+        TARGETING_STRATEGY:
+          type: array
+          nullable: true
+          description: ''
+          items:
+            enum:
+            - CHOOSE_YOUR_OWN
+            - FIND_NEW_CUSTOMERS
+            - RECONNECT_WITH_USERS
+    BidFloor:
+      example:
+        bid_floors:
+        - 100000
+        - 200000
+        type: bidfloor
+      properties:
+        bid_floors:
+          description: A list of bid floors in micro currency. For example, [100000, 200000]
+          example:
+          - 100000
+          - 200000
+          items:
+            type: integer
+          title: bid_floors
+          type: array
+        type:
+          default: bidfloor
+          description: Always the string 'bidfloor'
+          example: bidfloor
+          title: type
+          type: string
+      title: BidFloor
+      type: object
+    ActionType:
+      type: string
+      description: Ad group billable event type. For update, only draft ad groups may update billable event.
+      example: CLICKTHROUGH
+      enum:
+      - CLICKTHROUGH
+      - IMPRESSION
+      - VIDEO_V_50_MRC
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    BidFloorRequest:
+      example:
+        targeting_spec:
+          GEO:
+          - BE-VOV
+          LOCATION:
+          - US
+          LOCALE:
+          - cs
+          AGE_BUCKET:
+          - 25-34
+          AUDIENCE_INCLUDE:
+          - '2542620905473'
+          SHOPPING_RETARGETING:
+          - lookback_window: 30
+            exclusion_window: 14
+            tag_types:
+            - 0
+            - 6
+          - lookback_window: 30
+            exclusion_window: 14
+            tag_types:
+            - 0
+            - 6
+          GENDER:
+          - male
+          TARGETING_STRATEGY:
+          - CHOOSE_YOUR_OWN
+          APPTYPE:
+          - iphone
+          AUDIENCE_EXCLUDE:
+          - '2542620905475'
+          INTEREST:
+          - '925056443165'
+        bid_floor_specs:
+        - billable_event: CLICKTHROUGH
+          creative_type: REGULAR
+          currency: USD
+          countries:
+          - US
+          - US
+          optimization_goal_metadata:
+            frequency_goal_metadata:
+              timerange: DAY
+              frequency: 5
+            conversion_tag_v3_goal_metadata:
+              attribution_windows:
+                view_window_days: 1
+                click_window_days: 0
+                engagement_window_days: 6
+              conversion_tag_id: '123456789'
+              learning_mode_type: ACTIVE
+              conversion_event: PAGE_VISIT
+              is_roas_optimized: true
+              cpa_goal_value_in_micro_currency: '123456789'
+            scrollup_goal_metadata:
+              scrollup_goal_value_in_micro_currency: '123456789'
+        - billable_event: CLICKTHROUGH
+          creative_type: REGULAR
+          currency: USD
+          countries:
+          - US
+          - US
+          optimization_goal_metadata:
+            frequency_goal_metadata:
+              timerange: DAY
+              frequency: 5
+            conversion_tag_v3_goal_metadata:
+              attribution_windows:
+                view_window_days: 1
+                click_window_days: 0
+                engagement_window_days: 6
+              conversion_tag_id: '123456789'
+              learning_mode_type: ACTIVE
+              conversion_event: PAGE_VISIT
+              is_roas_optimized: true
+              cpa_goal_value_in_micro_currency: '123456789'
+            scrollup_goal_metadata:
+              scrollup_goal_value_in_micro_currency: '123456789'
+      properties:
+        bid_floor_specs:
+          items:
+            example:
+              billable_event: CLICKTHROUGH
+              creative_type: REGULAR
+              currency: USD
+              countries:
+              - US
+              - US
+              optimization_goal_metadata:
+                frequency_goal_metadata:
+                  timerange: DAY
+                  frequency: 5
+                conversion_tag_v3_goal_metadata:
+                  attribution_windows:
+                    view_window_days: 1
+                    click_window_days: 0
+                    engagement_window_days: 6
+                  conversion_tag_id: '123456789'
+                  learning_mode_type: ACTIVE
+                  conversion_event: PAGE_VISIT
+                  is_roas_optimized: true
+                  cpa_goal_value_in_micro_currency: '123456789'
+                scrollup_goal_metadata:
+                  scrollup_goal_value_in_micro_currency: '123456789'
+            properties:
+              countries:
+                items:
+                  $ref: '#/components/schemas/Country'
+                title: countries
+                type: array
+              currency:
+                $ref: '#/components/schemas/Currency'
+              objective_type:
+                $ref: '#/components/schemas/ObjectiveType'
+              billable_event:
+                $ref: '#/components/schemas/ActionType'
+              optimization_goal_metadata:
+                $ref: '#/components/schemas/OptimizationGoalMetadata'
+              creative_type:
+                $ref: '#/components/schemas/CreativeType'
+            required:
+            - billable_event
+            - currency
+            title: BidFloorSpec
+            type: object
+          title: bid_floor_specs
+          type: array
+        targeting_spec:
+          $ref: '#/components/schemas/TargetingSpec'
+      required:
+      - bid_floor_specs
+      title: BidFloorBody
+      type: object
+    ObjectiveType:
+      type: string
+      description: Campaign objective type. If set as one of ["AWARENESS", "CONSIDERATION", "WEB_CONVERSION", "CATALOG_SALES"] the campaign is considered as a Campaign Budget Optimization (CBO) campaign, meaning budget needs to be set at the campaign level rather than at the ad group level. ["WEB_SESSIONS"] is DEPRECATED. For update, only draft campaigns may update objective type.
+      enum:
+      - AWARENESS
+      - CONSIDERATION
+      - VIDEO_VIEW
+      - WEB_CONVERSION
+      - CATALOG_SALES
+      - WEB_SESSIONS
+    Country:
+      type: string
+      description: Country ID from ISO 3166-1 alpha-2.
+      example: US
+      enum:
+      - AD
+      - AE
+      - AF
+      - AG
+      - AI
+      - AL
+      - AM
+      - AO
+      - AQ
+      - AR
+      - AS
+      - AT
+      - AU
+      - AW
+      - AX
+      - AZ
+      - BA
+      - BB
+      - BD
+      - BE
+      - BF
+      - BG
+      - BH
+      - BI
+      - BJ
+      - BL
+      - BM
+      - BN
+      - BO
+      - BQ
+      - BR
+      - BS
+      - BT
+      - BV
+      - BW
+      - BY
+      - BZ
+      - CA
+      - CC
+      - CD
+      - CF
+      - CG
+      - CH
+      - CI
+      - CK
+      - CL
+      - CM
+      - CN
+      - CO
+      - CR
+      - CU
+      - CV
+      - CW
+      - CX
+      - CY
+      - CZ
+      - DE
+      - DJ
+      - DK
+      - DM
+      - DO
+      - DZ
+      - EC
+      - EE
+      - EG
+      - EH
+      - ER
+      - ES
+      - ET
+      - FI
+      - FJ
+      - FK
+      - FM
+      - FO
+      - FR
+      - GA
+      - GB
+      - GD
+      - GE
+      - GF
+      - GG
+      - GH
+      - GI
+      - GL
+      - GM
+      - GN
+      - GP
+      - GQ
+      - GR
+      - GS
+      - GT
+      - GU
+      - GW
+      - GY
+      - HK
+      - HM
+      - HN
+      - HR
+      - HT
+      - HU
+      - ID
+      - IE
+      - IL
+      - IM
+      - IN
+      - IO
+      - IQ
+      - IR
+      - IS
+      - IT
+      - JE
+      - JM
+      - JO
+      - JP
+      - KE
+      - KG
+      - KH
+      - KI
+      - KM
+      - KN
+      - KR
+      - KW
+      - KY
+      - KZ
+      - LA
+      - LB
+      - LC
+      - LI
+      - LK
+      - LR
+      - LS
+      - LT
+      - LU
+      - LV
+      - LY
+      - MA
+      - MC
+      - MD
+      - ME
+      - MF
+      - MG
+      - MH
+      - MK
+      - ML
+      - MM
+      - MN
+      - MO
+      - MP
+      - MQ
+      - MR
+      - MS
+      - MT
+      - MU
+      - MV
+      - MW
+      - MX
+      - MY
+      - MZ
+      - NA
+      - NC
+      - NE
+      - NF
+      - NG
+      - NI
+      - NL
+      - 'NO'
+      - NP
+      - NR
+      - NU
+      - NZ
+      - OM
+      - PA
+      - PE
+      - PF
+      - PG
+      - PH
+      - PK
+      - PL
+      - PM
+      - PN
+      - PR
+      - PS
+      - PT
+      - PW
+      - PY
+      - QA
+      - RE
+      - RO
+      - RS
+      - RU
+      - RW
+      - SA
+      - SB
+      - SC
+      - SD
+      - SE
+      - SG
+      - SH
+      - SI
+      - SJ
+      - SK
+      - SL
+      - SM
+      - SN
+      - SO
+      - SR
+      - SS
+      - ST
+      - SV
+      - SX
+      - SY
+      - SZ
+      - TC
+      - TD
+      - TF
+      - TG
+      - TH
+      - TJ
+      - TK
+      - TL
+      - TM
+      - TN
+      - TO
+      - TR
+      - TT
+      - TV
+      - TW
+      - TZ
+      - UA
+      - UG
+      - UM
+      - US
+      - UY
+      - UZ
+      - VA
+      - VC
+      - VE
+      - VG
+      - VI
+      - VN
+      - VU
+      - WF
+      - WS
+      - YE
+      - YT
+      - ZA
+      - ZM
+      - ZW
+  parameters:
+    path_ad_account_id:
+      name: ad_account_id
+      description: Unique identifier of an ad account.
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
+  securitySchemes:
+    pinterest_oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.pinterest.com/oauth/
+          tokenUrl: https://api.pinterest.com/v5/oauth/token
+          scopes:
+            ads:read: See all of your advertising data, including ads, ad groups, campaigns etc.
+            ads:write: Create, update, or delete ads, ad groups, campaigns etc.
+            billing:read: See all of your billing data, billing profile, etc.
+            billing:write: Create, update, or delete billing data, billing profiles, etc.
+            biz_access:read: See business access data
+            biz_access:write: Create, update, or delete business access data
+            boards:read: See your public boards, including group boards you join
+            boards:read_secret: See your secret boards
+            boards:write: Create, update, or delete your public boards
+            boards:write_secret: Create, update, or delete your secret boards
+            catalogs:read: See all of your catalogs data
+            catalogs:write: Create, update, or delete your catalogs data
+            pins:read: See your public Pins
+            pins:read_secret: See your secret Pins
+            pins:write: Create, update, or delete your public Pins
+            pins:write_secret: Create, update, or delete your secret Pins
+            user_accounts:read: See your user accounts and followers
+            user_accounts:write: Update your user accounts and followers
+    conversion_token:
+      type: http
+      scheme: bearer
+      description: This security scheme only applies to the conversion events endpoint (POST /ad_accounts/{ad_account_id}/events). This endpoint requires a bearer token generated via Ads Manager (ads.pinterest.com).
+    basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Pin and Boards
+  tags:
+  - pins
+  - boards
+  - media
+  - aggregated_comments
+  - aggregated_pin_data
+  - user_account
+- name: Campaign Management
+  tags:
+  - ad_accounts
+  - campaigns
+  - ad_groups
+  - ads
+  - product_group_promotions
+  - bulk
+- name: Targeting
+  tags:
+  - audiences
+  - customer_lists
+  - keywords
+  - targeting_template
+  - audience_insights
+  - audience_sharing
+- name: Ad Formats
+  tags:
+  - lead_forms
+  - lead_ads
+  - leads_export
+- name: Billing
+  tags:
+  - billing
+  - order_lines
+  - terms_of_service
+- name: Business Access
+  tags:
+  - business_access_assets
+  - business_access_invite
+  - business_access_relationships
+- name: Conversions
+  tags:
+  - conversion_events
+  - conversion_tags
+- name: Others
+  tags:
+  - integrations
+  - oauth
+  - resources
+  - search
+  - terms
+- name: Shopping
+  tags:
+  - catalogs
+- name: Deprecated
+  tags:
+  - product_groups

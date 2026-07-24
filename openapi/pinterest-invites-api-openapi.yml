@@ -1,0 +1,811 @@
+openapi: 3.0.3
+info:
+  version: 5.13.0
+  title: Pinterest Invites API
+  description: This is the description of your API.
+  contact:
+    name: Pinterest, Inc.
+    url: https://developers.pinterest.com/
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  termsOfService: https://developers.pinterest.com/terms/
+servers:
+- url: https://api.pinterest.com/v5
+tags:
+- name: Invites
+paths:
+  /businesses/invites:
+    patch:
+      summary: Accept or decline an invite/request
+      description: Accept or decline invites or requests.
+      operationId: respond_business_access_invites
+      security:
+      - pinterest_oauth2:
+        - biz_access:read
+        - biz_access:write
+      x-ratelimit-category: ads_write
+      x-sandbox: enabled
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthRespondInvitesBody'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RespondToInvitesResponseArray'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      tags:
+      - Invites
+  /businesses/{business_id}/invites/assets/access:
+    post:
+      summary: Update invite/request with an asset permission
+      description: "Assign asset permissions information to an existing invite/request. Can be used to:\n- Request access to a partner's asset. Note: This is only for when no existing partnership exists. If an existing\n  partnership exists, use \"Create a request to access an existing partner's assets\" to request access to your\n  partner's assets.\n    - invite_type=\"PARTNER_REQUEST\"\n- Invite a partner to access your business assets. Note: This is only for when there is no existing partnership.\n  If there is an existing partnership, use \"Assign/Update partner asset permissions\" to assign a partner access to\n  new assets.\n    - invite_type=\"PARTNER_INVITE\"\n- Invite a member to access your business assets. Note: This is only for when there is no existing membership.\n  If there is an existing membership, use \"Assign/Update member asset permissions\" to assign a member access to new\n  assets.\n    - invite_type=\"MEMBER_INVITE\"\n\nTo learn more about permission levels, visit https://help.pinterest.com/en/business/article/business-manager-overview."
+      operationId: create_asset_invites
+      security:
+      - pinterest_oauth2:
+        - biz_access:read
+        - biz_access:write
+      x-ratelimit-category: ads_write
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_business_user'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAssetInvitesRequest'
+        description: 'A list of invites/requests together with the asset permissions to be assigned to the invite/request.
+
+          '
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateInvitesResultsResponseArray'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      tags:
+      - Invites
+  /businesses/{business_id}/invites:
+    get:
+      summary: Get invites/requests
+      description: Get the membership/partnership invites and/or requests for the authorized user.
+      operationId: get/invites
+      security:
+      - pinterest_oauth2:
+        - biz_access:read
+      x-ratelimit-category: ads_read
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_business_user'
+      - $ref: '#/components/parameters/query_is_member'
+      - $ref: '#/components/parameters/query_invite_status'
+      - $ref: '#/components/parameters/query_invite_type'
+      - $ref: '#/components/parameters/query_bookmark'
+      - $ref: '#/components/parameters/query_page_size'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Paginated'
+                - type: object
+                  properties:
+                    items:
+                      type: array
+                      description: List of invite and request data.
+                      items:
+                        $ref: '#/components/schemas/InviteResponse'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      tags:
+      - Invites
+    post:
+      summary: Create invites or requests
+      description: "Create batch invites or requests. Can create batch invites or requests as described below.\n- Invite members to join the business. This would required specifying the following:\n    - invite_type=\"MEMBER_INVITE\"\n    - business_role=\"EMPLOYEE\" OR business_role=\"BIZ_ADMIN\" (To learn more about business roles, visit\n    https://help.pinterest.com/en/business/article/profile-permissions-in-business-access.)\n    - members\n- Invite partners to access your business assets. This would require specifying the following:\n    - invite_type=\"PARTNER_INVITE\"\n    - business_role=\"PARTNER\"\n    - partners\n- Request to be a partner so you can access their assets. This would require specifying the following:\n    - invite_type=\"PARTNER_REQUEST\"\n    - business_role=\"PARTNER\"\n    - partners"
+      operationId: create_membership_or_partnership_invites
+      security:
+      - pinterest_oauth2:
+        - biz_access:write
+      x-ratelimit-category: ads_write
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_business_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMembershipOrPartnershipInvitesBody'
+        description: 'An object with the properties: invite_type, partners, members, business_role'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateInvitesResultsResponseArray'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      tags:
+      - Invites
+    delete:
+      summary: Cancel invites/requests
+      description: Cancel membership/partnership invites and/or requests.
+      operationId: cancel_invites_or_requests
+      security:
+      - pinterest_oauth2:
+        - biz_access:write
+      x-ratelimit-category: ads_write
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_business_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelInvitesBody'
+        description: A list with invite ids
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteInvitesResultsResponseArray'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      tags:
+      - Invites
+components:
+  parameters:
+    query_invite_type:
+      name: invite_type
+      in: query
+      description: Invite type to filter invites by. Only invites of the specified type will be returned.
+      required: false
+      schema:
+        $ref: '#/components/schemas/InviteType'
+    query_page_size:
+      name: page_size
+      description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 250
+        default: 25
+    query_bookmark:
+      name: bookmark
+      description: Cursor used to fetch the next page of items
+      in: query
+      required: false
+      schema:
+        type: string
+    query_invite_status:
+      name: invite_status
+      in: query
+      description: A list of invite statuses to filter invites by. Only invites whose status is in the provided statuses will be returned.
+      required: false
+      schema:
+        type: array
+        items:
+          description: Invite statuses used for filters
+          enum:
+          - PENDING
+          - EXPIRED
+          example: PENDING
+          type: string
+        minItems: 1
+        maxLength: 2
+    path_business_user:
+      name: business_id
+      in: path
+      description: Unique identifier of the requesting business.
+      example: '729090764583391194'
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+        minLength: 1
+        maxLength: 20
+    path_business_id:
+      name: business_id
+      in: path
+      description: Business id
+      example: '729090764583391194'
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+        minLength: 1
+        maxLength: 20
+    query_is_member:
+      name: is_member
+      description: A boolean field to indicate whether the invite is to create a partnership or a membership.
+      in: query
+      required: false
+      schema:
+        type: boolean
+        default: true
+  schemas:
+    CreateMembershipOrPartnershipInvitesBody:
+      description: Body to be used on path to send Members or Partners Invite or Request
+      required:
+      - business_role
+      - invite_type
+      properties:
+        business_role:
+          type: string
+          description: 'The business access level to grant member/partner. Note, values are case-sensitive.
+
+            - EMPLOYEE: Can only view and access assets you assign them to. They cannot see details about other employees, partners, or other assets.
+
+            - BIZ_ADMIN: Have full control of roles and can add employees and partners as well as grant asset access.
+
+            - PARTNER: Can only view and access assets you assign them to/or they assign to you.'
+          example: BIZ_ADMIN
+          enum:
+          - EMPLOYEE
+          - BIZ_ADMIN
+          - PARTNER
+        invite_type:
+          $ref: '#/components/schemas/InviteType'
+        members:
+          description: A list of usernames, emails, or a mix of them. Should be used if invite_type is MEMBER_INVITE
+          example:
+          - business0101
+          - user@business.com
+          items:
+            type: string
+          type: array
+          minItems: 1
+          maxItems: 50
+        partners:
+          description: A list of partner_id. Should be used if invite_type is PARTNER_INVITE or PARTNER_REQUEST
+          example:
+          - '809944451643622187'
+          - '766456567741825556'
+          items:
+            type: string
+            maxLength: 25
+            pattern: ^\d+$
+          minItems: 1
+          maxItems: 50
+          type: array
+      type: object
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    BaseInviteDataResponse:
+      type: object
+      nullable: true
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the invite/request.
+          example: '383791336903426391'
+          pattern: ^\d+$
+        invite_data:
+          type: object
+          description: Metadata for the invite/request.
+          properties:
+            invite_expiration:
+              type: integer
+              description: The date and time when the invite/request will expire. Returned in milliseconds.
+              example: 1709748104775
+            invite_status:
+              type: string
+              description: The current status of the invite. The invite can be in one of the following states PENDING, ACCEPTED, DECLINED, CANCELLED, EXPIRED.
+              example: PENDING
+            invite_type:
+              type: string
+              description: The type of invite. <br>'MEMBER_INVITE' is to invite a member to access your business assets. <br>'PARTNER_INVITE' is to invite a partner to access your business assets. <br>'PARTNER_REQUEST' is to request access a partner's business assets.
+              example: MEMBER_INVITE
+            last_updated_time:
+              type: integer
+              description: The date and time the invite/request was last updated. Returned in milliseconds.
+              example: 1646767577816
+            sent_at:
+              type: integer
+              description: The date and time the invite/request was sent/created. Returned in milliseconds.
+              example: 1646767577816
+        is_received_invite:
+          type: boolean
+          description: Indicates whether the invite/request was received.
+        user:
+          type: object
+          description: Metadata for the member/partner that was sent the invite/request.
+          allOf:
+          - $ref: '#/components/schemas/BusinessAccessUserSummary'
+    InviteAssetsSummary:
+      type: object
+      description: Ad accounts and profiles the member/partner will be granted access to with this invite/request.
+      nullable: true
+      properties:
+        ad_accounts:
+          type: array
+          description: List of ad account IDs and respective permission levels that will be assigned.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Unique identifier of a business ad account.
+                example: '549755885175'
+                pattern: ^\d+$
+              permissions:
+                $ref: '#/components/schemas/PermissionsResponse'
+        profiles:
+          type: array
+          description: List of profile IDs and respective permission levels that will be assigned.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Unique identifier of a business profile.
+                example: '383791336903426391'
+                pattern: ^\d+$
+              permissions:
+                $ref: '#/components/schemas/PermissionsResponse'
+    CancelInvitesBody:
+      description: Request body used to cancel invites
+      type: object
+      required:
+      - invite_ids
+      properties:
+        invite_ids:
+          description: List of invite/request ids to be cancelled
+          example:
+          - '1234567890123456789'
+          - '1122334455667788991'
+          items:
+            type: string
+            maxLength: 25
+            pattern: ^\d+$
+          type: array
+          minItems: 1
+          maxItems: 50
+    InviteResponse:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/BaseInviteDataResponse'
+      properties:
+        assets_summary:
+          $ref: '#/components/schemas/InviteAssetsSummary'
+        business_roles:
+          description: The access level a user would be granted on the business if the invite/request is accepted. This can be EMPLOYEE, BIZ_ADMIN, or PARTNER.
+          type: array
+          example:
+          - BIZ_ADMIN
+          items:
+            $ref: '#/components/schemas/BusinessRoleResponse'
+        created_by_business:
+          type: object
+          description: Metadata for the business that created the invite/request.
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/BusinessAccessUserSummary'
+        created_by_user:
+          type: object
+          description: Metadata for the user that created the invite/request.
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/BusinessAccessUserSummary'
+        created_time:
+          type: integer
+          description: The time the invite/request was created. Returned in milliseconds.
+          example: 1646767577816
+    BusinessAccessUserSummary:
+      type: object
+      description: Metadata of the member/partner that has access to the asset.
+      properties:
+        email:
+          description: Email of the business member/partner.
+          example: business0101@business.com
+          type: string
+          nullable: true
+        id:
+          description: Unique identifier of the business member/partner.
+          example: '383791336903426391'
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 20
+        username:
+          description: Username of the business member/partner.
+          example: business0101
+          nullable: true
+          type: string
+    Paginated:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+        bookmark:
+          type: string
+          nullable: true
+      required:
+      - items
+    InviteBusinessRoleBinding:
+      type: object
+      description: An invite object if the invite/request was successfully updated. Will only be provided if the an invite/request is successfully updated.
+      nullable: true
+      allOf:
+      - $ref: '#/components/schemas/BaseInviteDataResponse'
+      properties:
+        created_by_business_id:
+          type: string
+          description: Unique identifier for the business that created the invite/request.
+          example: '1234567890123'
+        created_by_user_id:
+          type: string
+          description: Unique identifier for the user that created the invite/request.
+          example: '1234567890123'
+        user:
+          type: object
+          description: Metadata for the user that updated the invite/request.
+          allOf:
+          - $ref: '#/components/schemas/BusinessAccessUserSummary'
+    BusinessRoleResponse:
+      type: string
+      description: 'The access level a member/partner has to the business. Values are case-sensitive.
+
+        <br> - EMPLOYEE: Can only view and access assets you assign to them.
+
+        They cannot see details about other employees, partners, or other assets.
+
+        <br> - BIZ_ADMIN: Have full control of roles and can add employees or external partners as well as grant asset access.
+
+        <br> - PARTNER: Can only view and access assets you assign them to/or they assign to you.'
+      example: BIZ_ADMIN
+    CreateAssetInvitesRequest:
+      description: Request body for updating asset roles for existing invites.
+      type: object
+      required:
+      - invites
+      properties:
+        invites:
+          type: array
+          minItems: 1
+          maxItems: 50
+          items:
+            $ref: '#/components/schemas/CreateAssetInvitesRequestItem'
+    PermissionsResponse:
+      type: array
+      description: Permission levels member or partner has on an asset.
+      example:
+      - FINANCE_MANAGER
+      - CATALOGS_MANAGER
+      - AUDIENCE_MANAGER
+      items:
+        type: string
+    AssetIdToPermissions:
+      description: 'An object mapping asset ids to lists of business permissions. This can be used to setting/requesting permissions on various assets. If accepting an invite or request, this object would be used to grant asset permissions to the member or partner.
+
+        '
+      type: object
+      minProperties: 1
+      additionalProperties:
+        type: array
+        minItems: 1
+        maxItems: 50
+        items:
+          $ref: '#/components/schemas/Permissions'
+      example:
+        '549760723247':
+        - ANALYST
+        '549760723248':
+        - ANALYST
+        - ADMIN
+        '809944451643622187':
+        - PROFILE_PUBLISHER
+    CreateInvitesResultsResponseArray:
+      type: object
+      properties:
+        items:
+          type: array
+          description: List of invite/request creation status. If there is an error, an exception object will be returned. If the action was successfully completed, an invite object will be returned.
+          items:
+            type: object
+            properties:
+              exception:
+                $ref: '#/components/schemas/InviteExceptionResponse'
+              invite:
+                type: object
+                description: An invite object if the invite/request was successfully created. Will only be provided if the an invite/request is successfully created.
+                nullable: true
+                properties:
+                  id:
+                    type: string
+                    description: Unique identifier of the invite/request.
+                    example: '383791336903426391'
+                    pattern: ^\d+$
+                  user:
+                    type: object
+                    description: Metadata for the member/partner that was sent the invite/request.
+                    allOf:
+                    - $ref: '#/components/schemas/BusinessAccessUserSummary'
+    DeleteInvitesResultsResponseArray:
+      description: Response to delete invites sent to Members or Partners, if there is an exception, return the exception mapped with the invite id
+      properties:
+        items:
+          description: List of invite/Request deletion status. If there is an error, an exception object will be returned. If the invite/request was successfully cancelled, an invite object will be returned for the invite that was cancelled.
+          items:
+            properties:
+              exception:
+                description: An exception object if there is an error performing the cancellation. It will only be provided if there is an error.
+                nullable: true
+                properties:
+                  invite_id:
+                    description: Unique identifier of an invite.
+                    pattern: ^\d+$
+                    type: string
+                  message:
+                    type: string
+                    description: Error message associated with the error in performing the action on the invite/request.
+                    example: Business Invite request cannot be performed on current invitation status.
+                type: object
+              invite:
+                $ref: '#/components/schemas/BaseInviteDataResponse'
+            type: object
+          type: array
+      type: object
+    RespondToInvitesResponseArray:
+      type: object
+      properties:
+        items:
+          type: array
+          description: List of invite/request accept/decline status. If there is an error, an exception object will be returned. If the invite/request was successfully accepted/declined, an invite object will be returned.
+          items:
+            type: object
+            properties:
+              exception:
+                $ref: '#/components/schemas/InviteExceptionResponse'
+              invite:
+                description: An invite object for the invite/request that was successfully accepted/declined. Will only be provided if the an invite/request is successfully created.
+                $ref: '#/components/schemas/BaseInviteDataResponse'
+    Permissions:
+      type: string
+      enum:
+      - ADMIN
+      - ANALYST
+      - FINANCE_MANAGER
+      - AUDIENCE_MANAGER
+      - CAMPAIGN_MANAGER
+      - CATALOGS_MANAGER
+      - PROFILE_PUBLISHER
+    AuthRespondInvitesBody:
+      description: An object with a list of all the invites the user would like to respond to and the action to take.
+      type: object
+      required:
+      - invites
+      properties:
+        invites:
+          type: array
+          minItems: 1
+          maxItems: 100
+          items:
+            properties:
+              action:
+                type: object
+                properties:
+                  accept_invite:
+                    description: Whether the invite/request is accepted.
+                    type: boolean
+                  asset_id_to_permissions:
+                    $ref: '#/components/schemas/AssetIdToPermissions'
+                required:
+                - accept_invite
+              invite_id:
+                description: Unique identifier of an invite.
+                pattern: ^\d+$
+                type: string
+                minLength: 1
+                maxLength: 25
+            required:
+            - invite_id
+            - action
+            type: object
+    UpdateInvitesResultsResponseArray:
+      type: object
+      properties:
+        items:
+          type: array
+          description: List of invite/Request action status. If there is an error, an exception object will be returned. If the action was successfully completed, an invite object will be returned.
+          items:
+            type: object
+            properties:
+              exception:
+                $ref: '#/components/schemas/InviteExceptionResponse'
+              invite:
+                $ref: '#/components/schemas/InviteBusinessRoleBinding'
+    InviteType:
+      description: The type of invite. <br>'MEMBER_INVITE' is to invite a member to access your business assets. <br>'PARTNER INVITE' is to invite a partner to access your business assets. <br>'PARTNER_REQUEST' is to request access a partner's business assets.
+      example: MEMBER_INVITE
+      enum:
+      - MEMBER_INVITE
+      - PARTNER_INVITE
+      - PARTNER_REQUEST
+      type: string
+    CreateAssetInvitesRequestItem:
+      description: Object declaring an asset role update to an invite.
+      type: object
+      required:
+      - invite_id
+      - invite_type
+      - asset_id_to_permissions
+      properties:
+        invite_id:
+          description: Unique identifier of an invite.
+          example: '1234567890123'
+          type: string
+          pattern: ^\d+$
+        invite_type:
+          $ref: '#/components/schemas/InviteType'
+        asset_id_to_permissions:
+          $ref: '#/components/schemas/AssetIdToPermissions'
+    InviteExceptionResponse:
+      type: object
+      description: An exception object if there is an error performing the action. Will only be provided if there is an error.
+      nullable: true
+      properties:
+        invite_or_request_id:
+          type: string
+          description: Unique identifier of the invite/request.
+          example: '383791336903426391'
+          pattern: ^\d+$
+          nullable: true
+        code:
+          type: integer
+          description: Error code associated with the error in performing the action on the invite/request.
+          example: 403
+        message:
+          type: string
+          description: Error message associated with the error in performing the action on the invite/request.
+          example: You hit the maximum number of pending invites allowed.
+        users_or_partner_ids:
+          type: array
+          description: A list of users' usernames or emails OR a list of partner ids that caused the error.
+          nullable: true
+          example:
+          - businessMember0101
+          - business+member@business.com
+          items:
+            type: string
+            description: A user's username or email OR a partner id that caused the error.
+  securitySchemes:
+    pinterest_oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.pinterest.com/oauth/
+          tokenUrl: https://api.pinterest.com/v5/oauth/token
+          scopes:
+            ads:read: See all of your advertising data, including ads, ad groups, campaigns etc.
+            ads:write: Create, update, or delete ads, ad groups, campaigns etc.
+            billing:read: See all of your billing data, billing profile, etc.
+            billing:write: Create, update, or delete billing data, billing profiles, etc.
+            biz_access:read: See business access data
+            biz_access:write: Create, update, or delete business access data
+            boards:read: See your public boards, including group boards you join
+            boards:read_secret: See your secret boards
+            boards:write: Create, update, or delete your public boards
+            boards:write_secret: Create, update, or delete your secret boards
+            catalogs:read: See all of your catalogs data
+            catalogs:write: Create, update, or delete your catalogs data
+            pins:read: See your public Pins
+            pins:read_secret: See your secret Pins
+            pins:write: Create, update, or delete your public Pins
+            pins:write_secret: Create, update, or delete your secret Pins
+            user_accounts:read: See your user accounts and followers
+            user_accounts:write: Update your user accounts and followers
+    conversion_token:
+      type: http
+      scheme: bearer
+      description: This security scheme only applies to the conversion events endpoint (POST /ad_accounts/{ad_account_id}/events). This endpoint requires a bearer token generated via Ads Manager (ads.pinterest.com).
+    basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Pin and Boards
+  tags:
+  - pins
+  - boards
+  - media
+  - aggregated_comments
+  - aggregated_pin_data
+  - user_account
+- name: Campaign Management
+  tags:
+  - ad_accounts
+  - campaigns
+  - ad_groups
+  - ads
+  - product_group_promotions
+  - bulk
+- name: Targeting
+  tags:
+  - audiences
+  - customer_lists
+  - keywords
+  - targeting_template
+  - audience_insights
+  - audience_sharing
+- name: Ad Formats
+  tags:
+  - lead_forms
+  - lead_ads
+  - leads_export
+- name: Billing
+  tags:
+  - billing
+  - order_lines
+  - terms_of_service
+- name: Business Access
+  tags:
+  - business_access_assets
+  - business_access_invite
+  - business_access_relationships
+- name: Conversions
+  tags:
+  - conversion_events
+  - conversion_tags
+- name: Others
+  tags:
+  - integrations
+  - oauth
+  - resources
+  - search
+  - terms
+- name: Shopping
+  tags:
+  - catalogs
+- name: Deprecated
+  tags:
+  - product_groups

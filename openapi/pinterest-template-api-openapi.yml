@@ -1,0 +1,237 @@
+openapi: 3.0.3
+info:
+  version: 5.13.0
+  title: Pinterest Template API
+  description: This is the description of your API.
+  contact:
+    name: Pinterest, Inc.
+    url: https://developers.pinterest.com/
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  termsOfService: https://developers.pinterest.com/terms/
+servers:
+- url: https://api.pinterest.com/v5
+tags:
+- name: Template
+paths:
+  /ad_accounts/{ad_account_id}/templates/{template_id}/reports:
+    post:
+      summary: Create async request for an analytics report using a template
+      description: 'This takes a template ID and an optional custom timeframe and constructs an asynchronous report based on the
+
+        template. It returns a token that you can use to download the report when it is ready.'
+      operationId: analytics/create_template_report
+      security:
+      - pinterest_oauth2:
+        - ads:read
+      x-ratelimit-category: ads_analytics
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_ad_account_id'
+      - $ref: '#/components/parameters/path_template_id'
+      - $ref: '#/components/parameters/query_start_date_async'
+      - $ref: '#/components/parameters/query_end_date_async'
+      - $ref: '#/components/parameters/query_granularity_async'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsAnalyticsCreateAsyncResponse'
+          description: Success
+        '400':
+          description: Invalid ad account ads analytics template parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 400
+                message: Invalid ad account analytics template parameters.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Template
+components:
+  parameters:
+    query_start_date_async:
+      description: 'Metric report start date (UTC). Format: YYYY-MM-DD. Cannot be more than 2.5 years back from today.'
+      in: query
+      name: start_date
+      required: false
+      schema:
+        type: string
+        format: date
+    query_end_date_async:
+      description: 'Metric report end date (UTC). Format: YYYY-MM-DD. Cannot be more than 2.5 years past start date.'
+      in: query
+      name: end_date
+      required: false
+      schema:
+        type: string
+        format: date
+    path_template_id:
+      name: template_id
+      description: Unique identifier of a template.
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
+    path_ad_account_id:
+      name: ad_account_id
+      description: Unique identifier of an ad account.
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
+    query_granularity_async:
+      description: TOTAL - metrics are aggregated over the specified date range.<br> DAY - metrics are broken down daily.<br> HOUR - metrics are broken down hourly.<br>WEEKLY - metrics are broken down weekly.<br>MONTHLY - metrics are broken down monthly
+      example: DAY
+      in: query
+      name: granularity
+      required: false
+      schema:
+        $ref: '#/components/schemas/Granularity'
+  schemas:
+    BulkReportingJobStatus:
+      type: string
+      description: Possible status for a bulk reporting job
+      example: FINISHED
+      enum:
+      - DOES_NOT_EXIST
+      - FINISHED
+      - IN_PROGRESS
+      - EXPIRED
+      - FAILED
+      - CANCELLED
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    Granularity:
+      type: string
+      description: Granularity
+      enum:
+      - TOTAL
+      - DAY
+      - HOUR
+      - WEEK
+      - MONTH
+    AdsAnalyticsCreateAsyncResponse:
+      type: object
+      properties:
+        report_status:
+          type: string
+          allOf:
+          - $ref: '#/components/schemas/BulkReportingJobStatus'
+        token:
+          type: string
+        message:
+          type: string
+          nullable: true
+  securitySchemes:
+    pinterest_oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.pinterest.com/oauth/
+          tokenUrl: https://api.pinterest.com/v5/oauth/token
+          scopes:
+            ads:read: See all of your advertising data, including ads, ad groups, campaigns etc.
+            ads:write: Create, update, or delete ads, ad groups, campaigns etc.
+            billing:read: See all of your billing data, billing profile, etc.
+            billing:write: Create, update, or delete billing data, billing profiles, etc.
+            biz_access:read: See business access data
+            biz_access:write: Create, update, or delete business access data
+            boards:read: See your public boards, including group boards you join
+            boards:read_secret: See your secret boards
+            boards:write: Create, update, or delete your public boards
+            boards:write_secret: Create, update, or delete your secret boards
+            catalogs:read: See all of your catalogs data
+            catalogs:write: Create, update, or delete your catalogs data
+            pins:read: See your public Pins
+            pins:read_secret: See your secret Pins
+            pins:write: Create, update, or delete your public Pins
+            pins:write_secret: Create, update, or delete your secret Pins
+            user_accounts:read: See your user accounts and followers
+            user_accounts:write: Update your user accounts and followers
+    conversion_token:
+      type: http
+      scheme: bearer
+      description: This security scheme only applies to the conversion events endpoint (POST /ad_accounts/{ad_account_id}/events). This endpoint requires a bearer token generated via Ads Manager (ads.pinterest.com).
+    basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Pin and Boards
+  tags:
+  - pins
+  - boards
+  - media
+  - aggregated_comments
+  - aggregated_pin_data
+  - user_account
+- name: Campaign Management
+  tags:
+  - ad_accounts
+  - campaigns
+  - ad_groups
+  - ads
+  - product_group_promotions
+  - bulk
+- name: Targeting
+  tags:
+  - audiences
+  - customer_lists
+  - keywords
+  - targeting_template
+  - audience_insights
+  - audience_sharing
+- name: Ad Formats
+  tags:
+  - lead_forms
+  - lead_ads
+  - leads_export
+- name: Billing
+  tags:
+  - billing
+  - order_lines
+  - terms_of_service
+- name: Business Access
+  tags:
+  - business_access_assets
+  - business_access_invite
+  - business_access_relationships
+- name: Conversions
+  tags:
+  - conversion_events
+  - conversion_tags
+- name: Others
+  tags:
+  - integrations
+  - oauth
+  - resources
+  - search
+  - terms
+- name: Shopping
+  tags:
+  - catalogs
+- name: Deprecated
+  tags:
+  - product_groups

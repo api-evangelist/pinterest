@@ -1,0 +1,273 @@
+openapi: 3.0.3
+info:
+  version: 5.13.0
+  title: Pinterest Downloads API
+  description: This is the description of your API.
+  contact:
+    name: Pinterest, Inc.
+    url: https://developers.pinterest.com/
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  termsOfService: https://developers.pinterest.com/terms/
+servers:
+- url: https://api.pinterest.com/v5
+tags:
+- name: Downloads
+paths:
+  /ad_accounts/{ad_account_id}/bulk/download:
+    post:
+      summary: Get advertiser entities in bulk
+      description: 'Create an asynchronous report that may include information on campaigns, ad groups, product groups, ads,
+
+        and/or keywords; can filter by campaigns. Though the entities may be active, archived, or paused,
+
+        only active entities will return data.'
+      operationId: bulk_download/create
+      security:
+      - pinterest_oauth2:
+        - ads:read
+      x-ratelimit-category: ads_read
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_ad_account_id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkDownloadRequest'
+        description: Parameters to get ad entities in bulk
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkDownloadResponse'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      tags:
+      - Downloads
+components:
+  schemas:
+    BulkEntityType:
+      type: string
+      description: Refers ads entity type
+      example: AD
+      enum:
+      - CAMPAIGN
+      - AD_GROUP
+      - PRODUCT_GROUP
+      - AD
+      - KEYWORD
+    BulkDownloadRequest:
+      type: object
+      description: Ad entities to get in bulk request.
+      properties:
+        entity_types:
+          type: array
+          items:
+            type: string
+            allOf:
+            - $ref: '#/components/schemas/BulkEntityType'
+          minItems: 1
+          maxItems: 5
+          description: All entity types specified will be downloaded. Fewer types result in faster downloads.
+          example:
+          - CAMPAIGN
+          - AD_GROUP
+        entity_ids:
+          type: array
+          items:
+            type: string
+            pattern: ^\d+$
+          description: All entities specified by these IDs as well as their children and grandchildren will be downloaded if the entity type is one of the types requested to be downloaded.
+        updated_since:
+          type: string
+          pattern: ^\d+$
+          example: '1622848072'
+          description: Unix UTC timestamp to retrieve all entities that have changed since this time.
+        campaign_filter:
+          type: object
+          properties:
+            start_time:
+              type: string
+              pattern: ^\d+$
+              example: '1622848072'
+              description: Unix UTC timestamp.
+            end_time:
+              type: string
+              pattern: ^\d+$
+              example: '1622848072'
+              description: Unix UTC timestamp.
+            name:
+              type: string
+              example: campaign name
+              description: Campaign name
+            campaign_status:
+              type: array
+              items:
+                $ref: '#/components/schemas/CampaignSummaryStatus'
+            objective_type:
+              type: array
+              items:
+                $ref: '#/components/schemas/ObjectiveType'
+        output_format:
+          type: string
+          allOf:
+          - $ref: '#/components/schemas/BulkOutputFormat'
+          default: JSON
+    BulkDownloadResponse:
+      type: object
+      example:
+        request_id: '2680059592705'
+      properties:
+        request_id:
+          description: ID of the bulk request.
+          example: '2680059592705'
+          type: string
+    CampaignSummaryStatus:
+      type: string
+      description: Summary status for campaign
+      example: RUNNING
+      enum:
+      - RUNNING
+      - PAUSED
+      - NOT_STARTED
+      - COMPLETED
+      - ADVERTISER_DISABLED
+      - ARCHIVED
+      - DRAFT
+      - DELETED_DRAFT
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    BulkOutputFormat:
+      type: string
+      description: Bulk file output format
+      enum:
+      - CSV
+      - JSON
+    ObjectiveType:
+      type: string
+      description: Campaign objective type. If set as one of ["AWARENESS", "CONSIDERATION", "WEB_CONVERSION", "CATALOG_SALES"] the campaign is considered as a Campaign Budget Optimization (CBO) campaign, meaning budget needs to be set at the campaign level rather than at the ad group level. ["WEB_SESSIONS"] is DEPRECATED. For update, only draft campaigns may update objective type.
+      enum:
+      - AWARENESS
+      - CONSIDERATION
+      - VIDEO_VIEW
+      - WEB_CONVERSION
+      - CATALOG_SALES
+      - WEB_SESSIONS
+  parameters:
+    path_ad_account_id:
+      name: ad_account_id
+      description: Unique identifier of an ad account.
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
+  securitySchemes:
+    pinterest_oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.pinterest.com/oauth/
+          tokenUrl: https://api.pinterest.com/v5/oauth/token
+          scopes:
+            ads:read: See all of your advertising data, including ads, ad groups, campaigns etc.
+            ads:write: Create, update, or delete ads, ad groups, campaigns etc.
+            billing:read: See all of your billing data, billing profile, etc.
+            billing:write: Create, update, or delete billing data, billing profiles, etc.
+            biz_access:read: See business access data
+            biz_access:write: Create, update, or delete business access data
+            boards:read: See your public boards, including group boards you join
+            boards:read_secret: See your secret boards
+            boards:write: Create, update, or delete your public boards
+            boards:write_secret: Create, update, or delete your secret boards
+            catalogs:read: See all of your catalogs data
+            catalogs:write: Create, update, or delete your catalogs data
+            pins:read: See your public Pins
+            pins:read_secret: See your secret Pins
+            pins:write: Create, update, or delete your public Pins
+            pins:write_secret: Create, update, or delete your secret Pins
+            user_accounts:read: See your user accounts and followers
+            user_accounts:write: Update your user accounts and followers
+    conversion_token:
+      type: http
+      scheme: bearer
+      description: This security scheme only applies to the conversion events endpoint (POST /ad_accounts/{ad_account_id}/events). This endpoint requires a bearer token generated via Ads Manager (ads.pinterest.com).
+    basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Pin and Boards
+  tags:
+  - pins
+  - boards
+  - media
+  - aggregated_comments
+  - aggregated_pin_data
+  - user_account
+- name: Campaign Management
+  tags:
+  - ad_accounts
+  - campaigns
+  - ad_groups
+  - ads
+  - product_group_promotions
+  - bulk
+- name: Targeting
+  tags:
+  - audiences
+  - customer_lists
+  - keywords
+  - targeting_template
+  - audience_insights
+  - audience_sharing
+- name: Ad Formats
+  tags:
+  - lead_forms
+  - lead_ads
+  - leads_export
+- name: Billing
+  tags:
+  - billing
+  - order_lines
+  - terms_of_service
+- name: Business Access
+  tags:
+  - business_access_assets
+  - business_access_invite
+  - business_access_relationships
+- name: Conversions
+  tags:
+  - conversion_events
+  - conversion_tags
+- name: Others
+  tags:
+  - integrations
+  - oauth
+  - resources
+  - search
+  - terms
+- name: Shopping
+  tags:
+  - catalogs
+- name: Deprecated
+  tags:
+  - product_groups

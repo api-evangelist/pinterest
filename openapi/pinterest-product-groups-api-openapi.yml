@@ -1,0 +1,370 @@
+openapi: 3.0.3
+info:
+  version: 5.13.0
+  title: Pinterest Product_groups API
+  description: This is the description of your API.
+  contact:
+    name: Pinterest, Inc.
+    url: https://developers.pinterest.com/
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  termsOfService: https://developers.pinterest.com/terms/
+servers:
+- url: https://api.pinterest.com/v5
+tags:
+- name: Product_groups
+paths:
+  /ad_accounts/{ad_account_id}/product_groups/catalogs:
+    get:
+      deprecated: true
+      description: This endpoint is completely deprecated. Please use <a href='/docs/api/v5/#operation/catalogs_product_groups/list'>List product groups</a> from Catalogs API instead.
+      operationId: ad_accounts_catalogs_product_groups/list
+      security:
+      - pinterest_oauth2:
+        - ads:write
+      x-ratelimit-category: ads_write
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_ad_account_id'
+      - $ref: '#/components/parameters/query_feed_profile_id'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Paginated'
+                - type: object
+                  properties:
+                    items:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/CatalogProductGroup'
+          description: Success
+        '400':
+          description: Invalid ad account ads parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 400
+                message: Invalid ad account ads parameters.
+        '401':
+          description: Access Denied. This can happen if account is not yet approved to operate as Merchant on Pinterest.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Merchant data not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      summary: Get catalog product groups
+      tags:
+      - Product_groups
+components:
+  schemas:
+    BoardOwner:
+      title: Board owner
+      type: object
+      properties:
+        username:
+          type: string
+          readOnly: true
+    CatalogProductGroup:
+      description: non-promoted catalog product group entity
+      properties:
+        id:
+          description: ID of the catalog product group.
+          example: '2680059592705'
+          title: id
+          type: string
+        merchant_id:
+          description: Merchant ID pertaining to the owner of the catalog product group.
+          example: '2680059592705'
+          pattern: ^\d+$
+          title: merchant_id
+          type: string
+        name:
+          description: Name of catalog product group
+          example: Most Popular
+          title: name
+          type: string
+        filters:
+          description: Object holding a list of filters
+          example:
+            '1':
+            - 123chars_title
+          title: filters
+          type: object
+        filter_v2:
+          description: Object holding a list of filters
+          example:
+            '1':
+            - 123chars_title
+          title: filters
+          type: object
+        type:
+          $ref: '#/components/schemas/Board'
+        status:
+          $ref: '#/components/schemas/EntityStatus'
+        feed_profile_id:
+          description: id of the feed profile belonging to this catalog product group
+          pattern: ^\d+$
+          title: feed_profile_id
+          type: string
+        created_at:
+          description: Unix timestamp in seconds of when catalog product group was created.
+          example: 1621350033000
+          title: created_at
+          type: integer
+        last_update:
+          description: Unix timestamp in seconds of last time catalog product group was updated.
+          example: 1622742155000
+          title: last_update
+          type: integer
+        product_count:
+          description: Amount of products in the catalog product group
+          example: 6
+          title: product_count
+          type: integer
+        featured_position:
+          description: index of the featured position of the catalog product group
+          example: 2
+          title: featured_position
+          type: integer
+      title: CatalogProductGroup
+      type: object
+    EntityStatus:
+      type: string
+      description: Entity status
+      example: ACTIVE
+      enum:
+      - ACTIVE
+      - PAUSED
+      - ARCHIVED
+      - DRAFT
+      - DELETED_DRAFT
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    Board:
+      title: Board
+      description: Board
+      type: object
+      properties:
+        id:
+          type: string
+          readOnly: true
+          example: '549755885175'
+        created_at:
+          type: string
+          description: Date and time of board creation.
+          readOnly: true
+          format: date-time
+          example: '2020-01-01T20:10:40-00:00'
+        board_pins_modified_at:
+          type: string
+          description: Date and time of last board pins modified.
+          readOnly: true
+          format: date-time
+          example: '2020-01-01T20:10:40-00:00'
+        name:
+          type: string
+          example: Summer Recipes
+        description:
+          type: string
+          nullable: true
+          example: My favorite summer recipes
+        collaborator_count:
+          type: integer
+          description: Count of collaborators on the board.
+          minimum: 0
+          readOnly: true
+          example: 17
+        pin_count:
+          type: integer
+          description: Count of pins on the board.
+          minimum: 0
+          readOnly: true
+          example: 5
+        follower_count:
+          type: integer
+          description: Board follower count.
+          readOnly: true
+          minimum: 0
+          example: 13
+        media:
+          type: object
+          readOnly: true
+          description: Board media.
+          properties:
+            image_cover_url:
+              type: string
+              nullable: true
+              description: Board cover image.
+              example: https://i.pinimg.com/400x300/fd/cd/d5/fdcdd5a6d8a80824add0d054125cd957.jpg
+            pin_thumbnail_urls:
+              type: array
+              description: Board pin thumbnail urls.
+              items:
+                type: string
+              example:
+              - https://i.pinimg.com/150x150/b4/57/10/b45710f1ede96af55230f4b43935c4af.jpg
+              - https://i.pinimg.com/150x150/dd/ff/46/ddff4616e39c1935cd05738794fa860e.jpg
+              - https://i.pinimg.com/150x150/84/ac/59/84ac59b670ccb5b903dace480a98930c.jpg
+              - https://i.pinimg.com/150x150/4c/54/6f/4c546f521be85e30838fb742bfff6936.jpg
+        owner:
+          allOf:
+          - $ref: '#/components/schemas/BoardOwner'
+          type: object
+          readOnly: true
+        privacy:
+          type: string
+          default: PUBLIC
+          description: Privacy setting for a board. Learn more about <a href="https://help.pinterest.com/en/article/secret-boards">secret boards</a> and <a href="https://help.pinterest.com/en/business/article/protected-boards">protected boards</a>
+          enum:
+          - PUBLIC
+          - PROTECTED
+          - SECRET
+      required:
+      - name
+    Paginated:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+        bookmark:
+          type: string
+          nullable: true
+      required:
+      - items
+  parameters:
+    path_ad_account_id:
+      name: ad_account_id
+      description: Unique identifier of an ad account.
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
+    query_feed_profile_id:
+      in: query
+      name: feed_profile_id
+      description: The feed profile id whose catalog product groups we want to return.
+      required: false
+      schema:
+        pattern: ^\d+$
+        maxLength: 18
+        type: string
+  securitySchemes:
+    pinterest_oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.pinterest.com/oauth/
+          tokenUrl: https://api.pinterest.com/v5/oauth/token
+          scopes:
+            ads:read: See all of your advertising data, including ads, ad groups, campaigns etc.
+            ads:write: Create, update, or delete ads, ad groups, campaigns etc.
+            billing:read: See all of your billing data, billing profile, etc.
+            billing:write: Create, update, or delete billing data, billing profiles, etc.
+            biz_access:read: See business access data
+            biz_access:write: Create, update, or delete business access data
+            boards:read: See your public boards, including group boards you join
+            boards:read_secret: See your secret boards
+            boards:write: Create, update, or delete your public boards
+            boards:write_secret: Create, update, or delete your secret boards
+            catalogs:read: See all of your catalogs data
+            catalogs:write: Create, update, or delete your catalogs data
+            pins:read: See your public Pins
+            pins:read_secret: See your secret Pins
+            pins:write: Create, update, or delete your public Pins
+            pins:write_secret: Create, update, or delete your secret Pins
+            user_accounts:read: See your user accounts and followers
+            user_accounts:write: Update your user accounts and followers
+    conversion_token:
+      type: http
+      scheme: bearer
+      description: This security scheme only applies to the conversion events endpoint (POST /ad_accounts/{ad_account_id}/events). This endpoint requires a bearer token generated via Ads Manager (ads.pinterest.com).
+    basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Pin and Boards
+  tags:
+  - pins
+  - boards
+  - media
+  - aggregated_comments
+  - aggregated_pin_data
+  - user_account
+- name: Campaign Management
+  tags:
+  - ad_accounts
+  - campaigns
+  - ad_groups
+  - ads
+  - product_group_promotions
+  - bulk
+- name: Targeting
+  tags:
+  - audiences
+  - customer_lists
+  - keywords
+  - targeting_template
+  - audience_insights
+  - audience_sharing
+- name: Ad Formats
+  tags:
+  - lead_forms
+  - lead_ads
+  - leads_export
+- name: Billing
+  tags:
+  - billing
+  - order_lines
+  - terms_of_service
+- name: Business Access
+  tags:
+  - business_access_assets
+  - business_access_invite
+  - business_access_relationships
+- name: Conversions
+  tags:
+  - conversion_events
+  - conversion_tags
+- name: Others
+  tags:
+  - integrations
+  - oauth
+  - resources
+  - search
+  - terms
+- name: Shopping
+  tags:
+  - catalogs
+- name: Deprecated
+  tags:
+  - product_groups

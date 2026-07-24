@@ -1,0 +1,2397 @@
+openapi: 3.0.3
+info:
+  version: 5.13.0
+  title: Pinterest Templates API
+  description: This is the description of your API.
+  contact:
+    name: Pinterest, Inc.
+    url: https://developers.pinterest.com/
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  termsOfService: https://developers.pinterest.com/terms/
+servers:
+- url: https://api.pinterest.com/v5
+tags:
+- name: Templates
+paths:
+  /ad_accounts/{ad_account_id}/targeting_templates:
+    get:
+      summary: List targeting templates
+      description: Get a list of the targeting templates in the specified <code>ad_account_id</code>
+      operationId: targeting_template/list
+      security:
+      - pinterest_oauth2:
+        - ads:read
+      x-ratelimit-category: ads_read
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_ad_account_id'
+      - $ref: '#/components/parameters/query_order'
+      - in: query
+        description: Include audience sizing in result or not
+        name: include_sizing
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - description: Search keyword for targeting templates
+        in: query
+        name: search_query
+        example: gaming
+        required: false
+        schema:
+          type: string
+      - $ref: '#/components/parameters/query_page_size'
+      - $ref: '#/components/parameters/query_bookmark'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Paginated'
+                - type: object
+                  properties:
+                    items:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/TargetingTemplateResponseData'
+          description: Success
+        '400':
+          description: Invalid ad account id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 400
+                message: Invalid ad account id
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      tags:
+      - Templates
+    post:
+      summary: Create targeting templates
+      description: "<p>Targeting templates allow advertisers to save a set of targeting details including audience lists,\n keywords & interest, demographics, and placements to use more than once during the campaign creation process.</p>\n <p>Templates can be used to build out basic targeting criteria that you plan to use across campaigns and to reuse\n  performance targeting from prior campaigns for new campaigns.</p>"
+      operationId: targeting_template/create
+      security:
+      - pinterest_oauth2:
+        - ads:write
+      x-ratelimit-category: ads_write
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_ad_account_id'
+      requestBody:
+        description: targeting template creation entity
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TargetingTemplateCreate'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TargetingTemplateGetResponseData'
+          description: Success
+        '400':
+          description: Invalid ad account id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 400
+                message: Invalid ad account id
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      tags:
+      - Templates
+    patch:
+      summary: Update targeting templates
+      description: <p>Update the targeting template given advertiser ID and targeting template ID</p>
+      operationId: targeting_template/update
+      security:
+      - pinterest_oauth2:
+        - ads:write
+      x-ratelimit-category: ads_write
+      x-sandbox: enabled
+      parameters:
+      - $ref: '#/components/parameters/path_ad_account_id'
+      requestBody:
+        description: Operation type and targeting template ID
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TargetingTemplateUpdateRequest'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Invalid ad account id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 400
+                message: Invalid ad account id
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      tags:
+      - Templates
+  /ad_accounts/{ad_account_id}/templates:
+    get:
+      summary: List templates
+      description: Gets all Templates associated with an ad account ID.
+      operationId: templates/list
+      security:
+      - pinterest_oauth2:
+        - ads:read
+      x-ratelimit-category: ads_read
+      x-sandbox: enabled
+      parameters:
+      - $ref: '#/components/parameters/path_ad_account_id'
+      - $ref: '#/components/parameters/query_page_size'
+      - $ref: '#/components/parameters/query_order'
+      - $ref: '#/components/parameters/query_bookmark'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Paginated'
+                - type: object
+                  properties:
+                    items:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/TemplateResponse'
+          description: Success
+        '400':
+          description: Invalid ad account template parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 400
+                message: Invalid ad account template parameters
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Templates
+  /ad_accounts/{ad_account_id}/templates/{template_id}/reports:
+    post:
+      summary: Create async request for an analytics report using a template
+      description: 'This takes a template ID and an optional custom timeframe and constructs an asynchronous report based on the
+
+        template. It returns a token that you can use to download the report when it is ready.'
+      operationId: analytics/create_template_report
+      security:
+      - pinterest_oauth2:
+        - ads:read
+      x-ratelimit-category: ads_analytics
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_ad_account_id'
+      - $ref: '#/components/parameters/path_template_id'
+      - $ref: '#/components/parameters/query_start_date_async'
+      - $ref: '#/components/parameters/query_end_date_async'
+      - $ref: '#/components/parameters/query_granularity_async'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdsAnalyticsCreateAsyncResponse'
+          description: Success
+        '400':
+          description: Invalid ad account ads analytics template parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 400
+                message: Invalid ad account analytics template parameters.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Templates
+components:
+  schemas:
+    TargetingTemplateAudienceSizing:
+      type: object
+      nullable: true
+      description: 'Gets an audience size estimate for a set of given targeting spec data. <p>Returns:</p> An object containing an audience size estimate that has a reach estimate (number of unique users) against the given targeting template. This by default provides a monthly estimate. '
+      example:
+        reach_estimate:
+          estimate: 63492000
+          lower_bound: 47619000
+          upper_bound: 79365000
+      properties:
+        reach_estimate:
+          type: object
+          properties:
+            estimate:
+              example: 63492000
+              type: integer
+              format: int64
+            lower_bound:
+              example: 47619000
+              type: integer
+              format: int64
+            upper_bound:
+              example: 79365000
+              type: integer
+              format: int64
+    TargetingTemplateResponseData:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/TargetingTemplateCommon'
+      - type: object
+        title: TargetingTemplateResponseData
+        properties:
+          id:
+            description: Targeting template ID.
+            example: '643'
+            type: string
+            pattern: ^\d+$
+          created_time:
+            description: Targeting template created time. Unix timestamp in seconds.
+            example: 1432744744
+            title: created_time
+            type: integer
+          updated_time:
+            description: Targeting template updated time.Unix timestamp in seconds.
+            example: 1432744744
+            title: updated_time
+            type: integer
+          ad_account_id:
+            description: The ID of the advertiser that this targeting template belongs to.
+            example: '549755885175'
+            type: string
+            pattern: ^\d+$
+          status:
+            type: string
+            description: Indicate targeting template is active or Deleted
+            allOf:
+            - type: string
+              description: Indicate targeting template is active or Deleted
+              example: ACTIVE
+              default: ACTIVE
+              enum:
+              - ACTIVE
+              - DELETED
+          sizing:
+            $ref: '#/components/schemas/TargetingTemplateAudienceSizing'
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    TargetingTemplateCommon:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Gaming
+          description: targeting template name
+        auto_targeting_enabled:
+          type: boolean
+          default: true
+          description: Enable auto-targeting for ad group. Also known as <a href="https://help.pinterest.com/en/business/article/expanded-targeting" target="_blank">"expanded targeting"</a>.
+        targeting_attributes:
+          $ref: '#/components/schemas/TargetingSpec'
+        placement_group:
+          $ref: '#/components/schemas/PlacementGroupType'
+        keywords:
+          type: array
+          example:
+          - value: cats
+            match_type: EXACT_NEGATIVE
+          items:
+            $ref: '#/components/schemas/TargetingTemplateKeyword'
+        tracking_urls:
+          $ref: '#/components/schemas/TrackingUrls'
+    MetricsReportingLevel:
+      type: string
+      description: Level of the reporting request
+      example: CAMPAIGN
+      enum:
+      - ADVERTISER
+      - ADVERTISER_TARGETING
+      - CAMPAIGN
+      - CAMPAIGN_TARGETING
+      - AD_GROUP
+      - AD_GROUP_TARGETING
+      - PIN_PROMOTION
+      - PIN_PROMOTION_TARGETING
+      - KEYWORD
+      - PRODUCT_GROUP
+      - PRODUCT_GROUP_TARGETING
+      - PRODUCT_ITEM
+    TargetingTemplateKeyword:
+      type: object
+      properties:
+        match_type:
+          $ref: '#/components/schemas/MatchType'
+        value:
+          type: string
+          description: The keyword targeting (120 chars max).
+          example: couples halloween costumes
+    CustomColumnId:
+      description: Custom Column ID
+      example: '123456789'
+      type: string
+    TargetingSpec:
+      description: Ad group targeting specification defining the ad group target audience. For example, `{"APPTYPE":["iphone"], "GENDER":["male"], "LOCALE":["en-US"], "LOCATION":["501"], "AGE_BUCKET":["25-34"]}`
+      type: object
+      properties:
+        AGE_BUCKET:
+          type: array
+          nullable: true
+          description: Age ranges. If the AGE_BUCKET field is missing, the default behavior in terms of ad delivery is that **All age buckets** will be targeted.
+          example:
+          - 35-44
+          - 50-54
+          items:
+            type: string
+            enum:
+            - 18-24
+            - 21+
+            - 25-34
+            - 35-44
+            - 45-49
+            - 50-54
+            - 55-64
+            - 65+
+        APPTYPE:
+          type: array
+          nullable: true
+          description: Allowed devices. If the APPTYPE field is missing, the default behavior in terms of ad delivery is that **All devices/apptypes** will be targeted.
+          example:
+          - ipad
+          - iphone
+          items:
+            type: string
+            enum:
+            - android_mobile
+            - android_tablet
+            - ipad
+            - iphone
+            - web
+            - web_mobile
+        AUDIENCE_EXCLUDE:
+          type: array
+          nullable: true
+          description: 'Excluded customer list IDs. Used to drive new customer acquisition goals. For example: ["2542620905475"]. Audience lists need to have at least 100 people with Pinterest accounts in them. If the AUDIENCE_EXCLUDE field is missing, the default behavior in terms of ad delivery is that **No users will be excluded**.'
+          items:
+            type: string
+            pattern: ^\d+$
+            minItems: 100
+        AUDIENCE_INCLUDE:
+          type: array
+          nullable: true
+          description: 'Targeted customer list IDs. For example: ["2542620905473"]. Audience lists need to have at least 100 people with Pinterest accounts in them Audience lists need to have at least 100 people with Pinterest accounts in them. If the AUDIENCE_INCLUDE field is missing, the default behavior in terms of ad delivery is that **All users will be included**.'
+          items:
+            type: string
+            pattern: ^\d+$
+            minItems: 100
+        GENDER:
+          type: array
+          nullable: true
+          description: 'Targeted genders. Values: ["unknown","male","female"]. If the GENDER field is missing, the default behavior in terms of ad delivery is that **All genders will be targeted**.'
+          items:
+            type: string
+            enum:
+            - unknown
+            - male
+            - female
+        GEO:
+          type: array
+          nullable: true
+          description: Location region codes, e.g., "BE-VOV" (East Flanders, Belgium) For complete list, <a href="https://help.pinterest.com/sub/helpcenter/partner/pinterest_location_targeting_codes.xlsx" target="_blank">click here</a> or postal codes, e.g., "US-94107". Use either region codes or postal codes but not both. At least one of LOCATION or GEO must be specified. If the GEO field is missing, then only LOCATION values will be targeted (see LOCATION field below).
+          items:
+            type: string
+        INTEREST:
+          type: array
+          description: Array of interest object IDs. If the INTEREST field is missing, the default behavior in terms of ad delivery is that **All interests will be targeted**.
+          items:
+            type: string
+        LOCALE:
+          type: array
+          nullable: true
+          description: 24 ISO 639-1 two letter language codes. If the LOCALE field is missing, the default behavior in terms of ad delivery is that **All languages will be targeted, only english non-sublanguage will be targeted**.
+          items:
+            type: string
+        LOCATION:
+          type: array
+          nullable: true
+          description: 22 ISO Alpha 2 two letter country codes or US Nielsen DMA (Designated Market Area) codes (location region codes) (e.g., ["US", "807"]). For complete list, click here. Location-Country and Location-Metro codes apply. At least one of LOCATION or GEO must be specified. If the LOCATION field is missing, then only GEO values will be targeted (see GEO field above).
+          items:
+            type: string
+        SHOPPING_RETARGETING:
+          type: array
+          nullable: true
+          description: "Array of object: lookback_window\t[Integer]: Number of days ago to start lookback timeframe for dynamic retargeting tag_types [Array of integer]: Event types to target for dynamic retargeting exclusion_window [Integer]: Number of days ago to stop lookback timeframe for dynamic retargeting"
+          items:
+            type: object
+            example:
+              lookback_window: 30
+              exclusion_window: 14
+              tag_types:
+              - 0
+              - 6
+            properties:
+              lookback_window:
+                description: Number of days ago to start lookback timeframe for dynamic retargeting
+                example: 30
+                title: lookback_window
+                type: integer
+              tag_types:
+                description: Event types to target for dynamic retargeting
+                example:
+                - 0
+                - 6
+                items:
+                  type: integer
+                title: tag_types
+                type: array
+              exclusion_window:
+                description: Number of days ago to stop lookback timeframe for dynamic retargeting
+                example: 14
+                title: exclusion_window
+                type: integer
+            title: TargetingSpec_SHOPPING_RETARGETING
+        TARGETING_STRATEGY:
+          type: array
+          nullable: true
+          description: ''
+          items:
+            enum:
+            - CHOOSE_YOUR_OWN
+            - FIND_NEW_CUSTOMERS
+            - RECONNECT_WITH_USERS
+    TargetingTemplateCreate:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/TargetingTemplateCommon'
+      - type: object
+        required:
+        - name
+        - targeting_attributes
+        properties:
+          name:
+            type: string
+            example: Gaming
+            description: Name of targeting template.
+          targeting_attributes:
+            $ref: '#/components/schemas/TargetingSpec'
+    Paginated:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+        bookmark:
+          type: string
+          nullable: true
+      required:
+      - items
+    AdsAnalyticsCreateAsyncResponse:
+      type: object
+      properties:
+        report_status:
+          type: string
+          allOf:
+          - $ref: '#/components/schemas/BulkReportingJobStatus'
+        token:
+          type: string
+        message:
+          type: string
+          nullable: true
+    MatchType:
+      type: string
+      description: Keyword match type
+      example: BROAD
+      enum:
+      - BROAD
+      - PHRASE
+      - EXACT
+      - EXACT_NEGATIVE
+      - PHRASE_NEGATIVE
+    DataOutputFormat:
+      type: string
+      description: Format of generated report
+      example: JSON
+      enum:
+      - JSON
+      - CSV
+    TrackingUrls:
+      description: Third-party tracking URLs. Up to three tracking URLs - with a max length of 2,000 - are supported for each event type. Tracking URLs set at the ad group or ad level can override those set at the campaign level. For more information, see <a href="https://help.pinterest.com/en/business/article/third-party-and-dynamic-tracking" target="_blank">Third-party and dynamic tracking</a>.
+      example:
+        impression:
+        - URL1
+        - URL2
+        click:
+        - URL1
+        - URL2
+        engagement:
+        - URL1
+        - URL2
+        buyable_button:
+        - URL1
+        - URL2
+        audience_verification:
+        - URL1
+        - URL2
+      type: object
+      nullable: true
+      properties:
+        impression:
+          type: array
+          items:
+            type: string
+        click:
+          type: array
+          items:
+            type: string
+        engagement:
+          type: array
+          items:
+            type: string
+        buyable_button:
+          type: array
+          items:
+            type: string
+        audience_verification:
+          type: array
+          items:
+            type: string
+    TargetingTemplateUpdateRequest:
+      required:
+      - operation_type
+      - id
+      type: object
+      properties:
+        operation_type:
+          enum:
+          - REMOVE
+          type: string
+        id:
+          description: Targeting template ID
+          example: '643'
+          type: string
+          pattern: ^\d+$
+    BulkReportingJobStatus:
+      type: string
+      description: Possible status for a bulk reporting job
+      example: FINISHED
+      enum:
+      - DOES_NOT_EXIST
+      - FINISHED
+      - IN_PROGRESS
+      - EXPIRED
+      - FAILED
+      - CANCELLED
+    TemplateResponse:
+      type: object
+      description: Template fields
+      properties:
+        id:
+          description: Template ID
+          example: '6739202847590'
+          type: string
+        ad_account_id:
+          description: ID of the Ad Account that owns the template
+          example: '547664674848'
+          type: string
+        ad_account_ids:
+          description: IDs of the Ad Accounts that have access to this template
+          example:
+          - '547664674848'
+          type: array
+          items:
+            type: string
+        user_id:
+          description: ID of the user who created the template
+          example: '784762938748396'
+          type: string
+        name:
+          description: Template Name
+          example: Week over week spend
+          nullable: true
+          type: string
+        report_start_relative_days_in_past:
+          description: The number of days prior to the day the report will be delivered at which the report will start
+          example: 7
+          type: number
+        report_end_relative_days_in_past:
+          description: The number of days prior to the day the report will be delivered at which the report will end
+          example: 7
+          type: number
+        date_range:
+          properties:
+            dynamic_date_range:
+              description: The dynamic date range of the template
+              nullable: true
+              example:
+                range: YEAR_TO_DATE
+                type: dynamic
+              properties:
+                type:
+                  description: The date range type
+                  example: dynamic
+                  type: string
+                range:
+                  description: The dynamic range type
+                  enum:
+                  - YEAR_TO_DATE
+                  - QUARTER_TO_DATE
+                  - MONTH_TO_DATE
+                  - LAST_MONTH
+                  example: YEAR_TO_DATE
+                  type: string
+              type: object
+            relative_date_range:
+              description: The relative date range of the template
+              nullable: true
+              example:
+                end_days_in_past: 7
+                type: relative
+                start_days_in_past: 14
+              properties:
+                type:
+                  description: The date range type
+                  example: relative
+                  type: string
+                start_days_in_past:
+                  description: The start date of the date range
+                  example: 14
+                  type: number
+                end_days_in_past:
+                  description: The end date of the date range
+                  example: 7
+                  type: number
+              type: object
+            absolute_date_range:
+              description: The absolute date range of the template
+              nullable: true
+              example:
+                end_date: 6.027456183070403
+                type: absolute
+                start_date: 0.8008281904610115
+              properties:
+                type:
+                  description: The date range type
+                  example: absolute
+                  type: string
+                start_date:
+                  description: The start date of the date range
+                  example: 0.8008281904610115
+                  type: number
+                end_date:
+                  description: The end date of the date range
+                  example: 6.027456183070403
+                  type: number
+              type: object
+          type: object
+        report_level:
+          $ref: '#/components/schemas/MetricsReportingLevel'
+        report_format:
+          $ref: '#/components/schemas/DataOutputFormat'
+        columns:
+          description: A list of columns to be included in the report
+          example:
+          - SPEND_IN_DOLLAR
+          items:
+            type: string
+            description: Reporting Columns (Internal)
+            example: TOTAL_CONVERSIONS
+            enum:
+            - SPEND_IN_MICRO_DOLLAR
+            - SPEND_IN_MICRO_US_DOLLAR
+            - BONUS_SPEND_IN_MICRO_DOLLAR
+            - BONUS_SPEND_IN_DOLLAR
+            - PAID_IMPRESSION
+            - PAID_CLICKTHROUGH
+            - SPEND_IN_DOLLAR
+            - SPEND_IN_US_DOLLAR
+            - CPC_IN_MICRO_DOLLAR
+            - ECPC_IN_MICRO_DOLLAR
+            - CPC_IN_DOLLAR
+            - ECPC_IN_DOLLAR
+            - CTR
+            - ECTR
+            - OUTBOUND_CTR
+            - CPC_IN_MICRO_CURRENCY
+            - CPW_IN_MICRO_DOLLAR
+            - CPW_IN_DOLLAR
+            - COST_PER_OUTBOUND_CLICK
+            - AD_ONLY_PIN
+            - CAMPAIGN_NAME
+            - CAMPAIGN_STATUS
+            - DATE
+            - BUDGET_IN_DOLLAR
+            - AVAILABLE_BUDGET_IN_DOLLAR
+            - TARGETING_TYPE
+            - TARGETING_VALUE
+            - TARGETING_VALUE_NAME
+            - PAID_EVENTS
+            - BONUS_EVENTS
+            - INSERTION
+            - LEGACY_CAMPAIGN_ID
+            - HBASE_ID
+            - PIN_DESCRIPTION
+            - CAMPAIGN_END_DATE
+            - PIN_PROMOTION_STATUS
+            - AD_STATUS
+            - PIN_ID
+            - CROSS_DEVICE_TYPE
+            - INGESTION_SOURCE
+            - SOURCE_PLATFORM
+            - PIN_PROMOTION_IS_RUNNING
+            - TOTAL_ENGAGEMENT
+            - ENGAGEMENT_1
+            - ENGAGEMENT_2
+            - CPE_IN_MICRO_DOLLAR
+            - ECPE_IN_MICRO_DOLLAR
+            - CPE_IN_DOLLAR
+            - ECPE_IN_DOLLAR
+            - ENGAGEMENT_RATE
+            - EENGAGEMENT_RATE
+            - INTERNAL_ECPE_IN_MICRO_DOLLAR
+            - INTERNAL_ECPE_IN_DOLLAR
+            - ECPM_IN_MICRO_DOLLAR
+            - ECPM_IN_DOLLAR
+            - REPIN_RATE
+            - REPIN_RATE_2
+            - CTR_2
+            - CAMPAIGN_ID
+            - ADVERTISER_ID
+            - AD_ACCOUNT_ID
+            - ADVERTISER_OWNER_USER_ID
+            - ADVERTISER_OWNER_USER_NAME
+            - PIN_PROMOTION_ID
+            - AD_ID
+            - AD_GROUP_ID
+            - KEYWORD_ID
+            - KEYWORD_IS_DELETED
+            - BRAND_SFDC_ACCOUNT_ID
+            - CAMPAIGN_ACTION_TYPE
+            - CAMPAIGN_BID_TYPE
+            - CAMPAIGN_ENTITY_STATUS
+            - CAMPAIGN_MANAGED_STATUS
+            - CAMPAIGN_OBJECTIVE_TYPE
+            - CPM_IN_MICRO_DOLLAR
+            - CPM_IN_DOLLAR
+            - BUDGET_TYPE
+            - BUDGET_IN_LOCAL_CURRENCY
+            - AD_GROUP_NAME
+            - AD_GROUP_STATUS
+            - AD_GROUP_END_DATE
+            - AD_GROUP_BUDGET_TYPE
+            - AD_GROUP_BUDGET_IN_LOCAL_CURRENCY
+            - AD_GROUP_SUGGESTED_BUDGET_IN_LOCAL_CURRENCY
+            - AD_GROUP_SUGGESTED_BONUS_BUDGET_IN_LOCAL_CURRENCY
+            - AD_GROUP_ENTITY_STATUS
+            - AD_GROUP_ACTION_TYPE
+            - AD_GROUP_CONVERSION_LEARNING_MODE_TYPE
+            - AD_GROUP_TARGET_CPA
+            - AD_GROUP_BID_STRATEGY_TYPE
+            - AD_GROUP_EXPERIMENT_NAME
+            - AD_GROUP_EXPERIMENT_CELL
+            - CAMPAIGN_WEB_CLOSEUP_WHITELISTED
+            - PRODUCT_GROUP_ID
+            - PRODUCT_GROUP_DEFINITION
+            - PARENT_PRODUCT_GROUP_ID
+            - PRODUCT_GROUP_TYPE
+            - PRODUCT_GROUP_BID_IN_MICRO_CURRENCY
+            - PRODUCT_GROUP_STATUS
+            - PRODUCT_GROUP_ENTITY_STATUS
+            - PRODUCT_GROUP_INCLUSION
+            - PRODUCT_GROUP_CREATIVE_TYPE
+            - ITEM_ID
+            - PRODUCT_ITEM_ID
+            - INTERNAL_PRODUCT_ITEM_ID
+            - PRODUCT_ITEM_NAME
+            - PRODUCT_ITEM_IMAGE_URL
+            - PRODUCT_ITEM_PRICE
+            - ORDER_LINE_ID
+            - ORDER_LINE_NAME
+            - ORDER_LINE_PIN_REV_SHARE
+            - ORDER_LINE_PAID_TYPE
+            - SPEND_ORDER_LINE_ID
+            - SPEND_ORDER_LINE_PAID_TYPE
+            - CLICKTHROUGH_1
+            - REPIN_1
+            - IMPRESSION_1
+            - LIKE_1
+            - SEND_1
+            - FLAG_1
+            - HIDE_1
+            - INSERTION_1
+            - IMPRESSION_1_GROSS
+            - CLICKTHROUGH_1_GROSS
+            - OUTBOUND_CLICK_1
+            - CLICKTHROUGH_USER_1
+            - REPIN_USER_1
+            - IMPRESSION_USER_1
+            - LIKE_USER_1
+            - SEND_USER_1
+            - FLAG_USER_1
+            - HIDE_USER_1
+            - INSERTION_USER_1
+            - CLICKTHROUGH_2
+            - REPIN_2
+            - IMPRESSION_2
+            - LIKE_2
+            - SEND_2
+            - FLAG_2
+            - OUTBOUND_CLICK_2
+            - CLICKTHROUGH_USER_2
+            - REPIN_USER_2
+            - IMPRESSION_USER_2
+            - LIKE_USER_2
+            - SEND_USER_2
+            - FLAG_USER_2
+            - TOTAL_CLICKTHROUGH
+            - TOTAL_REPIN
+            - TOTAL_IMPRESSION
+            - TOTAL_LIKE
+            - TOTAL_SEND
+            - TOTAL_FLAG
+            - TOTAL_IMPRESSION_USER
+            - TOTAL_IMPRESSION_FREQUENCY
+            - TOTAL_OUTBOUND_CLICK
+            - COST_PER_OUTBOUND_CLICK_IN_DOLLAR
+            - ENGAGEMENT_PAGE_VISIT_1
+            - ENGAGEMENT_SIGNUP_1
+            - ENGAGEMENT_CHECKOUT_1
+            - ENGAGEMENT_CUSTOM_1
+            - ENGAGEMENT_ADD_TO_CART_1
+            - ENGAGEMENT_LEAD_1
+            - ENGAGEMENT_SEARCH_1
+            - ENGAGEMENT_WATCH_VIDEO_1
+            - ENGAGEMENT_VIEW_CATEGORY_1
+            - ENGAGEMENT_APP_INSTALL_1
+            - ENGAGEMENT_UNKNOWN_1
+            - CLICK_PAGE_VISIT_1
+            - CLICK_SIGNUP_1
+            - CLICK_CHECKOUT_1
+            - CLICK_CUSTOM_1
+            - CLICK_ADD_TO_CART_1
+            - CLICK_LEAD_1
+            - CLICK_SEARCH_1
+            - CLICK_WATCH_VIDEO_1
+            - CLICK_VIEW_CATEGORY_1
+            - CLICK_APP_INSTALL_1
+            - CLICK_UNKNOWN_1
+            - VIEW_PAGE_VISIT_1
+            - VIEW_SIGNUP_1
+            - VIEW_CHECKOUT_1
+            - VIEW_CUSTOM_1
+            - VIEW_ADD_TO_CART_1
+            - VIEW_LEAD_1
+            - VIEW_SEARCH_1
+            - VIEW_WATCH_VIDEO_1
+            - VIEW_VIEW_CATEGORY_1
+            - VIEW_APP_INSTALL_1
+            - VIEW_UNKNOWN_1
+            - CONVERSIONS_1
+            - ENGAGEMENT_PAGE_VISIT_VALUE_IN_MICRO_DOLLAR_1
+            - ENGAGEMENT_SIGNUP_VALUE_IN_MICRO_DOLLAR_1
+            - ENGAGEMENT_CHECKOUT_VALUE_IN_MICRO_DOLLAR_1
+            - ENGAGEMENT_CUSTOM_VALUE_IN_MICRO_DOLLAR_1
+            - ENGAGEMENT_ADD_TO_CART_VALUE_IN_MICRO_DOLLAR_1
+            - ENGAGEMENT_LEAD_VALUE_IN_MICRO_DOLLAR_1
+            - ENGAGEMENT_SEARCH_VALUE_IN_MICRO_DOLLAR_1
+            - ENGAGEMENT_WATCH_VIDEO_VALUE_IN_MICRO_DOLLAR_1
+            - ENGAGEMENT_VIEW_CATEGORY_VALUE_IN_MICRO_DOLLAR_1
+            - ENGAGEMENT_APP_INSTALL_VALUE_IN_MICRO_DOLLAR_1
+            - ENGAGEMENT_UNKNOWN_VALUE_IN_MICRO_DOLLAR_1
+            - CLICK_PAGE_VISIT_VALUE_IN_MICRO_DOLLAR_1
+            - CLICK_SIGNUP_VALUE_IN_MICRO_DOLLAR_1
+            - CLICK_CHECKOUT_VALUE_IN_MICRO_DOLLAR_1
+            - CLICK_CUSTOM_VALUE_IN_MICRO_DOLLAR_1
+            - CLICK_ADD_TO_CART_VALUE_IN_MICRO_DOLLAR_1
+            - CLICK_LEAD_VALUE_IN_MICRO_DOLLAR_1
+            - CLICK_SEARCH_VALUE_IN_MICRO_DOLLAR_1
+            - CLICK_WATCH_VIDEO_VALUE_IN_MICRO_DOLLAR_1
+            - CLICK_VIEW_CATEGORY_VALUE_IN_MICRO_DOLLAR_1
+            - CLICK_APP_INSTALL_VALUE_IN_MICRO_DOLLAR_1
+            - CLICK_UNKNOWN_VALUE_IN_MICRO_DOLLAR_1
+            - VIEW_PAGE_VISIT_VALUE_IN_MICRO_DOLLAR_1
+            - VIEW_SIGNUP_VALUE_IN_MICRO_DOLLAR_1
+            - VIEW_CHECKOUT_VALUE_IN_MICRO_DOLLAR_1
+            - VIEW_CUSTOM_VALUE_IN_MICRO_DOLLAR_1
+            - VIEW_ADD_TO_CART_VALUE_IN_MICRO_DOLLAR_1
+            - VIEW_LEAD_VALUE_IN_MICRO_DOLLAR_1
+            - VIEW_SEARCH_VALUE_IN_MICRO_DOLLAR_1
+            - VIEW_WATCH_VIDEO_VALUE_IN_MICRO_DOLLAR_1
+            - VIEW_VIEW_CATEGORY_VALUE_IN_MICRO_DOLLAR_1
+            - VIEW_APP_INSTALL_VALUE_IN_MICRO_DOLLAR_1
+            - VIEW_UNKNOWN_VALUE_IN_MICRO_DOLLAR_1
+            - CONVERSIONS_VALUE_IN_MICRO_DOLLAR_1
+            - ENGAGEMENT_PAGE_VISIT_QUANTITY_1
+            - ENGAGEMENT_SIGNUP_QUANTITY_1
+            - ENGAGEMENT_CHECKOUT_QUANTITY_1
+            - ENGAGEMENT_CUSTOM_QUANTITY_1
+            - ENGAGEMENT_ADD_TO_CART_QUANTITY_1
+            - ENGAGEMENT_LEAD_QUANTITY_1
+            - ENGAGEMENT_SEARCH_QUANTITY_1
+            - ENGAGEMENT_WATCH_VIDEO_QUANTITY_1
+            - ENGAGEMENT_VIEW_CATEGORY_QUANTITY_1
+            - ENGAGEMENT_APP_INSTALL_QUANTITY_1
+            - ENGAGEMENT_UNKNOWN_QUANTITY_1
+            - CLICK_PAGE_VISIT_QUANTITY_1
+            - CLICK_SIGNUP_QUANTITY_1
+            - CLICK_CHECKOUT_QUANTITY_1
+            - CLICK_CUSTOM_QUANTITY_1
+            - CLICK_ADD_TO_CART_QUANTITY_1
+            - CLICK_LEAD_QUANTITY_1
+            - CLICK_SEARCH_QUANTITY_1
+            - CLICK_WATCH_VIDEO_QUANTITY_1
+            - CLICK_VIEW_CATEGORY_QUANTITY_1
+            - CLICK_APP_INSTALL_QUANTITY_1
+            - CLICK_UNKNOWN_QUANTITY_1
+            - VIEW_PAGE_VISIT_QUANTITY_1
+            - VIEW_SIGNUP_QUANTITY_1
+            - VIEW_CHECKOUT_QUANTITY_1
+            - VIEW_CUSTOM_QUANTITY_1
+            - VIEW_ADD_TO_CART_QUANTITY_1
+            - VIEW_LEAD_QUANTITY_1
+            - VIEW_SEARCH_QUANTITY_1
+            - VIEW_WATCH_VIDEO_QUANTITY_1
+            - VIEW_VIEW_CATEGORY_QUANTITY_1
+            - VIEW_APP_INSTALL_QUANTITY_1
+            - VIEW_UNKNOWN_QUANTITY_1
+            - CONVERSIONS_QUANTITY_1
+            - ENGAGEMENT_PAGE_VISIT_2
+            - ENGAGEMENT_SIGNUP_2
+            - ENGAGEMENT_CHECKOUT_2
+            - ENGAGEMENT_CUSTOM_2
+            - ENGAGEMENT_ADD_TO_CART_2
+            - ENGAGEMENT_LEAD_2
+            - ENGAGEMENT_SEARCH_2
+            - ENGAGEMENT_WATCH_VIDEO_2
+            - ENGAGEMENT_VIEW_CATEGORY_2
+            - ENGAGEMENT_APP_INSTALL_2
+            - ENGAGEMENT_UNKNOWN_2
+            - CLICK_PAGE_VISIT_2
+            - CLICK_SIGNUP_2
+            - CLICK_CHECKOUT_2
+            - CLICK_CUSTOM_2
+            - CLICK_ADD_TO_CART_2
+            - CLICK_LEAD_2
+            - CLICK_SEARCH_2
+            - CLICK_WATCH_VIDEO_2
+            - CLICK_VIEW_CATEGORY_2
+            - CLICK_APP_INSTALL_2
+            - CLICK_UNKNOWN_2
+            - VIEW_PAGE_VISIT_2
+            - VIEW_SIGNUP_2
+            - VIEW_CHECKOUT_2
+            - VIEW_CUSTOM_2
+            - VIEW_ADD_TO_CART_2
+            - VIEW_LEAD_2
+            - VIEW_SEARCH_2
+            - VIEW_WATCH_VIDEO_2
+            - VIEW_VIEW_CATEGORY_2
+            - VIEW_APP_INSTALL_2
+            - VIEW_UNKNOWN_2
+            - CONVERSIONS_2
+            - ENGAGEMENT_PAGE_VISIT_VALUE_IN_MICRO_DOLLAR_2
+            - ENGAGEMENT_SIGNUP_VALUE_IN_MICRO_DOLLAR_2
+            - ENGAGEMENT_CHECKOUT_VALUE_IN_MICRO_DOLLAR_2
+            - ENGAGEMENT_CUSTOM_VALUE_IN_MICRO_DOLLAR_2
+            - ENGAGEMENT_ADD_TO_CART_VALUE_IN_MICRO_DOLLAR_2
+            - ENGAGEMENT_LEAD_VALUE_IN_MICRO_DOLLAR_2
+            - ENGAGEMENT_SEARCH_VALUE_IN_MICRO_DOLLAR_2
+            - ENGAGEMENT_WATCH_VIDEO_VALUE_IN_MICRO_DOLLAR_2
+            - ENGAGEMENT_VIEW_CATEGORY_VALUE_IN_MICRO_DOLLAR_2
+            - ENGAGEMENT_APP_INSTALL_VALUE_IN_MICRO_DOLLAR_2
+            - ENGAGEMENT_UNKNOWN_VALUE_IN_MICRO_DOLLAR_2
+            - CLICK_PAGE_VISIT_VALUE_IN_MICRO_DOLLAR_2
+            - CLICK_SIGNUP_VALUE_IN_MICRO_DOLLAR_2
+            - CLICK_CHECKOUT_VALUE_IN_MICRO_DOLLAR_2
+            - CLICK_CUSTOM_VALUE_IN_MICRO_DOLLAR_2
+            - CLICK_ADD_TO_CART_VALUE_IN_MICRO_DOLLAR_2
+            - CLICK_LEAD_VALUE_IN_MICRO_DOLLAR_2
+            - CLICK_SEARCH_VALUE_IN_MICRO_DOLLAR_2
+            - CLICK_WATCH_VIDEO_VALUE_IN_MICRO_DOLLAR_2
+            - CLICK_VIEW_CATEGORY_VALUE_IN_MICRO_DOLLAR_2
+            - CLICK_APP_INSTALL_VALUE_IN_MICRO_DOLLAR_2
+            - CLICK_UNKNOWN_VALUE_IN_MICRO_DOLLAR_2
+            - VIEW_PAGE_VISIT_VALUE_IN_MICRO_DOLLAR_2
+            - VIEW_SIGNUP_VALUE_IN_MICRO_DOLLAR_2
+            - VIEW_CHECKOUT_VALUE_IN_MICRO_DOLLAR_2
+            - VIEW_CUSTOM_VALUE_IN_MICRO_DOLLAR_2
+            - VIEW_ADD_TO_CART_VALUE_IN_MICRO_DOLLAR_2
+            - VIEW_LEAD_VALUE_IN_MICRO_DOLLAR_2
+            - VIEW_SEARCH_VALUE_IN_MICRO_DOLLAR_2
+            - VIEW_WATCH_VIDEO_VALUE_IN_MICRO_DOLLAR_2
+            - VIEW_VIEW_CATEGORY_VALUE_IN_MICRO_DOLLAR_2
+            - VIEW_APP_INSTALL_VALUE_IN_MICRO_DOLLAR_2
+            - VIEW_UNKNOWN_VALUE_IN_MICRO_DOLLAR_2
+            - CONVERSIONS_VALUE_IN_MICRO_DOLLAR_2
+            - ENGAGEMENT_PAGE_VISIT_QUANTITY_2
+            - ENGAGEMENT_SIGNUP_QUANTITY_2
+            - ENGAGEMENT_CHECKOUT_QUANTITY_2
+            - ENGAGEMENT_CUSTOM_QUANTITY_2
+            - ENGAGEMENT_ADD_TO_CART_QUANTITY_2
+            - ENGAGEMENT_LEAD_QUANTITY_2
+            - ENGAGEMENT_SEARCH_QUANTITY_2
+            - ENGAGEMENT_WATCH_VIDEO_QUANTITY_2
+            - ENGAGEMENT_VIEW_CATEGORY_QUANTITY_2
+            - ENGAGEMENT_APP_INSTALL_QUANTITY_2
+            - ENGAGEMENT_UNKNOWN_QUANTITY_2
+            - CLICK_PAGE_VISIT_QUANTITY_2
+            - CLICK_SIGNUP_QUANTITY_2
+            - CLICK_CHECKOUT_QUANTITY_2
+            - CLICK_CUSTOM_QUANTITY_2
+            - CLICK_ADD_TO_CART_QUANTITY_2
+            - CLICK_LEAD_QUANTITY_2
+            - CLICK_SEARCH_QUANTITY_2
+            - CLICK_WATCH_VIDEO_QUANTITY_2
+            - CLICK_VIEW_CATEGORY_QUANTITY_2
+            - CLICK_APP_INSTALL_QUANTITY_2
+            - CLICK_UNKNOWN_QUANTITY_2
+            - VIEW_PAGE_VISIT_QUANTITY_2
+            - VIEW_SIGNUP_QUANTITY_2
+            - VIEW_CHECKOUT_QUANTITY_2
+            - VIEW_CUSTOM_QUANTITY_2
+            - VIEW_ADD_TO_CART_QUANTITY_2
+            - VIEW_LEAD_QUANTITY_2
+            - VIEW_SEARCH_QUANTITY_2
+            - VIEW_WATCH_VIDEO_QUANTITY_2
+            - VIEW_VIEW_CATEGORY_QUANTITY_2
+            - VIEW_APP_INSTALL_QUANTITY_2
+            - VIEW_UNKNOWN_QUANTITY_2
+            - CONVERSIONS_QUANTITY_2
+            - TOTAL_ENGAGEMENT_PAGE_VISIT
+            - TOTAL_ENGAGEMENT_SIGNUP
+            - TOTAL_ENGAGEMENT_CHECKOUT
+            - TOTAL_ENGAGEMENT_CUSTOM
+            - TOTAL_ENGAGEMENT_ADD_TO_CART
+            - TOTAL_ENGAGEMENT_LEAD
+            - TOTAL_ENGAGEMENT_SEARCH
+            - TOTAL_ENGAGEMENT_WATCH_VIDEO
+            - TOTAL_ENGAGEMENT_VIEW_CATEGORY
+            - TOTAL_ENGAGEMENT_APP_INSTALL
+            - TOTAL_ENGAGEMENT_UNKNOWN
+            - TOTAL_CLICK_PAGE_VISIT
+            - TOTAL_CLICK_SIGNUP
+            - TOTAL_CLICK_CHECKOUT
+            - TOTAL_CLICK_CUSTOM
+            - TOTAL_CLICK_ADD_TO_CART
+            - TOTAL_CLICK_LEAD
+            - TOTAL_CLICK_SEARCH
+            - TOTAL_CLICK_WATCH_VIDEO
+            - TOTAL_CLICK_VIEW_CATEGORY
+            - TOTAL_CLICK_APP_INSTALL
+            - TOTAL_CLICK_UNKNOWN
+            - TOTAL_VIEW_PAGE_VISIT
+            - TOTAL_VIEW_SIGNUP
+            - TOTAL_VIEW_CHECKOUT
+            - TOTAL_VIEW_CUSTOM
+            - TOTAL_VIEW_ADD_TO_CART
+            - TOTAL_VIEW_LEAD
+            - TOTAL_VIEW_SEARCH
+            - TOTAL_VIEW_WATCH_VIDEO
+            - TOTAL_VIEW_VIEW_CATEGORY
+            - TOTAL_VIEW_APP_INSTALL
+            - TOTAL_VIEW_UNKNOWN
+            - TOTAL_CONVERSIONS
+            - TOTAL_WEB_CONVERSIONS
+            - TOTAL_INAPP_CONVERSIONS
+            - TOTAL_OFFLINE_CONVERSIONS
+            - TOTAL_ENGAGEMENT_PAGE_VISIT_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_ENGAGEMENT_PAGE_VISIT_VALUE_IN_DOLLAR
+            - TOTAL_ENGAGEMENT_SIGNUP_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_ENGAGEMENT_SIGNUP_VALUE_IN_DOLLAR
+            - TOTAL_ENGAGEMENT_CHECKOUT_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_ENGAGEMENT_CHECKOUT_VALUE_IN_DOLLAR
+            - TOTAL_ENGAGEMENT_CUSTOM_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_ENGAGEMENT_CUSTOM_VALUE_IN_DOLLAR
+            - TOTAL_ENGAGEMENT_ADD_TO_CART_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_ENGAGEMENT_ADD_TO_CART_VALUE_IN_DOLLAR
+            - TOTAL_ENGAGEMENT_LEAD_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_ENGAGEMENT_LEAD_VALUE_IN_DOLLAR
+            - TOTAL_ENGAGEMENT_SEARCH_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_ENGAGEMENT_SEARCH_VALUE_IN_DOLLAR
+            - TOTAL_ENGAGEMENT_WATCH_VIDEO_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_ENGAGEMENT_WATCH_VIDEO_VALUE_IN_DOLLAR
+            - TOTAL_ENGAGEMENT_VIEW_CATEGORY_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_ENGAGEMENT_VIEW_CATEGORY_VALUE_IN_DOLLAR
+            - TOTAL_ENGAGEMENT_APP_INSTALL_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_ENGAGEMENT_UNKNOWN_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_CLICK_PAGE_VISIT_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_CLICK_PAGE_VISIT_VALUE_IN_DOLLAR
+            - TOTAL_CLICK_SIGNUP_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_CLICK_SIGNUP_VALUE_IN_DOLLAR
+            - TOTAL_CLICK_CHECKOUT_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_CLICK_CHECKOUT_VALUE_IN_DOLLAR
+            - TOTAL_CLICK_CUSTOM_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_CLICK_CUSTOM_VALUE_IN_DOLLAR
+            - TOTAL_CLICK_ADD_TO_CART_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_CLICK_ADD_TO_CART_VALUE_IN_DOLLAR
+            - TOTAL_CLICK_LEAD_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_CLICK_LEAD_VALUE_IN_DOLLAR
+            - TOTAL_CLICK_SEARCH_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_CLICK_SEARCH_VALUE_IN_DOLLAR
+            - TOTAL_CLICK_WATCH_VIDEO_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_CLICK_WATCH_VIDEO_VALUE_IN_DOLLAR
+            - TOTAL_CLICK_VIEW_CATEGORY_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_CLICK_VIEW_CATEGORY_VALUE_IN_DOLLAR
+            - TOTAL_CLICK_APP_INSTALL_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_CLICK_UNKNOWN_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_VIEW_PAGE_VISIT_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_VIEW_PAGE_VISIT_VALUE_IN_DOLLAR
+            - TOTAL_VIEW_SIGNUP_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_VIEW_SIGNUP_VALUE_IN_DOLLAR
+            - TOTAL_VIEW_CHECKOUT_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_VIEW_CHECKOUT_VALUE_IN_DOLLAR
+            - TOTAL_VIEW_CUSTOM_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_VIEW_CUSTOM_VALUE_IN_DOLLAR
+            - TOTAL_VIEW_ADD_TO_CART_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_VIEW_ADD_TO_CART_VALUE_IN_DOLLAR
+            - TOTAL_VIEW_LEAD_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_VIEW_LEAD_VALUE_IN_DOLLAR
+            - TOTAL_VIEW_SEARCH_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_VIEW_SEARCH_VALUE_IN_DOLLAR
+            - TOTAL_VIEW_WATCH_VIDEO_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_VIEW_WATCH_VIDEO_VALUE_IN_DOLLAR
+            - TOTAL_VIEW_VIEW_CATEGORY_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_VIEW_VIEW_CATEGORY_VALUE_IN_DOLLAR
+            - TOTAL_VIEW_APP_INSTALL_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_VIEW_UNKNOWN_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_CONVERSIONS_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_CONVERSIONS_VALUE_IN_DOLLAR
+            - TOTAL_ENGAGEMENT_PAGE_VISIT_QUANTITY
+            - TOTAL_ENGAGEMENT_SIGNUP_QUANTITY
+            - TOTAL_ENGAGEMENT_CHECKOUT_QUANTITY
+            - TOTAL_ENGAGEMENT_CUSTOM_QUANTITY
+            - TOTAL_ENGAGEMENT_ADD_TO_CART_QUANTITY
+            - TOTAL_ENGAGEMENT_LEAD_QUANTITY
+            - TOTAL_ENGAGEMENT_SEARCH_QUANTITY
+            - TOTAL_ENGAGEMENT_WATCH_VIDEO_QUANTITY
+            - TOTAL_ENGAGEMENT_VIEW_CATEGORY_QUANTITY
+            - TOTAL_ENGAGEMENT_APP_INSTALL_QUANTITY
+            - TOTAL_ENGAGEMENT_UNKNOWN_QUANTITY
+            - TOTAL_CLICK_PAGE_VISIT_QUANTITY
+            - TOTAL_CLICK_SIGNUP_QUANTITY
+            - TOTAL_CLICK_CHECKOUT_QUANTITY
+            - TOTAL_CLICK_CUSTOM_QUANTITY
+            - TOTAL_CLICK_ADD_TO_CART_QUANTITY
+            - TOTAL_CLICK_LEAD_QUANTITY
+            - TOTAL_CLICK_SEARCH_QUANTITY
+            - TOTAL_CLICK_WATCH_VIDEO_QUANTITY
+            - TOTAL_CLICK_VIEW_CATEGORY_QUANTITY
+            - TOTAL_CLICK_APP_INSTALL_QUANTITY
+            - TOTAL_CLICK_UNKNOWN_QUANTITY
+            - TOTAL_VIEW_PAGE_VISIT_QUANTITY
+            - TOTAL_VIEW_SIGNUP_QUANTITY
+            - TOTAL_VIEW_CHECKOUT_QUANTITY
+            - TOTAL_VIEW_CUSTOM_QUANTITY
+            - TOTAL_VIEW_ADD_TO_CART_QUANTITY
+            - TOTAL_VIEW_LEAD_QUANTITY
+            - TOTAL_VIEW_SEARCH_QUANTITY
+            - TOTAL_VIEW_WATCH_VIDEO_QUANTITY
+            - TOTAL_VIEW_VIEW_CATEGORY_QUANTITY
+            - TOTAL_VIEW_APP_INSTALL_QUANTITY
+            - TOTAL_VIEW_UNKNOWN_QUANTITY
+            - TOTAL_CONVERSIONS_QUANTITY
+            - COST_PER_CONVERSION_IN_DOLLAR
+            - TOTAL_WEB_SESSIONS
+            - WEB_SESSIONS_1
+            - WEB_SESSIONS_2
+            - APP_INSTALLS_CPA_BILLABLE
+            - APP_INSTALLS_CLICK
+            - APP_INSTALLS_CLOSEUPREPIN
+            - APP_INSTALLS_VIEW
+            - APP_INSTALLS
+            - APP_INSTALLS_ENGAGEMENT
+            - APP_INSTALLS_CLICK_1
+            - APP_INSTALLS_CLICK_2
+            - APP_INSTALLS_VIEW_1
+            - APP_INSTALLS_VIEW_2
+            - APP_INSTALLS_ENGAGEMENT_1
+            - APP_INSTALLS_ENGAGEMENT_2
+            - APP_INSTALLS_1
+            - APP_INSTALLS_2
+            - CPI_IN_MICRO_DOLLAR
+            - ECPI_IN_MICRO_DOLLAR
+            - CPI_IN_DOLLAR
+            - ECPI_IN_DOLLAR
+            - ONSITE_CHECKOUTS_CPA_BILLABLE_1
+            - ONSITE_CHECKOUTS_CPA_BILLABLE_2
+            - ONSITE_CHECKOUTS_CPA_BILLABLE
+            - ONSITE_CHECKOUTS_VALUE_1
+            - ONSITE_CHECKOUTS_VALUE_2
+            - ONSITE_CHECKOUTS_VALUE
+            - ONSITE_CHECKOUTS_1
+            - ONSITE_CHECKOUTS_2
+            - ONSITE_CHECKOUTS
+            - ONSITE_CHECKOUTS_VALUE_IN_MICRO_DOLLAR_1
+            - ONSITE_CHECKOUTS_VALUE_IN_MICRO_DOLLAR_2
+            - CONVERSION_RATE
+            - AVERAGE_CHECKOUT_VALUE
+            - RETURN_ON_ADVERTISER_SPEND
+            - BUY_BUTTON_CLICKS_1
+            - BUY_BUTTON_CLICKS_2
+            - TOTAL_BUY_BUTTON_CLICKS
+            - ORDER_DROPOFF_RATE
+            - ONSITE_CHECKOUTS_VALUE_IN_MICRO_DOLLAR
+            - ONSITE_CHECKOUTS_VALUE_IN_DOLLAR
+            - PIN_PROMOTION_NAME
+            - AD_NAME
+            - LIFETIME_IMPRESSION_USER_1
+            - PIN_PROMOTION_CAMPAIGN_ID
+            - PIN_PROMOTION_CAMPAIGN_NAME
+            - PIN_PROMOTION_CAMPAIGN_ACTION_TYPE
+            - TOTAL_LIFETIME_IMPRESSION_USER
+            - PIN_PROMOTION_CAMPAIGN_STATUS
+            - PIN_PROMOTION_CAMPAIGN_MANAGED_STATUS
+            - PIN_PROMOTION_CAMPAIGN_ENTITY_STATUS
+            - PIN_PROMOTION_AD_GROUP_ID
+            - PIN_PROMOTION_AD_GROUP_NAME
+            - PIN_PROMOTION_AD_GROUP_STATUS
+            - PIN_PROMOTION_AD_GROUP_ENTITY_STATUS
+            - PIN_PROMOTION_CREATIVE_TYPE
+            - PIN_PROMOTION_ENTITY_STATUS
+            - PIN_PROMOTION_CREATIVE_TYPE_V2
+            - PIN_PROMOTION_REVIEW_STATUS
+            - AD_GROUP_CAMPAIGN_ACTION_TYPE
+            - AD_GROUP_CAMPAIGN_ID
+            - AD_GROUP_CAMPAIGN_NAME
+            - AD_GROUP_CAMPAIGN_STATUS
+            - AD_GROUP_CREATIVE_TYPE
+            - AD_GROUP_CAMPAIGN_MANAGED_STATUS
+            - AD_GROUP_CAMPAIGN_ENTITY_STATUS
+            - AD_GROUP_START_DATE
+            - CAMPAIGN_LIFETIME_SPEND_CAP
+            - AD_GROUP_BID_IN_MICRO_CURRENCY
+            - CAMPAIGN_AD_GROUP_START_DATE
+            - CAMPAIGN_AD_GROUP_END_DATE
+            - CAMPAIGN_NUMBER_OF_AD_GROUPS
+            - AD_GROUP_NUMBER_OF_PIN_PROMOTIONS
+            - TODAY_SPEND_IN_LOCAL_CURRENCY
+            - TOTAL_LIFETIME_SPEND_IN_LOCAL_CURRENCY
+            - BUDGET_UTILIZATION
+            - AD_GROUP_OPTIMIZATION
+            - INSERTION_ORDER
+            - AD_GROUP_BONUS_BUDGET
+            - FREQUENCY
+            - CAMPAIGN_DAILY_SPEND_CAP
+            - CAMPAIGN_CREATIVE_TYPE
+            - AD_GROUP_PLACEMENT_GROUP_TYPE
+            - AD_GROUP_IS_PREFETCH_ENABLED
+            - CAMPAIGN_BUDGET_OPTIMIZATION
+            - CAMPAIGN_START_DATE
+            - IS_AUTOMATED_CAMPAIGN
+            - IS_PREMIERE_CAMPAIGN
+            - FLEXIBLE_DAILY_BUDGETS
+            - PERCENT_CROSS_DEVICE_CONVERSIONS
+            - PAGE_VISIT_PERCENT_CROSS_DEVICE_CONVERSIONS
+            - SIGNUP_PERCENT_CROSS_DEVICE_CONVERSIONS
+            - CHECKOUT_PERCENT_CROSS_DEVICE_CONVERSIONS
+            - CUSTOM_PERCENT_CROSS_DEVICE_CONVERSIONS
+            - ADD_TO_CART_PERCENT_CROSS_DEVICE_CONVERSIONS
+            - LEAD_PERCENT_CROSS_DEVICE_CONVERSIONS
+            - SEARCH_PERCENT_CROSS_DEVICE_CONVERSIONS
+            - WATCH_VIDEO_PERCENT_CROSS_DEVICE_CONVERSIONS
+            - VIEW_CATEGORY_PERCENT_CROSS_DEVICE_CONVERSIONS
+            - APP_INSTALL_PERCENT_CROSS_DEVICE_CONVERSIONS
+            - UNKNOWN_PERCENT_CROSS_DEVICE_CONVERSIONS
+            - TOTAL_DESKTOP_ACTION_TO_DESKTOP_CONVERSION
+            - TOTAL_DESKTOP_ACTION_TO_MOBILE_CONVERSION
+            - TOTAL_DESKTOP_ACTION_TO_TABLET_CONVERSION
+            - TOTAL_MOBILE_ACTION_TO_DESKTOP_CONVERSION
+            - TOTAL_MOBILE_ACTION_TO_MOBILE_CONVERSION
+            - TOTAL_MOBILE_ACTION_TO_TABLET_CONVERSION
+            - TOTAL_TABLET_ACTION_TO_DESKTOP_CONVERSION
+            - TOTAL_TABLET_ACTION_TO_MOBILE_CONVERSION
+            - TOTAL_TABLET_ACTION_TO_TABLET_CONVERSION
+            - TOTAL_PAGE_VISIT_DESKTOP_ACTION_TO_DESKTOP_CONVERSION
+            - TOTAL_PAGE_VISIT_DESKTOP_ACTION_TO_MOBILE_CONVERSION
+            - TOTAL_PAGE_VISIT_DESKTOP_ACTION_TO_TABLET_CONVERSION
+            - TOTAL_PAGE_VISIT_MOBILE_ACTION_TO_DESKTOP_CONVERSION
+            - TOTAL_PAGE_VISIT_MOBILE_ACTION_TO_MOBILE_CONVERSION
+            - TOTAL_PAGE_VISIT_MOBILE_ACTION_TO_TABLET_CONVERSION
+            - TOTAL_PAGE_VISIT_TABLET_ACTION_TO_DESKTOP_CONVERSION
+            - TOTAL_PAGE_VISIT_TABLET_ACTION_TO_MOBILE_CONVERSION
+            - TOTAL_PAGE_VISIT_TABLET_ACTION_TO_TABLET_CONVERSION
+            - TOTAL_SIGNUP_DESKTOP_ACTION_TO_DESKTOP_CONVERSION
+            - TOTAL_SIGNUP_DESKTOP_ACTION_TO_MOBILE_CONVERSION
+            - TOTAL_SIGNUP_DESKTOP_ACTION_TO_TABLET_CONVERSION
+            - TOTAL_SIGNUP_MOBILE_ACTION_TO_DESKTOP_CONVERSION
+            - TOTAL_SIGNUP_MOBILE_ACTION_TO_MOBILE_CONVERSION
+            - TOTAL_SIGNUP_MOBILE_ACTION_TO_TABLET_CONVERSION
+            - TOTAL_SIGNUP_TABLET_ACTION_TO_DESKTOP_CONVERSION
+            - TOTAL_SIGNUP_TABLET_ACTION_TO_MOBILE_CONVERSION
+            - TOTAL_SIGNUP_TABLET_ACTION_TO_TABLET_CONVERSION
+            - TOTAL_CHECKOUT_DESKTOP_ACTION_TO_DESKTOP_CONVERSION
+            - TOTAL_CHECKOUT_DESKTOP_ACTION_TO_MOBILE_CONVERSION
+            - TOTAL_CHECKOUT_DESKTOP_ACTION_TO_TABLET_CONVERSION
+            - TOTAL_CHECKOUT_MOBILE_ACTION_TO_DESKTOP_CONVERSION
+            - TOTAL_CHECKOUT_MOBILE_ACTION_TO_MOBILE_CONVERSION
+            - TOTAL_CHECKOUT_MOBILE_ACTION_TO_TABLET_CONVERSION
+            - TOTAL_CHECKOUT_TABLET_ACTION_TO_DESKTOP_CONVERSION
+            - TOTAL_CHECKOUT_TABLET_ACTION_TO_MOBILE_CONVERSION
+            - TOTAL_CHECKOUT_TABLET_ACTION_TO_TABLET_CONVERSION
+            - TOTAL_CUSTOM_DESKTOP_ACTION_TO_DESKTOP_CONVERSION
+            - TOTAL_CUSTOM_DESKTOP_ACTION_TO_MOBILE_CONVERSION
+            - TOTAL_CUSTOM_DESKTOP_ACTION_TO_TABLET_CONVERSION
+            - TOTAL_CUSTOM_MOBILE_ACTION_TO_DESKTOP_CONVERSION
+            - TOTAL_CUSTOM_MOBILE_ACTION_TO_MOBILE_CONVERSION
+            - TOTAL_CUSTOM_MOBILE_ACTION_TO_TABLET_CONVERSION
+            - TOTAL_CUSTOM_TABLET_ACTION_TO_DESKTOP_CONVERSION
+            - TOTAL_CUSTOM_TABLET_ACTION_TO_MOBILE_CONVERSION
+            - TOTAL_CUSTOM_TABLET_ACTION_TO_TABLET_CONVERSION
+            - TOTAL_ADD_TO_CART_DESKTOP_ACTION_TO_DESKTOP_CONVERSION
+            - TOTAL_ADD_TO_CART_DESKTOP_ACTION_TO_MOBILE_CONVERSION
+            - TOTAL_ADD_TO_CART_DESKTOP_ACTION_TO_TABLET_CONVERSION
+            - TOTAL_ADD_TO_CART_MOBILE_ACTION_TO_DESKTOP_CONVERSION
+            - TOTAL_ADD_TO_CART_MOBILE_ACTION_TO_MOBILE_CONVERSION
+            - TOTAL_ADD_TO_CART_MOBILE_ACTION_TO_TABLET_CONVERSION
+            - TOTAL_ADD_TO_CART_TABLET_ACTION_TO_DESKTOP_CONVERSION
+            - TOTAL_ADD_TO_CART_TABLET_ACTION_TO_MOBILE_CONVERSION
+            - TOTAL_ADD_TO_CART_TABLET_ACTION_TO_TABLET_CONVERSION
+            - TOTAL_LEAD_DESKTOP_ACTION_TO_DESKTOP_CONVERSION
+            - TOTAL_LEAD_DESKTOP_ACTION_TO_MOBILE_CONVERSION
+            - TOTAL_LEAD_DESKTOP_ACTION_TO_TABLET_CONVERSION
+            - TOTAL_LEAD_MOBILE_ACTION_TO_DESKTOP_CONVERSION
+            - TOTAL_LEAD_MOBILE_ACTION_TO_MOBILE_CONVERSION
+            - TOTAL_LEAD_MOBILE_ACTION_TO_TABLET_CONVERSION
+            - TOTAL_LEAD_TABLET_ACTION_TO_DESKTOP_CONVERSION
+            - TOTAL_LEAD_TABLET_ACTION_TO_MOBILE_CONVERSION
+            - TOTAL_LEAD_TABLET_ACTION_TO_TABLET_CONVERSION
+            - TOTAL_SEARCH_DESKTOP_ACTION_TO_DESKTOP_CONVERSION
+            - TOTAL_SEARCH_DESKTOP_ACTION_TO_MOBILE_CONVERSION
+            - TOTAL_SEARCH_DESKTOP_ACTION_TO_TABLET_CONVERSION
+            - TOTAL_SEARCH_MOBILE_ACTION_TO_DESKTOP_CONVERSION
+            - TOTAL_SEARCH_MOBILE_ACTION_TO_MOBILE_CONVERSION
+            - TOTAL_SEARCH_MOBILE_ACTION_TO_TABLET_CONVERSION
+            - TOTAL_SEARCH_TABLET_ACTION_TO_DESKTOP_CONVERSION
+            - TOTAL_SEARCH_TABLET_ACTION_TO_MOBILE_CONVERSION
+            - TOTAL_SEARCH_TABLET_ACTION_TO_TABLET_CONVERSION
+            - TOTAL_WATCH_VIDEO_DESKTOP_ACTION_TO_DESKTOP_CONVERSION
+            - TOTAL_WATCH_VIDEO_DESKTOP_ACTION_TO_MOBILE_CONVERSION
+            - TOTAL_WATCH_VIDEO_DESKTOP_ACTION_TO_TABLET_CONVERSION
+            - TOTAL_WATCH_VIDEO_MOBILE_ACTION_TO_DESKTOP_CONVERSION
+            - TOTAL_WATCH_VIDEO_MOBILE_ACTION_TO_MOBILE_CONVERSION
+            - TOTAL_WATCH_VIDEO_MOBILE_ACTION_TO_TABLET_CONVERSION
+            - TOTAL_WATCH_VIDEO_TABLET_ACTION_TO_DESKTOP_CONVERSION
+            - TOTAL_WATCH_VIDEO_TABLET_ACTION_TO_MOBILE_CONVERSION
+            - TOTAL_WATCH_VIDEO_TABLET_ACTION_TO_TABLET_CONVERSION
+            - TOTAL_VIEW_CATEGORY_DESKTOP_ACTION_TO_DESKTOP_CONVERSION
+            - TOTAL_VIEW_CATEGORY_DESKTOP_ACTION_TO_MOBILE_CONVERSION
+            - TOTAL_VIEW_CATEGORY_DESKTOP_ACTION_TO_TABLET_CONVERSION
+            - TOTAL_VIEW_CATEGORY_MOBILE_ACTION_TO_DESKTOP_CONVERSION
+            - TOTAL_VIEW_CATEGORY_MOBILE_ACTION_TO_MOBILE_CONVERSION
+            - TOTAL_VIEW_CATEGORY_MOBILE_ACTION_TO_TABLET_CONVERSION
+            - TOTAL_VIEW_CATEGORY_TABLET_ACTION_TO_DESKTOP_CONVERSION
+            - TOTAL_VIEW_CATEGORY_TABLET_ACTION_TO_MOBILE_CONVERSION
+            - TOTAL_VIEW_CATEGORY_TABLET_ACTION_TO_TABLET_CONVERSION
+            - TOTAL_APP_INSTALL_DESKTOP_ACTION_TO_DESKTOP_CONVERSION
+            - TOTAL_APP_INSTALL_DESKTOP_ACTION_TO_MOBILE_CONVERSION
+            - TOTAL_APP_INSTALL_DESKTOP_ACTION_TO_TABLET_CONVERSION
+            - TOTAL_APP_INSTALL_MOBILE_ACTION_TO_DESKTOP_CONVERSION
+            - TOTAL_APP_INSTALL_MOBILE_ACTION_TO_MOBILE_CONVERSION
+            - TOTAL_APP_INSTALL_MOBILE_ACTION_TO_TABLET_CONVERSION
+            - TOTAL_APP_INSTALL_TABLET_ACTION_TO_DESKTOP_CONVERSION
+            - TOTAL_APP_INSTALL_TABLET_ACTION_TO_MOBILE_CONVERSION
+            - TOTAL_APP_INSTALL_TABLET_ACTION_TO_TABLET_CONVERSION
+            - TOTAL_UNKNOWN_DESKTOP_ACTION_TO_DESKTOP_CONVERSION
+            - TOTAL_UNKNOWN_DESKTOP_ACTION_TO_MOBILE_CONVERSION
+            - TOTAL_UNKNOWN_DESKTOP_ACTION_TO_TABLET_CONVERSION
+            - TOTAL_UNKNOWN_MOBILE_ACTION_TO_DESKTOP_CONVERSION
+            - TOTAL_UNKNOWN_MOBILE_ACTION_TO_MOBILE_CONVERSION
+            - TOTAL_UNKNOWN_MOBILE_ACTION_TO_TABLET_CONVERSION
+            - TOTAL_UNKNOWN_TABLET_ACTION_TO_DESKTOP_CONVERSION
+            - TOTAL_UNKNOWN_TABLET_ACTION_TO_MOBILE_CONVERSION
+            - TOTAL_UNKNOWN_TABLET_ACTION_TO_TABLET_CONVERSION
+            - TOTAL_PAGE_VISIT
+            - TOTAL_SIGNUP
+            - TOTAL_CHECKOUT
+            - TOTAL_CUSTOM
+            - TOTAL_ADD_TO_CART
+            - TOTAL_LEAD
+            - TOTAL_SEARCH
+            - TOTAL_WATCH_VIDEO
+            - TOTAL_VIEW_CATEGORY
+            - TOTAL_APP_INSTALL
+            - TOTAL_UNKNOWN
+            - TOTAL_PAGE_VISIT_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_SIGNUP_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_CHECKOUT_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_CUSTOM_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_ADD_TO_CART_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_LEAD_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_SEARCH_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WATCH_VIDEO_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_VIEW_CATEGORY_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_APP_INSTALL_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_UNKNOWN_VALUE_IN_MICRO_DOLLAR
+            - AVERAGE_PAGE_VISIT_VALUE_IN_MICRO_DOLLAR
+            - AVERAGE_SIGNUP_VALUE_IN_MICRO_DOLLAR
+            - AVERAGE_CHECKOUT_VALUE_IN_MICRO_DOLLAR
+            - AVERAGE_CUSTOM_VALUE_IN_MICRO_DOLLAR
+            - AVERAGE_ADD_TO_CART_VALUE_IN_MICRO_DOLLAR
+            - AVERAGE_LEAD_VALUE_IN_MICRO_DOLLAR
+            - AVERAGE_SEARCH_VALUE_IN_MICRO_DOLLAR
+            - AVERAGE_WATCH_VIDEO_VALUE_IN_MICRO_DOLLAR
+            - AVERAGE_VIEW_CATEGORY_VALUE_IN_MICRO_DOLLAR
+            - AVERAGE_UNKNOWN_VALUE_IN_MICRO_DOLLAR
+            - AVERAGE_PAGE_VISIT_VALUE_IN_MICRO_US_DOLLAR
+            - AVERAGE_SIGNUP_VALUE_IN_MICRO_US_DOLLAR
+            - AVERAGE_CHECKOUT_VALUE_IN_MICRO_US_DOLLAR
+            - AVERAGE_CUSTOM_VALUE_IN_MICRO_US_DOLLAR
+            - AVERAGE_ADD_TO_CART_VALUE_IN_MICRO_US_DOLLAR
+            - AVERAGE_LEAD_VALUE_IN_MICRO_US_DOLLAR
+            - AVERAGE_SEARCH_VALUE_IN_MICRO_US_DOLLAR
+            - AVERAGE_WATCH_VIDEO_VALUE_IN_MICRO_US_DOLLAR
+            - AVERAGE_VIEW_CATEGORY_VALUE_IN_MICRO_US_DOLLAR
+            - AVERAGE_UNKNOWN_VALUE_IN_MICRO_US_DOLLAR
+            - TOTAL_PAGE_VISIT_VALUE_IN_MICRO_US_DOLLAR
+            - TOTAL_SIGNUP_VALUE_IN_MICRO_US_DOLLAR
+            - TOTAL_CHECKOUT_VALUE_IN_MICRO_US_DOLLAR
+            - TOTAL_CUSTOM_VALUE_IN_MICRO_US_DOLLAR
+            - TOTAL_ADD_TO_CART_VALUE_IN_MICRO_US_DOLLAR
+            - TOTAL_LEAD_VALUE_IN_MICRO_US_DOLLAR
+            - TOTAL_SEARCH_VALUE_IN_MICRO_US_DOLLAR
+            - TOTAL_WATCH_VIDEO_VALUE_IN_MICRO_US_DOLLAR
+            - TOTAL_VIEW_CATEGORY_VALUE_IN_MICRO_US_DOLLAR
+            - TOTAL_UNKNOWN_VALUE_IN_MICRO_US_DOLLAR
+            - TOTAL_PAGE_VISIT_QUANTITY
+            - TOTAL_SIGNUP_QUANTITY
+            - TOTAL_CHECKOUT_QUANTITY
+            - TOTAL_CUSTOM_QUANTITY
+            - TOTAL_ADD_TO_CART_QUANTITY
+            - TOTAL_LEAD_QUANTITY
+            - TOTAL_SEARCH_QUANTITY
+            - TOTAL_WATCH_VIDEO_QUANTITY
+            - TOTAL_VIEW_CATEGORY_QUANTITY
+            - TOTAL_APP_INSTALL_QUANTITY
+            - TOTAL_UNKNOWN_QUANTITY
+            - TOTAL_PAGE_VISIT_VALUE_IN_DOLLAR
+            - TOTAL_SIGNUP_VALUE_IN_DOLLAR
+            - TOTAL_CHECKOUT_VALUE_IN_DOLLAR
+            - TOTAL_CUSTOM_VALUE_IN_DOLLAR
+            - TOTAL_ADD_TO_CART_VALUE_IN_DOLLAR
+            - TOTAL_LEAD_VALUE_IN_DOLLAR
+            - TOTAL_SEARCH_VALUE_IN_DOLLAR
+            - TOTAL_WATCH_VIDEO_VALUE_IN_DOLLAR
+            - TOTAL_VIEW_CATEGORY_VALUE_IN_DOLLAR
+            - TOTAL_APP_INSTALL_VALUE_IN_DOLLAR
+            - TOTAL_UNKNOWN_VALUE_IN_DOLLAR
+            - PAGE_VISIT_COST_PER_ACTION
+            - SIGNUP_COST_PER_ACTION
+            - CHECKOUT_COST_PER_ACTION
+            - CUSTOM_COST_PER_ACTION
+            - ADD_TO_CART_COST_PER_ACTION
+            - LEAD_COST_PER_ACTION
+            - SEARCH_COST_PER_ACTION
+            - WATCH_VIDEO_COST_PER_ACTION
+            - VIEW_CATEGORY_COST_PER_ACTION
+            - APP_INSTALL_COST_PER_ACTION
+            - UNKNOWN_COST_PER_ACTION
+            - AD_GROUP_CPA_IN_MICRO_CURRENCY
+            - PAGE_VISIT_COST_PER_ACTION_IN_US_DOLLAR
+            - SIGNUP_COST_PER_ACTION_IN_US_DOLLAR
+            - CHECKOUT_COST_PER_ACTION_IN_US_DOLLAR
+            - CUSTOM_COST_PER_ACTION_IN_US_DOLLAR
+            - ADD_TO_CART_COST_PER_ACTION_IN_US_DOLLAR
+            - LEAD_COST_PER_ACTION_IN_US_DOLLAR
+            - SEARCH_COST_PER_ACTION_IN_US_DOLLAR
+            - WATCH_VIDEO_COST_PER_ACTION_IN_US_DOLLAR
+            - VIEW_CATEGORY_COST_PER_ACTION_IN_US_DOLLAR
+            - UNKNOWN_COST_PER_ACTION_IN_US_DOLLAR
+            - PAGE_VISIT_ROAS
+            - SIGNUP_ROAS
+            - CHECKOUT_ROAS
+            - CUSTOM_ROAS
+            - ADD_TO_CART_ROAS
+            - LEAD_ROAS
+            - SEARCH_ROAS
+            - WATCH_VIDEO_ROAS
+            - VIEW_CATEGORY_ROAS
+            - APP_INSTALL_ROAS
+            - UNKNOWN_ROAS
+            - ROAS
+            - CLICK_ROAS
+            - ENGAGEMENT_ROAS
+            - VIEW_ROAS
+            - HOUR
+            - BOARD_ENGAGEMENT
+            - BOARD_INSERTION
+            - BOARD_IMPRESSION
+            - BOARD_FOLLOW
+            - BOARD_SEND
+            - BOARD_HIDE
+            - PRODUCT_GROUP_CAMPAIGN_ID
+            - PRODUCT_GROUP_CAMPAIGN_NAME
+            - PRODUCT_GROUP_CAMPAIGN_ACTION_TYPE
+            - PRODUCT_GROUP_CAMPAIGN_STATUS
+            - PRODUCT_GROUP_CAMPAIGN_MANAGED_STATUS
+            - PRODUCT_GROUP_AD_GROUP_ID
+            - PRODUCT_GROUP_AD_GROUP_NAME
+            - PRODUCT_GROUP_AD_GROUP_STATUS
+            - PROMOTED_CATALOG_PRODUCT_GROUP_REFERENCE_ID
+            - PROMOTED_CATALOG_PRODUCT_GROUP_REFERENCE_NAME
+            - PROMOTED_CATALOG_PRODUCT_GROUP_ID
+            - PROMOTED_CATALOG_PRODUCT_GROUP_BID_IN_MICRO_CURRENCY
+            - PROMOTED_CATALOG_PRODUCT_GROUP_STATUS
+            - PROMOTED_CATALOG_PRODUCT_GROUP_ENTITY_STATUS
+            - PROMOTED_CATALOG_PRODUCT_GROUP_CAMPAIGN_ID
+            - PROMOTED_CATALOG_PRODUCT_GROUP_CAMPAIGN_NAME
+            - PROMOTED_CATALOG_PRODUCT_GROUP_CAMPAIGN_ACTION_TYPE
+            - PROMOTED_CATALOG_PRODUCT_GROUP_CAMPAIGN_STATUS
+            - PROMOTED_CATALOG_PRODUCT_GROUP_CAMPAIGN_MANAGED_STATUS
+            - PROMOTED_CATALOG_PRODUCT_GROUP_AD_GROUP_ID
+            - PROMOTED_CATALOG_PRODUCT_GROUP_AD_GROUP_NAME
+            - PROMOTED_CATALOG_PRODUCT_GROUP_AD_GROUP_STATUS
+            - PROMOTED_CATALOG_PRODUCT_GROUP_TRACKING_TEMPLATE_URL
+            - VIDEO_3SEC_VIEWS_1
+            - VIDEO_P0_COMPLETE_1
+            - VIDEO_P25_COMPLETE_1
+            - VIDEO_P50_COMPLETE_1
+            - VIDEO_P75_COMPLETE_1
+            - VIDEO_P95_COMPLETE_1
+            - VIDEO_P97_COMPLETE_1
+            - VIDEO_P100_COMPLETE_1
+            - VIDEO_P0_COMBINED_1
+            - VIDEO_P25_COMBINED_1
+            - VIDEO_P50_COMBINED_1
+            - VIDEO_P75_COMBINED_1
+            - VIDEO_P95_COMBINED_1
+            - VIDEO_P97_COMBINED_1
+            - VIDEO_P100_COMBINED_1
+            - VIDEO_AVG_WATCHTIME_1
+            - VIDEO_MRC_VIEWS_1
+            - VIDEO_VIEW_RATE_1
+            - VIDEO_3SEC_VIEWS_2
+            - VIDEO_P0_COMPLETE_2
+            - VIDEO_P25_COMPLETE_2
+            - VIDEO_P50_COMPLETE_2
+            - VIDEO_P75_COMPLETE_2
+            - VIDEO_P95_COMPLETE_2
+            - VIDEO_P97_COMPLETE_2
+            - VIDEO_P100_COMPLETE_2
+            - VIDEO_P0_COMBINED_2
+            - VIDEO_P25_COMBINED_2
+            - VIDEO_P50_COMBINED_2
+            - VIDEO_P75_COMBINED_2
+            - VIDEO_P95_COMBINED_2
+            - VIDEO_P97_COMBINED_2
+            - VIDEO_P100_COMBINED_2
+            - VIDEO_AVG_WATCHTIME_2
+            - VIDEO_MRC_VIEWS_2
+            - VIDEO_VIEW_RATE_2
+            - VIDEO_LENGTH
+            - CPV_IN_MICRO_DOLLAR
+            - CPV_IN_DOLLAR
+            - CP3SV_IN_MICRO_DOLLAR
+            - CP3SV_IN_DOLLAR
+            - ECPV_IN_MICRO_DOLLAR
+            - ECPV_IN_DOLLAR
+            - ECP3SV_IN_MICRO_DOLLAR
+            - ECP3SV_IN_DOLLAR
+            - CPCV_IN_DOLLAR
+            - CPCV_IN_MICRO_DOLLAR
+            - ECPCV_IN_DOLLAR
+            - ECPCV_IN_MICRO_DOLLAR
+            - CPCV_P95_IN_DOLLAR
+            - CPCV_P95_IN_MICRO_DOLLAR
+            - ECPCV_P95_IN_DOLLAR
+            - ECPCV_P95_IN_MICRO_DOLLAR
+            - TOTAL_VIDEO_3SEC_VIEWS
+            - TOTAL_VIDEO_P0_COMPLETE
+            - TOTAL_VIDEO_P25_COMPLETE
+            - TOTAL_VIDEO_P50_COMPLETE
+            - TOTAL_VIDEO_P75_COMPLETE
+            - TOTAL_VIDEO_P95_COMPLETE
+            - TOTAL_VIDEO_P97_COMPLETE
+            - TOTAL_VIDEO_P100_COMPLETE
+            - TOTAL_VIDEO_P0_COMBINED
+            - TOTAL_VIDEO_P25_COMBINED
+            - TOTAL_VIDEO_P50_COMBINED
+            - TOTAL_VIDEO_P75_COMBINED
+            - TOTAL_VIDEO_P95_COMBINED
+            - TOTAL_VIDEO_P97_COMBINED
+            - TOTAL_VIDEO_P100_COMBINED
+            - TOTAL_VIDEO_AVG_WATCHTIME
+            - TOTAL_VIDEO_MRC_VIEWS
+            - TOTAL_VIDEO_VIEW_RATE
+            - VIDEO_V50_WATCHTIME_1
+            - VIDEO_V50_WATCHTIME_2
+            - TOTAL_VIDEO_V50_WATCHTIME
+            - VIDEO_SUM_V50_WATCHTIME_IN_MILLISECOND_1
+            - VIDEO_SUM_V50_WATCHTIME_IN_MILLISECOND_2
+            - TOTAL_VIDEO_SUM_V50_WATCHTIME_IN_MILLISECOND
+            - VIDEO_SUM_V50_WATCHTIME_IN_SECOND_1
+            - VIDEO_SUM_V50_WATCHTIME_IN_SECOND_2
+            - TOTAL_VIDEO_SUM_V50_WATCHTIME_IN_SECOND
+            - VIDEO_AVG_WATCHTIME_IN_MILLISECOND_1
+            - VIDEO_AVG_WATCHTIME_IN_MILLISECOND_2
+            - TOTAL_VIDEO_AVG_WATCHTIME_IN_MILLISECOND
+            - VIDEO_AVG_WATCHTIME_IN_SECOND_1
+            - VIDEO_AVG_WATCHTIME_IN_SECOND_2
+            - TOTAL_VIDEO_AVG_WATCHTIME_IN_SECOND
+            - DELIVERY_STATUS_NO_FANOUT
+            - DELIVERY_STATUS_WITH_FANOUT
+            - KEYWORD_COMPETITION_BAND
+            - KEYWORD_QUERY_VOLUME
+            - KEYWORD_VALUE
+            - KEYWORD_MATCH_TYPE
+            - KEYWORD_BID_IN_MICRO_CURRENCY
+            - KEYWORD_USER_QUERY
+            - KEYWORD_SQR_KEYWORD_VALUE
+            - KEYWORD_AD_GROUP_ID
+            - KEYWORD_AD_GROUP_NAME
+            - KEYWORD_CAMPAIGN_ID
+            - KEYWORD_CAMPAIGN_NAME
+            - KEYWORD_SEARCH_TERM_AD_GROUP_ID
+            - KEYWORD_SEARCH_TERM_AD_GROUP_NAME
+            - KEYWORD_SEARCH_TERM_CAMPAIGN_ID
+            - KEYWORD_SEARCH_TERM_CAMPAIGN_NAME
+            - NEGATIVE_KEYWORD_AD_GROUP_ID
+            - NEGATIVE_KEYWORD_AD_GROUP_NAME
+            - NEGATIVE_KEYWORD_CAMPAIGN_ID
+            - NEGATIVE_KEYWORD_CAMPAIGN_NAME
+            - ONE_TAP_V2_WEBSITE_VIEW_1
+            - ONE_TAP_V2_WEBSITE_VIEW_2
+            - TOTAL_ONE_TAP_V2_WEBSITE_VIEW
+            - ONE_TAP_V2_WEBSITE_VIEW_USER_1
+            - ONE_TAP_V2_WEBSITE_VIEW_USER_2
+            - TOTAL_LANDING_PAGE_VIEWS
+            - LANDING_PAGE_VIEWS_1
+            - LANDING_PAGE_VIEWS_2
+            - COST_PER_LANDING_PAGE_VIEW
+            - LANDING_PAGE_VIEW_RATE
+            - TOTAL_DESTINATION_VIEWS
+            - DESTINATION_VIEWS_1
+            - DESTINATION_VIEWS_2
+            - COST_PER_DESTINATION_VIEW_IN_DOLLAR
+            - COST_PER_DESTINATION_VIEW_IN_MICRO_DOLLAR
+            - DESTINATION_VIEW_RATE
+            - CAROUSEL_SLOT_INDEX
+            - CAROUSEL_ID
+            - CAROUSEL_SLOT_PROMOTION_ID
+            - CAROUSEL_SLOT_IMPRESSION_1
+            - CAROUSEL_SLOT_IMPRESSION_2
+            - TOTAL_CAROUSEL_SLOT_IMPRESSION
+            - CAROUSEL_SLOT_IMPRESSION_USER_1
+            - CAROUSEL_SLOT_IMPRESSION_USER_2
+            - CAROUSEL_SLOT_CLICKTHROUGH_1
+            - CAROUSEL_SLOT_CLICKTHROUGH_2
+            - TOTAL_CAROUSEL_SLOT_CLICKTHROUGH
+            - CAROUSEL_SLOT_CLICKTHROUGH_USER_1
+            - CAROUSEL_SLOT_CLICKTHROUGH_USER_2
+            - CAROUSEL_SLOT_SIDESWIPE_1
+            - CAROUSEL_SLOT_SIDESWIPE_2
+            - TOTAL_CAROUSEL_SLOT_SIDESWIPE
+            - CAROUSEL_SLOT_SIDESWIPE_USER_1
+            - CAROUSEL_SLOT_SIDESWIPE_USER_2
+            - CAROUSEL_SLOT_VIEW_WEBSITE_1
+            - CAROUSEL_SLOT_VIEW_WEBSITE_2
+            - TOTAL_CAROUSEL_SLOT_VIEW_WEBSITE
+            - CAROUSEL_SLOT_VIEW_WEBSITE_USER_1
+            - CAROUSEL_SLOT_VIEW_WEBSITE_USER_2
+            - COLLECTION_PIN_ITEM_IMPRESSION_1
+            - COLLECTION_PIN_ITEM_IMPRESSION_2
+            - TOTAL_COLLECTION_PIN_ITEM_IMPRESSION
+            - COLLECTION_PIN_ITEM_CLICKTHROUGH_1
+            - COLLECTION_PIN_ITEM_CLICKTHROUGH_2
+            - TOTAL_COLLECTION_PIN_ITEM_CLICKTHROUGH
+            - HOLDOUT_EXPERIMENT
+            - AD_GROUP_HOLDOUT_EXPERIMENT
+            - PIN_PROMOTION_HOLDOUT_EXPERIMENT
+            - MULTI_OBJECTIVE_RESULT
+            - MULTI_OBJECTIVE_COST
+            - MULTI_OBJECTIVE_RESULT_DESCRIPTION
+            - MULTI_OBJECTIVE_COST_DESCRIPTION
+            - DATE_RANGE
+            - DATE_RANGE_START
+            - DATE_RANGE_END
+            - REPORT_DATE_START
+            - REPORT_DATE_END
+            - PINNER_LIST_NAME
+            - PINNER_LIST_TYPE
+            - ORDER_VALUE
+            - ORDER_QUANTITY
+            - ADVERTISER_NAME
+            - ADVERTISER_CURRENCY
+            - TOTAL_REPIN_RATE
+            - SPEND_YESTERDAY_IN_DOLLAR
+            - PIN_PROMOTION_REJECTION_LABELS
+            - PIN_PROMOTION_DESTINATION_URL
+            - VIDEO_COMPLETION_RATE
+            - CAMPAIGN_BOOKING_REFERENCE
+            - WEB_CHECKOUT_COST_PER_ACTION
+            - WEB_CHECKOUT_ROAS
+            - TOTAL_WEB_CHECKOUT
+            - TOTAL_WEB_CHECKOUT_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_CHECKOUT_VALUE_IN_DOLLAR
+            - TOTAL_WEB_CLICK_CHECKOUT
+            - TOTAL_WEB_CLICK_CHECKOUT_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_CLICK_CHECKOUT_VALUE_IN_DOLLAR
+            - TOTAL_WEB_ENGAGEMENT_CHECKOUT
+            - TOTAL_WEB_ENGAGEMENT_CHECKOUT_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_ENGAGEMENT_CHECKOUT_VALUE_IN_DOLLAR
+            - TOTAL_WEB_VIEW_CHECKOUT
+            - TOTAL_WEB_VIEW_CHECKOUT_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_VIEW_CHECKOUT_VALUE_IN_DOLLAR
+            - INAPP_CHECKOUT_COST_PER_ACTION
+            - INAPP_CHECKOUT_ROAS
+            - TOTAL_INAPP_CHECKOUT
+            - TOTAL_INAPP_CHECKOUT_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_INAPP_CHECKOUT_VALUE_IN_DOLLAR
+            - TOTAL_INAPP_CLICK_CHECKOUT
+            - TOTAL_INAPP_CLICK_CHECKOUT_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_INAPP_CLICK_CHECKOUT_VALUE_IN_DOLLAR
+            - TOTAL_INAPP_ENGAGEMENT_CHECKOUT
+            - TOTAL_INAPP_ENGAGEMENT_CHECKOUT_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_INAPP_ENGAGEMENT_CHECKOUT_VALUE_IN_DOLLAR
+            - TOTAL_INAPP_VIEW_CHECKOUT
+            - TOTAL_INAPP_VIEW_CHECKOUT_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_INAPP_VIEW_CHECKOUT_VALUE_IN_DOLLAR
+            - OFFLINE_CHECKOUT_COST_PER_ACTION
+            - OFFLINE_CHECKOUT_ROAS
+            - TOTAL_OFFLINE_CHECKOUT
+            - TOTAL_OFFLINE_CHECKOUT_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_OFFLINE_CHECKOUT_VALUE_IN_DOLLAR
+            - TOTAL_OFFLINE_CLICK_CHECKOUT
+            - TOTAL_OFFLINE_CLICK_CHECKOUT_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_OFFLINE_CLICK_CHECKOUT_VALUE_IN_DOLLAR
+            - TOTAL_OFFLINE_ENGAGEMENT_CHECKOUT
+            - TOTAL_OFFLINE_ENGAGEMENT_CHECKOUT_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_OFFLINE_ENGAGEMENT_CHECKOUT_VALUE_IN_DOLLAR
+            - TOTAL_OFFLINE_VIEW_CHECKOUT
+            - TOTAL_OFFLINE_VIEW_CHECKOUT_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_OFFLINE_VIEW_CHECKOUT_VALUE_IN_DOLLAR
+            - PINTEREST_CHECKOUT_COST_PER_ACTION
+            - PINTEREST_CHECKOUT_ROAS
+            - TOTAL_PINTEREST_CHECKOUT
+            - TOTAL_PINTEREST_CHECKOUT_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_PINTEREST_CHECKOUT_VALUE_IN_DOLLAR
+            - WEB_ADD_TO_CART_COST_PER_ACTION
+            - WEB_ADD_TO_CART_ROAS
+            - TOTAL_WEB_ADD_TO_CART
+            - TOTAL_WEB_ADD_TO_CART_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_ADD_TO_CART_VALUE_IN_DOLLAR
+            - TOTAL_WEB_CLICK_ADD_TO_CART
+            - TOTAL_WEB_CLICK_ADD_TO_CART_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_CLICK_ADD_TO_CART_VALUE_IN_DOLLAR
+            - TOTAL_WEB_ENGAGEMENT_ADD_TO_CART
+            - TOTAL_WEB_ENGAGEMENT_ADD_TO_CART_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_VIEW_ADD_TO_CART
+            - TOTAL_WEB_VIEW_ADD_TO_CART_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_VIEW_ADD_TO_CART_VALUE_IN_DOLLAR
+            - INAPP_ADD_TO_CART_COST_PER_ACTION
+            - INAPP_ADD_TO_CART_ROAS
+            - TOTAL_INAPP_ADD_TO_CART
+            - TOTAL_INAPP_ADD_TO_CART_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_INAPP_ADD_TO_CART_VALUE_IN_DOLLAR
+            - TOTAL_INAPP_CLICK_ADD_TO_CART
+            - TOTAL_INAPP_CLICK_ADD_TO_CART_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_INAPP_CLICK_ADD_TO_CART_VALUE_IN_DOLLAR
+            - TOTAL_INAPP_ENGAGEMENT_ADD_TO_CART
+            - TOTAL_INAPP_ENGAGEMENT_ADD_TO_CART_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_INAPP_ENGAGEMENT_ADD_TO_CART_VALUE_IN_DOLLAR
+            - TOTAL_INAPP_VIEW_ADD_TO_CART
+            - TOTAL_INAPP_VIEW_ADD_TO_CART_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_INAPP_VIEW_ADD_TO_CART_VALUE_IN_DOLLAR
+            - WEB_PAGE_VISIT_COST_PER_ACTION
+            - WEB_PAGE_VISIT_ROAS
+            - TOTAL_WEB_PAGE_VISIT
+            - TOTAL_WEB_PAGE_VISIT_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_PAGE_VISIT_VALUE_IN_DOLLAR
+            - TOTAL_WEB_CLICK_PAGE_VISIT
+            - TOTAL_WEB_CLICK_PAGE_VISIT_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_CLICK_PAGE_VISIT_VALUE_IN_DOLLAR
+            - TOTAL_WEB_ENGAGEMENT_PAGE_VISIT
+            - TOTAL_WEB_ENGAGEMENT_PAGE_VISIT_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_ENGAGEMENT_PAGE_VISIT_VALUE_IN_DOLLAR
+            - TOTAL_WEB_VIEW_PAGE_VISIT
+            - TOTAL_WEB_VIEW_PAGE_VISIT_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_VIEW_PAGE_VISIT_VALUE_IN_DOLLAR
+            - WEB_SIGNUP_COST_PER_ACTION
+            - WEB_SIGNUP_ROAS
+            - TOTAL_WEB_SIGNUP
+            - TOTAL_WEB_SIGNUP_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_SIGNUP_VALUE_IN_DOLLAR
+            - TOTAL_WEB_CLICK_SIGNUP
+            - TOTAL_WEB_CLICK_SIGNUP_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_CLICK_SIGNUP_VALUE_IN_DOLLAR
+            - TOTAL_WEB_ENGAGEMENT_SIGNUP
+            - TOTAL_WEB_ENGAGEMENT_SIGNUP_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_ENGAGEMENT_SIGNUP_VALUE_IN_DOLLAR
+            - TOTAL_WEB_VIEW_SIGNUP
+            - TOTAL_WEB_VIEW_SIGNUP_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_VIEW_SIGNUP_VALUE_IN_DOLLAR
+            - INAPP_SIGNUP_COST_PER_ACTION
+            - INAPP_SIGNUP_ROAS
+            - TOTAL_INAPP_SIGNUP
+            - TOTAL_INAPP_SIGNUP_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_INAPP_SIGNUP_VALUE_IN_DOLLAR
+            - TOTAL_INAPP_CLICK_SIGNUP
+            - TOTAL_INAPP_CLICK_SIGNUP_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_INAPP_CLICK_SIGNUP_VALUE_IN_DOLLAR
+            - TOTAL_INAPP_ENGAGEMENT_SIGNUP
+            - TOTAL_INAPP_ENGAGEMENT_SIGNUP_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_INAPP_ENGAGEMENT_SIGNUP_VALUE_IN_DOLLAR
+            - TOTAL_INAPP_VIEW_SIGNUP
+            - TOTAL_INAPP_VIEW_SIGNUP_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_INAPP_VIEW_SIGNUP_VALUE_IN_DOLLAR
+            - OFFLINE_SIGNUP_COST_PER_ACTION
+            - OFFLINE_SIGNUP_ROAS
+            - TOTAL_OFFLINE_SIGNUP
+            - TOTAL_OFFLINE_SIGNUP_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_OFFLINE_SIGNUP_VALUE_IN_DOLLAR
+            - TOTAL_OFFLINE_CLICK_SIGNUP
+            - TOTAL_OFFLINE_CLICK_SIGNUP_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_OFFLINE_CLICK_SIGNUP_VALUE_IN_DOLLAR
+            - TOTAL_OFFLINE_ENGAGEMENT_SIGNUP
+            - TOTAL_OFFLINE_ENGAGEMENT_SIGNUP_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_OFFLINE_ENGAGEMENT_SIGNUP_VALUE_IN_DOLLAR
+            - TOTAL_OFFLINE_VIEW_SIGNUP
+            - TOTAL_OFFLINE_VIEW_SIGNUP_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_OFFLINE_VIEW_SIGNUP_VALUE_IN_DOLLAR
+            - WEB_WATCH_VIDEO_COST_PER_ACTION
+            - WEB_WATCH_VIDEO_ROAS
+            - TOTAL_WEB_WATCH_VIDEO
+            - TOTAL_WEB_WATCH_VIDEO_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_WATCH_VIDEO_VALUE_IN_DOLLAR
+            - TOTAL_WEB_CLICK_WATCH_VIDEO
+            - TOTAL_WEB_CLICK_WATCH_VIDEO_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_CLICK_WATCH_VIDEO_VALUE_IN_DOLLAR
+            - TOTAL_WEB_ENGAGEMENT_WATCH_VIDEO
+            - TOTAL_WEB_ENGAGEMENT_WATCH_VIDEO_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_ENGAGEMENT_WATCH_VIDEO_VALUE_IN_DOLLAR
+            - TOTAL_WEB_VIEW_WATCH_VIDEO
+            - TOTAL_WEB_VIEW_WATCH_VIDEO_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_VIEW_WATCH_VIDEO_VALUE_IN_DOLLAR
+            - WEB_LEAD_COST_PER_ACTION
+            - WEB_LEAD_ROAS
+            - TOTAL_WEB_LEAD
+            - TOTAL_WEB_LEAD_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_LEAD_VALUE_IN_DOLLAR
+            - TOTAL_WEB_CLICK_LEAD
+            - TOTAL_WEB_CLICK_LEAD_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_CLICK_LEAD_VALUE_IN_DOLLAR
+            - TOTAL_WEB_ENGAGEMENT_LEAD
+            - TOTAL_WEB_ENGAGEMENT_LEAD_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_ENGAGEMENT_LEAD_VALUE_IN_DOLLAR
+            - TOTAL_WEB_VIEW_LEAD
+            - TOTAL_WEB_VIEW_LEAD_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_VIEW_LEAD_VALUE_IN_DOLLAR
+            - OFFLINE_LEAD_COST_PER_ACTION
+            - OFFLINE_LEAD_ROAS
+            - TOTAL_OFFLINE_LEAD
+            - TOTAL_OFFLINE_LEAD_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_OFFLINE_LEAD_VALUE_IN_DOLLAR
+            - TOTAL_OFFLINE_CLICK_LEAD
+            - TOTAL_OFFLINE_CLICK_LEAD_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_OFFLINE_CLICK_LEAD_VALUE_IN_DOLLAR
+            - TOTAL_OFFLINE_ENGAGEMENT_LEAD
+            - TOTAL_OFFLINE_ENGAGEMENT_LEAD_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_OFFLINE_ENGAGEMENT_LEAD_VALUE_IN_DOLLAR
+            - TOTAL_OFFLINE_VIEW_LEAD
+            - TOTAL_OFFLINE_VIEW_LEAD_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_OFFLINE_VIEW_LEAD_VALUE_IN_DOLLAR
+            - WEB_SEARCH_COST_PER_ACTION
+            - WEB_SEARCH_ROAS
+            - TOTAL_WEB_SEARCH
+            - TOTAL_WEB_SEARCH_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_SEARCH_VALUE_IN_DOLLAR
+            - TOTAL_WEB_CLICK_SEARCH
+            - TOTAL_WEB_CLICK_SEARCH_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_CLICK_SEARCH_VALUE_IN_DOLLAR
+            - TOTAL_WEB_ENGAGEMENT_SEARCH
+            - TOTAL_WEB_ENGAGEMENT_SEARCH_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_ENGAGEMENT_SEARCH_VALUE_IN_DOLLAR
+            - TOTAL_WEB_VIEW_SEARCH
+            - TOTAL_WEB_VIEW_SEARCH_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_VIEW_SEARCH_VALUE_IN_DOLLAR
+            - INAPP_SEARCH_COST_PER_ACTION
+            - INAPP_SEARCH_ROAS
+            - TOTAL_INAPP_SEARCH
+            - TOTAL_INAPP_SEARCH_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_INAPP_SEARCH_VALUE_IN_DOLLAR
+            - TOTAL_INAPP_CLICK_SEARCH
+            - TOTAL_INAPP_CLICK_SEARCH_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_INAPP_CLICK_SEARCH_VALUE_IN_DOLLAR
+            - TOTAL_INAPP_ENGAGEMENT_SEARCH
+            - TOTAL_INAPP_ENGAGEMENT_SEARCH_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_INAPP_ENGAGEMENT_SEARCH_VALUE_IN_DOLLAR
+            - TOTAL_INAPP_VIEW_SEARCH
+            - TOTAL_INAPP_VIEW_SEARCH_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_INAPP_VIEW_SEARCH_VALUE_IN_DOLLAR
+            - WEB_VIEW_CATEGORY_COST_PER_ACTION
+            - WEB_VIEW_CATEGORY_ROAS
+            - TOTAL_WEB_VIEW_CATEGORY
+            - TOTAL_WEB_VIEW_CATEGORY_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_VIEW_CATEGORY_VALUE_IN_DOLLAR
+            - TOTAL_WEB_CLICK_VIEW_CATEGORY
+            - TOTAL_WEB_CLICK_VIEW_CATEGORY_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_CLICK_VIEW_CATEGORY_VALUE_IN_DOLLAR
+            - TOTAL_WEB_ENGAGEMENT_VIEW_CATEGORY
+            - TOTAL_WEB_ENGAGEMENT_VIEW_CATEGORY_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_ENGAGEMENT_VIEW_CATEGORY_VALUE_IN_DOLLAR
+            - TOTAL_WEB_VIEW_VIEW_CATEGORY
+            - TOTAL_WEB_VIEW_VIEW_CATEGORY_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_VIEW_VIEW_CATEGORY_VALUE_IN_DOLLAR
+            - WEB_CUSTOM_COST_PER_ACTION
+            - WEB_CUSTOM_ROAS
+            - TOTAL_WEB_CUSTOM
+            - TOTAL_WEB_CUSTOM_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_CUSTOM_VALUE_IN_DOLLAR
+            - TOTAL_WEB_CLICK_CUSTOM
+            - TOTAL_WEB_CLICK_CUSTOM_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_CLICK_CUSTOM_VALUE_IN_DOLLAR
+            - TOTAL_WEB_ENGAGEMENT_CUSTOM
+            - TOTAL_WEB_ENGAGEMENT_CUSTOM_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_ENGAGEMENT_CUSTOM_VALUE_IN_DOLLAR
+            - TOTAL_WEB_VIEW_CUSTOM
+            - TOTAL_WEB_VIEW_CUSTOM_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_VIEW_CUSTOM_VALUE_IN_DOLLAR
+            - OFFLINE_CUSTOM_COST_PER_ACTION
+            - OFFLINE_CUSTOM_ROAS
+            - TOTAL_OFFLINE_CUSTOM
+            - TOTAL_OFFLINE_CUSTOM_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_OFFLINE_CUSTOM_VALUE_IN_DOLLAR
+            - TOTAL_OFFLINE_CLICK_CUSTOM
+            - TOTAL_OFFLINE_CLICK_CUSTOM_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_OFFLINE_CLICK_CUSTOM_VALUE_IN_DOLLAR
+            - TOTAL_OFFLINE_ENGAGEMENT_CUSTOM
+            - TOTAL_OFFLINE_ENGAGEMENT_CUSTOM_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_OFFLINE_ENGAGEMENT_CUSTOM_VALUE_IN_DOLLAR
+            - TOTAL_OFFLINE_VIEW_CUSTOM
+            - TOTAL_OFFLINE_VIEW_CUSTOM_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_OFFLINE_VIEW_CUSTOM_VALUE_IN_DOLLAR
+            - WEB_UNKNOWN_COST_PER_ACTION
+            - WEB_UNKNOWN_ROAS
+            - TOTAL_WEB_UNKNOWN
+            - TOTAL_WEB_UNKNOWN_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_UNKNOWN_VALUE_IN_DOLLAR
+            - TOTAL_WEB_CLICK_UNKNOWN
+            - TOTAL_WEB_CLICK_UNKNOWN_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_CLICK_UNKNOWN_VALUE_IN_DOLLAR
+            - TOTAL_WEB_ENGAGEMENT_UNKNOWN
+            - TOTAL_WEB_ENGAGEMENT_UNKNOWN_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_ENGAGEMENT_UNKNOWN_VALUE_IN_DOLLAR
+            - TOTAL_WEB_VIEW_UNKNOWN
+            - TOTAL_WEB_VIEW_UNKNOWN_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_WEB_VIEW_UNKNOWN_VALUE_IN_DOLLAR
+            - INAPP_UNKNOWN_COST_PER_ACTION
+            - INAPP_UNKNOWN_ROAS
+            - TOTAL_INAPP_UNKNOWN
+            - TOTAL_INAPP_UNKNOWN_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_INAPP_UNKNOWN_VALUE_IN_DOLLAR
+            - TOTAL_INAPP_CLICK_UNKNOWN
+            - TOTAL_INAPP_CLICK_UNKNOWN_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_INAPP_CLICK_UNKNOWN_VALUE_IN_DOLLAR
+            - TOTAL_INAPP_ENGAGEMENT_UNKNOWN
+            - TOTAL_INAPP_ENGAGEMENT_UNKNOWN_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_INAPP_ENGAGEMENT_UNKNOWN_VALUE_IN_DOLLAR
+            - TOTAL_INAPP_VIEW_UNKNOWN
+            - TOTAL_INAPP_VIEW_UNKNOWN_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_INAPP_VIEW_UNKNOWN_VALUE_IN_DOLLAR
+            - OFFLINE_UNKNOWN_COST_PER_ACTION
+            - OFFLINE_UNKNOWN_ROAS
+            - TOTAL_OFFLINE_UNKNOWN
+            - TOTAL_OFFLINE_UNKNOWN_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_OFFLINE_UNKNOWN_VALUE_IN_DOLLAR
+            - TOTAL_OFFLINE_CLICK_UNKNOWN
+            - TOTAL_OFFLINE_CLICK_UNKNOWN_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_OFFLINE_CLICK_UNKNOWN_VALUE_IN_DOLLAR
+            - TOTAL_OFFLINE_ENGAGEMENT_UNKNOWN
+            - TOTAL_OFFLINE_ENGAGEMENT_UNKNOWN_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_OFFLINE_ENGAGEMENT_UNKNOWN_VALUE_IN_DOLLAR
+            - TOTAL_OFFLINE_VIEW_UNKNOWN
+            - TOTAL_OFFLINE_VIEW_UNKNOWN_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_OFFLINE_VIEW_UNKNOWN_VALUE_IN_DOLLAR
+            - INAPP_APP_INSTALL_COST_PER_ACTION
+            - INAPP_APP_INSTALL_ROAS
+            - TOTAL_INAPP_APP_INSTALL
+            - TOTAL_INAPP_APP_INSTALL_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_INAPP_APP_INSTALL_VALUE_IN_DOLLAR
+            - TOTAL_INAPP_CLICK_APP_INSTALL
+            - TOTAL_INAPP_CLICK_APP_INSTALL_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_INAPP_CLICK_APP_INSTALL_VALUE_IN_DOLLAR
+            - TOTAL_INAPP_ENGAGEMENT_APP_INSTALL
+            - TOTAL_INAPP_ENGAGEMENT_APP_INSTALL_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_INAPP_ENGAGEMENT_APP_INSTALL_VALUE_IN_DOLLAR
+            - TOTAL_INAPP_VIEW_APP_INSTALL
+            - TOTAL_INAPP_VIEW_APP_INSTALL_VALUE_IN_MICRO_DOLLAR
+            - TOTAL_INAPP_VIEW_APP_INSTALL_VALUE_IN_DOLLAR
+            - IDEA_PIN_PAGE_FORWARD_1
+            - IDEA_PIN_PAGE_FORWARD_2
+            - IDEA_PIN_PAGE_BACKWARD_1
+            - IDEA_PIN_PAGE_BACKWARD_2
+            - TOTAL_IDEA_PIN_PAGE_FORWARD
+            - TOTAL_IDEA_PIN_PAGE_BACKWARD
+            - IDEA_PIN_PRODUCT_TAG_VISIT_1
+            - IDEA_PIN_PRODUCT_TAG_VISIT_2
+            - TOTAL_IDEA_PIN_PRODUCT_TAG_VISIT
+            - CPM_IN_US_DOLLAR
+            - ECPC_IN_US_DOLLAR
+            - LEADS
+            - COST_PER_LEAD
+            - QUIZ_STARTED
+            - QUIZ_COMPLETED
+            - QUIZ_PIN_RESULT_OPEN
+            - QUIZ_COMPLETION_RATE
+            - SHOWCASE_PIN_CLICKTHROUGH
+            - SHOWCASE_SUBPAGE_CLICKTHROUGH
+            - SHOWCASE_SUBPIN_CLICKTHROUGH
+            - SHOWCASE_SUBPAGE_IMPRESSION
+            - SHOWCASE_SUBPIN_IMPRESSION
+            - SHOWCASE_SUBPAGE_SWIPE_LEFT
+            - SHOWCASE_SUBPAGE_SWIPE_RIGHT
+            - SHOWCASE_SUBPIN_SWIPE_LEFT
+            - SHOWCASE_SUBPIN_SWIPE_RIGHT
+            - SHOWCASE_SUBPAGE_REPIN
+            - SHOWCASE_SUBPIN_REPIN
+            - SHOWCASE_SUBPAGE_CLOSEUP
+            - SHOWCASE_CARD_THUMBNAIL_SWIPE_FORWARD
+            - SHOWCASE_CARD_THUMBNAIL_SWIPE_BACKWARD
+            - _SHOWCASE_SUBPAGE_CLOSEUP_INTERNAL
+            - SHOWCASE_CARD_LANDING
+            - SHOWCASE_AVERAGE_SUBPAGE_CLOSEUP_PER_SESSION
+            - TOTAL_CHECKOUT_CONVERSION_RATE
+            - TOTAL_VIEW_CATEGORY_CONVERSION_RATE
+            - TOTAL_ADD_TO_CART_CONVERSION_RATE
+            - TOTAL_SIGNUP_CONVERSION_RATE
+            - TOTAL_PAGE_VISIT_CONVERSION_RATE
+            - TOTAL_LEAD_CONVERSION_RATE
+            - TOTAL_SEARCH_CONVERSION_RATE
+            - TOTAL_WATCH_VIDEO_CONVERSION_RATE
+            - TOTAL_UNKNOWN_CONVERSION_RATE
+            - TOTAL_CUSTOM_CONVERSION_RATE
+            - STANDARD_AD_FEED_ITEM_ID
+            - IS_STANDARD_FEED_AD
+            - TARGETING_GENDER
+            - TARGETING_CREATIVE_TYPE
+            - TARGETING_COUNTRY
+            - TARGETING_LOCATION
+            - TARGETING_APPTYPE
+            - TARGETING_LOCATION_CODE
+          type: array
+        granularity:
+          $ref: '#/components/schemas/Granularity'
+        view_window_days:
+          description: The length of the sliding window over which view conversions will be attributed
+          example: 7
+          type: number
+        click_window_days:
+          description: The length of the sliding window over which click conversions will be attributed
+          example: 7
+          type: number
+        engagement_window_days:
+          description: The length of the sliding window over which engagement conversions will be attributed
+          example: 7
+          type: number
+        conversion_report_time_type:
+          description: Conversion report time type
+          enum:
+          - TIME_OF_AD_ACTION
+          - TIME_OF_CONVERSION
+          example: TIME_OF_AD_ACTION
+          type: string
+        filters_json:
+          description: 'A JSON representation of any filters to be applied before returning report data. Each filter object should contain all of the following fields:<br> "field": The column name<br> "operator": The operator. Allowed operators: ["=", "!=", "in", "not_in", "", ">", "<", "contains_substring"]<br> "value": A single value or a list of values'
+          example: '[{"field": "SPEND_IN_DOLLAR", "operator": "=", "value": 100}]'
+          nullable: true
+          type: string
+        is_owned_by_user:
+          description: A boolean value that indicates if the user owns the template
+          example: true
+          type: boolean
+        is_scheduled:
+          description: A boolean value that indicates if this template has been used to create a scheduled report
+          example: true
+          type: boolean
+        creation_source:
+          description: The surface used to create this template
+          enum:
+          - ADS_API
+          - ADS_MANAGER_REPORTING_PAGE
+          - ADS_MANAGER_REPORT_BUILDER
+          example: ADS_MANAGER_REPORT_BUILDER
+          type: string
+        is_deleted:
+          description: A boolean that indicates if the template has been deleted
+          example: false
+          nullable: true
+          type: boolean
+        updated_time:
+          description: Time of last update in seconds since Unix epoch
+          example: 1432744744
+          type: number
+        custom_column_ids:
+          description: A list of custom column IDs
+          example:
+          - '1597252063'
+          items:
+            $ref: '#/components/schemas/CustomColumnId'
+          nullable: true
+          type: array
+        type:
+          allOf:
+          - description: Reporting template type
+            enum:
+            - UNSPECIFIED
+            - BULK
+            - OVERVIEW
+            - TABLE
+            example: BULK
+            type: string
+          description: Type of the template
+          example: BULK
+          type: string
+        ingestion_sources:
+          description: The filter on the conversion ingestion source method for conversion metrics
+          items:
+            description: The source of conversion events ingestion
+            enum:
+            - TAG
+            - MMP
+            - FILE_UPLOAD
+            - CONVERSIONS_API
+            - NATIVE
+            example: CONVERSIONS_API
+            type: string
+          nullable: true
+          type: array
+    PlacementGroupType:
+      type: string
+      description: Campaign placement group type
+      example: ALL
+      default: ALL
+      enum:
+      - ALL
+      - SEARCH
+      - BROWSE
+      - OTHER
+    Granularity:
+      type: string
+      description: Granularity
+      enum:
+      - TOTAL
+      - DAY
+      - HOUR
+      - WEEK
+      - MONTH
+    TargetingTemplateGetResponseData:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/TargetingTemplateResponseData'
+      - type: object
+        title: TargetingTemplateGetResponseData
+        properties:
+          valid:
+            nullable: true
+            description: Inform if the targeting template is valid (ex. would be false if has revoked audience)
+            type: boolean
+            example: true
+  parameters:
+    path_template_id:
+      name: template_id
+      description: Unique identifier of a template.
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
+    path_ad_account_id:
+      name: ad_account_id
+      description: Unique identifier of an ad account.
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
+    query_granularity_async:
+      description: TOTAL - metrics are aggregated over the specified date range.<br> DAY - metrics are broken down daily.<br> HOUR - metrics are broken down hourly.<br>WEEKLY - metrics are broken down weekly.<br>MONTHLY - metrics are broken down monthly
+      example: DAY
+      in: query
+      name: granularity
+      required: false
+      schema:
+        $ref: '#/components/schemas/Granularity'
+    query_start_date_async:
+      description: 'Metric report start date (UTC). Format: YYYY-MM-DD. Cannot be more than 2.5 years back from today.'
+      in: query
+      name: start_date
+      required: false
+      schema:
+        type: string
+        format: date
+    query_page_size:
+      name: page_size
+      description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 250
+        default: 25
+    query_bookmark:
+      name: bookmark
+      description: Cursor used to fetch the next page of items
+      in: query
+      required: false
+      schema:
+        type: string
+    query_order:
+      description: 'The order in which to sort the items returned: ASCENDING or DESCENDING
+
+        by ID. Note that higher-value IDs are associated with more-recently added
+
+        items.'
+      in: query
+      name: order
+      required: false
+      schema:
+        type: string
+        example: ASCENDING
+        enum:
+        - ASCENDING
+        - DESCENDING
+    query_end_date_async:
+      description: 'Metric report end date (UTC). Format: YYYY-MM-DD. Cannot be more than 2.5 years past start date.'
+      in: query
+      name: end_date
+      required: false
+      schema:
+        type: string
+        format: date
+  securitySchemes:
+    pinterest_oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.pinterest.com/oauth/
+          tokenUrl: https://api.pinterest.com/v5/oauth/token
+          scopes:
+            ads:read: See all of your advertising data, including ads, ad groups, campaigns etc.
+            ads:write: Create, update, or delete ads, ad groups, campaigns etc.
+            billing:read: See all of your billing data, billing profile, etc.
+            billing:write: Create, update, or delete billing data, billing profiles, etc.
+            biz_access:read: See business access data
+            biz_access:write: Create, update, or delete business access data
+            boards:read: See your public boards, including group boards you join
+            boards:read_secret: See your secret boards
+            boards:write: Create, update, or delete your public boards
+            boards:write_secret: Create, update, or delete your secret boards
+            catalogs:read: See all of your catalogs data
+            catalogs:write: Create, update, or delete your catalogs data
+            pins:read: See your public Pins
+            pins:read_secret: See your secret Pins
+            pins:write: Create, update, or delete your public Pins
+            pins:write_secret: Create, update, or delete your secret Pins
+            user_accounts:read: See your user accounts and followers
+            user_accounts:write: Update your user accounts and followers
+    conversion_token:
+      type: http
+      scheme: bearer
+      description: This security scheme only applies to the conversion events endpoint (POST /ad_accounts/{ad_account_id}/events). This endpoint requires a bearer token generated via Ads Manager (ads.pinterest.com).
+    basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Pin and Boards
+  tags:
+  - pins
+  - boards
+  - media
+  - aggregated_comments
+  - aggregated_pin_data
+  - user_account
+- name: Campaign Management
+  tags:
+  - ad_accounts
+  - campaigns
+  - ad_groups
+  - ads
+  - product_group_promotions
+  - bulk
+- name: Targeting
+  tags:
+  - audiences
+  - customer_lists
+  - keywords
+  - targeting_template
+  - audience_insights
+  - audience_sharing
+- name: Ad Formats
+  tags:
+  - lead_forms
+  - lead_ads
+  - leads_export
+- name: Billing
+  tags:
+  - billing
+  - order_lines
+  - terms_of_service
+- name: Business Access
+  tags:
+  - business_access_assets
+  - business_access_invite
+  - business_access_relationships
+- name: Conversions
+  tags:
+  - conversion_events
+  - conversion_tags
+- name: Others
+  tags:
+  - integrations
+  - oauth
+  - resources
+  - search
+  - terms
+- name: Shopping
+  tags:
+  - catalogs
+- name: Deprecated
+  tags:
+  - product_groups

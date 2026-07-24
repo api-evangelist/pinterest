@@ -1,0 +1,338 @@
+openapi: 3.0.3
+info:
+  version: 5.13.0
+  title: Pinterest External API
+  description: This is the description of your API.
+  contact:
+    name: Pinterest, Inc.
+    url: https://developers.pinterest.com/
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  termsOfService: https://developers.pinterest.com/terms/
+servers:
+- url: https://api.pinterest.com/v5
+tags:
+- name: External
+paths:
+  /integrations/commerce/{external_business_id}:
+    get:
+      summary: Get commerce integration
+      description: 'Get commerce integration metadata associated with the given external business ID.
+
+        Note: If you''re interested in joining the beta, please reach out to your Pinterest account manager.'
+      operationId: integrations_commerce/get
+      security:
+      - pinterest_oauth2:
+        - ads:read
+      x-ratelimit-category: ads_read
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_external_business_id'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntegrationMetadata'
+          description: Success
+        '404':
+          description: Integration not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                IntegrationNotFound:
+                  value:
+                    code: 4180
+                    message: Sorry! We could not find your integration.
+        '409':
+          description: Can't access this integration metadata.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                NotIntegrationOwner:
+                  value:
+                    code: 4182
+                    message: Can't access this integration metadata.
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - External
+    patch:
+      summary: Update commerce integration
+      description: 'Update commerce integration metadata for the given external business ID.
+
+        Note: If you''re interested in joining the beta, please reach out to your Pinterest account manager.'
+      operationId: integrations_commerce/patch
+      security:
+      - pinterest_oauth2:
+        - ads:write
+      x-ratelimit-category: ads_write
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_external_business_id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntegrationRequestPatch'
+        description: Parameters to get create/update the Integration Metadata
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntegrationMetadata'
+          description: Success
+        '404':
+          description: Integration not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                IntegrationNotFound:
+                  value:
+                    code: 4180
+                    message: Sorry! We could not find your integration.
+        '409':
+          description: Can't access this integration metadata.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                NotIntegrationOwner:
+                  value:
+                    code: 4182
+                    message: Can't access this integration metadata.
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - External
+    delete:
+      summary: Delete commerce integration
+      description: 'Delete commerce integration metadata for the given external business ID.
+
+        Note: If you''re interested in joining the beta, please reach out to your Pinterest account manager.'
+      operationId: integrations_commerce/del
+      security:
+      - pinterest_oauth2:
+        - ads:write
+      x-ratelimit-category: ads_write
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_external_business_id'
+      responses:
+        '204':
+          description: Commerce Integration deleted successfully
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - External
+components:
+  schemas:
+    IntegrationRequestPatch:
+      type: object
+      description: Schema used for updating the integration metadata.
+      properties:
+        connected_merchant_id:
+          type: string
+        connected_advertiser_id:
+          type: string
+        connected_lba_id:
+          type: string
+        connected_tag_id:
+          type: string
+        partner_access_token:
+          type: string
+        partner_refresh_token:
+          type: string
+        partner_primary_email:
+          type: string
+        partner_access_token_expiry:
+          type: number
+        partner_refresh_token_expiry:
+          type: number
+        scopes:
+          type: string
+        additional_id_1:
+          type: string
+        partner_metadata:
+          type: string
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    IntegrationMetadata:
+      title: integration
+      description: Integration metadata
+      type: object
+      properties:
+        id:
+          type: string
+          pattern: ^\d+$
+        external_business_id:
+          type: string
+        connected_merchant_id:
+          type: string
+        connected_user_id:
+          type: string
+          readOnly: true
+        connected_advertiser_id:
+          type: string
+          readOnly: true
+        connected_lba_id:
+          type: string
+        connected_tag_id:
+          type: string
+        partner_access_token_expiry:
+          type: number
+        partner_refresh_token_expiry:
+          type: number
+        scopes:
+          type: string
+        created_timestamp:
+          type: number
+        updated_timestamp:
+          type: number
+        additional_id_1:
+          type: string
+        partner_metadata:
+          type: string
+      example:
+        id: '7329167449607351372'
+        external_business_id: '1238401984'
+        connected_merchant_id: '1445572885401'
+        connected_user_id: '871939315263957401'
+        connected_advertiser_id: '549764738871'
+        connected_lba_id: '871939315263957402'
+        connected_tag_id: '2412141155151'
+        partner_access_token_expiry: 1621350033000
+        partner_refresh_token_expiry: 1621350033000
+        scopes: accounts:read
+        created_timestamp: 1621350033000
+        updated_timestamp: 1621350033000
+        additional_id_1: '128464'
+        partner_metadata: ''
+  parameters:
+    path_external_business_id:
+      name: external_business_id
+      description: External business ID for the integration.
+      in: path
+      required: true
+      schema:
+        type: string
+  securitySchemes:
+    pinterest_oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.pinterest.com/oauth/
+          tokenUrl: https://api.pinterest.com/v5/oauth/token
+          scopes:
+            ads:read: See all of your advertising data, including ads, ad groups, campaigns etc.
+            ads:write: Create, update, or delete ads, ad groups, campaigns etc.
+            billing:read: See all of your billing data, billing profile, etc.
+            billing:write: Create, update, or delete billing data, billing profiles, etc.
+            biz_access:read: See business access data
+            biz_access:write: Create, update, or delete business access data
+            boards:read: See your public boards, including group boards you join
+            boards:read_secret: See your secret boards
+            boards:write: Create, update, or delete your public boards
+            boards:write_secret: Create, update, or delete your secret boards
+            catalogs:read: See all of your catalogs data
+            catalogs:write: Create, update, or delete your catalogs data
+            pins:read: See your public Pins
+            pins:read_secret: See your secret Pins
+            pins:write: Create, update, or delete your public Pins
+            pins:write_secret: Create, update, or delete your secret Pins
+            user_accounts:read: See your user accounts and followers
+            user_accounts:write: Update your user accounts and followers
+    conversion_token:
+      type: http
+      scheme: bearer
+      description: This security scheme only applies to the conversion events endpoint (POST /ad_accounts/{ad_account_id}/events). This endpoint requires a bearer token generated via Ads Manager (ads.pinterest.com).
+    basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Pin and Boards
+  tags:
+  - pins
+  - boards
+  - media
+  - aggregated_comments
+  - aggregated_pin_data
+  - user_account
+- name: Campaign Management
+  tags:
+  - ad_accounts
+  - campaigns
+  - ad_groups
+  - ads
+  - product_group_promotions
+  - bulk
+- name: Targeting
+  tags:
+  - audiences
+  - customer_lists
+  - keywords
+  - targeting_template
+  - audience_insights
+  - audience_sharing
+- name: Ad Formats
+  tags:
+  - lead_forms
+  - lead_ads
+  - leads_export
+- name: Billing
+  tags:
+  - billing
+  - order_lines
+  - terms_of_service
+- name: Business Access
+  tags:
+  - business_access_assets
+  - business_access_invite
+  - business_access_relationships
+- name: Conversions
+  tags:
+  - conversion_events
+  - conversion_tags
+- name: Others
+  tags:
+  - integrations
+  - oauth
+  - resources
+  - search
+  - terms
+- name: Shopping
+  tags:
+  - catalogs
+- name: Deprecated
+  tags:
+  - product_groups

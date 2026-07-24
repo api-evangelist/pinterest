@@ -1,0 +1,268 @@
+openapi: 3.0.3
+info:
+  version: 5.13.0
+  title: Pinterest Member API
+  description: This is the description of your API.
+  contact:
+    name: Pinterest, Inc.
+    url: https://developers.pinterest.com/
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  termsOfService: https://developers.pinterest.com/terms/
+servers:
+- url: https://api.pinterest.com/v5
+tags:
+- name: Member
+paths:
+  /businesses/{business_id}/members/{member_id}/assets:
+    get:
+      summary: Get assets assigned to a member
+      description: 'Get assets on which you assigned asset permissions to the given member. Can be used to:
+
+        - get all assets, regardless of asset type or
+
+        - get assets of one asset type by using the asset_type query.
+
+        The return response will include the permissions the member has to that asset and the asset type.'
+      operationId: business_member_assets/get
+      security:
+      - pinterest_oauth2:
+        - biz_access:read
+      x-ratelimit-category: ads_read
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_business_user'
+      - $ref: '#/components/parameters/path_business_member_user'
+      - $ref: '#/components/parameters/query_resource_type'
+      - $ref: '#/components/parameters/query_business_access_start_index'
+      - $ref: '#/components/parameters/query_bookmark'
+      - $ref: '#/components/parameters/query_page_size'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Paginated'
+                - type: object
+                  properties:
+                    items:
+                      type: array
+                      description: List asset permissions the given member was granted.
+                      items:
+                        $ref: '#/components/schemas/AssetIdPermissions'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      tags:
+      - Member
+components:
+  parameters:
+    query_page_size:
+      name: page_size
+      description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 250
+        default: 25
+    path_business_user:
+      name: business_id
+      in: path
+      description: Unique identifier of the requesting business.
+      example: '729090764583391194'
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+        minLength: 1
+        maxLength: 20
+    query_bookmark:
+      name: bookmark
+      description: Cursor used to fetch the next page of items
+      in: query
+      required: false
+      schema:
+        type: string
+    query_business_access_start_index:
+      name: start_index
+      in: query
+      description: An index to start fetching the results from. Only the results starting from this index will be returned.
+      example: 0
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    path_business_member_user:
+      name: member_id
+      in: path
+      description: The member id to fetch assets for.
+      example: '729090764583391194'
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+        minLength: 1
+        maxLength: 20
+    query_resource_type:
+      name: asset_type
+      in: query
+      required: false
+      description: A resource type to filter the assets by. Only assets of the specified type will be returned.
+      schema:
+        type: string
+        enum:
+        - AD_ACCOUNT
+        - PROFILE
+        default: AD_ACCOUNT
+        example: AD_ACCOUNT
+  schemas:
+    PermissionsResponse:
+      type: array
+      description: Permission levels member or partner has on an asset.
+      example:
+      - FINANCE_MANAGER
+      - CATALOGS_MANAGER
+      - AUDIENCE_MANAGER
+      items:
+        type: string
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    AssetIdPermissions:
+      type: object
+      description: An object containing the permissions a business member has on the asset.
+      properties:
+        asset_id:
+          description: Unique identifier of a business asset.
+          example: '549755885175'
+          pattern: ^\d+$
+          type: string
+          maxLength: 20
+          minLength: 1
+        asset_type:
+          $ref: '#/components/schemas/AssetTypeResponse'
+        permissions:
+          $ref: '#/components/schemas/PermissionsResponse'
+    AssetTypeResponse:
+      description: Type of asset. Currently we only support AD_ACCOUNT and PROFILE.
+      example: AD_ACCOUNT
+      type: string
+    Paginated:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+        bookmark:
+          type: string
+          nullable: true
+      required:
+      - items
+  securitySchemes:
+    pinterest_oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.pinterest.com/oauth/
+          tokenUrl: https://api.pinterest.com/v5/oauth/token
+          scopes:
+            ads:read: See all of your advertising data, including ads, ad groups, campaigns etc.
+            ads:write: Create, update, or delete ads, ad groups, campaigns etc.
+            billing:read: See all of your billing data, billing profile, etc.
+            billing:write: Create, update, or delete billing data, billing profiles, etc.
+            biz_access:read: See business access data
+            biz_access:write: Create, update, or delete business access data
+            boards:read: See your public boards, including group boards you join
+            boards:read_secret: See your secret boards
+            boards:write: Create, update, or delete your public boards
+            boards:write_secret: Create, update, or delete your secret boards
+            catalogs:read: See all of your catalogs data
+            catalogs:write: Create, update, or delete your catalogs data
+            pins:read: See your public Pins
+            pins:read_secret: See your secret Pins
+            pins:write: Create, update, or delete your public Pins
+            pins:write_secret: Create, update, or delete your secret Pins
+            user_accounts:read: See your user accounts and followers
+            user_accounts:write: Update your user accounts and followers
+    conversion_token:
+      type: http
+      scheme: bearer
+      description: This security scheme only applies to the conversion events endpoint (POST /ad_accounts/{ad_account_id}/events). This endpoint requires a bearer token generated via Ads Manager (ads.pinterest.com).
+    basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Pin and Boards
+  tags:
+  - pins
+  - boards
+  - media
+  - aggregated_comments
+  - aggregated_pin_data
+  - user_account
+- name: Campaign Management
+  tags:
+  - ad_accounts
+  - campaigns
+  - ad_groups
+  - ads
+  - product_group_promotions
+  - bulk
+- name: Targeting
+  tags:
+  - audiences
+  - customer_lists
+  - keywords
+  - targeting_template
+  - audience_insights
+  - audience_sharing
+- name: Ad Formats
+  tags:
+  - lead_forms
+  - lead_ads
+  - leads_export
+- name: Billing
+  tags:
+  - billing
+  - order_lines
+  - terms_of_service
+- name: Business Access
+  tags:
+  - business_access_assets
+  - business_access_invite
+  - business_access_relationships
+- name: Conversions
+  tags:
+  - conversion_events
+  - conversion_tags
+- name: Others
+  tags:
+  - integrations
+  - oauth
+  - resources
+  - search
+  - terms
+- name: Shopping
+  tags:
+  - catalogs
+- name: Deprecated
+  tags:
+  - product_groups

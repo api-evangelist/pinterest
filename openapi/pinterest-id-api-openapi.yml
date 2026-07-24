@@ -1,0 +1,303 @@
+openapi: 3.0.3
+info:
+  version: 5.13.0
+  title: Pinterest Id API
+  description: This is the description of your API.
+  contact:
+    name: Pinterest, Inc.
+    url: https://developers.pinterest.com/
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  termsOfService: https://developers.pinterest.com/terms/
+servers:
+- url: https://api.pinterest.com/v5
+tags:
+- name: Id
+paths:
+  /ad_accounts/{ad_account_id}/customer_lists/{customer_list_id}:
+    get:
+      summary: Get customer list
+      description: Gets a specific customer list given the customer list ID.
+      operationId: customer_lists/get
+      security:
+      - pinterest_oauth2:
+        - ads:read
+      x-ratelimit-category: ads_read
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_ad_account_id'
+      - $ref: '#/components/parameters/path_customer_list_id'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerList'
+          description: Success
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Id
+    patch:
+      description: "<p>Append or remove records to/from an existing customer list. (A customer list is one of the four types of Pinterest audiences.)</p>\n<p>When you add records to an existing customer list, the system scans the additions for existing Pinterest\naccounts; those are the records that will be added to your CUSTOMER_LIST audience. Your original list of records\n to add will be deleted when the matching process is complete.</p>\n<p>For more information, see <a href=\"https://help.pinterest.com/en/business/article/audience-targeting\" target=\"_blank\">Audience targeting</a>\nor the <a href=\"/docs/ads/targeting/#Audiences\" target=\"_blank\">Audiences</a>\nsection of the ads management guide.</p>"
+      operationId: customer_lists/update
+      security:
+      - pinterest_oauth2:
+        - ads:write
+      x-ratelimit-category: ads_write
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_ad_account_id'
+      - $ref: '#/components/parameters/path_customer_list_id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerListUpdateRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerList'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Update customer list
+      tags:
+      - Id
+components:
+  parameters:
+    path_customer_list_id:
+      name: customer_list_id
+      description: Unique identifier of a customer list
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
+    path_ad_account_id:
+      name: ad_account_id
+      description: Unique identifier of an ad account.
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
+  schemas:
+    UserListOperationType:
+      description: User list operation type (add or remove)
+      enum:
+      - ADD
+      - REMOVE
+      example: REMOVE
+      title: UserListOperationType
+      type: string
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    CustomerListUpdateRequest:
+      properties:
+        records:
+          description: Records list. Can be any combination of emails, MAIDs, or IDFAs. Emails must be lowercase and can be plain text or hashed using SHA1, SHA256, or MD5. MAIDs and IDFAs must be hashed with SHA1, SHA256, or MD5.
+          example: email2@pinterest.com,email6@pinterest.com,
+          title: records
+          type: string
+        operation_type:
+          allOf:
+          - $ref: '#/components/schemas/UserListOperationType'
+          title: operation_type
+          type: string
+        exceptions:
+          $ref: '#/components/schemas/Exception'
+          type: object
+      required:
+      - operation_type
+      - records
+      title: CustomerListUpdate
+      type: object
+    Exception:
+      title: Generic exception class to be used within schemas
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 2
+          description: Exception error code.
+        message:
+          type: string
+          example: Advertiser not found.
+          description: Exception message.
+    CustomerList:
+      properties:
+        ad_account_id:
+          description: Associated ad account ID.
+          example: '549756359984'
+          title: ad_account_id
+          type: string
+        created_time:
+          description: Creation time. Unix timestamp in seconds.
+          example: 1452208622
+          title: created_time
+          type: number
+        id:
+          description: Customer list ID.
+          example: '643'
+          title: id
+          type: string
+        name:
+          description: Customer list name.
+          example: The Glengarry Glen Ross leads
+          title: name
+          type: string
+        num_batches:
+          description: Total number of list updates.  List creation counts as one batch. Each <a href="/docs/redoc/#operation/ads_v3_customer_list_add_handler_PUT">Append</a> or <a href="/docs/redoc/#operation/ads_v3_customer_list_remove_handler_PUT">Remove API</a> call counts as another. List creation via the Ads Manager UI could result in more than one batch since the UI breaks up large lists.
+          example: 2
+          title: num_batches
+          type: number
+        num_removed_user_records:
+          description: Number of removed user records. In a <a href="/docs/redoc/#operation/ads_v3_customer_list_remove_handler_PUT">Remove API</a> call, this counter increases even if the user is not found in the list.
+          example: 0
+          title: num_removed_user_records
+          type: number
+        num_uploaded_user_records:
+          description: Number of uploaded user records. In an <a href="/docs/redoc/#operation/ads_v3_customer_list_add_handler_PUT">Append API</a> call, this counter increases even if the uploaded user is already in the list.
+          example: 11
+          title: num_uploaded_user_records
+          type: number
+        status:
+          description: Customer list status. TOO_SMALL - the list has less than 100 Pinterest users.
+          enum:
+          - PROCESSING
+          - READY
+          - TOO_SMALL
+          - UPLOADING
+          example: PROCESSING
+          title: status
+          type: string
+        type:
+          description: Always "customerlist".
+          example: customerlist
+          title: type
+          type: string
+        updated_time:
+          description: Last update time. Unix timestamp in seconds.
+          example: 1461269616
+          title: updated_time
+          type: number
+        exceptions:
+          description: Customer list errors
+          title: exceptions
+          type: object
+      title: CustomerList
+      type: object
+  securitySchemes:
+    pinterest_oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.pinterest.com/oauth/
+          tokenUrl: https://api.pinterest.com/v5/oauth/token
+          scopes:
+            ads:read: See all of your advertising data, including ads, ad groups, campaigns etc.
+            ads:write: Create, update, or delete ads, ad groups, campaigns etc.
+            billing:read: See all of your billing data, billing profile, etc.
+            billing:write: Create, update, or delete billing data, billing profiles, etc.
+            biz_access:read: See business access data
+            biz_access:write: Create, update, or delete business access data
+            boards:read: See your public boards, including group boards you join
+            boards:read_secret: See your secret boards
+            boards:write: Create, update, or delete your public boards
+            boards:write_secret: Create, update, or delete your secret boards
+            catalogs:read: See all of your catalogs data
+            catalogs:write: Create, update, or delete your catalogs data
+            pins:read: See your public Pins
+            pins:read_secret: See your secret Pins
+            pins:write: Create, update, or delete your public Pins
+            pins:write_secret: Create, update, or delete your secret Pins
+            user_accounts:read: See your user accounts and followers
+            user_accounts:write: Update your user accounts and followers
+    conversion_token:
+      type: http
+      scheme: bearer
+      description: This security scheme only applies to the conversion events endpoint (POST /ad_accounts/{ad_account_id}/events). This endpoint requires a bearer token generated via Ads Manager (ads.pinterest.com).
+    basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Pin and Boards
+  tags:
+  - pins
+  - boards
+  - media
+  - aggregated_comments
+  - aggregated_pin_data
+  - user_account
+- name: Campaign Management
+  tags:
+  - ad_accounts
+  - campaigns
+  - ad_groups
+  - ads
+  - product_group_promotions
+  - bulk
+- name: Targeting
+  tags:
+  - audiences
+  - customer_lists
+  - keywords
+  - targeting_template
+  - audience_insights
+  - audience_sharing
+- name: Ad Formats
+  tags:
+  - lead_forms
+  - lead_ads
+  - leads_export
+- name: Billing
+  tags:
+  - billing
+  - order_lines
+  - terms_of_service
+- name: Business Access
+  tags:
+  - business_access_assets
+  - business_access_invite
+  - business_access_relationships
+- name: Conversions
+  tags:
+  - conversion_events
+  - conversion_tags
+- name: Others
+  tags:
+  - integrations
+  - oauth
+  - resources
+  - search
+  - terms
+- name: Shopping
+  tags:
+  - catalogs
+- name: Deprecated
+  tags:
+  - product_groups

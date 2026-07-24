@@ -1,0 +1,2356 @@
+openapi: 3.0.3
+info:
+  version: 5.13.0
+  title: Pinterest Pins API
+  description: This is the description of your API.
+  contact:
+    name: Pinterest, Inc.
+    url: https://developers.pinterest.com/
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  termsOfService: https://developers.pinterest.com/terms/
+servers:
+- url: https://api.pinterest.com/v5
+tags:
+- name: Pins
+paths:
+  /boards/{board_id}/pins:
+    get:
+      summary: List Pins on board
+      description: 'Get a list of the Pins on a board owned by the "operation user_account" - or on a group board that has been shared with this account.
+
+        - Optional: Business Access: Specify an ad_account_id to use the owner of that ad_account as the "operation user_account".
+
+        - By default, the "operation user_account" is the token user_account.'
+      tags:
+      - Pins
+      operationId: boards/list_pins
+      security:
+      - pinterest_oauth2:
+        - boards:read
+        - pins:read
+      x-ratelimit-category: org_read
+      x-sandbox: enabled
+      parameters:
+      - $ref: '#/components/parameters/path_board_id'
+      - $ref: '#/components/parameters/query_bookmark'
+      - $ref: '#/components/parameters/query_page_size'
+      - $ref: '#/components/parameters/query_creative_types'
+      - $ref: '#/components/parameters/query_ad_account_id'
+      - $ref: '#/components/parameters/query_pin_metrics'
+      responses:
+        '200':
+          description: response
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Paginated'
+                - type: object
+                  properties:
+                    items:
+                      description: Pins
+                      items:
+                        $ref: '#/components/schemas/Pin'
+        '404':
+          description: Board not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 404
+                message: Board not found.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /boards/{board_id}/sections/{section_id}/pins:
+    get:
+      summary: List Pins on board section
+      description: 'Get a list of the Pins on a board section of a board owned by the "operation user_account" - or on a group board that has been shared with this account.
+
+        Optional: Business Access: Specify an ad_account_id to use the owner of that ad_account as the "operation user_account".
+
+        - By default, the "operation user_account" is the token user_account.'
+      tags:
+      - Pins
+      operationId: board_sections/list_pins
+      security:
+      - pinterest_oauth2:
+        - boards:read
+        - pins:read
+      x-ratelimit-category: org_read
+      x-sandbox: enabled
+      parameters:
+      - $ref: '#/components/parameters/path_board_id'
+      - $ref: '#/components/parameters/path_board_section_id'
+      - $ref: '#/components/parameters/query_ad_account_id'
+      - $ref: '#/components/parameters/query_bookmark'
+      - $ref: '#/components/parameters/query_page_size'
+      responses:
+        '200':
+          description: response
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Paginated'
+                - type: object
+                  properties:
+                    items:
+                      description: Pins
+                      items:
+                        $ref: '#/components/schemas/Pin'
+        '403':
+          description: Not authorized to access Pins on board section.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 403
+                message: Not authorized to access Pins on board section.
+        '404':
+          description: Board or section not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 404
+                message: Board or section not found.
+        '409':
+          description: Board section conflict.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 409
+                message: Board section conflict.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /pins:
+    get:
+      summary: List Pins
+      description: "Get a list of the Pins owned by the \"operation user_account\".\n  - By default, the \"operation user_account\" is the token user_account.\n  - All Pins owned by the \"operation user_account\" are included, regardless of who owns the board they are on.\nOptional: Business Access: Specify an ad_account_id to use the owner of that ad_account as the \"operation user_account\".\n\nDisclaimer: there are known performance issues when filtering by field <code>creative_type</code> and including protected pins. If your\nrequest is timing out in this scenario we encourage you to use <a href='/docs/api/v5/#operation/boards/list_pins'>GET List Pins on Board</a>."
+      operationId: pins/list
+      security:
+      - pinterest_oauth2:
+        - boards:read
+        - pins:read
+      x-ratelimit-category: org_read
+      x-sandbox: enabled
+      x-codeSamples:
+      - lang: cURL
+        label: curl
+        source: 'curl --location --request GET ''https://api.pinterest.com/v5/pins'' \
+
+          --header ''Authorization: Bearer <Add your token here>'' \
+
+          --header ''Content-Type: application/json''
+
+          '
+      - lang: cURL
+        label: curl (Sandbox)
+        source: 'curl --location --request GET ''https://api-sandbox.pinterest.com/v5/pins'' \
+
+          --header ''Authorization: Bearer <Add your token here>'' \
+
+          --header ''Content-Type: application/json''
+
+          '
+      parameters:
+      - $ref: '#/components/parameters/query_bookmark'
+      - $ref: '#/components/parameters/query_page_size'
+      - $ref: '#/components/parameters/query_pin_filter'
+      - $ref: '#/components/parameters/query_include_protected_pins'
+      - $ref: '#/components/parameters/query_pin_type'
+      - $ref: '#/components/parameters/query_creative_types'
+      - $ref: '#/components/parameters/query_ad_account_id'
+      - $ref: '#/components/parameters/query_pin_metrics'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Paginated'
+                - type: object
+                  properties:
+                    items:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Pin'
+          description: Success
+        '400':
+          description: Invalid pin filter value
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 400
+                message: Invalid pin filter value
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Pins
+    post:
+      summary: Create Pin
+      description: 'Create a Pin on a board or board section owned by the "operation user_account".
+
+
+        Note: If the current "operation user_account" (defined by the access token) has access to another user''s Ad Accounts via Pinterest Business Access, you can modify your request to make use of the current operation_user_account''s permissions to those Ad Accounts by including the ad_account_id in the path parameters for the request (e.g. .../?ad_account_id=12345&...).
+
+
+        - This function is intended solely for publishing new content created by the user. If you are interested in saving content created by others to your Pinterest boards, sometimes called ''curated content'', please use our <a href=''/docs/add-ons/save-button''>Save button</a> instead. For more tips on creating fresh content for Pinterest, review our <a href=''/docs/content/content-creation/''>Content App Solutions Guide</a>.
+
+
+        <strong><a href=''/docs/content/content-creation/#Creating%20video%20Pins''>Learn more</a></strong> about video Pin creation.'
+      tags:
+      - Pins
+      operationId: pins/create
+      security:
+      - pinterest_oauth2:
+        - boards:read
+        - boards:write
+        - pins:read
+        - pins:write
+      x-ratelimit-category: org_write
+      x-sandbox: enabled
+      x-codeSamples:
+      - lang: python
+        label: Python SDK
+        source: "# Follow this link for initial setup: https://github.com/pinterest/pinterest-python-sdk#getting-started\n\nfrom pinterest.organic.pins import Pin\n# Board information can be fetched from profile page or from create/list board method here:\n# https://developers.pinterest.com/docs/api/v5/#operation/boards/list\nBOARD_ID=\"<Add your board id here>\"\n\npin_create = Pin.create(\n  board_id=BOARD_ID,\n  title=\"My Pin\",\n  description=\"Pin Description\",\n  media_source={\n      \"source_type\": \"image_url\",\n      \"content_type\": \"image/jpeg\",\n      \"data\": \"string\",\n      'url':'https://i.pinimg.com/564x/28/75/e9/2875e94f8055227e72d514b837adb271.jpg'\n      }\n  )\nprint(\"Pin Id: %s, Pin Title:%s\" %(pin_create.id, pin_create.title))\n"
+      - lang: cURL
+        label: curl
+        source: "# Board information can be fetched from profile page or from create/list board method here:\n# https://developers.pinterest.com/docs/api/v5/#operation/boards/list\n\ncurl --location --request POST 'https://api.pinterest.com/v5/pins' \\\n--header 'Authorization: Bearer <Add your token here>' \\\n--header 'Content-Type: application/json' \\\n--data-raw '{\n      \"title\": \"My Pin\",\n      \"description\": \"Pin Description\",\n      \"board_id\": \"<insert_your_board_id>,\n      \"media_source\": {\n        \"source_type\": \"image_url\",\n        \"url\": \"https://i.pinimg.com/564x/28/75/e9/2875e94f8055227e72d514b837adb271.jpg\"\n      }\n  }'\n"
+      - lang: cURL
+        label: curl (Sandbox)
+        source: "# Board information can be fetched from profile page or from create/list board method here:\n# https://developers.pinterest.com/docs/api/v5/#operation/boards/list\n\ncurl --location --request POST 'https://api-sandbox.pinterest.com/v5/pins' \\\n--header 'Authorization: Bearer <Add your token here>' \\\n--header 'Content-Type: application/json' \\\n--data-raw '{\n      \"title\": \"My Pin\",\n      \"description\": \"Pin Description\",\n      \"board_id\": \"<insert_your_sandbox_board_id>,\n      \"media_source\": {\n        \"source_type\": \"image_url\",\n        \"url\": \"https://i.pinimg.com/564x/28/75/e9/2875e94f8055227e72d514b837adb271.jpg\"\n      }\n  }'\n"
+      parameters:
+      - $ref: '#/components/parameters/query_ad_account_id'
+      requestBody:
+        description: Create a new Pin.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PinCreate'
+      responses:
+        '201':
+          description: Successful pin creation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pin'
+        '400':
+          description: Invalid Pin parameters response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                InvalidPinUrl:
+                  value:
+                    code: 1
+                    message: Whoops! It looks like you entered an invalid URL. Try creating a Pin again with a valid URL.
+        '403':
+          description: The Pin's image is too small, too large or is broken
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                PinImageTooSmall:
+                  value:
+                    code: 233
+                    message: Your image is too small. Please choose a larger image and try again.
+                PinImageBroken:
+                  value:
+                    code: 235
+                    message: Sorry, this image is broken. Please pick a different image.
+        '404':
+          description: Board or section not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                BoardNotFound:
+                  value:
+                    code: 40
+                    message: Board not found.
+                BoardSectionNotFound:
+                  value:
+                    code: 2031
+                    message: Sorry! We couldn't find this board section.
+        '429':
+          description: 'This request exceeded a rate limit. This can happen if the client exceeds one
+
+            of the published rate limits or if multiple write operations are applied to
+
+            an object within a short time window.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 8
+                message: 'This request exceeded a rate limit. This can happen if the client exceeds one
+
+                  of the published rate limits or if multiple write operations are applied to
+
+                  an object within a short time window.'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /pins/{pin_id}:
+    get:
+      summary: Get Pin
+      description: 'Get a Pin owned by the "operation user_account" - or on a group board that has been shared with this account.
+
+        - By default, the "operation user_account" is the token user_account.
+
+
+        Optional: Business Access: Specify an <code>ad_account_id</code> (obtained via <a href=''/docs/api/v5/#operation/ad_accounts/list''>List ad accounts</a>) to use the owner of that ad_account as the "operation user_account". In order to do this, the token user_account must have one of the following <a href="https://help.pinterest.com/en/business/article/share-and-manage-access-to-your-ad-accounts">Business Access</a> roles on the ad_account:
+
+
+        - For Pins on public or protected boards: Owner, Admin, Analyst, Campaign Manager.
+
+        - For Pins on secret boards: Owner, Admin.'
+      tags:
+      - Pins
+      operationId: pins/get
+      security:
+      - pinterest_oauth2:
+        - boards:read
+        - pins:read
+      x-ratelimit-category: org_read
+      x-sandbox: enabled
+      x-codeSamples:
+      - lang: python
+        label: Python SDK
+        source: '# Follow this link for initial setup: https://github.com/pinterest/pinterest-python-sdk#getting-started
+
+
+          from pinterest.organic.pins import Pin
+
+          # Pin information can be fetched from profile page or from list pin method here:
+
+          # https://developers.pinterest.com/docs/api/v5/#operation/pins/list
+
+          PIN_ID="<Add your pin id here>"
+
+
+          pin_get = Pin(pin_id=PIN_ID)
+
+          print("Pin Id: %s, Pin Title:%s" %(pin_get.id, pin_get.title))
+
+          '
+      - lang: cURL
+        label: curl
+        source: '# Pin information can be fetched from profile page or from list pin method here:
+
+          # https://developers.pinterest.com/docs/api/v5/#operation/pins/list
+
+
+          curl --location --request GET ''https://api.pinterest.com/v5/pins/<insert_pin_id>'' \
+
+          --header ''Authorization: Bearer <Add your token here>'' \
+
+          --header ''Content-Type: application/json''
+
+          '
+      - lang: cURL
+        label: curl (Sandbox)
+        source: '# Pin information can be fetched from profile page or from list pin method here:
+
+          # https://developers.pinterest.com/docs/api/v5/#operation/pins/list
+
+
+          curl --location --request GET ''https://api-sandbox.pinterest.com/v5/pins/<insert_sandbox_pin_id>'' \
+
+          --header ''Authorization: Bearer <Add your token here>'' \
+
+          --header ''Content-Type: application/json''
+
+          '
+      parameters:
+      - $ref: '#/components/parameters/path_pin_id'
+      - $ref: '#/components/parameters/query_pin_metrics'
+      - $ref: '#/components/parameters/query_ad_account_id'
+      responses:
+        '200':
+          description: response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pin'
+        '403':
+          description: Not authorized to access board or Pin.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 29
+                message: You are not permitted to access that resource.
+        '404':
+          description: Pin not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 50
+                message: Pin not found.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Delete Pin
+      description: 'Delete a Pins owned by the "operation user_account" - or on a group board that has been shared with this account.
+
+        - By default, the "operation user_account" is the token user_account.
+
+
+        Optional: Business Access: Specify an <code>ad_account_id</code> (obtained via <a href=''/docs/api/v5/#operation/ad_accounts/list''>List ad accounts</a>) to use the owner of that ad_account as the "operation user_account". In order to do this, the token user_account must have one of the following <a href="https://help.pinterest.com/en/business/article/share-and-manage-access-to-your-ad-accounts">Business Access</a> roles on the ad_account:
+
+
+        - For Pins on public or protected boards: Owner, Admin, Analyst, Campaign Manager.
+
+        - For Pins on secret boards: Owner, Admin.'
+      tags:
+      - Pins
+      operationId: pins/delete
+      security:
+      - pinterest_oauth2:
+        - boards:read
+        - boards:write
+        - pins:read
+        - pins:write
+      x-ratelimit-category: org_write
+      x-sandbox: enabled
+      x-codeSamples:
+      - lang: python
+        label: Python SDK
+        source: '# Follow this link for initial setup: https://github.com/pinterest/pinterest-python-sdk#getting-started
+
+
+          from pinterest.organic.pins import Pin
+
+          # Pin information can be fetched from profile page or from create/list pin method here:
+
+          # https://developers.pinterest.com/docs/api/v5/#operation/pins/list
+
+          PIN_ID="<Add your pin id here>"
+
+
+          pin_delete=Pin.delete(pin_id=PIN_ID)
+
+
+          print("Pin was deleted? %s" % (pin_delete))
+
+          '
+      - lang: cURL
+        label: curl
+        source: '# Pin information can be fetched from profile page or from create/list pin method here:
+
+          # https://developers.pinterest.com/docs/api/v5/#operation/pins/list
+
+
+          curl --request DELETE ''https://api.pinterest.com/v5/pins/<insert_pin_id>'' \
+
+          --header ''Authorization: Bearer <Add your token here>'' \
+
+          --header ''Content-Type: application/json''
+
+          '
+      - lang: cURL
+        label: curl (Sandbox)
+        source: '# Pin information can be fetched from profile page or from create/list pin method here:
+
+          # https://developers.pinterest.com/docs/api/v5/#operation/pins/list
+
+
+          curl --request DELETE ''https://api-sandbox.pinterest.com/v5/pins/<insert_sandbox_pin_id>'' \
+
+          --header ''Authorization: Bearer <Add your token here>'' \
+
+          --header ''Content-Type: application/json''
+
+          '
+      parameters:
+      - $ref: '#/components/parameters/path_pin_id'
+      - $ref: '#/components/parameters/query_ad_account_id'
+      responses:
+        '204':
+          description: Successfully deleted Pin
+        '403':
+          description: Not authorized to access board or Pin.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 403
+                message: Not authorized to access board or Pin.
+        '404':
+          description: Pin not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 404
+                message: Pin not found.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      summary: Update Pin
+      description: 'Update a pin owned by the "operating user_account".
+
+        - By default, the "operation user_account" is the token user_account.
+
+
+        Optional: Business Access: Specify an <code>ad_account_id</code> (obtained via <a href=''/docs/api/v5/#operation/ad_accounts/list''>List ad accounts</a>) to use the owner of that ad_account as the "operation user_account". In order to do this, the token user_account must have one of the following <a href="https://help.pinterest.com/en/business/article/share-and-manage-access-to-your-ad-accounts">Business Access</a> roles on the ad_account:
+
+
+        - For Pins on public or protected boards: Owner, Admin, Analyst, Campaign Manager.
+
+        - For Pins on secret boards: Owner, Admin.
+
+
+        <strong>This endpoint is currently in beta and not available to all apps. <a href=''/docs/new/about-beta-access/''>Learn more</a>.</strong>'
+      tags:
+      - Pins
+      operationId: pins/update
+      security:
+      - pinterest_oauth2:
+        - boards:read
+        - boards:write
+        - pins:read
+        - pins:write
+      x-ratelimit-category: org_write
+      x-sandbox: enabled
+      x-codeSamples:
+      - lang: cURL
+        label: curl
+        source: "# Pin information can be fetched from profile page or from create/list pin method here:\n# https://developers.pinterest.com/docs/api/v5/#operation/pins/list\n\ncurl --location --request PATCH 'https://api.pinterest.com/v5/pins/<insert_pin_id>' \\\n--header 'Authorization: Bearer <Add your token here>' \\\n--header 'Content-Type: application/json' \\\n--data-raw '{\n  \"title\": \"My updated Pin title\"\n}'\n"
+      - lang: cURL
+        label: curl (Sandbox)
+        source: "# Pin information can be fetched from profile page or from create/list pin method here:\n# https://developers.pinterest.com/docs/api/v5/#operation/pins/list\n\ncurl --location --request GET 'https://api-sandbox.pinterest.com/v5/pins/<insert_sandbox_pin_id>' \\\n--header 'Authorization: Bearer <Add your token here>' \\\n--header 'Content-Type: application/json' \\\n--data-raw '{\n  \"title\": \"My updated Pin title\"\n}'\n"
+      parameters:
+      - $ref: '#/components/parameters/path_pin_id'
+      - $ref: '#/components/parameters/query_ad_account_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PinUpdate'
+      responses:
+        '200':
+          description: response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pin'
+        '403':
+          description: Not authorized to update Pin.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 29
+                message: Not authorized to update Pin.
+        '404':
+          description: Pin not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 50
+                message: Pin not found.
+        '429':
+          description: 'This request exceeded a rate limit. This can happen if the client exceeds one
+
+            of the published rate limits or if multiple write operations are applied to
+
+            an object within a short time window.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 8
+                message: 'This request exceeded a rate limit. This can happen if the client exceeds one
+
+                  of the published rate limits or if multiple write operations are applied to
+
+                  an object within a short time window.'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /pins/{pin_id}/analytics:
+    get:
+      summary: Get Pin analytics
+      description: 'Get analytics for a Pin owned by the "operation user_account" - or on a group board that has been shared with this account.
+
+        - By default, the "operation user_account" is the token user_account.
+
+
+        Optional: Business Access: Specify an <code>ad_account_id</code> (obtained via <a href="https://developers.pinterest.com/docs/api/v5/#operation/ad_accounts/list">List ad accounts</a>) to use the owner of that ad_account as the "operation user_account". In order to do this, the token user_account must have one of the following <a href="https://help.pinterest.com/en/business/article/share-and-manage-access-to-your-ad-accounts">Business Access</a> roles on the ad_account:
+
+
+        - For Pins on public or protected boards: Admin, Analyst.
+
+        - For Pins on secret boards: Admin.
+
+
+        If Pin was created before <code>2023-03-20</code> lifetime metrics will only be available for Video and Idea Pin formats. Lifetime metrics are available for all Pin formats since then.'
+      tags:
+      - Pins
+      operationId: pins/analytics
+      security:
+      - pinterest_oauth2:
+        - boards:read
+        - pins:read
+      x-ratelimit-category: org_analytics
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_pin_id'
+      - $ref: '#/components/parameters/query_start_date'
+      - $ref: '#/components/parameters/query_end_date'
+      - $ref: '#/components/parameters/query_app_types'
+      - $ref: '#/components/parameters/query_pin_analytics_metric_types'
+      - $ref: '#/components/parameters/query_split_field_pins'
+      - $ref: '#/components/parameters/query_ad_account_id'
+      responses:
+        '200':
+          description: response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PinAnalyticsResponse'
+        '400':
+          description: Invalid pins analytics parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 400
+                message: Invalid pins analytics parameters.
+        '403':
+          description: Not authorized to access board or Pin.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 403
+                message: Not authorized to access board or Pin.
+        '404':
+          description: Pin not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 404
+                message: Pin not found.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /pins/analytics:
+    get:
+      summary: Get multiple Pin analytics
+      description: '<strong>This endpoint is currently in beta and not available to all apps. <a href=''/docs/new/about-beta-access/''>Learn more</a>.</strong>
+
+
+        Get analytics for multiple pins owned by the "operation user_account" - or on a group board that has been shared with this account.
+
+        - The maximum number of pins supported in a single request is 100.
+
+        - By default, the "operation user_account" is the token user_account.
+
+
+        Optional: Business Access: Specify an <code>ad_account_id</code> (obtained via <a href="https://developers.pinterest.com/docs/api/v5/#operation/ad_accounts/list">List ad accounts</a>) to use the owner of that ad_account as the "operation user_account". In order to do this, the token user_account must have one of the following <a href="https://help.pinterest.com/en/business/article/share-and-manage-access-to-your-ad-accounts">Business Access</a> roles on the ad_account:
+
+
+        - For Pins on public or protected boards: Admin, Analyst.
+
+        - For Pins on secret boards: Admin.
+
+
+        If Pin was created before <code>2023-03-20</code> lifetime metrics will only be available for Video and Idea Pin formats. Lifetime metrics are available for all Pin formats since then.'
+      tags:
+      - Pins
+      operationId: multi_pins/analytics
+      security:
+      - pinterest_oauth2:
+        - boards:read
+        - pins:read
+      x-ratelimit-category: org_analytics
+      x-sandbox: disabled
+      parameters:
+      - name: pin_ids
+        description: List of Pin IDs.
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            pattern: ^\d+$
+          minItems: 1
+          maxItems: 100
+      - $ref: '#/components/parameters/query_start_date'
+      - $ref: '#/components/parameters/query_end_date'
+      - $ref: '#/components/parameters/query_app_types'
+      - description: Pin metric types to get data for.
+        explode: false
+        in: query
+        name: metric_types
+        required: true
+        schema:
+          type: array
+          items:
+            oneOf:
+            - description: Standard Pin metric types
+              type: string
+              enum:
+              - IMPRESSION
+              - OUTBOUND_CLICK
+              - PIN_CLICK
+              - SAVE
+              - SAVE_RATE
+              - TOTAL_COMMENTS
+              - TOTAL_REACTIONS
+            - description: Video Pin metric types
+              type: string
+              enum:
+              - IMPRESSION
+              - OUTBOUND_CLICK
+              - PIN_CLICK
+              - SAVE
+              - SAVE_RATE
+              - VIDEO_MRC_VIEW
+              - VIDEO_10S_VIEW
+              - QUARTILE_95_PERCENT_VIEW
+              - VIDEO_V50_WATCH_TIME
+              - VIDEO_START
+              - VIDEO_AVG_WATCH_TIME
+              - TOTAL_COMMENTS
+              - TOTAL_REACTIONS
+        style: form
+      - $ref: '#/components/parameters/query_ad_account_id'
+      responses:
+        '200':
+          description: response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkPinAnalyticsResponse'
+        '400':
+          description: Invalid pins analytics parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 1
+                message: Invalid multi_pins analytics parameters.
+        '401':
+          description: Not authorized to access board or Pin.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 7
+                message: Not authorized to access board or Pin.
+        '404':
+          description: Pin not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 50
+                message: Pin not found.
+        '429':
+          description: 'This request exceeded a rate limit. This can happen if the client exceeds one
+
+            of the published rate limits or if multiple write operations are applied to
+
+            an object within a short time window.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 8
+                message: 'This request exceeded a rate limit. This can happen if the client exceeds one
+
+                  of the published rate limits or if multiple write operations are applied to
+
+                  an object within a short time window.'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /pins/{pin_id}/save:
+    post:
+      summary: Save Pin
+      description: 'Save a Pin on a board or board section owned by the "operation user_account".
+
+        - By default, the "operation user_account" is the token user_account.
+
+        Optional: Business Access: Specify an <code>ad_account_id</code> (obtained via <a href=''/docs/api/v5/#operation/ad_accounts/list''>List ad accounts</a>) to use the owner of that ad_account as the "operation user_account". In order to do this, the token user_account must have one of the following <a href="https://help.pinterest.com/en/business/article/share-and-manage-access-to-your-ad-accounts">Business Access</a> roles on the ad_account:
+
+
+        - For Pins on public or protected boards: Owner, Admin, Analyst, Campaign Manager.
+
+        - For Pins on secret boards: Owner, Admin.
+
+
+        - Any Pin type can be saved: image Pin, video Pin, Idea Pin, product Pin, etc.
+
+        - Any public Pin can be saved given a pin ID.'
+      tags:
+      - Pins
+      operationId: pins/save
+      security:
+      - pinterest_oauth2:
+        - boards:read
+        - boards:write
+        - pins:read
+        - pins:write
+      x-ratelimit-category: org_write
+      x-sandbox: enabled
+      x-codeSamples:
+      - lang: python
+        label: Python SDK
+        source: '# Follow this link for initial setup: https://github.com/pinterest/pinterest-python-sdk#getting-started
+
+
+          from pinterest.organic.pins import Pin
+
+          # Pin information can be fetched from profile page or from create/list pin method here:
+
+          # https://developers.pinterest.com/docs/api/v5/#operation/pins/list
+
+          PIN_ID="<Add your pin id here>"
+
+
+          # Board information can be fetched from profile page or from list board method here:
+
+          # https://developers.pinterest.com/docs/api/v5/#operation/boards/list
+
+          NEW_BOARD_ID="<Add your board id here>"
+
+
+          pin_save = Pin(pin_id=PIN_ID)
+
+          pin_save.save(board_id=NEW_BOARD_ID)
+
+          print("Pin Id: %s, Board Id:%s" %(pin_save.id, pin_save.board_id))
+
+          '
+      - lang: cURL
+        label: curl
+        source: "# Pin and Board information can be fetched from profile page or from create/list pin method here:\n# https://developers.pinterest.com/docs/api/v5/#operation/pins/list\n# https://developers.pinterest.com/docs/api/v5/#operation/boards/list\n\ncurl --request DELETE 'https://api.pinterest.com/v5/pins/<insert_pin_id>/save' \\\n--header 'Authorization: Bearer <Add your token here>' \\\n--header 'Content-Type: application/json' \\\n--data-raw '{\n    \"board_id\": <insert_new_board_id>\n}'\n"
+      - lang: cURL
+        label: curl (Sandbox)
+        source: "# Pin and Board information can be fetched from profile page or from create/list pin method here:\n# https://developers.pinterest.com/docs/api/v5/#operation/pins/list\n# https://developers.pinterest.com/docs/api/v5/#operation/boards/list\n\ncurl --request DELETE 'https://api-sandbox.pinterest.com/v5/pins/<insert_sandbox_pin_id>/save' \\\n--header 'Authorization: Bearer <Add your token here>' \\\n--header 'Content-Type: application/json' \\\n--data-raw '{\n    \"board_id\": <insert_new_sandbox_board_id>\n}'\n"
+      parameters:
+      - $ref: '#/components/parameters/path_pin_id'
+      - $ref: '#/components/parameters/query_ad_account_id'
+      requestBody:
+        description: Request object used to save an existing pin
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                board_id:
+                  description: Unique identifier of the board to which the pin will be saved.
+                  type: string
+                  pattern: ^\d+$
+                  nullable: true
+                board_section_id:
+                  description: Unique identifier of the board section to which the pin will be saved.
+                  type: string
+                  pattern: ^\d+$
+                  nullable: true
+      responses:
+        '201':
+          description: Successfully saved pin.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pin'
+        '403':
+          description: Not authorized to access Board or Pin.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 29
+                message: You are not permitted to access that resource.
+        '404':
+          description: Board or Pin not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                BoardNotFound:
+                  value:
+                    code: 40
+                    message: Board not found.
+                PinNotFound:
+                  value:
+                    code: 50
+                    message: Pin not found.
+                BoardSectionNotFound:
+                  value:
+                    code: 2031
+                    message: Sorry! We couldn't find this board section.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /search/pins:
+    get:
+      description: 'Search for pins for the "operation user_account".
+
+        - By default, the "operation user_account" is the token user_account.
+
+
+        If using Business Access: Specify an ad_account_id to use the owner of that ad_account as the "operation user_account". See <a href=''/docs/reference/business-access/''>Understanding Business Access</a> for more information.'
+      operationId: search_user_pins/list
+      security:
+      - pinterest_oauth2:
+        - boards:read
+        - boards:read_secret
+        - pins:read
+        - pins:read_secret
+      x-ratelimit-category: org_read
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/query_ad_account_id'
+      - $ref: '#/components/parameters/query_required_search_query'
+      - $ref: '#/components/parameters/query_bookmark'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Paginated'
+                - type: object
+                  properties:
+                    items:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Pin'
+          description: Success
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                UserNotFound:
+                  value:
+                    code: 30
+                    message: User not found.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      summary: Search user's Pins
+      tags:
+      - Pins
+  /search/partner/pins:
+    get:
+      summary: Search pins by a given search term
+      description: '<strong>This endpoint is currently in beta and not available to all apps. <a href=''/docs/new/about-beta-access/''>Learn more</a>.</strong>
+
+
+        Get the top 10 Pins by a given search term.'
+      operationId: search_partner_pins
+      security:
+      - pinterest_oauth2:
+        - boards:read
+        - pins:read
+      x-ratelimit-category: org_read
+      x-sandbox: disabled
+      x-codeSamples:
+      - lang: cURL
+        label: curl
+        source: 'curl --location --request GET ''https://api.pinterest.com/v5/search/partner/pins'' \
+
+          --header ''Authorization: Bearer <Add your token here>'' \
+
+          --header ''Content-Type: application/json''
+
+          '
+      parameters:
+      - description: Search term to look up pins.
+        in: query
+        name: term
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/query_country_code'
+      - $ref: '#/components/parameters/query_bookmark'
+      - description: Search locale.
+        in: query
+        name: locale
+        required: false
+        schema:
+          type: string
+      - $ref: '#/components/parameters/result_limit'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Paginated'
+                - type: object
+                  properties:
+                    items:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/SummaryPin'
+          description: Success
+        '400':
+          description: Invalid pins
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 400
+                message: Invalid pin filter value
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Pins
+  /user_account/analytics/top_pins:
+    get:
+      summary: Get user account top pins analytics
+      description: 'Gets analytics data about a user''s top pins (limited to the top 50).
+
+        - By default, the "operation user_account" is the token user_account.
+
+
+        Optional: Business Access: Specify an ad_account_id to use the owner of that ad_account as the "operation user_account".'
+      tags:
+      - Pins
+      operationId: user_account/analytics/top_pins
+      security:
+      - pinterest_oauth2:
+        - pins:read
+        - user_accounts:read
+      x-ratelimit-category: org_analytics
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/query_start_date'
+      - $ref: '#/components/parameters/query_end_date'
+      - $ref: '#/components/parameters/query_sort_by'
+      - $ref: '#/components/parameters/query_from_claimed_content'
+      - $ref: '#/components/parameters/query_pin_format'
+      - $ref: '#/components/parameters/query_app_types'
+      - $ref: '#/components/parameters/query_content_type'
+      - $ref: '#/components/parameters/query_source'
+      - $ref: '#/components/parameters/query_metric_types'
+      - $ref: '#/components/parameters/query_num_of_pins'
+      - $ref: '#/components/parameters/query_created_in_last_n_days'
+      - $ref: '#/components/parameters/query_ad_account_id'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopPinsAnalyticsResponse'
+          description: Success
+        '403':
+          description: Not authorized to access the user account analytics.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 403
+                message: Not authorized to access the user account analytics.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /user_account/analytics/top_video_pins:
+    get:
+      summary: Get user account top video pins analytics
+      description: 'Gets analytics data about a user''s top video pins (limited to the top 50).
+
+        - By default, the "operation user_account" is the token user_account.
+
+
+        Optional: Business Access: Specify an ad_account_id to use the owner of that ad_account as the "operation user_account".'
+      tags:
+      - Pins
+      operationId: user_account/analytics/top_video_pins
+      security:
+      - pinterest_oauth2:
+        - pins:read
+        - user_accounts:read
+      x-ratelimit-category: org_analytics
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/query_start_date'
+      - $ref: '#/components/parameters/query_end_date'
+      - $ref: '#/components/parameters/query_video_pin_sort_by'
+      - $ref: '#/components/parameters/query_from_claimed_content'
+      - $ref: '#/components/parameters/query_pin_format'
+      - $ref: '#/components/parameters/query_app_types'
+      - $ref: '#/components/parameters/query_content_type'
+      - $ref: '#/components/parameters/query_source'
+      - $ref: '#/components/parameters/query_video_pin_metric_types'
+      - $ref: '#/components/parameters/query_num_of_pins'
+      - $ref: '#/components/parameters/query_created_in_last_n_days'
+      - $ref: '#/components/parameters/query_ad_account_id'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopVideoPinsAnalyticsResponse'
+          description: Success
+        '403':
+          description: Not authorized to access the user account analytics.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 403
+                message: Not authorized to access the user account analytics.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    TopVideoPinsAnalyticsResponse:
+      type: object
+      properties:
+        date_availability:
+          type: object
+          properties:
+            latest_available_timestamp:
+              type: number
+              example: 1649116799000
+            is_realtime:
+              type: boolean
+              example: false
+        pins:
+          type: array
+          items:
+            description: Array with metrics, status, and pin id for the requested metric
+            type: object
+            properties:
+              metrics:
+                description: The metric name and daily value for each requested metric
+                type: object
+                additionalProperties:
+                  type: number
+                example:
+                  IMPRESSION: 7
+                  QUARTILE_95_PERCENT_VIEW: 2
+                  SAVE: 1
+                  VIDEO_10S_VIEW: 5
+                  VIDEO_AVG_WATCH_TIME: 86989
+                  VIDEO_MRC_VIEW: 2
+                  VIDEO_START: 2
+                  VIDEO_V50_WATCH_TIME: 173979
+                  OUTBOUND_CLICK: 2
+              data_status:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/DataStatus'
+              pin_id:
+                description: The pin id
+                type: string
+                example: '642396334344813594'
+        sort_by:
+          type: string
+          enum:
+          - SAVE
+          - IMPRESSION
+          - OUTBOUND_CLICK
+          - VIDEO_MRC_VIEW
+          - VIDEO_AVG_WATCH_TIME
+          - VIDEO_V50_WATCH_TIME
+          - QUARTILE_95_PERCENT_VIEW
+          - VIDEO_10S_VIEW
+          - VIDEO_START
+          example: IMPRESSION
+    PinAnalyticsMetricsResponse:
+      type: object
+      properties:
+        lifetime_metrics:
+          description: The lifetime metric name and value.
+          type: object
+          additionalProperties:
+            type: integer
+          example:
+            TOTAL_COMMENTS: 10
+            TOTAL_REACTIONS: 12
+        daily_metrics:
+          description: Array with the requested daily metric records
+          items:
+            type: object
+            properties:
+              data_status:
+                $ref: '#/components/schemas/DataStatus'
+              date:
+                description: 'Metrics date (UTC): YYYY-MM-DD.'
+                example: '2019-12-01'
+                type: string
+              metrics:
+                description: The metric name and daily value for each requested metric
+                type: object
+                additionalProperties:
+                  type: number
+                example:
+                  IMPRESSION: 240
+                  OUTBOUND_CLICK: 20
+                  PIN_CLICK: 37
+                  QUARTILE_95_PERCENT_VIEW: 8
+                  SAVE: 20
+                  SAVE_RATE: 0.18
+                  VIDEO_10S_VIEW: 2
+                  VIDEO_AVG_WATCH_TIME: 2507.75
+                  VIDEO_MRC_VIEW: 20
+                  VIDEO_START: 29
+                  VIDEO_V50_WATCH_TIME: 10031
+          type: array
+        summary_metrics:
+          description: The metric name and value over the requested period for each requested metric
+          type: object
+          additionalProperties:
+            type: number
+          example:
+            IMPRESSION: 240
+            OUTBOUND_CLICK: 20
+            PIN_CLICK: 37
+            QUARTILE_95_PERCENT_VIEW: 8
+            SAVE: 20
+            SAVE_RATE: 0.18
+            VIDEO_10S_VIEW: 2
+            VIDEO_AVG_WATCH_TIME: 2507.75
+            VIDEO_MRC_VIEW: 20
+            VIDEO_START: 29
+            VIDEO_V50_WATCH_TIME: 10031
+    SummaryPin:
+      description: Summarized pin information
+      title: SummaryPin
+      type: object
+      properties:
+        media:
+          allOf:
+          - $ref: '#/components/schemas/PinMedia'
+          type: object
+          readOnly: true
+        alt_text:
+          type: string
+          nullable: true
+          maxLength: 500
+        link:
+          type: string
+          nullable: true
+          example: https://www.pinterest.com/
+          maxLength: 2048
+        title:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    TopPinsAnalyticsResponse:
+      type: object
+      properties:
+        date_availability:
+          type: object
+          properties:
+            latest_available_timestamp:
+              type: number
+              example: 1649116799000
+            is_realtime:
+              type: boolean
+              example: false
+        pins:
+          type: array
+          items:
+            description: Array with metrics, status, and pin id for the requested metric
+            type: object
+            properties:
+              metrics:
+                $ref: '#/components/schemas/Metrics'
+              data_status:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/DataStatus'
+              pin_id:
+                description: The pin id
+                type: string
+                example: '642396334344813594'
+        sort_by:
+          type: string
+          enum:
+          - ENGAGEMENT
+          - SAVE
+          - IMPRESSION
+          - OUTBOUND_CLICK
+          - PIN_CLICK
+          example: IMPRESSION
+    PinMediaSourceImageURL:
+      title: Image URL
+      description: Image URL-based media source
+      type: object
+      properties:
+        source_type:
+          type: string
+          enum:
+          - image_url
+        url:
+          type: string
+        is_standard:
+          type: boolean
+          description: Set the parameter to false to create the new simplified Pin instead of the standard pin. Currently the field is only available to a list of beta users.
+          default: true
+      required:
+      - source_type
+      - url
+    Paginated:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+        bookmark:
+          type: string
+          nullable: true
+      required:
+      - items
+    PinMediaSourcePinURL:
+      title: Pin URL
+      description: Pin URL-based media source for product pin creation. Currently the field is only available to a list of beta users.
+      type: object
+      properties:
+        source_type:
+          type: string
+          enum:
+          - pin_url
+        is_affiliate_link:
+          type: boolean
+          description: This is an affiliate link or sponsored product. The FTC requires disclosure for paid partnerships and affiliate products.
+          default: false
+      required:
+      - source_type
+    PinMediaSourceImageBase64:
+      title: Image Base64
+      description: Base64-encoded image media source
+      type: object
+      properties:
+        source_type:
+          type: string
+          enum:
+          - image_base64
+        content_type:
+          type: string
+          enum:
+          - image/jpeg
+          - image/png
+        data:
+          type: string
+          pattern: '[a-zA-Z0-9+\/=]+'
+        is_standard:
+          type: boolean
+          description: Set the parameter to false to create the new simplified Pin instead of the standard pin. Currently the field is only available to a list of beta users.
+          default: true
+      required:
+      - source_type
+      - content_type
+      - data
+    CreativeType:
+      type: string
+      description: Ad creative type enum. For update, only draft ads may update creative type. </p><strong>Note:</strong> SHOP_THE_PIN has been deprecated. Please use COLLECTION instead.
+      enum:
+      - REGULAR
+      - VIDEO
+      - SHOPPING
+      - CAROUSEL
+      - MAX_VIDEO
+      - SHOP_THE_PIN
+      - COLLECTION
+      - IDEA
+      - SHOWCASE
+      - QUIZ
+      example: REGULAR
+      title: CreativeType
+    BoardOwner:
+      title: Board owner
+      type: object
+      properties:
+        username:
+          type: string
+          readOnly: true
+    PinMediaSourceVideoID:
+      title: Video ID
+      description: Video ID-based media source
+      type: object
+      properties:
+        source_type:
+          type: string
+          enum:
+          - video_id
+        cover_image_url:
+          type: string
+          description: Cover image url.
+        cover_image_content_type:
+          type: string
+          description: Content type for cover image Base64.
+          enum:
+          - image/jpeg
+          - image/png
+        cover_image_data:
+          type: string
+          description: Cover image Base64.
+        media_id:
+          type: string
+          pattern: ^\d+$
+        is_standard:
+          type: boolean
+          description: Set the parameter to false to create the new simplified Pin instead of the standard pin. Currently the field is only available to a list of beta users.
+          default: true
+      required:
+      - source_type
+      - media_id
+    PinCreate:
+      title: PinCreate
+      description: Pin
+      type: object
+      nullable: true
+      properties:
+        id:
+          type: string
+          readOnly: true
+          example: '813744226420795884'
+          pattern: ^\d+$
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2020-01-01T20:10:40-00:00'
+        link:
+          type: string
+          nullable: true
+          example: https://www.pinterest.com/
+          maxLength: 2048
+        title:
+          type: string
+          nullable: true
+          maxLength: 100
+        description:
+          type: string
+          nullable: true
+          maxLength: 800
+        dominant_color:
+          type: string
+          nullable: true
+          description: Dominant pin color. Hex number, e.g. \"#6E7874\".
+          example: '#6E7874'
+        alt_text:
+          type: string
+          nullable: true
+          maxLength: 500
+        board_id:
+          description: The board to which this Pin belongs.
+          type: string
+          pattern: ^\d+$
+        board_section_id:
+          description: The board section to which this Pin belongs.
+          type: string
+          pattern: ^\d+$
+          nullable: true
+        board_owner:
+          allOf:
+          - $ref: '#/components/schemas/BoardOwner'
+          type: object
+          readOnly: true
+        media:
+          allOf:
+          - $ref: '#/components/schemas/PinMedia'
+          type: object
+          readOnly: true
+        media_source:
+          allOf:
+          - $ref: '#/components/schemas/PinMediaSource'
+          type: object
+          writeOnly: true
+        parent_pin_id:
+          description: The source pin id if this pin was saved from another pin. <a href="https://help.pinterest.com/article/save-pins-on-pinterest">Learn more</a>.
+          type: string
+          pattern: ^\d+$
+          nullable: true
+        note:
+          description: Private note for this Pin. <a href="https://help.pinterest.com/en/article/add-notes-to-your-pins">Learn more</a>.
+          type: string
+          nullable: true
+    PinAnalyticsResponse:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/PinAnalyticsMetricsResponse'
+    PinMediaSourceImagesBase64:
+      title: Images Base64
+      description: Multiple Base64-encoded images media source
+      additionalProperties: false
+      properties:
+        source_type:
+          type: string
+          enum:
+          - multiple_image_base64
+        items:
+          items:
+            additionalProperties: false
+            properties:
+              title:
+                type: string
+              description:
+                type: string
+              link:
+                type: string
+                description: Destination link for the image.
+              content_type:
+                type: string
+                enum:
+                - image/jpeg
+                - image/png
+              data:
+                type: string
+                description: Image to upload as base64 string.
+                pattern: '[a-zA-Z0-9+\/=]+'
+            required:
+            - data
+            - content_type
+            type: object
+          minItems: 2
+          maxItems: 5
+          description: Array with image objects.
+          type: array
+        index:
+          type: integer
+          minimum: 0
+      required:
+      - items
+      type: object
+    BulkPinAnalyticsResponse:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/PinAnalyticsResponse'
+    Pin:
+      title: Pin
+      description: Pin
+      type: object
+      nullable: true
+      properties:
+        id:
+          type: string
+          readOnly: true
+          example: '813744226420795884'
+          pattern: ^\d+$
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2020-01-01T20:10:40-00:00'
+        link:
+          type: string
+          nullable: true
+          example: https://www.pinterest.com/
+          maxLength: 2048
+        title:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        dominant_color:
+          type: string
+          nullable: true
+          description: Dominant pin color. Hex number, e.g. \"#6E7874\".
+          example: '#6E7874'
+        alt_text:
+          type: string
+          nullable: true
+          maxLength: 500
+        creative_type:
+          readOnly: true
+          nullable: true
+          type: string
+          allOf:
+          - $ref: '#/components/schemas/CreativeType'
+        board_id:
+          description: The board to which this Pin belongs.
+          type: string
+          pattern: ^\d+$
+        board_section_id:
+          description: The board section to which this Pin belongs.
+          type: string
+          pattern: ^\d+$
+          nullable: true
+        board_owner:
+          allOf:
+          - $ref: '#/components/schemas/BoardOwner'
+          type: object
+          readOnly: true
+        is_owner:
+          description: Whether the "operation user_account" is the Pin owner.
+          type: boolean
+          readOnly: true
+        media:
+          allOf:
+          - $ref: '#/components/schemas/PinMedia'
+          type: object
+          readOnly: true
+        media_source:
+          allOf:
+          - $ref: '#/components/schemas/PinMediaSource'
+          type: object
+          writeOnly: true
+        parent_pin_id:
+          description: The source pin id if this pin was saved from another pin. <a href="https://help.pinterest.com/article/save-pins-on-pinterest">Learn more</a>.
+          type: string
+          pattern: ^\d+$
+          nullable: true
+        is_standard:
+          description: Whether the Pin is standard or not. See documentation on <a href="https://developers.pinterest.com/docs/content/update/">Changes to Pin creation</a> for more information.
+          type: boolean
+        has_been_promoted:
+          description: Whether the Pin has been promoted or not.
+          type: boolean
+          readOnly: true
+        note:
+          description: Private note for this Pin. <a href="https://help.pinterest.com/en/article/add-notes-to-your-pins">Learn more</a>.
+          type: string
+          nullable: true
+        pin_metrics:
+          description: Pin metrics with associated time intervals if any.
+          type: object
+          nullable: true
+          example:
+            pin_metrics:
+            - 90d:
+                pin_click: 7
+                impression: 2
+                clickthrough: 3
+              all_time:
+                pin_click: 7
+                impression: 2
+                clickthrough: 3
+                reaction: 10
+                comment: 2
+            - null
+    PinUpdate:
+      title: PinUpdate
+      description: Pin fields for updates
+      type: object
+      nullable: true
+      properties:
+        alt_text:
+          type: string
+          nullable: true
+          description: Pin's alternative text.
+          maxLength: 500
+        board_id:
+          type: string
+          nullable: true
+          description: The id of the board to move the Pin onto.
+          pattern: ^\d+$
+        board_section_id:
+          type: string
+          nullable: true
+          description: <a href="https://help.pinterest.com/en/article/create-a-board-section">Board section</a> ID.
+          pattern: ^\d+$
+        description:
+          type: string
+          nullable: true
+          description: Pin description - 800 characters maximum.
+          maxLength: 800
+        link:
+          type: string
+          nullable: true
+          description: URL viewer is taken to when they click pin.
+          example: https://www.pinterest.com/
+          maxLength: 2048
+        title:
+          type: string
+          nullable: true
+          description: The native pin title that creators explicitly prefer to display.
+          maxLength: 100
+        carousel_slots:
+          type: array
+          description: Carousel Pin slots data.
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+                description: Carousel Pin slot title.
+              description:
+                type: string
+                description: Carousel Pin slot description.
+              link:
+                type: string
+                description: Carousel Pin slot link.
+        note:
+          description: Private note for this Pin. <a href="https://help.pinterest.com/en/article/add-notes-to-your-pins">Learn more</a>.
+          type: string
+          nullable: true
+    PinMedia:
+      title: Pin media
+      type: object
+      description: Pin media objects.
+      discriminator:
+        propertyName: media_type
+        mapping:
+          image: '#/components/schemas/PinMediaWithImage'
+          video: '#/components/schemas/PinMediaWithVideo'
+          multiple_images: '#/components/schemas/PinMediaWithImages'
+          multiple_videos: '#/components/schemas/PinMediaWithVideos'
+          multiple_mixed: '#/components/schemas/PinMediaWithImageAndVideo'
+      properties:
+        media_type:
+          type: string
+    DataStatus:
+      description: Metrics availablity, e.g., "READY".
+      example: READY
+      type: string
+      enum:
+      - PROCESSING
+      - READY
+      - ESTIMATE
+      - BEFORE_BUSINESS_CREATED
+      - BEFORE_DATA_RETENTION_PERIOD
+      - BEFORE_PIN_DATA_RETENTION_PERIOD
+      - BEFORE_METRIC_START_DATE
+      - BEFORE_CORE_METRIC_START_DATE
+      - BEFORE_PIN_FORMAT_METRIC_START_DATE
+      - BEFORE_AUDIENCE_METRIC_START_DATE
+      - BEFORE_AUDIENCE_MONTHLY_METRIC_START_DATE
+      - BEFORE_VIDEO_METRIC_START_DATE
+      - BEFORE_CONVERSION_METRIC_START_DATE
+      - PURCHASERS_METRIC_SMALLER_THAN_THRESHOLD
+      - IN_BAD_TAG_DATE
+      - BEFORE_PUBLISHED_METRIC_START_DATE
+      - BEFORE_ASSIST_METRIC_START_DATE
+      - BEFORE_PIN_CREATED
+      - BEFORE_ACCOUNT_CLAIMED
+      - BEFORE_DEMOGRAPHIC_FILTERS_START_DATE
+      - AUDIENCE_SEGMENT_SMALLER_THAN_THRESHOLD
+      - AUDIENCE_TOTAL_SMALLER_THAN_THRESHOLD
+      - BEFORE_PRODUCT_GROUP_FILTER_START_DATE
+    Metrics:
+      description: The metric name and daily value for each requested metric
+      type: object
+      additionalProperties:
+        type: number
+      example:
+        CLOSEUP: 1
+        CLOSEUP_RATE: 0
+        ENGAGEMENT: 1
+        ENGAGEMENT_RATE: 0
+        IMPRESSION: 240
+        OUTBOUND_CLICK: 20
+        OUTBOUND_CLICK_RATE: 0.08
+        PIN_CLICK: 37
+        PIN_CLICK_RATE: 0.15
+        QUARTILE_95_PERCENT_VIEW: 8
+        SAVE: 20
+        SAVE_RATE: 0.18
+        VIDEO_10S_VIEW: 2
+        VIDEO_AVG_WATCH_TIME: 2507.75
+        VIDEO_MRC_VIEW: 20
+        VIDEO_START: 29
+        VIDEO_V50_WATCH_TIME: 10031
+    PinMediaSourceImagesURL:
+      title: Images urls
+      description: Multiple images urls-based media source
+      additionalProperties: false
+      properties:
+        source_type:
+          type: string
+          enum:
+          - multiple_image_urls
+        items:
+          items:
+            additionalProperties: false
+            properties:
+              title:
+                type: string
+              description:
+                type: string
+              link:
+                type: string
+                description: Destination link for the image.
+              url:
+                description: URL of image to upload.
+                type: string
+            required:
+            - url
+            type: object
+          minItems: 2
+          maxItems: 5
+          description: Array with image objects.
+          type: array
+        index:
+          type: integer
+          minimum: 0
+      required:
+      - items
+      type: object
+    PinMediaSource:
+      title: Pin media source
+      description: Pin media source.
+      oneOf:
+      - $ref: '#/components/schemas/PinMediaSourceImageBase64'
+      - $ref: '#/components/schemas/PinMediaSourceImageURL'
+      - $ref: '#/components/schemas/PinMediaSourceVideoID'
+      - $ref: '#/components/schemas/PinMediaSourceImagesBase64'
+      - $ref: '#/components/schemas/PinMediaSourceImagesURL'
+      - $ref: '#/components/schemas/PinMediaSourcePinURL'
+      discriminator:
+        propertyName: source_type
+        mapping:
+          multiple_image_base64: '#/components/schemas/PinMediaSourceImagesBase64'
+          image_base64: '#/components/schemas/PinMediaSourceImageBase64'
+          multiple_image_urls: '#/components/schemas/PinMediaSourceImagesURL'
+          image_url: '#/components/schemas/PinMediaSourceImageURL'
+          video_id: '#/components/schemas/PinMediaSourceVideoID'
+          pin_url: '#/components/schemas/PinMediaSourcePinURL'
+  parameters:
+    query_pin_filter:
+      name: pin_filter
+      description: Pin filter.
+      required: false
+      in: query
+      schema:
+        type: string
+        enum:
+        - exclude_native
+        - exclude_repins
+        - has_been_promoted
+    query_country_code:
+      name: country_code
+      description: Two letter country code (ISO 3166-1 alpha-2)
+      in: query
+      example: US
+      required: true
+      explode: true
+      schema:
+        type: string
+      style: form
+    query_video_pin_metric_types:
+      description: 'Metric types to get video data for, default is all. '
+      explode: false
+      in: query
+      name: metric_types
+      required: false
+      schema:
+        items:
+          enum:
+          - IMPRESSION
+          - SAVE
+          - VIDEO_MRC_VIEW
+          - VIDEO_AVG_WATCH_TIME
+          - VIDEO_V50_WATCH_TIME
+          - QUARTILE_95_PERCENT_VIEW
+          - VIDEO_10S_VIEW
+          - VIDEO_START
+          - OUTBOUND_CLICK
+          type: string
+        type: array
+      style: form
+    query_pin_type:
+      name: pin_type
+      description: The type of pins to return, currently only enabled for private pins
+      required: false
+      in: query
+      schema:
+        type: string
+        enum:
+        - PRIVATE
+    query_end_date:
+      description: 'Metric report end date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days past start_date.'
+      in: query
+      name: end_date
+      required: true
+      schema:
+        type: string
+        format: date
+    query_video_pin_sort_by:
+      description: Specify sorting order for video metrics
+      explode: false
+      in: query
+      name: sort_by
+      required: true
+      schema:
+        enum:
+        - IMPRESSION
+        - SAVE
+        - OUTBOUND_CLICK
+        - VIDEO_MRC_VIEW
+        - VIDEO_AVG_WATCH_TIME
+        - VIDEO_V50_WATCH_TIME
+        - QUARTILE_95_PERCENT_VIEW
+        - VIDEO_10S_VIEW
+        - VIDEO_START
+        type: string
+    query_include_protected_pins:
+      name: include_protected_pins
+      description: Specify if return pins from protected boards
+      required: false
+      in: query
+      schema:
+        type: boolean
+        default: false
+    query_ad_account_id:
+      name: ad_account_id
+      description: Unique identifier of an ad account.
+      in: query
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
+    query_num_of_pins:
+      name: num_of_pins
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+        default: 10
+      description: Number of pins to include, default is 10. Max is 50.
+      example: 25
+    query_page_size:
+      name: page_size
+      description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 250
+        default: 25
+    query_from_claimed_content:
+      description: Filter on Pins that match your claimed domain.
+      in: query
+      name: from_claimed_content
+      required: false
+      schema:
+        default: BOTH
+        enum:
+        - OTHER
+        - CLAIMED
+        - BOTH
+        type: string
+    query_sort_by:
+      description: Specify sorting order for metrics
+      explode: false
+      in: query
+      name: sort_by
+      required: true
+      schema:
+        enum:
+        - ENGAGEMENT
+        - IMPRESSION
+        - OUTBOUND_CLICK
+        - PIN_CLICK
+        - SAVE
+        type: string
+    query_required_search_query:
+      description: Search query. Can contain pin description keywords or comma-separated pin IDs.
+      in: query
+      example: Plants
+      name: query
+      required: true
+      schema:
+        type: string
+    query_app_types:
+      description: Apps or devices to get data for, default is all.
+      in: query
+      name: app_types
+      required: false
+      schema:
+        default: ALL
+        enum:
+        - ALL
+        - MOBILE
+        - TABLET
+        - WEB
+        type: string
+    query_bookmark:
+      name: bookmark
+      description: Cursor used to fetch the next page of items
+      in: query
+      required: false
+      schema:
+        type: string
+    path_board_id:
+      name: board_id
+      description: Unique identifier of a board.
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+    query_content_type:
+      description: Filter to paid or organic data. Default is all.
+      in: query
+      name: content_type
+      required: false
+      schema:
+        default: ALL
+        enum:
+        - ALL
+        - PAID
+        - ORGANIC
+        type: string
+    query_source:
+      description: Filter to activity from Pins created and saved by your, or activity created and saved by others from your claimed accounts
+      in: query
+      name: source
+      required: false
+      schema:
+        default: ALL
+        enum:
+        - ALL
+        - YOUR_PINS
+        - OTHER_PINS
+        type: string
+    query_pin_analytics_metric_types:
+      description: Pin metric types to get data for. Keep in mind this cannot have ALL if split_field is set to any value other than <code>NO_SPLIT</code>.
+      explode: false
+      in: query
+      name: metric_types
+      required: true
+      schema:
+        type: array
+        items:
+          oneOf:
+          - description: Standard Pin metric types
+            type: string
+            enum:
+            - IMPRESSION
+            - OUTBOUND_CLICK
+            - PIN_CLICK
+            - SAVE
+            - SAVE_RATE
+            - TOTAL_COMMENTS
+            - TOTAL_REACTIONS
+          - description: Video Pin metric types
+            type: string
+            enum:
+            - IMPRESSION
+            - OUTBOUND_CLICK
+            - PIN_CLICK
+            - SAVE
+            - SAVE_RATE
+            - VIDEO_MRC_VIEW
+            - VIDEO_10S_VIEW
+            - QUARTILE_95_PERCENT_VIEW
+            - VIDEO_V50_WATCH_TIME
+            - VIDEO_START
+            - VIDEO_AVG_WATCH_TIME
+            - TOTAL_COMMENTS
+            - TOTAL_REACTIONS
+      style: form
+    query_pin_metrics:
+      name: pin_metrics
+      description: Specify whether to return 90d and lifetime Pin metrics. Total comments and total reactions are only available with lifetime Pin metrics. If Pin was created before <code>2023-03-20</code> lifetime metrics will only be available for Video and Idea Pin formats. Lifetime metrics are available for all Pin formats since then.
+      in: query
+      required: false
+      schema:
+        type: boolean
+        default: false
+    query_pin_format:
+      description: Pin formats to get data for, default is all.
+      in: query
+      name: pin_format
+      required: false
+      schema:
+        default: ALL
+        enum:
+        - ALL
+        - ORGANIC_IMAGE
+        - ORGANIC_PRODUCT
+        - ORGANIC_VIDEO
+        - ADS_STANDARD
+        - ADS_PRODUCT
+        - ADS_VIDEO
+        - ADS_IDEA
+        - PRODUCT
+        - REGULAR
+        - VIDEO
+        type: string
+    result_limit:
+      description: Max search result size
+      in: query
+      name: limit
+      example: 4
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+        default: 10
+    query_start_date:
+      description: 'Metric report start date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days back from today.'
+      in: query
+      name: start_date
+      required: true
+      schema:
+        type: string
+        format: date
+    query_created_in_last_n_days:
+      name: created_in_last_n_days
+      in: query
+      schema:
+        type: integer
+        enum:
+        - 30
+      description: Get metrics for pins created in the last "n" days.
+      example: 30
+    query_split_field_pins:
+      description: How to split the data into groups. Not including this param means data won't be split.
+      required: false
+      in: query
+      explode: false
+      name: split_field
+      schema:
+        default: NO_SPLIT
+        enum:
+        - NO_SPLIT
+        - APP_TYPE
+        type: string
+    path_pin_id:
+      name: pin_id
+      description: Unique identifier of a Pin.
+      in: path
+      required: true
+      schema:
+        type: string
+    query_creative_types:
+      in: query
+      name: creative_types
+      required: false
+      description: Pin creative types filter. </p><strong>Note:</strong> SHOP_THE_PIN has been deprecated. Please use COLLECTION instead.
+      schema:
+        type: array
+        items:
+          type: string
+          example: REGULAR
+          enum:
+          - REGULAR
+          - VIDEO
+          - SHOPPING
+          - CAROUSEL
+          - MAX_VIDEO
+          - SHOP_THE_PIN
+          - COLLECTION
+          - IDEA
+    query_metric_types:
+      description: 'Metric types to get data for, default is all. '
+      explode: false
+      in: query
+      name: metric_types
+      required: false
+      schema:
+        items:
+          enum:
+          - ENGAGEMENT
+          - ENGAGEMENT_RATE
+          - IMPRESSION
+          - OUTBOUND_CLICK
+          - OUTBOUND_CLICK_RATE
+          - PIN_CLICK
+          - PIN_CLICK_RATE
+          - SAVE
+          - SAVE_RATE
+          type: string
+        type: array
+      style: form
+    path_board_section_id:
+      name: section_id
+      description: Unique identifier of a board section.
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+  securitySchemes:
+    pinterest_oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.pinterest.com/oauth/
+          tokenUrl: https://api.pinterest.com/v5/oauth/token
+          scopes:
+            ads:read: See all of your advertising data, including ads, ad groups, campaigns etc.
+            ads:write: Create, update, or delete ads, ad groups, campaigns etc.
+            billing:read: See all of your billing data, billing profile, etc.
+            billing:write: Create, update, or delete billing data, billing profiles, etc.
+            biz_access:read: See business access data
+            biz_access:write: Create, update, or delete business access data
+            boards:read: See your public boards, including group boards you join
+            boards:read_secret: See your secret boards
+            boards:write: Create, update, or delete your public boards
+            boards:write_secret: Create, update, or delete your secret boards
+            catalogs:read: See all of your catalogs data
+            catalogs:write: Create, update, or delete your catalogs data
+            pins:read: See your public Pins
+            pins:read_secret: See your secret Pins
+            pins:write: Create, update, or delete your public Pins
+            pins:write_secret: Create, update, or delete your secret Pins
+            user_accounts:read: See your user accounts and followers
+            user_accounts:write: Update your user accounts and followers
+    conversion_token:
+      type: http
+      scheme: bearer
+      description: This security scheme only applies to the conversion events endpoint (POST /ad_accounts/{ad_account_id}/events). This endpoint requires a bearer token generated via Ads Manager (ads.pinterest.com).
+    basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Pin and Boards
+  tags:
+  - pins
+  - boards
+  - media
+  - aggregated_comments
+  - aggregated_pin_data
+  - user_account
+- name: Campaign Management
+  tags:
+  - ad_accounts
+  - campaigns
+  - ad_groups
+  - ads
+  - product_group_promotions
+  - bulk
+- name: Targeting
+  tags:
+  - audiences
+  - customer_lists
+  - keywords
+  - targeting_template
+  - audience_insights
+  - audience_sharing
+- name: Ad Formats
+  tags:
+  - lead_forms
+  - lead_ads
+  - leads_export
+- name: Billing
+  tags:
+  - billing
+  - order_lines
+  - terms_of_service
+- name: Business Access
+  tags:
+  - business_access_assets
+  - business_access_invite
+  - business_access_relationships
+- name: Conversions
+  tags:
+  - conversion_events
+  - conversion_tags
+- name: Others
+  tags:
+  - integrations
+  - oauth
+  - resources
+  - search
+  - terms
+- name: Shopping
+  tags:
+  - catalogs
+- name: Deprecated
+  tags:
+  - product_groups

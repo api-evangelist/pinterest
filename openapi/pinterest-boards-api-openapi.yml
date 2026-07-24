@@ -1,0 +1,376 @@
+openapi: 3.0.3
+info:
+  version: 5.13.0
+  title: Pinterest Boards API
+  description: This is the description of your API.
+  contact:
+    name: Pinterest, Inc.
+    url: https://developers.pinterest.com/
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  termsOfService: https://developers.pinterest.com/terms/
+servers:
+- url: https://api.pinterest.com/v5
+tags:
+- name: Boards
+paths:
+  /boards:
+    get:
+      summary: List boards
+      description: 'Get a list of the boards owned by the "operation user_account" + group boards where this account is a collaborator
+
+        Optional: Business Access: Specify an ad_account_id to use the owner of that ad_account as the "operation user_account".
+
+        Optional: Specify a privacy type (public, protected, or secret) to indicate which boards to return.
+
+        - If no privacy is specified, all boards that can be returned (based on the scopes of the token and ad_account role if applicable) will be returned.'
+      tags:
+      - Boards
+      operationId: boards/list
+      security:
+      - pinterest_oauth2:
+        - boards:read
+      x-ratelimit-category: org_read
+      x-sandbox: enabled
+      x-codeSamples:
+      - lang: cURL
+        label: curl
+        source: 'curl --location --request GET ''https://api.pinterest.com/v5/boards'' \
+
+          --header ''Authorization: Bearer <Add your token here>'' \
+
+          --header ''Content-Type: application/json''
+
+          '
+      - lang: cURL
+        label: curl (Sandbox)
+        source: 'curl --location --request GET ''https://api-sandbox.pinterest.com/v5/boards'' \
+
+          --header ''Authorization: Bearer <Add your token here>'' \
+
+          --header ''Content-Type: application/json''
+
+          '
+      parameters:
+      - $ref: '#/components/parameters/query_ad_account_id'
+      - $ref: '#/components/parameters/query_bookmark'
+      - $ref: '#/components/parameters/query_page_size'
+      - name: privacy
+        description: Privacy setting for a board.
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - ALL
+          - PROTECTED
+          - PUBLIC
+          - SECRET
+          - PUBLIC_AND_SECRET
+      responses:
+        '200':
+          description: response
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Paginated'
+                - type: object
+                  properties:
+                    items:
+                      description: Boards
+                      items:
+                        $ref: '#/components/schemas/Board'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Create board
+      description: 'Create a board owned by the "operation user_account".
+
+        Optional: Business Access: Specify an ad_account_id to use the owner of that ad_account as the "operation user_account".
+
+        - By default, the "operation user_account" is the token user_account.'
+      tags:
+      - Boards
+      operationId: boards/create
+      security:
+      - pinterest_oauth2:
+        - boards:read
+        - boards:write
+      x-ratelimit-category: org_write
+      x-sandbox: enabled
+      x-codeSamples:
+      - lang: python
+        label: Python SDK
+        source: "# Follow this link for initial setup: https://github.com/pinterest/pinterest-python-sdk#getting-started\n\nfrom pinterest.organic.boards import Board\n\nboard_create=Board.create(\n  name=\"Summer Recipes\",\n  description=\"My favorite summer recipes\",\n  privacy=\"PUBLIC\"\n)\nprint(\"Board Id: %s, Board name:%s\"%(board_create.id, board_create.name))\n"
+      - lang: cURL
+        label: curl
+        source: "curl --location --request POST 'https://api.pinterest.com/v5/boards' \\\n--header 'Authorization: Bearer <Add your token here>' \\\n--header 'Content-Type: application/json' \\\n--data-raw '{\n      \"name\": \"Summer Recipes\",\n      \"description\": \"My favorite summer recipes\",\n      \"privacy\": \"PUBLIC\"\n}'\n"
+      - lang: cURL
+        label: curl (Sandbox)
+        source: "curl --location --request POST 'https://api-sandbox.pinterest.com/v5/boards' \\\n--header 'Authorization: Bearer <Add your token here>' \\\n--header 'Content-Type: application/json' \\\n--data-raw '{\n      \"name\": \"Summer Recipes\",\n      \"description\": \"My favorite summer recipes\",\n      \"privacy\": \"PUBLIC\"\n}'\n"
+      parameters:
+      - $ref: '#/components/parameters/query_ad_account_id'
+      requestBody:
+        description: Create a board using a single board json object.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Board'
+      responses:
+        '201':
+          description: response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Board'
+        '400':
+          description: The board name is invalid or duplicated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 400
+                message: The board name is invalid or duplicated.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    BoardOwner:
+      title: Board owner
+      type: object
+      properties:
+        username:
+          type: string
+          readOnly: true
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    Board:
+      title: Board
+      description: Board
+      type: object
+      properties:
+        id:
+          type: string
+          readOnly: true
+          example: '549755885175'
+        created_at:
+          type: string
+          description: Date and time of board creation.
+          readOnly: true
+          format: date-time
+          example: '2020-01-01T20:10:40-00:00'
+        board_pins_modified_at:
+          type: string
+          description: Date and time of last board pins modified.
+          readOnly: true
+          format: date-time
+          example: '2020-01-01T20:10:40-00:00'
+        name:
+          type: string
+          example: Summer Recipes
+        description:
+          type: string
+          nullable: true
+          example: My favorite summer recipes
+        collaborator_count:
+          type: integer
+          description: Count of collaborators on the board.
+          minimum: 0
+          readOnly: true
+          example: 17
+        pin_count:
+          type: integer
+          description: Count of pins on the board.
+          minimum: 0
+          readOnly: true
+          example: 5
+        follower_count:
+          type: integer
+          description: Board follower count.
+          readOnly: true
+          minimum: 0
+          example: 13
+        media:
+          type: object
+          readOnly: true
+          description: Board media.
+          properties:
+            image_cover_url:
+              type: string
+              nullable: true
+              description: Board cover image.
+              example: https://i.pinimg.com/400x300/fd/cd/d5/fdcdd5a6d8a80824add0d054125cd957.jpg
+            pin_thumbnail_urls:
+              type: array
+              description: Board pin thumbnail urls.
+              items:
+                type: string
+              example:
+              - https://i.pinimg.com/150x150/b4/57/10/b45710f1ede96af55230f4b43935c4af.jpg
+              - https://i.pinimg.com/150x150/dd/ff/46/ddff4616e39c1935cd05738794fa860e.jpg
+              - https://i.pinimg.com/150x150/84/ac/59/84ac59b670ccb5b903dace480a98930c.jpg
+              - https://i.pinimg.com/150x150/4c/54/6f/4c546f521be85e30838fb742bfff6936.jpg
+        owner:
+          allOf:
+          - $ref: '#/components/schemas/BoardOwner'
+          type: object
+          readOnly: true
+        privacy:
+          type: string
+          default: PUBLIC
+          description: Privacy setting for a board. Learn more about <a href="https://help.pinterest.com/en/article/secret-boards">secret boards</a> and <a href="https://help.pinterest.com/en/business/article/protected-boards">protected boards</a>
+          enum:
+          - PUBLIC
+          - PROTECTED
+          - SECRET
+      required:
+      - name
+    Paginated:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+        bookmark:
+          type: string
+          nullable: true
+      required:
+      - items
+  parameters:
+    query_page_size:
+      name: page_size
+      description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 250
+        default: 25
+    query_bookmark:
+      name: bookmark
+      description: Cursor used to fetch the next page of items
+      in: query
+      required: false
+      schema:
+        type: string
+    query_ad_account_id:
+      name: ad_account_id
+      description: Unique identifier of an ad account.
+      in: query
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
+  securitySchemes:
+    pinterest_oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.pinterest.com/oauth/
+          tokenUrl: https://api.pinterest.com/v5/oauth/token
+          scopes:
+            ads:read: See all of your advertising data, including ads, ad groups, campaigns etc.
+            ads:write: Create, update, or delete ads, ad groups, campaigns etc.
+            billing:read: See all of your billing data, billing profile, etc.
+            billing:write: Create, update, or delete billing data, billing profiles, etc.
+            biz_access:read: See business access data
+            biz_access:write: Create, update, or delete business access data
+            boards:read: See your public boards, including group boards you join
+            boards:read_secret: See your secret boards
+            boards:write: Create, update, or delete your public boards
+            boards:write_secret: Create, update, or delete your secret boards
+            catalogs:read: See all of your catalogs data
+            catalogs:write: Create, update, or delete your catalogs data
+            pins:read: See your public Pins
+            pins:read_secret: See your secret Pins
+            pins:write: Create, update, or delete your public Pins
+            pins:write_secret: Create, update, or delete your secret Pins
+            user_accounts:read: See your user accounts and followers
+            user_accounts:write: Update your user accounts and followers
+    conversion_token:
+      type: http
+      scheme: bearer
+      description: This security scheme only applies to the conversion events endpoint (POST /ad_accounts/{ad_account_id}/events). This endpoint requires a bearer token generated via Ads Manager (ads.pinterest.com).
+    basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Pin and Boards
+  tags:
+  - pins
+  - boards
+  - media
+  - aggregated_comments
+  - aggregated_pin_data
+  - user_account
+- name: Campaign Management
+  tags:
+  - ad_accounts
+  - campaigns
+  - ad_groups
+  - ads
+  - product_group_promotions
+  - bulk
+- name: Targeting
+  tags:
+  - audiences
+  - customer_lists
+  - keywords
+  - targeting_template
+  - audience_insights
+  - audience_sharing
+- name: Ad Formats
+  tags:
+  - lead_forms
+  - lead_ads
+  - leads_export
+- name: Billing
+  tags:
+  - billing
+  - order_lines
+  - terms_of_service
+- name: Business Access
+  tags:
+  - business_access_assets
+  - business_access_invite
+  - business_access_relationships
+- name: Conversions
+  tags:
+  - conversion_events
+  - conversion_tags
+- name: Others
+  tags:
+  - integrations
+  - oauth
+  - resources
+  - search
+  - terms
+- name: Shopping
+  tags:
+  - catalogs
+- name: Deprecated
+  tags:
+  - product_groups

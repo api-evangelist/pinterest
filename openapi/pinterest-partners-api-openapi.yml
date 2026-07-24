@@ -1,0 +1,1006 @@
+openapi: 3.0.3
+info:
+  version: 5.13.0
+  title: Pinterest Partners API
+  description: This is the description of your API.
+  contact:
+    name: Pinterest, Inc.
+    url: https://developers.pinterest.com/
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  termsOfService: https://developers.pinterest.com/terms/
+servers:
+- url: https://api.pinterest.com/v5
+tags:
+- name: Partners
+paths:
+  /businesses/{business_id}/assets/{asset_id}/partners:
+    get:
+      summary: Get partners with access to asset
+      description: 'Get all the partners the requesting business has granted access to on the given asset.
+
+        Note: If the asset has been shared with you, an empty array will be returned. This is because an asset shared with
+
+        you cannot be shared with a different partner.'
+      operationId: business_asset_partners/get
+      security:
+      - pinterest_oauth2:
+        - biz_access:read
+      x-ratelimit-category: ads_read
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_business_user'
+      - $ref: '#/components/parameters/path_asset_id'
+      - $ref: '#/components/parameters/query_business_access_start_index'
+      - $ref: '#/components/parameters/query_bookmark'
+      - $ref: '#/components/parameters/query_page_size'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Paginated'
+                - type: object
+                  properties:
+                    items:
+                      type: array
+                      description: List of partners with permissions to the asset.
+                      items:
+                        $ref: '#/components/schemas/UserSingleAssetBinding'
+          description: Sucess
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      tags:
+      - Partners
+  /businesses/{business_id}/partners/assets:
+    patch:
+      summary: Assign/Update partner asset permissions
+      description: 'Grant multiple partners access to assets and/or update multiple partner''s exisiting permissions to an asset.
+
+        If your partner already had permissions on the asset, they will be overriden with the new permissions you assign to them.
+
+        To learn more about permission levels, visit https://help.pinterest.com/en/business/article/business-manager-overview
+
+
+        Note: Not all listed permissions are applicable to each asset type. For example, PROFILE_PUBLISHER would not be
+
+        applicable to an asset of type AD_ACCOUNT. The permission level PROFILE_PUBLISHER is only available to an asset of
+
+        the type PROFILE.'
+      operationId: update_partner_asset_access_handler_impl
+      security:
+      - pinterest_oauth2:
+        - biz_access:write
+      x-ratelimit-category: ads_write
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_business_user'
+      requestBody:
+        description: A list of assets and permissions to assign to your partners.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePartnerAssetAccessBody'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdatePartnerAssetsResultsResponseArray'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      tags:
+      - Partners
+    delete:
+      summary: Delete partner access to asset
+      description: 'Terminate multiple partners'' access to an asset. If
+
+        - partner_type=INTERNAL: You will terminate a partner''s asset access to your business assets.
+
+        - partner_type=EXTERNAL: You will terminate your own access to your partner''s business assets.'
+      operationId: delete_partner_asset_access_handler_impl
+      security:
+      - pinterest_oauth2:
+        - biz_access:write
+      x-ratelimit-category: ads_write
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_business_user'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeletePartnerAssetAccessBody'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeletePartnerAssetsResultsResponseArray'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      tags:
+      - Partners
+  /businesses/{business_id}/partners/{partner_id}/assets:
+    get:
+      summary: Get assets assigned to a partner or assets assigned by a partner
+      description: 'Can be used to get the business assets your partner has granted you access to or the business assets you have
+
+        granted your partner access to. If you specify:
+
+        - partner_type=INTERNAL, you will retrieve your business assets that the partner has access to.
+
+        - partner_type=EXTERNAL, you will retrieve the partner''s business assets that the partner has granted you access to.'
+      operationId: business_partner_asset_access/get
+      security:
+      - pinterest_oauth2:
+        - biz_access:read
+      x-ratelimit-category: ads_read
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_business_user'
+      - $ref: '#/components/parameters/path_business_partner_user'
+      - name: partner_type
+        in: query
+        description: 'Specifies whether to fetch internal or external (shared) partners.
+
+          If partner_type=INTERNAL, the asset being queried is for accesses the partner has to your business assets.<br>
+
+          If partner_type=EXTERNAL, the asset being queried is for the accesses you have to the partner''s business asset.'
+        example: INTERNAL
+        required: false
+        schema:
+          allOf:
+          - $ref: '#/components/schemas/PartnerType'
+          - default: INTERNAL
+      - $ref: '#/components/parameters/query_resource_type'
+      - $ref: '#/components/parameters/query_business_access_start_index'
+      - $ref: '#/components/parameters/query_page_size'
+      - $ref: '#/components/parameters/query_bookmark'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Paginated'
+                - type: object
+                  properties:
+                    items:
+                      type: array
+                      description: List assets on which you granted access to your partner or assets on which your partner has granted you access.
+                      items:
+                        $ref: '#/components/schemas/GetPartnerAssetsResponse'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      tags:
+      - Partners
+  /businesses/{business_id}/partners:
+    get:
+      summary: Get business partners
+      description: "Get all partners of the specified business.\n\nIf the assets_summary=TRUE and:\n- partner_type=INTERNAL, the business assets returned are your business assets the partner has access to.\n- partner_type=EXTERNAL, the business assets returned are your partner's business assets the partner has granted you\n  access to."
+      operationId: get/business_partners
+      security:
+      - pinterest_oauth2:
+        - biz_access:read
+      x-ratelimit-category: ads_read
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_business_user'
+      - $ref: '#/components/parameters/query_assets_summary'
+      - $ref: '#/components/parameters/query_business_partner_type'
+      - name: partner_ids
+        in: query
+        description: A list of business partner ids separated by commas used to filter the results. Only partners with the specified ids will be returned.
+        example: 00101010101,2222220101
+        required: false
+        schema:
+          type: string
+          maxLength: 500
+      - $ref: '#/components/parameters/query_business_access_start_index'
+      - $ref: '#/components/parameters/query_page_size'
+      - $ref: '#/components/parameters/query_bookmark'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Paginated'
+                - type: object
+                  properties:
+                    items:
+                      type: array
+                      description: List of business partners.
+                      items:
+                        $ref: '#/components/schemas/UserBusinessRoleBinding'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      tags:
+      - Partners
+    delete:
+      summary: Terminate business partnerships
+      description: 'Terminate partnerships between the specified partners and your business.
+
+        Note: You may only batch terminate partners of the same partner type.'
+      operationId: delete_business_partners
+      security:
+      - pinterest_oauth2:
+        - biz_access:write
+      x-ratelimit-category: ads_write
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_business_user'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeletePartnersRequest'
+        description: 'An object containing a "partner_ids" property composed of a list of partner IDs and a "partners_type" property specifying the type of partners to delete.
+
+          '
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeletePartnersResponse'
+          description: Success
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: A supplied partner id doesn't exist
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      tags:
+      - Partners
+  /search/partner/pins:
+    get:
+      summary: Search pins by a given search term
+      description: '<strong>This endpoint is currently in beta and not available to all apps. <a href=''/docs/new/about-beta-access/''>Learn more</a>.</strong>
+
+
+        Get the top 10 Pins by a given search term.'
+      operationId: search_partner_pins
+      security:
+      - pinterest_oauth2:
+        - boards:read
+        - pins:read
+      x-ratelimit-category: org_read
+      x-sandbox: disabled
+      x-codeSamples:
+      - lang: cURL
+        label: curl
+        source: 'curl --location --request GET ''https://api.pinterest.com/v5/search/partner/pins'' \
+
+          --header ''Authorization: Bearer <Add your token here>'' \
+
+          --header ''Content-Type: application/json''
+
+          '
+      parameters:
+      - description: Search term to look up pins.
+        in: query
+        name: term
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/query_country_code'
+      - $ref: '#/components/parameters/query_bookmark'
+      - description: Search locale.
+        in: query
+        name: locale
+        required: false
+        schema:
+          type: string
+      - $ref: '#/components/parameters/result_limit'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Paginated'
+                - type: object
+                  properties:
+                    items:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/SummaryPin'
+          description: Success
+        '400':
+          description: Invalid pins
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 400
+                message: Invalid pin filter value
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Partners
+components:
+  schemas:
+    BusinessMemberAssetsSummary:
+      type: object
+      description: Ad accounts and profiles the business member/partner has access to.
+      nullable: true
+      properties:
+        ad_accounts:
+          type: array
+          description: List of ad account IDs and respective permission levels.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Unique identifier of a business ad account.
+                example: '549755885175'
+                pattern: ^\d+$
+                minLength: 1
+                maxLength: 20
+              permissions:
+                $ref: '#/components/schemas/PermissionsResponse'
+        profiles:
+          type: array
+          description: List of profile IDs and respective permission levels.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Unique identifier of a business profile.
+                example: '383791336903426391'
+                pattern: ^\d+$
+                minLength: 1
+                maxLength: 20
+              permissions:
+                $ref: '#/components/schemas/PermissionsResponse'
+    SummaryPin:
+      description: Summarized pin information
+      title: SummaryPin
+      type: object
+      properties:
+        media:
+          allOf:
+          - $ref: '#/components/schemas/PinMedia'
+          type: object
+          readOnly: true
+        alt_text:
+          type: string
+          nullable: true
+          maxLength: 500
+        link:
+          type: string
+          nullable: true
+          example: https://www.pinterest.com/
+          maxLength: 2048
+        title:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+    UpdatePartnerAssetsResult:
+      type: object
+      description: An object containing the permissions a business partner has on the asset.
+      properties:
+        asset_id:
+          description: Unique identifier of a business asset.
+          example: '549755885175'
+          pattern: ^\d+$
+          type: string
+        asset_type:
+          $ref: '#/components/schemas/AssetTypeResponse'
+        partner_id:
+          description: Unique identifier of a business partner.
+          example: '140943737684417'
+          pattern: ^\d+$
+          type: string
+        permissions:
+          $ref: '#/components/schemas/PermissionsResponse'
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    DeletePartnersRequest:
+      properties:
+        partner_ids:
+          items:
+            description: A list of partner ids to be deleted
+            example: '1234567890123'
+            maxLength: 22
+            pattern: ^\d+$
+            type: string
+          minItems: 1
+          maxItems: 50
+          type: array
+        partner_type:
+          allOf:
+          - description: 'If partner_type=INTERNAL, the deleted relationship is the partnership
+
+              relationship a partner has with you
+
+              If partner_type=EXTERNAL, the deleted relationship is the partnership
+
+              relationship you have with a partner'
+            nullable: true
+            type: string
+            example: INTERNAL
+          - $ref: '#/components/schemas/BusinessRoleCheckMode'
+          nullable: true
+          type: string
+      required:
+      - partner_ids
+      type: object
+    UserBusinessRoleBinding:
+      type: object
+      properties:
+        assets_summary:
+          type: object
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/BusinessMemberAssetsSummary'
+        business_roles:
+          description: The access level a user has on the business. This can be EMPLOYEE, BIZ_ADMIN, or PARTNER.
+          type: array
+          example:
+          - BIZ_ADMIN
+          items:
+            $ref: '#/components/schemas/BusinessRoleResponse'
+        created_by_business:
+          type: object
+          nullable: true
+          description: Metadata for the business that created the business relationship.
+          allOf:
+          - $ref: '#/components/schemas/BusinessAccessUserSummary'
+        created_by_user:
+          type: object
+          nullable: true
+          description: Metadata for the user that created the business relationship.
+          allOf:
+          - $ref: '#/components/schemas/BusinessAccessUserSummary'
+        created_time:
+          type: integer
+          nullable: true
+          description: The time the business relationship was created. Returned in milliseconds.
+          example: 1646767577816
+        id:
+          type: string
+          description: Unique identifier of the business member/business partner/employer.
+          example: '383791336903426391'
+          pattern: ^\d+$
+        is_shared_partner:
+          type: boolean
+          description: 'This field is only relevant when business_role="PARTNER".
+
+            <br>If is_shared_partner=FALSE, the partner can access your business assets. If assets_summary
+
+            is not empty, the assets listed are your business assets the partner has access to.
+
+            <br>If is_shared_partner=TRUE, you can access the partner''s business asset. If assets_summary
+
+            is not empty, the assets listed are the partner''s business assets you have access to.'
+          example: false
+        user:
+          type: object
+          nullable: true
+          description: Metadata for the business member/business partner/employer.
+          allOf:
+          - $ref: '#/components/schemas/BusinessAccessUserSummary'
+    BusinessAccessUserSummary:
+      type: object
+      description: Metadata of the member/partner that has access to the asset.
+      properties:
+        email:
+          description: Email of the business member/partner.
+          example: business0101@business.com
+          type: string
+          nullable: true
+        id:
+          description: Unique identifier of the business member/partner.
+          example: '383791336903426391'
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 20
+        username:
+          description: Username of the business member/partner.
+          example: business0101
+          nullable: true
+          type: string
+    Paginated:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+        bookmark:
+          type: string
+          nullable: true
+      required:
+      - items
+    UpdatePartnerAssetsResultsResponseArray:
+      type: object
+      properties:
+        items:
+          type: array
+          description: List of assigned/updated partner asset access.
+          items:
+            type: object
+            $ref: '#/components/schemas/UpdatePartnerAssetsResult'
+    DeletePartnerAssetsResult:
+      type: object
+      description: The terminated asset access.
+      properties:
+        asset_id:
+          description: Unique identifier of a business asset.
+          example: '549755885175'
+          pattern: ^\d+$
+          type: string
+        asset_type:
+          $ref: '#/components/schemas/AssetTypeResponse'
+        permissions:
+          $ref: '#/components/schemas/PermissionsResponse'
+        is_shared_partner:
+          type: boolean
+          description: If is_shared_partner=FALSE, you terminated a partner's asset access to your business asset.<br> If is_shared_partner=TRUE, you terminated your asset access to your partner's business asset.
+          example: false
+        partner_id:
+          description: Unique identifier of a business partner.
+          example: '140943737684417'
+          pattern: ^\d+$
+          type: string
+    UserSingleAssetBinding:
+      type: object
+      description: An object containing the permissions a business member/partner has on the asset.
+      properties:
+        permissions:
+          $ref: '#/components/schemas/PermissionsResponse'
+        user:
+          $ref: '#/components/schemas/BusinessAccessUserSummary'
+    GetPartnerAssetsResponse:
+      type: object
+      description: An object containing the permissions a you/your business partner has on the asset.
+      properties:
+        asset_id:
+          description: Unique identifier of a business asset.
+          example: '549755885175'
+          pattern: ^\d+$
+          type: string
+          maxLength: 20
+          minLength: 1
+        asset_type:
+          $ref: '#/components/schemas/AssetTypeResponse'
+        permissions:
+          type: array
+          description: The permissions you or your partner has on the asset. If partner_type=INTERNAL, the permission levels are for the access the partner has to your business asset.<br> If partner_type=EXTERNAL, the permission levels are for the access you have to the partner's business asset.
+          example:
+          - FINANCE_MANAGER
+          - CATALOGS_MANAGER
+          - AUDIENCE_MANAGER
+          items:
+            description: The permission level a user has on an asset.
+            example: FINANCE_MANAGER
+            type: string
+    DeletePartnerAssetsResultsResponseArray:
+      type: object
+      properties:
+        items:
+          type: array
+          description: List of terminated asset access.
+          items:
+            type: object
+            $ref: '#/components/schemas/DeletePartnerAssetsResult'
+    PermissionsResponse:
+      type: array
+      description: Permission levels member or partner has on an asset.
+      example:
+      - FINANCE_MANAGER
+      - CATALOGS_MANAGER
+      - AUDIENCE_MANAGER
+      items:
+        type: string
+    BusinessRoleResponse:
+      type: string
+      description: 'The access level a member/partner has to the business. Values are case-sensitive.
+
+        <br> - EMPLOYEE: Can only view and access assets you assign to them.
+
+        They cannot see details about other employees, partners, or other assets.
+
+        <br> - BIZ_ADMIN: Have full control of roles and can add employees or external partners as well as grant asset access.
+
+        <br> - PARTNER: Can only view and access assets you assign them to/or they assign to you.'
+      example: BIZ_ADMIN
+    DeletePartnersResponse:
+      type: object
+      description: An object with a list of partners that were deleted.
+      properties:
+        deleted_partners:
+          type: array
+          description: List of partners whose business partnership have been terminated.
+          example:
+          - '809944451643622187'
+          - '383791336903426391'
+          items:
+            type: string
+            pattern: ^\d+$
+            example: '809944451643622187'
+    PartnerType:
+      enum:
+      - INTERNAL
+      - EXTERNAL
+      example: INTERNAL
+      type: string
+    DeletePartnerAssetAccessBody:
+      type: object
+      required:
+      - accesses
+      properties:
+        accesses:
+          type: array
+          minItems: 1
+          maxItems: 50
+          items:
+            type: object
+            properties:
+              partner_id:
+                type: string
+                description: Unique identifier of a business partner to update asset access to.
+                example: '1234567890123'
+                maxLength: 25
+                pattern: ^\d+$
+              asset_id:
+                type: string
+                description: Unique identifier of the business asset.
+                example: '549755885175'
+                maxLength: 25
+                pattern: ^\d+$
+              partner_type:
+                enum:
+                - INTERNAL
+                - EXTERNAL
+                example: INTERNAL
+                description: 'If partner_type=INTERNAL, the deleted asset access is for the access the partner has to your business asset.<br>
+
+                  If partner_type=EXTERNAL, the deleted asset access is for the access you have to the partner''s business asset.'
+                default: INTERNAL
+                type: string
+            required:
+            - partner_id
+            - asset_id
+    Permissions:
+      type: string
+      enum:
+      - ADMIN
+      - ANALYST
+      - FINANCE_MANAGER
+      - AUDIENCE_MANAGER
+      - CAMPAIGN_MANAGER
+      - CATALOGS_MANAGER
+      - PROFILE_PUBLISHER
+    UpdatePartnerAssetAccessBody:
+      type: object
+      required:
+      - accesses
+      properties:
+        accesses:
+          type: array
+          minItems: 1
+          maxItems: 50
+          items:
+            type: object
+            required:
+            - partner_id
+            - asset_id
+            - permissions
+            properties:
+              partner_id:
+                type: string
+                description: Unique identifier of a business partner to update asset access to.
+                example: '1234567890123'
+                maxLength: 25
+                pattern: ^\d+$
+              asset_id:
+                type: string
+                description: Unique identifier of the business asset.
+                example: '549755885175'
+                maxLength: 25
+                pattern: ^\d+$
+              permissions:
+                type: array
+                description: A non-empty array of permissions to assign to the partner.
+                example:
+                - ANALYST
+                - ADMIN
+                minItems: 1
+                maxItems: 50
+                items:
+                  $ref: '#/components/schemas/Permissions'
+    PinMedia:
+      title: Pin media
+      type: object
+      description: Pin media objects.
+      discriminator:
+        propertyName: media_type
+        mapping:
+          image: '#/components/schemas/PinMediaWithImage'
+          video: '#/components/schemas/PinMediaWithVideo'
+          multiple_images: '#/components/schemas/PinMediaWithImages'
+          multiple_videos: '#/components/schemas/PinMediaWithVideos'
+          multiple_mixed: '#/components/schemas/PinMediaWithImageAndVideo'
+      properties:
+        media_type:
+          type: string
+    AssetTypeResponse:
+      description: Type of asset. Currently we only support AD_ACCOUNT and PROFILE.
+      example: AD_ACCOUNT
+      type: string
+    BusinessRoleCheckMode:
+      description: Specifies if the partner is internal or external.
+      enum:
+      - INTERNAL
+      - EXTERNAL
+      example: INTERNAL
+      type: string
+  parameters:
+    query_country_code:
+      name: country_code
+      description: Two letter country code (ISO 3166-1 alpha-2)
+      in: query
+      example: US
+      required: true
+      explode: true
+      schema:
+        type: string
+      style: form
+    query_resource_type:
+      name: asset_type
+      in: query
+      required: false
+      description: A resource type to filter the assets by. Only assets of the specified type will be returned.
+      schema:
+        type: string
+        enum:
+        - AD_ACCOUNT
+        - PROFILE
+        default: AD_ACCOUNT
+        example: AD_ACCOUNT
+    query_assets_summary:
+      name: assets_summary
+      description: 'Include assets summary in the response if this is true.
+
+
+        The assets summary returns a dictionary representing a summary of the assets
+
+        for the business user ID, with information like the ad accounts and profiles
+
+        the user has permissions for and what those permissions are'
+      in: query
+      required: false
+      schema:
+        type: boolean
+        default: false
+    query_page_size:
+      name: page_size
+      description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 250
+        default: 25
+    query_bookmark:
+      name: bookmark
+      description: Cursor used to fetch the next page of items
+      in: query
+      required: false
+      schema:
+        type: string
+    path_business_user:
+      name: business_id
+      in: path
+      description: Unique identifier of the requesting business.
+      example: '729090764583391194'
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+        minLength: 1
+        maxLength: 20
+    result_limit:
+      description: Max search result size
+      in: query
+      name: limit
+      example: 4
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+        default: 10
+    path_asset_id:
+      name: asset_id
+      in: path
+      description: Unique identifier of a business asset.
+      example: '729090764583391194'
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+        minLength: 1
+        maxLength: 20
+    query_business_partner_type:
+      name: partner_type
+      in: query
+      description: 'Specifies whether to fetch internal or external (shared) partners.
+
+        If partner_type=INTERNAL, the asset being queried is for accesses the partner has to your business assets.<br>
+
+        If partner_type=EXTERNAL, the asset being queried is for the accesses you have to the partner''s business asset.'
+      example: INTERNAL
+      required: false
+      schema:
+        $ref: '#/components/schemas/PartnerType'
+    path_business_partner_user:
+      name: partner_id
+      in: path
+      description: The partner id to be bound to the Business
+      example: '729090764583391194'
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+        minLength: 1
+        maxLength: 20
+    query_business_access_start_index:
+      name: start_index
+      in: query
+      description: An index to start fetching the results from. Only the results starting from this index will be returned.
+      example: 0
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+  securitySchemes:
+    pinterest_oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.pinterest.com/oauth/
+          tokenUrl: https://api.pinterest.com/v5/oauth/token
+          scopes:
+            ads:read: See all of your advertising data, including ads, ad groups, campaigns etc.
+            ads:write: Create, update, or delete ads, ad groups, campaigns etc.
+            billing:read: See all of your billing data, billing profile, etc.
+            billing:write: Create, update, or delete billing data, billing profiles, etc.
+            biz_access:read: See business access data
+            biz_access:write: Create, update, or delete business access data
+            boards:read: See your public boards, including group boards you join
+            boards:read_secret: See your secret boards
+            boards:write: Create, update, or delete your public boards
+            boards:write_secret: Create, update, or delete your secret boards
+            catalogs:read: See all of your catalogs data
+            catalogs:write: Create, update, or delete your catalogs data
+            pins:read: See your public Pins
+            pins:read_secret: See your secret Pins
+            pins:write: Create, update, or delete your public Pins
+            pins:write_secret: Create, update, or delete your secret Pins
+            user_accounts:read: See your user accounts and followers
+            user_accounts:write: Update your user accounts and followers
+    conversion_token:
+      type: http
+      scheme: bearer
+      description: This security scheme only applies to the conversion events endpoint (POST /ad_accounts/{ad_account_id}/events). This endpoint requires a bearer token generated via Ads Manager (ads.pinterest.com).
+    basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Pin and Boards
+  tags:
+  - pins
+  - boards
+  - media
+  - aggregated_comments
+  - aggregated_pin_data
+  - user_account
+- name: Campaign Management
+  tags:
+  - ad_accounts
+  - campaigns
+  - ad_groups
+  - ads
+  - product_group_promotions
+  - bulk
+- name: Targeting
+  tags:
+  - audiences
+  - customer_lists
+  - keywords
+  - targeting_template
+  - audience_insights
+  - audience_sharing
+- name: Ad Formats
+  tags:
+  - lead_forms
+  - lead_ads
+  - leads_export
+- name: Billing
+  tags:
+  - billing
+  - order_lines
+  - terms_of_service
+- name: Business Access
+  tags:
+  - business_access_assets
+  - business_access_invite
+  - business_access_relationships
+- name: Conversions
+  tags:
+  - conversion_events
+  - conversion_tags
+- name: Others
+  tags:
+  - integrations
+  - oauth
+  - resources
+  - search
+  - terms
+- name: Shopping
+  tags:
+  - catalogs
+- name: Deprecated
+  tags:
+  - product_groups

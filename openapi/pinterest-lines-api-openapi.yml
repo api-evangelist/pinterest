@@ -1,0 +1,550 @@
+openapi: 3.0.3
+info:
+  version: 5.13.0
+  title: Pinterest Lines API
+  description: This is the description of your API.
+  contact:
+    name: Pinterest, Inc.
+    url: https://developers.pinterest.com/
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  termsOfService: https://developers.pinterest.com/terms/
+servers:
+- url: https://api.pinterest.com/v5
+tags:
+- name: Lines
+paths:
+  /ad_accounts/{ad_account_id}/order_lines:
+    get:
+      summary: Get order lines
+      description: List existing order lines associated with an ad account.
+      operationId: order_lines/list
+      security:
+      - pinterest_oauth2:
+        - ads:read
+      x-ratelimit-category: ads_read
+      x-sandbox: enabled
+      parameters:
+      - $ref: '#/components/parameters/path_ad_account_id'
+      - $ref: '#/components/parameters/query_page_size'
+      - $ref: '#/components/parameters/query_order'
+      - $ref: '#/components/parameters/query_bookmark'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Paginated'
+                - type: object
+                  properties:
+                    items:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/OrderLine'
+          description: Success
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Lines
+  /ad_accounts/{ad_account_id}/order_lines/{order_line_id}:
+    get:
+      summary: Get order line
+      description: Get a specific existing order line associated with an ad account.
+      operationId: order_lines/get
+      security:
+      - pinterest_oauth2:
+        - ads:read
+      x-ratelimit-category: ads_read
+      x-sandbox: enabled
+      parameters:
+      - $ref: '#/components/parameters/path_ad_account_id'
+      - $ref: '#/components/parameters/path_order_line_id'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderLine'
+          description: Success
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Lines
+  /ad_accounts/{ad_account_id}/ssio/order_lines:
+    get:
+      summary: Get Salesforce order lines by ad account id.
+      description: 'Get Salesforce order lines for account id <code>ad_account_id</code>.
+
+        - The token''s user_account must either be the Owner of the specified ad account, or have one of the necessary roles granted to them via <a href="https://help.pinterest.com/en/business/article/share-and-manage-access-to-your-ad-accounts">Business Access</a>: Admin, Finance, Campaign.'
+      operationId: ssio_order_lines/get_by_ad_account
+      security:
+      - pinterest_oauth2:
+        - ads:read
+      x-ratelimit-category: ads_read
+      x-sandbox: enabled
+      parameters:
+      - $ref: '#/components/parameters/path_ad_account_id'
+      - $ref: '#/components/parameters/query_bookmark'
+      - $ref: '#/components/parameters/query_page_size'
+      - $ref: '#/components/parameters/query_pin_order_id'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Paginated'
+                - type: object
+                  properties:
+                    items:
+                      description: SSIO order lines by ad acount id
+                      items:
+                        $ref: '#/components/schemas/SSIOOrderLine'
+          description: Success
+        '400':
+          description: Invalid request parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 400
+                message: Invalid request parameter.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Lines
+components:
+  schemas:
+    OrderLine:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/OrderLines'
+      - type: object
+        properties:
+          campaign_ids:
+            description: Associated List of campaign IDs.
+            example:
+            - '626735565838'
+            items:
+              type: string
+            title: campaign_ids
+            type: array
+        required:
+        - campaign_ids
+      title: OrderLine
+    OrderLines:
+      type: object
+      title: OrderLines
+      description: Order Line
+      properties:
+        id:
+          description: Order line ID.
+          example: '2680059592705'
+          pattern: ^\d+$
+          title: id
+          type: string
+        type:
+          description: Always "orderline".
+          example: orderline
+          title: type
+          type: string
+        ad_account_id:
+          description: Ad account ID.
+          example: '549755885175'
+          title: ad_account_id
+          type: string
+        purchase_order_id:
+          description: Purchase order ID.
+          example: PO12345
+          title: purchase_order_id
+          type: string
+          nullable: true
+        start_time:
+          description: Start time. Unix timestamp.
+          example: 1452208622
+          title: start_time
+          type: number
+        end_time:
+          description: End time. Unix timestamp.
+          example: 1461269616
+          title: end_time
+          type: number
+          nullable: true
+        budget:
+          description: Order line budget in micro currency.
+          example: 5000000
+          title: budget
+          type: number
+          nullable: true
+        paid_budget:
+          description: Order line paid budget in micro currency.
+          example: 5000000
+          title: paid_budget
+          type: number
+          nullable: true
+        status:
+          allOf:
+          - $ref: '#/components/schemas/OrderLineStatus'
+          description: Order line status.
+          example: ACTIVE
+          type: string
+          title: status
+        name:
+          description: Order line name.
+          example: Order Line Name 1
+          title: name
+          type: string
+          nullable: true
+        paid_type:
+          allOf:
+          - $ref: '#/components/schemas/OrderLinePaidType'
+          type: string
+          description: Order line paid type.
+          example: PAID
+          title: paid_type
+          nullable: true
+    Currency:
+      type: string
+      description: Currency Codes from ISO 4217
+      example: USD
+      enum:
+      - UNK
+      - USD
+      - GBP
+      - CAD
+      - EUR
+      - AUD
+      - NZD
+      - SEK
+      - ILS
+      - CHF
+      - HKD
+      - JPY
+      - SGD
+      - KRW
+      - NOK
+      - DKK
+      - PLN
+      - RON
+      - HUF
+      - CZK
+      - BRL
+      - MXN
+      - ARS
+      - CLP
+      - COP
+    OrderLinePaidType:
+      description: Order Line Paid Type
+      enum:
+      - PAID
+      - BONUS
+      - MAKE_GOOD
+      - TEST
+      - null
+      example: PAID
+      title: OrderLinePaidType
+      type: string
+      nullable: true
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    OrderLineStatus:
+      description: Order Line Status
+      enum:
+      - ACTIVE
+      - PAUSED
+      - DELETED
+      example: ACTIVE
+      title: OrderLineStatus
+      type: string
+    SSIOOrderLine:
+      type: object
+      properties:
+        salesforce_order_line_id:
+          description: OrderLineId in SFDC
+          type: string
+          nullable: true
+        ads_manager_order_line_id:
+          description: Ads manager OrderLineId
+          type: string
+          nullable: true
+        pin_order_id:
+          description: The pin order id associated with the order line in SFDC
+          type: string
+          nullable: true
+        last_modified_date_time:
+          description: Last modified date.
+          example: '2020-10-06T13:07:04.000Z'
+          type: string
+          pattern: ^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}).(\d{3})Z$
+          nullable: true
+        start_date:
+          description: Start date of the order line.
+          example: '2018-03-01'
+          type: string
+          format: date
+          nullable: true
+        end_date:
+          description: End date of the order line.
+          example: '2020-10-05'
+          type: string
+          format: date
+          nullable: true
+        bill_to_company_name:
+          description: Bill To Company name
+          example: Home Depot Inc.
+          type: string
+          nullable: true
+        billing_contact_firstname:
+          description: Billing contact first name
+          example: Mary
+          type: string
+          nullable: true
+        billing_contact_lastname:
+          description: Billing contact last name
+          example: Smith
+          type: string
+          nullable: true
+        billing_contact_email:
+          description: Billing contact email
+          example: mail@test.com
+          type: string
+          nullable: true
+        media_contact_email:
+          description: Billing media email
+          example: mail@test.com
+          type: string
+          nullable: true
+        media_contact_firstname:
+          description: Billing contact first name
+          example: John
+          type: string
+          nullable: true
+        media_contact_lastname:
+          description: Billing contact first name
+          example: Doe
+          type: string
+          nullable: true
+        currency_info:
+          $ref: '#/components/schemas/Currency'
+          nullable: true
+        agency_link:
+          description: Agency link
+          example: ''
+          type: string
+          nullable: true
+        po_number:
+          description: The po number
+          type: string
+          nullable: true
+        order_name:
+          description: The order name
+          type: string
+          nullable: true
+        pmp_name:
+          description: The Pinterest marketing partner name
+          type: string
+          nullable: true
+        accepted_terms_id:
+          description: The SFDC id for the terms
+          type: string
+          nullable: true
+        accepted_terms_time:
+          description: The UTC timestamp (to the nearest sec) of when terms were accepted
+          example: '2020-10-06T13:07:04.000Z'
+          type: string
+          pattern: ^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}).(\d{3})Z$
+          nullable: true
+        budget_amount:
+          type: number
+          description: If Budget order line, the budget amount.
+          example: 5000000
+          nullable: true
+        estimated_monthly_spend:
+          description: If Ongoing (perpetual) order line, the estimated monthly spend
+          type: number
+          nullable: true
+    Paginated:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+        bookmark:
+          type: string
+          nullable: true
+      required:
+      - items
+  parameters:
+    query_page_size:
+      name: page_size
+      description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 250
+        default: 25
+    query_bookmark:
+      name: bookmark
+      description: Cursor used to fetch the next page of items
+      in: query
+      required: false
+      schema:
+        type: string
+    path_ad_account_id:
+      name: ad_account_id
+      description: Unique identifier of an ad account.
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
+    path_order_line_id:
+      name: order_line_id
+      description: Unique identifier of an order line.
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
+    query_order:
+      description: 'The order in which to sort the items returned: ASCENDING or DESCENDING
+
+        by ID. Note that higher-value IDs are associated with more-recently added
+
+        items.'
+      in: query
+      name: order
+      required: false
+      schema:
+        type: string
+        example: ASCENDING
+        enum:
+        - ASCENDING
+        - DESCENDING
+    query_pin_order_id:
+      description: The pin order id associated with the ssio insertino order
+      in: query
+      name: pin_order_id
+      required: false
+      schema:
+        type: string
+        example: 0Q01N0000015hekSVDFDC
+  securitySchemes:
+    pinterest_oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.pinterest.com/oauth/
+          tokenUrl: https://api.pinterest.com/v5/oauth/token
+          scopes:
+            ads:read: See all of your advertising data, including ads, ad groups, campaigns etc.
+            ads:write: Create, update, or delete ads, ad groups, campaigns etc.
+            billing:read: See all of your billing data, billing profile, etc.
+            billing:write: Create, update, or delete billing data, billing profiles, etc.
+            biz_access:read: See business access data
+            biz_access:write: Create, update, or delete business access data
+            boards:read: See your public boards, including group boards you join
+            boards:read_secret: See your secret boards
+            boards:write: Create, update, or delete your public boards
+            boards:write_secret: Create, update, or delete your secret boards
+            catalogs:read: See all of your catalogs data
+            catalogs:write: Create, update, or delete your catalogs data
+            pins:read: See your public Pins
+            pins:read_secret: See your secret Pins
+            pins:write: Create, update, or delete your public Pins
+            pins:write_secret: Create, update, or delete your secret Pins
+            user_accounts:read: See your user accounts and followers
+            user_accounts:write: Update your user accounts and followers
+    conversion_token:
+      type: http
+      scheme: bearer
+      description: This security scheme only applies to the conversion events endpoint (POST /ad_accounts/{ad_account_id}/events). This endpoint requires a bearer token generated via Ads Manager (ads.pinterest.com).
+    basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Pin and Boards
+  tags:
+  - pins
+  - boards
+  - media
+  - aggregated_comments
+  - aggregated_pin_data
+  - user_account
+- name: Campaign Management
+  tags:
+  - ad_accounts
+  - campaigns
+  - ad_groups
+  - ads
+  - product_group_promotions
+  - bulk
+- name: Targeting
+  tags:
+  - audiences
+  - customer_lists
+  - keywords
+  - targeting_template
+  - audience_insights
+  - audience_sharing
+- name: Ad Formats
+  tags:
+  - lead_forms
+  - lead_ads
+  - leads_export
+- name: Billing
+  tags:
+  - billing
+  - order_lines
+  - terms_of_service
+- name: Business Access
+  tags:
+  - business_access_assets
+  - business_access_invite
+  - business_access_relationships
+- name: Conversions
+  tags:
+  - conversion_events
+  - conversion_tags
+- name: Others
+  tags:
+  - integrations
+  - oauth
+  - resources
+  - search
+  - terms
+- name: Shopping
+  tags:
+  - catalogs
+- name: Deprecated
+  tags:
+  - product_groups

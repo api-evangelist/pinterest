@@ -1,0 +1,828 @@
+openapi: 3.0.3
+info:
+  version: 5.13.0
+  title: Pinterest Sections API
+  description: This is the description of your API.
+  contact:
+    name: Pinterest, Inc.
+    url: https://developers.pinterest.com/
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  termsOfService: https://developers.pinterest.com/terms/
+servers:
+- url: https://api.pinterest.com/v5
+tags:
+- name: Sections
+paths:
+  /boards/{board_id}/sections:
+    get:
+      summary: List board sections
+      description: 'Get a list of all board sections from a board owned by the "operation user_account" - or a group board that has been shared with this account.
+
+        Optional: Business Access: Specify an ad_account_id to use the owner of that ad_account as the "operation user_account".
+
+        - By default, the "operation user_account" is the token user_account.'
+      tags:
+      - Sections
+      operationId: board_sections/list
+      security:
+      - pinterest_oauth2:
+        - boards:read
+      x-ratelimit-category: org_read
+      x-sandbox: enabled
+      parameters:
+      - $ref: '#/components/parameters/path_board_id'
+      - $ref: '#/components/parameters/query_ad_account_id'
+      - $ref: '#/components/parameters/query_bookmark'
+      - $ref: '#/components/parameters/query_page_size'
+      responses:
+        '200':
+          description: response
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Paginated'
+                - type: object
+                  properties:
+                    items:
+                      description: Board sections
+                      items:
+                        $ref: '#/components/schemas/BoardSection'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Create board section
+      description: 'Create a board section on a board owned by the "operation user_account" - or on a group board that has been shared with this account.
+
+        Optional: Business Access: Specify an ad_account_id to use the owner of that ad_account as the "operation user_account".
+
+        - By default, the "operation user_account" is the token user_account.'
+      tags:
+      - Sections
+      operationId: board_sections/create
+      security:
+      - pinterest_oauth2:
+        - boards:read
+        - boards:write
+      x-ratelimit-category: org_write
+      x-sandbox: enabled
+      parameters:
+      - $ref: '#/components/parameters/path_board_id'
+      - $ref: '#/components/parameters/query_ad_account_id'
+      requestBody:
+        description: Create a board section.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BoardSection'
+      responses:
+        '201':
+          description: response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BoardSection'
+        '400':
+          description: Invalid board section parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 400
+                message: Invalid board section parameters.
+        '403':
+          description: Not authorized to create board sections.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 403
+                message: Not authorized to create board sections.
+        '409':
+          description: Could not get exclusive access to the board to create a new section.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 409
+                message: Could not get exclusive access to the board to create a new section.
+        '500':
+          description: Could not create a new board section.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 500
+                message: Could not create a new board section.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /boards/{board_id}/sections/{section_id}:
+    patch:
+      summary: Update board section
+      description: 'Update a board section on a board owned by the "operation user_account" - or on a group board that has been shared with this account.
+
+        Optional: Business Access: Specify an ad_account_id to use the owner of that ad_account as the "operation user_account".
+
+        - By default, the "operation user_account" is the token user_account.'
+      tags:
+      - Sections
+      operationId: board_sections/update
+      security:
+      - pinterest_oauth2:
+        - boards:read
+        - boards:write
+      x-ratelimit-category: org_write
+      x-sandbox: enabled
+      parameters:
+      - $ref: '#/components/parameters/path_board_id'
+      - $ref: '#/components/parameters/path_board_section_id'
+      - $ref: '#/components/parameters/query_ad_account_id'
+      requestBody:
+        description: Update a board section.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BoardSection'
+      responses:
+        '200':
+          description: response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BoardSection'
+        '400':
+          description: Invalid board section parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 400
+                message: Invalid board section parameters.
+        '403':
+          description: Not authorized to update board section.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 403
+                message: Not authorized to update board section.
+        '409':
+          description: Board section conflict.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 409
+                message: Board section conflict.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Delete board section
+      description: 'Delete a board section on a board owned by the "operation user_account" - or on a group board that has been shared with this account.
+
+        Optional: Business Access: Specify an ad_account_id to use the owner of that ad_account as the "operation user_account".
+
+        - By default, the "operation user_account" is the token user_account.'
+      tags:
+      - Sections
+      operationId: board_sections/delete
+      security:
+      - pinterest_oauth2:
+        - boards:read
+        - boards:write
+      x-ratelimit-category: org_write
+      x-sandbox: enabled
+      parameters:
+      - $ref: '#/components/parameters/path_board_id'
+      - $ref: '#/components/parameters/path_board_section_id'
+      - $ref: '#/components/parameters/query_ad_account_id'
+      responses:
+        '204':
+          description: Board section deleted successfully
+        '403':
+          description: Not authorized to delete board section.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 403
+                message: Not authorized to delete board section.
+        '404':
+          description: Board section not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 404
+                message: Board section not found.
+        '409':
+          description: Board section conflict.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 409
+                message: Board section conflict.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /boards/{board_id}/sections/{section_id}/pins:
+    get:
+      summary: List Pins on board section
+      description: 'Get a list of the Pins on a board section of a board owned by the "operation user_account" - or on a group board that has been shared with this account.
+
+        Optional: Business Access: Specify an ad_account_id to use the owner of that ad_account as the "operation user_account".
+
+        - By default, the "operation user_account" is the token user_account.'
+      tags:
+      - Sections
+      operationId: board_sections/list_pins
+      security:
+      - pinterest_oauth2:
+        - boards:read
+        - pins:read
+      x-ratelimit-category: org_read
+      x-sandbox: enabled
+      parameters:
+      - $ref: '#/components/parameters/path_board_id'
+      - $ref: '#/components/parameters/path_board_section_id'
+      - $ref: '#/components/parameters/query_ad_account_id'
+      - $ref: '#/components/parameters/query_bookmark'
+      - $ref: '#/components/parameters/query_page_size'
+      responses:
+        '200':
+          description: response
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Paginated'
+                - type: object
+                  properties:
+                    items:
+                      description: Pins
+                      items:
+                        $ref: '#/components/schemas/Pin'
+        '403':
+          description: Not authorized to access Pins on board section.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 403
+                message: Not authorized to access Pins on board section.
+        '404':
+          description: Board or section not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 404
+                message: Board or section not found.
+        '409':
+          description: Board section conflict.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 409
+                message: Board section conflict.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    BoardSection:
+      title: Board section
+      description: Sections help organize pins within a board.
+      type: object
+      properties:
+        id:
+          type: string
+          readOnly: true
+          example: '549755885175'
+        name:
+          type: string
+          example: Salads
+          minLength: 1
+          maxLength: 180
+      required:
+      - name
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    PinMediaSourceImageURL:
+      title: Image URL
+      description: Image URL-based media source
+      type: object
+      properties:
+        source_type:
+          type: string
+          enum:
+          - image_url
+        url:
+          type: string
+        is_standard:
+          type: boolean
+          description: Set the parameter to false to create the new simplified Pin instead of the standard pin. Currently the field is only available to a list of beta users.
+          default: true
+      required:
+      - source_type
+      - url
+    Paginated:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+        bookmark:
+          type: string
+          nullable: true
+      required:
+      - items
+    PinMediaSourceImageBase64:
+      title: Image Base64
+      description: Base64-encoded image media source
+      type: object
+      properties:
+        source_type:
+          type: string
+          enum:
+          - image_base64
+        content_type:
+          type: string
+          enum:
+          - image/jpeg
+          - image/png
+        data:
+          type: string
+          pattern: '[a-zA-Z0-9+\/=]+'
+        is_standard:
+          type: boolean
+          description: Set the parameter to false to create the new simplified Pin instead of the standard pin. Currently the field is only available to a list of beta users.
+          default: true
+      required:
+      - source_type
+      - content_type
+      - data
+    PinMediaSourcePinURL:
+      title: Pin URL
+      description: Pin URL-based media source for product pin creation. Currently the field is only available to a list of beta users.
+      type: object
+      properties:
+        source_type:
+          type: string
+          enum:
+          - pin_url
+        is_affiliate_link:
+          type: boolean
+          description: This is an affiliate link or sponsored product. The FTC requires disclosure for paid partnerships and affiliate products.
+          default: false
+      required:
+      - source_type
+    CreativeType:
+      type: string
+      description: Ad creative type enum. For update, only draft ads may update creative type. </p><strong>Note:</strong> SHOP_THE_PIN has been deprecated. Please use COLLECTION instead.
+      enum:
+      - REGULAR
+      - VIDEO
+      - SHOPPING
+      - CAROUSEL
+      - MAX_VIDEO
+      - SHOP_THE_PIN
+      - COLLECTION
+      - IDEA
+      - SHOWCASE
+      - QUIZ
+      example: REGULAR
+      title: CreativeType
+    BoardOwner:
+      title: Board owner
+      type: object
+      properties:
+        username:
+          type: string
+          readOnly: true
+    PinMediaSourceVideoID:
+      title: Video ID
+      description: Video ID-based media source
+      type: object
+      properties:
+        source_type:
+          type: string
+          enum:
+          - video_id
+        cover_image_url:
+          type: string
+          description: Cover image url.
+        cover_image_content_type:
+          type: string
+          description: Content type for cover image Base64.
+          enum:
+          - image/jpeg
+          - image/png
+        cover_image_data:
+          type: string
+          description: Cover image Base64.
+        media_id:
+          type: string
+          pattern: ^\d+$
+        is_standard:
+          type: boolean
+          description: Set the parameter to false to create the new simplified Pin instead of the standard pin. Currently the field is only available to a list of beta users.
+          default: true
+      required:
+      - source_type
+      - media_id
+    PinMediaSourceImagesBase64:
+      title: Images Base64
+      description: Multiple Base64-encoded images media source
+      additionalProperties: false
+      properties:
+        source_type:
+          type: string
+          enum:
+          - multiple_image_base64
+        items:
+          items:
+            additionalProperties: false
+            properties:
+              title:
+                type: string
+              description:
+                type: string
+              link:
+                type: string
+                description: Destination link for the image.
+              content_type:
+                type: string
+                enum:
+                - image/jpeg
+                - image/png
+              data:
+                type: string
+                description: Image to upload as base64 string.
+                pattern: '[a-zA-Z0-9+\/=]+'
+            required:
+            - data
+            - content_type
+            type: object
+          minItems: 2
+          maxItems: 5
+          description: Array with image objects.
+          type: array
+        index:
+          type: integer
+          minimum: 0
+      required:
+      - items
+      type: object
+    Pin:
+      title: Pin
+      description: Pin
+      type: object
+      nullable: true
+      properties:
+        id:
+          type: string
+          readOnly: true
+          example: '813744226420795884'
+          pattern: ^\d+$
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2020-01-01T20:10:40-00:00'
+        link:
+          type: string
+          nullable: true
+          example: https://www.pinterest.com/
+          maxLength: 2048
+        title:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        dominant_color:
+          type: string
+          nullable: true
+          description: Dominant pin color. Hex number, e.g. \"#6E7874\".
+          example: '#6E7874'
+        alt_text:
+          type: string
+          nullable: true
+          maxLength: 500
+        creative_type:
+          readOnly: true
+          nullable: true
+          type: string
+          allOf:
+          - $ref: '#/components/schemas/CreativeType'
+        board_id:
+          description: The board to which this Pin belongs.
+          type: string
+          pattern: ^\d+$
+        board_section_id:
+          description: The board section to which this Pin belongs.
+          type: string
+          pattern: ^\d+$
+          nullable: true
+        board_owner:
+          allOf:
+          - $ref: '#/components/schemas/BoardOwner'
+          type: object
+          readOnly: true
+        is_owner:
+          description: Whether the "operation user_account" is the Pin owner.
+          type: boolean
+          readOnly: true
+        media:
+          allOf:
+          - $ref: '#/components/schemas/PinMedia'
+          type: object
+          readOnly: true
+        media_source:
+          allOf:
+          - $ref: '#/components/schemas/PinMediaSource'
+          type: object
+          writeOnly: true
+        parent_pin_id:
+          description: The source pin id if this pin was saved from another pin. <a href="https://help.pinterest.com/article/save-pins-on-pinterest">Learn more</a>.
+          type: string
+          pattern: ^\d+$
+          nullable: true
+        is_standard:
+          description: Whether the Pin is standard or not. See documentation on <a href="https://developers.pinterest.com/docs/content/update/">Changes to Pin creation</a> for more information.
+          type: boolean
+        has_been_promoted:
+          description: Whether the Pin has been promoted or not.
+          type: boolean
+          readOnly: true
+        note:
+          description: Private note for this Pin. <a href="https://help.pinterest.com/en/article/add-notes-to-your-pins">Learn more</a>.
+          type: string
+          nullable: true
+        pin_metrics:
+          description: Pin metrics with associated time intervals if any.
+          type: object
+          nullable: true
+          example:
+            pin_metrics:
+            - 90d:
+                pin_click: 7
+                impression: 2
+                clickthrough: 3
+              all_time:
+                pin_click: 7
+                impression: 2
+                clickthrough: 3
+                reaction: 10
+                comment: 2
+            - null
+    PinMedia:
+      title: Pin media
+      type: object
+      description: Pin media objects.
+      discriminator:
+        propertyName: media_type
+        mapping:
+          image: '#/components/schemas/PinMediaWithImage'
+          video: '#/components/schemas/PinMediaWithVideo'
+          multiple_images: '#/components/schemas/PinMediaWithImages'
+          multiple_videos: '#/components/schemas/PinMediaWithVideos'
+          multiple_mixed: '#/components/schemas/PinMediaWithImageAndVideo'
+      properties:
+        media_type:
+          type: string
+    PinMediaSourceImagesURL:
+      title: Images urls
+      description: Multiple images urls-based media source
+      additionalProperties: false
+      properties:
+        source_type:
+          type: string
+          enum:
+          - multiple_image_urls
+        items:
+          items:
+            additionalProperties: false
+            properties:
+              title:
+                type: string
+              description:
+                type: string
+              link:
+                type: string
+                description: Destination link for the image.
+              url:
+                description: URL of image to upload.
+                type: string
+            required:
+            - url
+            type: object
+          minItems: 2
+          maxItems: 5
+          description: Array with image objects.
+          type: array
+        index:
+          type: integer
+          minimum: 0
+      required:
+      - items
+      type: object
+    PinMediaSource:
+      title: Pin media source
+      description: Pin media source.
+      oneOf:
+      - $ref: '#/components/schemas/PinMediaSourceImageBase64'
+      - $ref: '#/components/schemas/PinMediaSourceImageURL'
+      - $ref: '#/components/schemas/PinMediaSourceVideoID'
+      - $ref: '#/components/schemas/PinMediaSourceImagesBase64'
+      - $ref: '#/components/schemas/PinMediaSourceImagesURL'
+      - $ref: '#/components/schemas/PinMediaSourcePinURL'
+      discriminator:
+        propertyName: source_type
+        mapping:
+          multiple_image_base64: '#/components/schemas/PinMediaSourceImagesBase64'
+          image_base64: '#/components/schemas/PinMediaSourceImageBase64'
+          multiple_image_urls: '#/components/schemas/PinMediaSourceImagesURL'
+          image_url: '#/components/schemas/PinMediaSourceImageURL'
+          video_id: '#/components/schemas/PinMediaSourceVideoID'
+          pin_url: '#/components/schemas/PinMediaSourcePinURL'
+  parameters:
+    query_ad_account_id:
+      name: ad_account_id
+      description: Unique identifier of an ad account.
+      in: query
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
+    query_page_size:
+      name: page_size
+      description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 250
+        default: 25
+    path_board_id:
+      name: board_id
+      description: Unique identifier of a board.
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+    query_bookmark:
+      name: bookmark
+      description: Cursor used to fetch the next page of items
+      in: query
+      required: false
+      schema:
+        type: string
+    path_board_section_id:
+      name: section_id
+      description: Unique identifier of a board section.
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+  securitySchemes:
+    pinterest_oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.pinterest.com/oauth/
+          tokenUrl: https://api.pinterest.com/v5/oauth/token
+          scopes:
+            ads:read: See all of your advertising data, including ads, ad groups, campaigns etc.
+            ads:write: Create, update, or delete ads, ad groups, campaigns etc.
+            billing:read: See all of your billing data, billing profile, etc.
+            billing:write: Create, update, or delete billing data, billing profiles, etc.
+            biz_access:read: See business access data
+            biz_access:write: Create, update, or delete business access data
+            boards:read: See your public boards, including group boards you join
+            boards:read_secret: See your secret boards
+            boards:write: Create, update, or delete your public boards
+            boards:write_secret: Create, update, or delete your secret boards
+            catalogs:read: See all of your catalogs data
+            catalogs:write: Create, update, or delete your catalogs data
+            pins:read: See your public Pins
+            pins:read_secret: See your secret Pins
+            pins:write: Create, update, or delete your public Pins
+            pins:write_secret: Create, update, or delete your secret Pins
+            user_accounts:read: See your user accounts and followers
+            user_accounts:write: Update your user accounts and followers
+    conversion_token:
+      type: http
+      scheme: bearer
+      description: This security scheme only applies to the conversion events endpoint (POST /ad_accounts/{ad_account_id}/events). This endpoint requires a bearer token generated via Ads Manager (ads.pinterest.com).
+    basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Pin and Boards
+  tags:
+  - pins
+  - boards
+  - media
+  - aggregated_comments
+  - aggregated_pin_data
+  - user_account
+- name: Campaign Management
+  tags:
+  - ad_accounts
+  - campaigns
+  - ad_groups
+  - ads
+  - product_group_promotions
+  - bulk
+- name: Targeting
+  tags:
+  - audiences
+  - customer_lists
+  - keywords
+  - targeting_template
+  - audience_insights
+  - audience_sharing
+- name: Ad Formats
+  tags:
+  - lead_forms
+  - lead_ads
+  - leads_export
+- name: Billing
+  tags:
+  - billing
+  - order_lines
+  - terms_of_service
+- name: Business Access
+  tags:
+  - business_access_assets
+  - business_access_invite
+  - business_access_relationships
+- name: Conversions
+  tags:
+  - conversion_events
+  - conversion_tags
+- name: Others
+  tags:
+  - integrations
+  - oauth
+  - resources
+  - search
+  - terms
+- name: Shopping
+  tags:
+  - catalogs
+- name: Deprecated
+  tags:
+  - product_groups

@@ -1,0 +1,291 @@
+openapi: 3.0.3
+info:
+  version: 5.13.0
+  title: Pinterest Conversions API
+  description: This is the description of your API.
+  contact:
+    name: Pinterest, Inc.
+    url: https://developers.pinterest.com/
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  termsOfService: https://developers.pinterest.com/terms/
+servers:
+- url: https://api.pinterest.com/v5
+tags:
+- name: Conversions
+paths:
+  /ad_accounts/{ad_account_id}/conversion_tags/{conversion_tag_id}:
+    get:
+      x-sandbox: disabled
+      summary: Get conversion tag
+      description: Get information about an existing conversion tag.
+      operationId: conversion_tags/get
+      security:
+      - pinterest_oauth2:
+        - ads:read
+      x-ratelimit-category: ads_read
+      parameters:
+      - $ref: '#/components/parameters/path_ad_account_id'
+      - $ref: '#/components/parameters/path_conversion_tag_id'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversionTagResponse'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      tags:
+      - Conversions
+components:
+  schemas:
+    EntityStatus:
+      type: string
+      description: Entity status
+      example: ACTIVE
+      enum:
+      - ACTIVE
+      - PAUSED
+      - ARCHIVED
+      - DRAFT
+      - DELETED_DRAFT
+    EnhancedMatchStatusType:
+      description: The enhanced match status of the tag
+      enum:
+      - UNKNOWN
+      - NOT_VALIDATED
+      - VALIDATING_IN_PROGRESS
+      - VALIDATION_COMPLETE
+      - null
+      example: VALIDATION_COMPLETE
+      nullable: true
+      title: EnhancedMatchStatusType
+      type: string
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    ConversionTagResponse:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/ConversionTagCommon'
+      title: ConversionTagResponse
+    ConversionTagCommon:
+      type: object
+      properties:
+        ad_account_id:
+          description: Ad account ID.
+          example: '549755885175'
+          title: ad_account_id
+          type: string
+        code_snippet:
+          description: Tag code snippet.
+          example: <script type=text/javascript> [...]
+          title: code_snippet
+          type: string
+        enhanced_match_status:
+          $ref: '#/components/schemas/EnhancedMatchStatusType'
+        id:
+          description: Tag ID.
+          example: '2617998078212'
+          title: id
+          type: string
+        last_fired_time_ms:
+          description: Time for the last event fired.
+          example: 1599030000000
+          nullable: true
+          title: last_fired_time_ms
+          type: number
+        name:
+          description: Conversion tag name.
+          example: ACME Checkout Test Tag
+          title: name
+          type: string
+        status:
+          $ref: '#/components/schemas/EntityStatus'
+        version:
+          description: Version number.
+          example: '3'
+          title: version
+          type: string
+        configs:
+          $ref: '#/components/schemas/ConversionTagConfigs'
+      title: ConversionTagCommon
+    ConversionTagConfigs:
+      type: object
+      properties:
+        aem_enabled:
+          description: Whether Automatic Enhanced Match email is enabled. See <a href="https://help.pinterest.com/en/business/article/enhanced-match" target="_blank">Enhanced match</a> for more information.
+          example: true
+          title: aem_enabled
+          type: boolean
+          default: false
+          nullable: true
+        md_frequency:
+          description: Metadata ingestion frequency.
+          example: 0.6
+          title: md_frequency
+          type: number
+          default: 1
+          nullable: true
+        aem_fnln_enabled:
+          description: Whether Automatic Enhanced Match name is enabled. See <a href="https://help.pinterest.com/en/business/article/enhanced-match" target="_blank">Enhanced match</a> for more information.
+          example: true
+          title: aem_fnln_enabled
+          type: boolean
+          default: false
+          nullable: true
+        aem_ph_enabled:
+          description: Whether Automatic Enhanced Match phone is enabled. See <a href="https://help.pinterest.com/en/business/article/enhanced-match" target="_blank">Enhanced match</a> for more information.
+          example: true
+          title: aem_ph_enabled
+          type: boolean
+          default: false
+          nullable: true
+        aem_ge_enabled:
+          description: Whether Automatic Enhanced Match gender is enabled. See <a href="https://help.pinterest.com/en/business/article/enhanced-match" target="_blank">Enhanced match</a> for more information.
+          example: true
+          title: aem_ge_enabled
+          type: boolean
+          default: false
+          nullable: true
+        aem_db_enabled:
+          description: Whether Automatic Enhanced Match birthdate is enabled. See <a href="https://help.pinterest.com/en/business/article/enhanced-match" target="_blank">Enhanced match</a> for more information.
+          example: true
+          title: aem_db_enabled
+          type: boolean
+          default: false
+          nullable: true
+        aem_loc_enabled:
+          description: Whether Automatic Enhanced Match location is enabled. See <a href="https://help.pinterest.com/en/business/article/enhanced-match" target="_blank">Enhanced match</a> for more information.
+          example: true
+          title: aem_loc_enabled
+          type: boolean
+          default: false
+          nullable: true
+      title: ConversionTagConfigs
+  parameters:
+    path_conversion_tag_id:
+      description: Id of the conversion tag.
+      in: path
+      example: '2617998078212'
+      explode: false
+      name: conversion_tag_id
+      required: true
+      schema:
+        pattern: ^\d+$
+        maxLength: 18
+        type: string
+      style: simple
+    path_ad_account_id:
+      name: ad_account_id
+      description: Unique identifier of an ad account.
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
+  securitySchemes:
+    pinterest_oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.pinterest.com/oauth/
+          tokenUrl: https://api.pinterest.com/v5/oauth/token
+          scopes:
+            ads:read: See all of your advertising data, including ads, ad groups, campaigns etc.
+            ads:write: Create, update, or delete ads, ad groups, campaigns etc.
+            billing:read: See all of your billing data, billing profile, etc.
+            billing:write: Create, update, or delete billing data, billing profiles, etc.
+            biz_access:read: See business access data
+            biz_access:write: Create, update, or delete business access data
+            boards:read: See your public boards, including group boards you join
+            boards:read_secret: See your secret boards
+            boards:write: Create, update, or delete your public boards
+            boards:write_secret: Create, update, or delete your secret boards
+            catalogs:read: See all of your catalogs data
+            catalogs:write: Create, update, or delete your catalogs data
+            pins:read: See your public Pins
+            pins:read_secret: See your secret Pins
+            pins:write: Create, update, or delete your public Pins
+            pins:write_secret: Create, update, or delete your secret Pins
+            user_accounts:read: See your user accounts and followers
+            user_accounts:write: Update your user accounts and followers
+    conversion_token:
+      type: http
+      scheme: bearer
+      description: This security scheme only applies to the conversion events endpoint (POST /ad_accounts/{ad_account_id}/events). This endpoint requires a bearer token generated via Ads Manager (ads.pinterest.com).
+    basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Pin and Boards
+  tags:
+  - pins
+  - boards
+  - media
+  - aggregated_comments
+  - aggregated_pin_data
+  - user_account
+- name: Campaign Management
+  tags:
+  - ad_accounts
+  - campaigns
+  - ad_groups
+  - ads
+  - product_group_promotions
+  - bulk
+- name: Targeting
+  tags:
+  - audiences
+  - customer_lists
+  - keywords
+  - targeting_template
+  - audience_insights
+  - audience_sharing
+- name: Ad Formats
+  tags:
+  - lead_forms
+  - lead_ads
+  - leads_export
+- name: Billing
+  tags:
+  - billing
+  - order_lines
+  - terms_of_service
+- name: Business Access
+  tags:
+  - business_access_assets
+  - business_access_invite
+  - business_access_relationships
+- name: Conversions
+  tags:
+  - conversion_events
+  - conversion_tags
+- name: Others
+  tags:
+  - integrations
+  - oauth
+  - resources
+  - search
+  - terms
+- name: Shopping
+  tags:
+  - catalogs
+- name: Deprecated
+  tags:
+  - product_groups

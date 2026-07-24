@@ -1,0 +1,182 @@
+openapi: 3.0.3
+info:
+  version: 5.13.0
+  title: Pinterest Verifications API
+  description: This is the description of your API.
+  contact:
+    name: Pinterest, Inc.
+    url: https://developers.pinterest.com/
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  termsOfService: https://developers.pinterest.com/terms/
+servers:
+- url: https://api.pinterest.com/v5
+tags:
+- name: Verifications
+paths:
+  /user_account/websites/verification:
+    get:
+      summary: Get user verification code for website claiming
+      description: Get verification code for user to install on the website to claim it.
+      tags:
+      - Verifications
+      operationId: website_verification/get
+      security:
+      - pinterest_oauth2:
+        - user_accounts:read
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserWebsiteVerificationCode'
+          description: Success
+        '403':
+          description: Not authorized to access the user verification code for website claiming.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 403
+                message: Not authorized to access the user verification code for website claiming.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      x-ratelimit-category: org_read
+      x-sandbox: disabled
+components:
+  schemas:
+    UserWebsiteVerificationCode:
+      title: UserWebsiteVerificationCode
+      type: object
+      properties:
+        verification_code:
+          title: verification_code
+          type: string
+          description: Code to check against the user claiming the website
+          example: e1edcc1a43976c646367e9c6c9a9b7b6
+        dns_txt_record:
+          title: dns_txt_record
+          type: string
+          description: DNS TXT record to check against for the website to be claimed
+          example: pinterest-site-verification=e1edcc1a43976c646367e9c6c9a9b7b6
+        metatag:
+          title: metatag
+          type: string
+          description: Metatag the verification process searchs for the website to be claimed
+          example: <meta name="p:domain_verify" content="e1edcc1a43976c646367e9c6c9a9b7b6"/>
+        filename:
+          title: filename
+          type: string
+          description: File expected to find on the website being claimed
+          example: pinterest-e1edc.html
+        file_content:
+          title: file_content
+          type: string
+          description: A full html file to upload to the website in order for it to be claimed
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+  securitySchemes:
+    pinterest_oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.pinterest.com/oauth/
+          tokenUrl: https://api.pinterest.com/v5/oauth/token
+          scopes:
+            ads:read: See all of your advertising data, including ads, ad groups, campaigns etc.
+            ads:write: Create, update, or delete ads, ad groups, campaigns etc.
+            billing:read: See all of your billing data, billing profile, etc.
+            billing:write: Create, update, or delete billing data, billing profiles, etc.
+            biz_access:read: See business access data
+            biz_access:write: Create, update, or delete business access data
+            boards:read: See your public boards, including group boards you join
+            boards:read_secret: See your secret boards
+            boards:write: Create, update, or delete your public boards
+            boards:write_secret: Create, update, or delete your secret boards
+            catalogs:read: See all of your catalogs data
+            catalogs:write: Create, update, or delete your catalogs data
+            pins:read: See your public Pins
+            pins:read_secret: See your secret Pins
+            pins:write: Create, update, or delete your public Pins
+            pins:write_secret: Create, update, or delete your secret Pins
+            user_accounts:read: See your user accounts and followers
+            user_accounts:write: Update your user accounts and followers
+    conversion_token:
+      type: http
+      scheme: bearer
+      description: This security scheme only applies to the conversion events endpoint (POST /ad_accounts/{ad_account_id}/events). This endpoint requires a bearer token generated via Ads Manager (ads.pinterest.com).
+    basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Pin and Boards
+  tags:
+  - pins
+  - boards
+  - media
+  - aggregated_comments
+  - aggregated_pin_data
+  - user_account
+- name: Campaign Management
+  tags:
+  - ad_accounts
+  - campaigns
+  - ad_groups
+  - ads
+  - product_group_promotions
+  - bulk
+- name: Targeting
+  tags:
+  - audiences
+  - customer_lists
+  - keywords
+  - targeting_template
+  - audience_insights
+  - audience_sharing
+- name: Ad Formats
+  tags:
+  - lead_forms
+  - lead_ads
+  - leads_export
+- name: Billing
+  tags:
+  - billing
+  - order_lines
+  - terms_of_service
+- name: Business Access
+  tags:
+  - business_access_assets
+  - business_access_invite
+  - business_access_relationships
+- name: Conversions
+  tags:
+  - conversion_events
+  - conversion_tags
+- name: Others
+  tags:
+  - integrations
+  - oauth
+  - resources
+  - search
+  - terms
+- name: Shopping
+  tags:
+  - catalogs
+- name: Deprecated
+  tags:
+  - product_groups

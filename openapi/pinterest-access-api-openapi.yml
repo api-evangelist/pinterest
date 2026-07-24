@@ -1,0 +1,646 @@
+openapi: 3.0.3
+info:
+  version: 5.13.0
+  title: Pinterest Access API
+  description: This is the description of your API.
+  contact:
+    name: Pinterest, Inc.
+    url: https://developers.pinterest.com/
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  termsOfService: https://developers.pinterest.com/terms/
+servers:
+- url: https://api.pinterest.com/v5
+tags:
+- name: Access
+paths:
+  /businesses/{business_id}/invites/assets/access:
+    post:
+      summary: Update invite/request with an asset permission
+      description: "Assign asset permissions information to an existing invite/request. Can be used to:\n- Request access to a partner's asset. Note: This is only for when no existing partnership exists. If an existing\n  partnership exists, use \"Create a request to access an existing partner's assets\" to request access to your\n  partner's assets.\n    - invite_type=\"PARTNER_REQUEST\"\n- Invite a partner to access your business assets. Note: This is only for when there is no existing partnership.\n  If there is an existing partnership, use \"Assign/Update partner asset permissions\" to assign a partner access to\n  new assets.\n    - invite_type=\"PARTNER_INVITE\"\n- Invite a member to access your business assets. Note: This is only for when there is no existing membership.\n  If there is an existing membership, use \"Assign/Update member asset permissions\" to assign a member access to new\n  assets.\n    - invite_type=\"MEMBER_INVITE\"\n\nTo learn more about permission levels, visit https://help.pinterest.com/en/business/article/business-manager-overview."
+      operationId: create_asset_invites
+      security:
+      - pinterest_oauth2:
+        - biz_access:read
+        - biz_access:write
+      x-ratelimit-category: ads_write
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_business_user'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAssetInvitesRequest'
+        description: 'A list of invites/requests together with the asset permissions to be assigned to the invite/request.
+
+          '
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateInvitesResultsResponseArray'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      tags:
+      - Access
+  /businesses/{business_id}/requests/assets/access:
+    post:
+      summary: Create a request to access an existing partner's assets.
+      description: Create a request to access an existing partner's assets with the specified permissions. The request will be sent to the partner for approval. The assets that can be requested are ad accounts and profiles.
+      operationId: asset_access_requests/create
+      security:
+      - pinterest_oauth2:
+        - biz_access:read
+        - biz_access:write
+      x-ratelimit-category: ads_write
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_business_user'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAssetAccessRequestBody'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAssetAccessRequestResponse'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      tags:
+      - Access
+  /businesses/{business_id}/members/assets/access:
+    patch:
+      description: 'Grant multiple members access to assets and/or update multiple member''s exisiting permissions to an asset.
+
+        Note: Not all listed permissions are applicable to each asset type. For example, PROFILE_PUBLISHER would not be applicable to an asset of type AD_ACCOUNT. The permission level PROFILE_PUBLISHER is only available to an asset of the type PROFILE.
+
+        '
+      summary: Assign/Update member asset permissions
+      operationId: business_members_asset_access/update
+      security:
+      - pinterest_oauth2:
+        - biz_access:write
+      x-ratelimit-category: ads_write
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_business_user'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMemberAssetAccessBody'
+        description: List of member asset permissions to create or update.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateMemberAssetsResultsResponseArray'
+          description: response
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      tags:
+      - Access
+    delete:
+      description: Terminate multiple members' access to an asset.
+      summary: Delete member access to asset
+      operationId: business_members_asset_access/delete
+      security:
+      - pinterest_oauth2:
+        - biz_access:write
+      x-ratelimit-category: ads_write
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_business_user'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - accesses
+              properties:
+                accesses:
+                  type: array
+                  minItems: 1
+                  maxItems: 100
+                  description: List of members asset access to be deleted
+                  items:
+                    type: object
+                    required:
+                    - asset_id
+                    - member_id
+                    properties:
+                      asset_id:
+                        type: string
+                        description: Id of the asset on which to remove member permissions.
+                        example: '549755885175'
+                        maxLength: 25
+                        pattern: ^\d+$
+                      member_id:
+                        type: string
+                        description: Unique identifier of the member on which to perform the asset permission removal
+                        example: '140943737684417'
+                        maxLength: 25
+                        pattern: ^\d+$
+        description: List member assset permissions to delete.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteMemberAccessResultsResponseArray'
+          description: response
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      tags:
+      - Access
+components:
+  schemas:
+    DeleteMemberAccessResult:
+      type: object
+      description: The terminated asset access.
+      properties:
+        asset_id:
+          type: string
+          description: Unique identifier of the business asset.
+          example: '549755885175'
+          pattern: ^\d+$
+        member_id:
+          type: string
+          description: Unique identifier of the business member.
+          example: '140943737684417'
+          pattern: ^\d+$
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    UsersForIndividualAssetResponse:
+      type: object
+      description: An object containing the permissions a business member has on the asset.
+      properties:
+        asset_id:
+          description: Unique identifier of a business asset.
+          example: '549755885175'
+          type: string
+          pattern: ^\d+$
+        member_id:
+          description: Unique identifier of the business member with asset access.
+          example: '140943737684417'
+          type: string
+          pattern: ^\d+$
+        permissions:
+          $ref: '#/components/schemas/PermissionsResponse'
+    BaseInviteDataResponse:
+      type: object
+      nullable: true
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the invite/request.
+          example: '383791336903426391'
+          pattern: ^\d+$
+        invite_data:
+          type: object
+          description: Metadata for the invite/request.
+          properties:
+            invite_expiration:
+              type: integer
+              description: The date and time when the invite/request will expire. Returned in milliseconds.
+              example: 1709748104775
+            invite_status:
+              type: string
+              description: The current status of the invite. The invite can be in one of the following states PENDING, ACCEPTED, DECLINED, CANCELLED, EXPIRED.
+              example: PENDING
+            invite_type:
+              type: string
+              description: The type of invite. <br>'MEMBER_INVITE' is to invite a member to access your business assets. <br>'PARTNER_INVITE' is to invite a partner to access your business assets. <br>'PARTNER_REQUEST' is to request access a partner's business assets.
+              example: MEMBER_INVITE
+            last_updated_time:
+              type: integer
+              description: The date and time the invite/request was last updated. Returned in milliseconds.
+              example: 1646767577816
+            sent_at:
+              type: integer
+              description: The date and time the invite/request was sent/created. Returned in milliseconds.
+              example: 1646767577816
+        is_received_invite:
+          type: boolean
+          description: Indicates whether the invite/request was received.
+        user:
+          type: object
+          description: Metadata for the member/partner that was sent the invite/request.
+          allOf:
+          - $ref: '#/components/schemas/BusinessAccessUserSummary'
+    UpdateMemberAssetAccessBody:
+      type: object
+      description: An object with a list of all the new accesses.
+      required:
+      - accesses
+      properties:
+        accesses:
+          type: array
+          minItems: 1
+          maxItems: 50
+          items:
+            type: object
+            required:
+            - asset_id
+            - member_id
+            - permissions
+            properties:
+              asset_id:
+                type: string
+                description: Id of the asset to update.
+                example: '549755885175'
+                maxLength: 25
+                pattern: ^\d+$
+              member_id:
+                type: string
+                description: Unique identifier of the member on which to perform the update
+                example: '140943737684417'
+                maxLength: 25
+                pattern: ^\d+$
+              permissions:
+                type: array
+                description: A non-empty array of permissions to assign to the member.
+                example:
+                - ANALYST
+                - ADMIN
+                minItems: 1
+                maxItems: 50
+                items:
+                  $ref: '#/components/schemas/Permissions'
+    BusinessAccessUserSummary:
+      type: object
+      description: Metadata of the member/partner that has access to the asset.
+      properties:
+        email:
+          description: Email of the business member/partner.
+          example: business0101@business.com
+          type: string
+          nullable: true
+        id:
+          description: Unique identifier of the business member/partner.
+          example: '383791336903426391'
+          type: string
+          nullable: true
+          minLength: 1
+          maxLength: 20
+        username:
+          description: Username of the business member/partner.
+          example: business0101
+          nullable: true
+          type: string
+    UpdateMemberAssetsResultsResponseArray:
+      type: object
+      properties:
+        items:
+          type: array
+          description: 'List of assigned/updated member asset access.
+
+            If there is an error, an exception object will be returned. If the action was successfully completed, a response object will be returned.'
+          items:
+            type: object
+            properties:
+              response:
+                $ref: '#/components/schemas/UsersForIndividualAssetResponse'
+    InviteBusinessRoleBinding:
+      type: object
+      description: An invite object if the invite/request was successfully updated. Will only be provided if the an invite/request is successfully updated.
+      nullable: true
+      allOf:
+      - $ref: '#/components/schemas/BaseInviteDataResponse'
+      properties:
+        created_by_business_id:
+          type: string
+          description: Unique identifier for the business that created the invite/request.
+          example: '1234567890123'
+        created_by_user_id:
+          type: string
+          description: Unique identifier for the user that created the invite/request.
+          example: '1234567890123'
+        user:
+          type: object
+          description: Metadata for the user that updated the invite/request.
+          allOf:
+          - $ref: '#/components/schemas/BusinessAccessUserSummary'
+    CreateAssetAccessRequestBody:
+      type: object
+      description: An object containing a list of all the asset access requests
+      required:
+      - asset_requests
+      properties:
+        asset_requests:
+          type: array
+          minItems: 1
+          maxItems: 100
+          items:
+            type: object
+            required:
+            - partner_id
+            - asset_id_to_permissions
+            properties:
+              partner_id:
+                description: Unique identifier of a business partner to request asset access to.
+                example: '809944451643622187'
+                type: string
+                pattern: ^\d+$
+              asset_id_to_permissions:
+                $ref: '#/components/schemas/AssetIdToPermissions'
+    CreateAssetInvitesRequest:
+      description: Request body for updating asset roles for existing invites.
+      type: object
+      required:
+      - invites
+      properties:
+        invites:
+          type: array
+          minItems: 1
+          maxItems: 50
+          items:
+            $ref: '#/components/schemas/CreateAssetInvitesRequestItem'
+    PermissionsResponse:
+      type: array
+      description: Permission levels member or partner has on an asset.
+      example:
+      - FINANCE_MANAGER
+      - CATALOGS_MANAGER
+      - AUDIENCE_MANAGER
+      items:
+        type: string
+    CreateAssetAccessRequestErrorMessage:
+      type: array
+      description: A list of errors associated with the asset access requests. Will be returned if there is an error.
+      nullable: true
+      items:
+        type: object
+        properties:
+          code:
+            type: integer
+            description: Error code associated with the error in requesting asset access.
+            example: 2932
+          messages:
+            type: array
+            example:
+            - 'Invalid asset id: 549760723247'
+            - 'Invalid asset id: 546760723248'
+            items:
+              type: string
+    AssetIdToPermissions:
+      description: 'An object mapping asset ids to lists of business permissions. This can be used to setting/requesting permissions on various assets. If accepting an invite or request, this object would be used to grant asset permissions to the member or partner.
+
+        '
+      type: object
+      minProperties: 1
+      additionalProperties:
+        type: array
+        minItems: 1
+        maxItems: 50
+        items:
+          $ref: '#/components/schemas/Permissions'
+      example:
+        '549760723247':
+        - ANALYST
+        '549760723248':
+        - ANALYST
+        - ADMIN
+        '809944451643622187':
+        - PROFILE_PUBLISHER
+    CreateAssetAccessRequestResponse:
+      type: object
+      properties:
+        exceptions:
+          $ref: '#/components/schemas/CreateAssetAccessRequestErrorMessage'
+        invites:
+          type: object
+          nullable: true
+          additionalProperties:
+            description: An object mapping each partner id to the asset access request id. Only one request id is returned per partner.
+            type: string
+            pattern: ^\d+$
+          example:
+            '766456567741825556': '5349280584552211583'
+            '733242520489967216': '5349280584552211845'
+    DeleteMemberAccessResultsResponseArray:
+      type: object
+      properties:
+        items:
+          type: array
+          description: List of member asset permissions that were deleted.
+          items:
+            $ref: '#/components/schemas/DeleteMemberAccessResult'
+    Permissions:
+      type: string
+      enum:
+      - ADMIN
+      - ANALYST
+      - FINANCE_MANAGER
+      - AUDIENCE_MANAGER
+      - CAMPAIGN_MANAGER
+      - CATALOGS_MANAGER
+      - PROFILE_PUBLISHER
+    InviteType:
+      description: The type of invite. <br>'MEMBER_INVITE' is to invite a member to access your business assets. <br>'PARTNER INVITE' is to invite a partner to access your business assets. <br>'PARTNER_REQUEST' is to request access a partner's business assets.
+      example: MEMBER_INVITE
+      enum:
+      - MEMBER_INVITE
+      - PARTNER_INVITE
+      - PARTNER_REQUEST
+      type: string
+    UpdateInvitesResultsResponseArray:
+      type: object
+      properties:
+        items:
+          type: array
+          description: List of invite/Request action status. If there is an error, an exception object will be returned. If the action was successfully completed, an invite object will be returned.
+          items:
+            type: object
+            properties:
+              exception:
+                $ref: '#/components/schemas/InviteExceptionResponse'
+              invite:
+                $ref: '#/components/schemas/InviteBusinessRoleBinding'
+    CreateAssetInvitesRequestItem:
+      description: Object declaring an asset role update to an invite.
+      type: object
+      required:
+      - invite_id
+      - invite_type
+      - asset_id_to_permissions
+      properties:
+        invite_id:
+          description: Unique identifier of an invite.
+          example: '1234567890123'
+          type: string
+          pattern: ^\d+$
+        invite_type:
+          $ref: '#/components/schemas/InviteType'
+        asset_id_to_permissions:
+          $ref: '#/components/schemas/AssetIdToPermissions'
+    InviteExceptionResponse:
+      type: object
+      description: An exception object if there is an error performing the action. Will only be provided if there is an error.
+      nullable: true
+      properties:
+        invite_or_request_id:
+          type: string
+          description: Unique identifier of the invite/request.
+          example: '383791336903426391'
+          pattern: ^\d+$
+          nullable: true
+        code:
+          type: integer
+          description: Error code associated with the error in performing the action on the invite/request.
+          example: 403
+        message:
+          type: string
+          description: Error message associated with the error in performing the action on the invite/request.
+          example: You hit the maximum number of pending invites allowed.
+        users_or_partner_ids:
+          type: array
+          description: A list of users' usernames or emails OR a list of partner ids that caused the error.
+          nullable: true
+          example:
+          - businessMember0101
+          - business+member@business.com
+          items:
+            type: string
+            description: A user's username or email OR a partner id that caused the error.
+  parameters:
+    path_business_user:
+      name: business_id
+      in: path
+      description: Unique identifier of the requesting business.
+      example: '729090764583391194'
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+        minLength: 1
+        maxLength: 20
+  securitySchemes:
+    pinterest_oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.pinterest.com/oauth/
+          tokenUrl: https://api.pinterest.com/v5/oauth/token
+          scopes:
+            ads:read: See all of your advertising data, including ads, ad groups, campaigns etc.
+            ads:write: Create, update, or delete ads, ad groups, campaigns etc.
+            billing:read: See all of your billing data, billing profile, etc.
+            billing:write: Create, update, or delete billing data, billing profiles, etc.
+            biz_access:read: See business access data
+            biz_access:write: Create, update, or delete business access data
+            boards:read: See your public boards, including group boards you join
+            boards:read_secret: See your secret boards
+            boards:write: Create, update, or delete your public boards
+            boards:write_secret: Create, update, or delete your secret boards
+            catalogs:read: See all of your catalogs data
+            catalogs:write: Create, update, or delete your catalogs data
+            pins:read: See your public Pins
+            pins:read_secret: See your secret Pins
+            pins:write: Create, update, or delete your public Pins
+            pins:write_secret: Create, update, or delete your secret Pins
+            user_accounts:read: See your user accounts and followers
+            user_accounts:write: Update your user accounts and followers
+    conversion_token:
+      type: http
+      scheme: bearer
+      description: This security scheme only applies to the conversion events endpoint (POST /ad_accounts/{ad_account_id}/events). This endpoint requires a bearer token generated via Ads Manager (ads.pinterest.com).
+    basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Pin and Boards
+  tags:
+  - pins
+  - boards
+  - media
+  - aggregated_comments
+  - aggregated_pin_data
+  - user_account
+- name: Campaign Management
+  tags:
+  - ad_accounts
+  - campaigns
+  - ad_groups
+  - ads
+  - product_group_promotions
+  - bulk
+- name: Targeting
+  tags:
+  - audiences
+  - customer_lists
+  - keywords
+  - targeting_template
+  - audience_insights
+  - audience_sharing
+- name: Ad Formats
+  tags:
+  - lead_forms
+  - lead_ads
+  - leads_export
+- name: Billing
+  tags:
+  - billing
+  - order_lines
+  - terms_of_service
+- name: Business Access
+  tags:
+  - business_access_assets
+  - business_access_invite
+  - business_access_relationships
+- name: Conversions
+  tags:
+  - conversion_events
+  - conversion_tags
+- name: Others
+  tags:
+  - integrations
+  - oauth
+  - resources
+  - search
+  - terms
+- name: Shopping
+  tags:
+  - catalogs
+- name: Deprecated
+  tags:
+  - product_groups

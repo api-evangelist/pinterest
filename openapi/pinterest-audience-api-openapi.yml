@@ -1,0 +1,1046 @@
+openapi: 3.0.3
+info:
+  version: 5.13.0
+  title: Pinterest Audience API
+  description: This is the description of your API.
+  contact:
+    name: Pinterest, Inc.
+    url: https://developers.pinterest.com/
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  termsOfService: https://developers.pinterest.com/terms/
+servers:
+- url: https://api.pinterest.com/v5
+tags:
+- name: Audience
+paths:
+  /ad_accounts/{ad_account_id}/ad_groups/audience_sizing:
+    post:
+      summary: Get audience sizing
+      description: "Get potential audience size for an ad group with given targeting criteria. \nPotential audience size estimates the number of people you may be able to reach per month with your campaign. \nIt is based on historical advertising data and the targeting criteria you select.\nIt does not guarantee results or take into account factors such as bid, budget, schedule, seasonality or product experiments."
+      operationId: ad_groups/audience_sizing
+      security:
+      - pinterest_oauth2:
+        - ads:read
+      x-ratelimit-category: ads_read
+      x-sandbox: enabled
+      parameters:
+      - $ref: '#/components/parameters/path_ad_account_id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdGroupAudienceSizingRequest'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdGroupAudienceSizingResponse'
+          description: Success
+        '400':
+          description: Invalid ad group audience sizing parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 400
+                message: Invalid ad group audience sizing parameters.
+        '403':
+          description: No access to requested audience list or product group.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 403
+                message: You don't have access to the requested audience list or product group.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      tags:
+      - Audience
+  /ad_accounts/{ad_account_id}/audience_insights:
+    get:
+      summary: Get audience insights
+      description: 'Get Audience Insights for an ad account. The response will return insights for 3 types of audiences: the
+
+        ad account''s engaged audience on Pinterest, the ad account''s total audience on Pinterest and Pinterest''s
+
+        total audience.<p/>
+
+        <a href="https://help.pinterest.com/en/business/article/audience-insights" target="_blank">Learn more about Audience Insights</a>.'
+      operationId: audience_insights/get
+      security:
+      - pinterest_oauth2:
+        - ads:read
+      x-ratelimit-category: ads_read
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_ad_account_id'
+      - $ref: '#/components/parameters/query_audience_insight_type'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AudienceInsightsResponse'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      tags:
+      - Audience
+  /ad_accounts/{ad_account_id}/audiences/{audience_id}:
+    get:
+      summary: Get audience
+      description: Get a specific audience given the audience ID.
+      operationId: audiences/get
+      security:
+      - pinterest_oauth2:
+        - ads:read
+      x-ratelimit-category: ads_read
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_ad_account_id'
+      - $ref: '#/components/parameters/path_audience_id'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Audience'
+        '404':
+          description: Audience not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Audience
+    patch:
+      summary: Update audience
+      description: Update (edit or remove) an existing targeting audience.
+      operationId: audiences/update
+      security:
+      - pinterest_oauth2:
+        - ads:write
+      x-ratelimit-category: ads_write
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_ad_account_id'
+      - $ref: '#/components/parameters/path_audience_id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AudienceUpdateRequest'
+        description: The audience to be updated.
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Audience'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unexpected error
+      tags:
+      - Audience
+components:
+  parameters:
+    path_ad_account_id:
+      name: ad_account_id
+      description: Unique identifier of an ad account.
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
+    query_audience_insight_type:
+      description: Type of audience insights.
+      explode: false
+      in: query
+      name: audience_insight_type
+      required: true
+      schema:
+        $ref: '#/components/schemas/AudienceInsightType'
+    path_audience_id:
+      name: audience_id
+      description: Unique identifier of an audience
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
+  schemas:
+    AudienceDemographics:
+      title: AudienceDemographics
+      description: Audience demographics
+      type: object
+      properties:
+        ages:
+          title: ages
+          description: Ages distribution.
+          type: array
+          items:
+            $ref: '#/components/schemas/AudienceDemographicValue'
+        genders:
+          title: genders
+          description: Gender distribution.
+          type: array
+          items:
+            $ref: '#/components/schemas/AudienceDemographicValue'
+        devices:
+          title: devices
+          description: Device usage distribution.
+          type: array
+          items:
+            $ref: '#/components/schemas/AudienceDemographicValue'
+        metros:
+          title: metros
+          description: Geographic metro area distribution.
+          type: array
+          items:
+            $ref: '#/components/schemas/AudienceDemographicValue'
+        countries:
+          title: countries
+          description: Country area distribution.
+          type: array
+          items:
+            $ref: '#/components/schemas/AudienceDemographicValue'
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    AudienceCommon:
+      title: AudienceCommon
+      type: object
+      properties:
+        ad_account_id:
+          title: ad_account_id
+          description: Ad account ID.
+          type: string
+          example: '549755885175'
+          pattern: ^\d+$
+        name:
+          title: name
+          description: Audience name.
+          type: string
+          example: string
+        rule:
+          $ref: '#/components/schemas/AudienceRule'
+    Audience:
+      properties:
+        ad_account_id:
+          description: Ad account ID.
+          example: '549755885175'
+          pattern: ^\d+$
+          title: ad_account_id
+          type: string
+        id:
+          description: Audience ID.
+          example: '1234'
+          pattern: ^\d+$
+          title: id
+          type: string
+        name:
+          description: Audience name.
+          example: ACME Tools
+          title: name
+          type: string
+        audience_type:
+          type: string
+          description: '<a href="/docs/reference/glossary/#Audience Types">Audience types</a>: ACTALIKE, ENGAGEMENT, CUSTOMER_LIST and VISITOR'
+          title: audience_type
+        description:
+          description: Audience description.
+          example: People who love making quilts.
+          nullable: true
+          title: description
+          type: string
+        rule:
+          $ref: '#/components/schemas/AudienceRule'
+        size:
+          description: Audience size.
+          example: 1000
+          nullable: true
+          title: size
+          type: integer
+        status:
+          type: string
+          description: Audience status. READY, INITIALIZING, TOO_SMALL - Each audience list needs to have at least 100 people with Pinterest accounts before you can start using it.
+          title: status
+        type:
+          description: Always "audience".
+          example: audience
+          title: type
+          type: string
+        created_timestamp:
+          description: Creation time. Unix timestamp in seconds.
+          example: 1451431341
+          nullable: true
+          title: created_time
+          type: integer
+        updated_timestamp:
+          description: Last update time. Unix timestamp in seconds.
+          example: 1451431341
+          nullable: true
+          title: updated_time
+          type: integer
+      title: Audience
+      type: object
+    ObjectiveType:
+      type: string
+      description: Campaign objective type. If set as one of ["AWARENESS", "CONSIDERATION", "WEB_CONVERSION", "CATALOG_SALES"] the campaign is considered as a Campaign Budget Optimization (CBO) campaign, meaning budget needs to be set at the campaign level rather than at the ad group level. ["WEB_SESSIONS"] is DEPRECATED. For update, only draft campaigns may update objective type.
+      enum:
+      - AWARENESS
+      - CONSIDERATION
+      - VIDEO_VIEW
+      - WEB_CONVERSION
+      - CATALOG_SALES
+      - WEB_SESSIONS
+    AudienceInsightsResponse:
+      title: AudienceInsightsResponse
+      description: Audience interests and demographics.
+      type: object
+      properties:
+        categories:
+          title: categories
+          description: Category interest distribution
+          type: array
+          items:
+            $ref: '#/components/schemas/AudienceCategory'
+        demographics:
+          $ref: '#/components/schemas/AudienceDemographics'
+        type:
+          $ref: '#/components/schemas/AudienceInsightType'
+        date:
+          title: date
+          description: Generation date
+          type: string
+          nullable: true
+          example: '2022-10-09'
+          pattern: ^\d{4}-\d{2}-\d{2}$
+        size:
+          title: size
+          description: Population count.
+          type: integer
+          example: 10000
+        size_is_upper_bound:
+          title: size_is_upper_bound
+          description: Indicates whether the audience size has been rounded up to the next highest upper boundary.
+          type: boolean
+          example: true
+    TargetingSpec:
+      description: Ad group targeting specification defining the ad group target audience. For example, `{"APPTYPE":["iphone"], "GENDER":["male"], "LOCALE":["en-US"], "LOCATION":["501"], "AGE_BUCKET":["25-34"]}`
+      type: object
+      properties:
+        AGE_BUCKET:
+          type: array
+          nullable: true
+          description: Age ranges. If the AGE_BUCKET field is missing, the default behavior in terms of ad delivery is that **All age buckets** will be targeted.
+          example:
+          - 35-44
+          - 50-54
+          items:
+            type: string
+            enum:
+            - 18-24
+            - 21+
+            - 25-34
+            - 35-44
+            - 45-49
+            - 50-54
+            - 55-64
+            - 65+
+        APPTYPE:
+          type: array
+          nullable: true
+          description: Allowed devices. If the APPTYPE field is missing, the default behavior in terms of ad delivery is that **All devices/apptypes** will be targeted.
+          example:
+          - ipad
+          - iphone
+          items:
+            type: string
+            enum:
+            - android_mobile
+            - android_tablet
+            - ipad
+            - iphone
+            - web
+            - web_mobile
+        AUDIENCE_EXCLUDE:
+          type: array
+          nullable: true
+          description: 'Excluded customer list IDs. Used to drive new customer acquisition goals. For example: ["2542620905475"]. Audience lists need to have at least 100 people with Pinterest accounts in them. If the AUDIENCE_EXCLUDE field is missing, the default behavior in terms of ad delivery is that **No users will be excluded**.'
+          items:
+            type: string
+            pattern: ^\d+$
+            minItems: 100
+        AUDIENCE_INCLUDE:
+          type: array
+          nullable: true
+          description: 'Targeted customer list IDs. For example: ["2542620905473"]. Audience lists need to have at least 100 people with Pinterest accounts in them Audience lists need to have at least 100 people with Pinterest accounts in them. If the AUDIENCE_INCLUDE field is missing, the default behavior in terms of ad delivery is that **All users will be included**.'
+          items:
+            type: string
+            pattern: ^\d+$
+            minItems: 100
+        GENDER:
+          type: array
+          nullable: true
+          description: 'Targeted genders. Values: ["unknown","male","female"]. If the GENDER field is missing, the default behavior in terms of ad delivery is that **All genders will be targeted**.'
+          items:
+            type: string
+            enum:
+            - unknown
+            - male
+            - female
+        GEO:
+          type: array
+          nullable: true
+          description: Location region codes, e.g., "BE-VOV" (East Flanders, Belgium) For complete list, <a href="https://help.pinterest.com/sub/helpcenter/partner/pinterest_location_targeting_codes.xlsx" target="_blank">click here</a> or postal codes, e.g., "US-94107". Use either region codes or postal codes but not both. At least one of LOCATION or GEO must be specified. If the GEO field is missing, then only LOCATION values will be targeted (see LOCATION field below).
+          items:
+            type: string
+        INTEREST:
+          type: array
+          description: Array of interest object IDs. If the INTEREST field is missing, the default behavior in terms of ad delivery is that **All interests will be targeted**.
+          items:
+            type: string
+        LOCALE:
+          type: array
+          nullable: true
+          description: 24 ISO 639-1 two letter language codes. If the LOCALE field is missing, the default behavior in terms of ad delivery is that **All languages will be targeted, only english non-sublanguage will be targeted**.
+          items:
+            type: string
+        LOCATION:
+          type: array
+          nullable: true
+          description: 22 ISO Alpha 2 two letter country codes or US Nielsen DMA (Designated Market Area) codes (location region codes) (e.g., ["US", "807"]). For complete list, click here. Location-Country and Location-Metro codes apply. At least one of LOCATION or GEO must be specified. If the LOCATION field is missing, then only GEO values will be targeted (see GEO field above).
+          items:
+            type: string
+        SHOPPING_RETARGETING:
+          type: array
+          nullable: true
+          description: "Array of object: lookback_window\t[Integer]: Number of days ago to start lookback timeframe for dynamic retargeting tag_types [Array of integer]: Event types to target for dynamic retargeting exclusion_window [Integer]: Number of days ago to stop lookback timeframe for dynamic retargeting"
+          items:
+            type: object
+            example:
+              lookback_window: 30
+              exclusion_window: 14
+              tag_types:
+              - 0
+              - 6
+            properties:
+              lookback_window:
+                description: Number of days ago to start lookback timeframe for dynamic retargeting
+                example: 30
+                title: lookback_window
+                type: integer
+              tag_types:
+                description: Event types to target for dynamic retargeting
+                example:
+                - 0
+                - 6
+                items:
+                  type: integer
+                title: tag_types
+                type: array
+              exclusion_window:
+                description: Number of days ago to stop lookback timeframe for dynamic retargeting
+                example: 14
+                title: exclusion_window
+                type: integer
+            title: TargetingSpec_SHOPPING_RETARGETING
+        TARGETING_STRATEGY:
+          type: array
+          nullable: true
+          description: ''
+          items:
+            enum:
+            - CHOOSE_YOUR_OWN
+            - FIND_NEW_CUSTOMERS
+            - RECONNECT_WITH_USERS
+    AdGroupAudienceSizingRequest:
+      type: object
+      properties:
+        auto_targeting_enabled:
+          type: boolean
+          description: Enable auto-targeting for ad group. Also known as <a href="https://help.pinterest.com/en/business/article/expanded-targeting" target="_blank">"expanded targeting"</a>.
+          example: true
+          default: true
+        placement_group:
+          type: string
+          allOf:
+          - $ref: '#/components/schemas/PlacementGroupType'
+          default: ALL
+          description: <a href="/docs/redoc/#section/Placement-group">Placement group</a>.
+        creative_types:
+          description: Pin creative types filter. </p><strong>Note:</strong> SHOP_THE_PIN has been deprecated. Please use COLLECTION instead.
+          type: array
+          items:
+            type: string
+            example: REGULAR
+            enum:
+            - REGULAR
+            - VIDEO
+            - SHOPPING
+            - CAROUSEL
+            - MAX_VIDEO
+            - SHOP_THE_PIN
+            - COLLECTION
+            - IDEA
+          nullable: true
+        targeting_spec:
+          $ref: '#/components/schemas/TargetingSpec'
+        product_group_ids:
+          type: array
+          items:
+            type: string
+            pattern: ^\d+$
+            example: '23423422123'
+          description: Targeted product group IDs. </p><strong>Note:</strong> This can only be combined with shopping/catalog sales campaigns. For more information, <a href="https://help.pinterest.com/en/business/article/shopping-ads#section-14571" target="_blank">click here</a>. SHOPPING_RETARGETING must be included in targeting_spec object or this field will be ignored.
+          nullable: true
+        keywords:
+          type: array
+          description: Array of keyword objects. If the keywords field is missing, all keywords will be targeted.
+          items:
+            type: object
+            properties:
+              match_type:
+                $ref: '#/components/schemas/MatchTypeResponse'
+              value:
+                type: string
+                description: Keyword value (120 chars max).
+            required:
+            - match_type
+            - value
+          nullable: true
+    MatchTypeResponse:
+      type: string
+      description: Keyword match type
+      nullable: true
+      example: BROAD
+      enum:
+      - BROAD
+      - PHRASE
+      - EXACT
+      - EXACT_NEGATIVE
+      - PHRASE_NEGATIVE
+      - null
+    Currency:
+      type: string
+      description: Currency Codes from ISO 4217
+      example: USD
+      enum:
+      - UNK
+      - USD
+      - GBP
+      - CAD
+      - EUR
+      - AUD
+      - NZD
+      - SEK
+      - ILS
+      - CHF
+      - HKD
+      - JPY
+      - SGD
+      - KRW
+      - NOK
+      - DKK
+      - PLN
+      - RON
+      - HUF
+      - CZK
+      - BRL
+      - MXN
+      - ARS
+      - CLP
+      - COP
+    AudienceDemographicValue:
+      title: AudienceDemographicValue
+      description: Demographic detail for a single audience demographic
+      type: object
+      properties:
+        key:
+          title: key
+          description: Unique key for demographic item
+          type: string
+          example: us
+        name:
+          title: name
+          description: Display name for demographic
+          type: string
+          example: United States
+        ratio:
+          title: ratio
+          description: Value of demographic item as a percent of total audience
+          type: number
+          example: 0.551
+      example:
+        name: United States
+        key: us
+        ratio: 0.551
+    AudienceUpdateRequest:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/AudienceCommon'
+      - title: AudienceUpdateRequest
+        type: object
+        properties:
+          description:
+            $ref: '#/components/schemas/AudienceDescription'
+          operation_type:
+            $ref: '#/components/schemas/AudienceUpdateOperationType'
+    AudienceRule:
+      description: 'JSON object defining targeted audience users. Example rule formats per audience type:<br>CUSTOMER_LIST: { "customer_list_id": "&lt;customer list ID&gt;"}<br>ACTALIKE: { "seed_id": ["&lt;audience ID&gt;"], "country": "US", "percentage": "10" }<br>(Valid countries include: "US", "CA", and "GB". Percentage should be 1-10.<br>The targeted audience should be this % size across Pinterest.)<br>VISITOR: { "visitor_source_id": ["&lt;conversion tag ID&gt;"], "retention_days": "180", "event_source": {"=": ["web", "mobile"]}, "ingestion_source": {"=": ["tag"]}}<br>(Retention days should be 1-540. Retention applies to specific customers.)<br>ENGAGEMENT: {"engagement_domain": ["www.entomi.com"], "engager_type": 1}<br>For more details on engagement audiences, see <a href="https://developers.pinterest.com/docs/redoc/adtech_ads_v4/#section/November-2021" target="_blank">November 2021 changelog</a>.'
+      properties:
+        country:
+          description: 'Valid countries include: "US", "CA", and "GB".'
+          example: US
+          title: country
+          type: string
+        customer_list_id:
+          description: Customer list ID. For CUSTOMER_LIST `audience_type`.
+          example: '5497558859876'
+          pattern: ^\d+$
+          title: customer_list_id
+          type: string
+        engagement_domain:
+          description: The audience account's verified domain. **Required** for ENGAGEMENT `audience_type`.
+          example:
+          - www.somedomain.com
+          items:
+            type: string
+          title: engagement_domain
+          type: array
+        engagement_type:
+          description: 'Engagement type enum. Optional for ENGAGEMENT `audience_type`. Supported values are `click`, `save`, `closeup`, `comment` and `like`. All engagements are included if this field is not set. '
+          example: click
+          title: engagement_type
+          type: string
+        event:
+          description: A Pinterest tag event. Optional for VISITOR `audience_type`. Possible values are `pagevisit`, `signup`, `checkout`, `viewcategory`, `search`, `addtocart`, `watchvideo`, `lead`, and `custom`. This field also accepts a partner-defined Pinterest tag event.
+          example: checkout
+          title: event
+          type: string
+        event_data:
+          description: 'Optional for VISITOR `audience_type`. With the Pinterest tag, you can use event data to capture event details from your website. This object lists all the available predefined event data fields in the Pinterest tag. You can include these event data fields as part of a VISITOR audience s `rule`; however, you **must** specify an `event` for the `event_data` fields to be evaluated. Besides whats listed, you can also create your own set of `event_data` fields and define their usages or purposes according to your website needs. However, the benefit of using the predefined event data fields is that we can provide various metrics based on those fields'' data.<br>Examples per `event` type:<br>`pagevisit`<br>"event_data": { "page_name": "My online store 123 | view items | shoe" }<br>`signup`<br>"event_data": { "lead_type": "New release promotion" }<br>`checkout`<br>"event_data": { "value": 116, "order_quantity": 2, "currency": "USD", "line_items": [ { "product_name": "Pillows (Set of 2)", "product_id": "11", "product_price": 48, "product_quantity": 1 }, { "product_name": "Pillows, Large (Set of 2)", "product_id": "15", "product_price": 68, "product_quantity": 1 } ] }<br>`addtocart`<br>"event_data": { "value": 499, "order_quantity": 1, "currency": "USD", "line_items": [ { "product_name": "Red leather boots", "product_id": "3486", "product_category": "shoe", "product_variant_id": "JB11103000", "product_price": 499, "product_quantity": "1" , "product_brand": "My brand" }]}<br>`watchvideo`<br>"event_data": { "video_title": "My Product Video 01" }<br>`lead`<br>"event_data": { "lead_type": "Newsletter" }'
+          properties:
+            currency:
+              $ref: '#/components/schemas/Currency'
+            lead_type:
+              description: Promotion code. For example, "Newsletter".
+              example: Newsletter
+              title: lead_type
+              type: string
+            line_items:
+              properties:
+                product_brand:
+                  description: Product brand. For example, "Parker".
+                  example: Parker
+                  title: product_brand
+                  type: string
+                product_category:
+                  description: Product category. For example, "Shoes".
+                  example: Shoes
+                  title: product_category
+                  type: string
+                product_id:
+                  description: Product ID. For example, 1414.
+                  example: 1414
+                  title: product_id
+                  type: integer
+                product_name:
+                  description: Product name. For example, "Parker Boots".
+                  example: Parker Boots
+                  title: product_name
+                  type: string
+                product_price:
+                  description: Product price. For example, "99.99".
+                  example: '99.99'
+                  title: product_price
+                  type: string
+                product_quantity:
+                  description: Product quantity. For example, 2.
+                  example: 2
+                  title: product_quantity
+                  type: integer
+                product_variant:
+                  description: Product variant. For example, "Red".
+                  example: Red
+                  title: product_variant
+                  type: string
+                product_variant_id:
+                  description: Product variant ID. For example, "1414-34832".
+                  example: 1414-34832
+                  title: product_variant_id
+                  type: string
+              title: LineItem
+              type: object
+            order_id:
+              description: Order ID. For example, "X-151481".
+              example: X-151481
+              title: order_id
+              type: string
+            order_quantity:
+              description: Order quantity. For example, 1.
+              example: 1
+              title: order_quantity
+              type: integer
+            page_name:
+              description: Page name. For example, "Our Favorite Pins on Pinterest".
+              example: Our Favorite Pins on Pinterest.
+              title: page_name
+              type: string
+            promo_code:
+              description: Promotion code. For example, "WINTER10".
+              example: WINTER10
+              title: promo_code
+              type: string
+            property:
+              description: Property. For example, "Athleta".
+              example: Athleta
+              title: property
+              type: string
+            search_query:
+              description: Search query string. For example, "boots".
+              example: boots
+              title: search_query
+              type: string
+            value:
+              description: Product value. For example, "199.98"
+              example: '199.98'
+              title: value
+              type: string
+            video_title:
+              description: Video title. For example, "How to style your Parker Boots".
+              example: How to style your Parker Boots
+              title: video_title
+              type: string
+          title: PinterestTagEventData
+          type: object
+        percentage:
+          description: Percentage should be 1-10. The targeted audience should be this % size across Pinterest.
+          example: 3
+          title: percentage
+          type: integer
+        pin_id:
+          description: 'IDs of engaged organic pins. Optional for ENGAGEMENT `audience_type`. For example, "pin_id:": ["34567"]'
+          example:
+          - '34567'
+          items:
+            pattern: ^\d+$
+            type: string
+          title: pin_id
+          type: array
+        prefill:
+          description: Optional for VISITOR `audience_type`. If `true`, the specified rule on existing engagement data is applied to pre-populate the audience. If `false`, the audience is empty at creation time. The default is `true`.
+          example: true
+          title: prefill
+          type: boolean
+        retention_days:
+          description: Number of days a Pinterest user remains in the audience. Optional for ENGAGEMENT and VISITOR `audience_type`. Accepted range is 1-540. Defaults to 180 if not specified.
+          example: 30
+          title: retention_days
+          type: integer
+        seed_id:
+          description: 'Audience ID(s). For ACTALIKE `audience_type`. '
+          example:
+          - '2542620639259'
+          - '2542620639261'
+          items:
+            pattern: ^\d+$
+            type: string
+          title: seed_id
+          type: array
+        url:
+          description: 'Optional for ENGAGEMENT or VISITOR `audience_type`. For ENGAGEMENT, it is the engaged pin''s URL. For VISITOR, you can use it as a string or a {operator: value} object for filtering visitors based on conversion tag event URLs. Supported operators are [ =, !=, contains, not_contains].<br>Example 1:  "url": "http://www.myonlinestore123.com/view_item/shoe"<br>Example 2: "url": {"contains": "/view_item/shoe"}'
+          items:
+            type: string
+          title: url
+          type: array
+        visitor_source_id:
+          description: The conversion tag ID, or the Pinterest tag ID, that you use on your website. For VISITOR `audience_type`.
+          example: '549755885175'
+          pattern: ^\d+$
+          title: visitor_source_id
+          type: string
+        event_source:
+          description: 'Optional for VISITOR. You can use it as a {''='': [value]}. Supported values are: web, mobile, offline'
+          example:
+            '=':
+            - web
+            - mobile
+          title: event_source
+          type: object
+        ingestion_source:
+          description: 'Optional for VISITOR. You can use it as a {''='': [value]}. Supported values are: tag, mmp, file_upload, conversions_api'
+          example:
+            '=':
+            - tag
+          title: ingestion_source
+          type: object
+        engager_type:
+          description: Optional for ENGAGEMENT. Engager type value should be 1-2.
+          example: 1
+          title: engager_type
+          type: integer
+        campaign_id:
+          description: Campaign ID for engagement audience filter.
+          example:
+          - '626744528398'
+          items:
+            pattern: ^\d+$
+            type: string
+          title: campaign_id
+          type: array
+        ad_id:
+          description: Ad ID for engagement audience filter.
+          example:
+          - '687201361754'
+          items:
+            pattern: ^\d+$
+            type: string
+          title: ad_id
+          type: array
+        objective_type:
+          description: Objective for engagement audience filter.
+          example:
+          - AWARENESS
+          items:
+            $ref: '#/components/schemas/ObjectiveType'
+          title: objective_type
+          type: array
+        ad_account_id:
+          description: Ad account ID.
+          example: '549755885175'
+          pattern: ^\d+$
+          title: ad_account_id
+          type: string
+      title: Rule
+      type: object
+    AudienceDescription:
+      title: description
+      description: Audience description.
+      type: string
+      example: string
+    AdGroupAudienceSizingResponse:
+      type: object
+      properties:
+        audience_size_lower_bound:
+          description: The lower confidence bound of the estimated potential audience size. "Potential audience size" estimates the number of people you may be able to reach per month with your campaign. It is based on historical advertising data and the targeting criteria you select. It does not guarantee results or take into account factors such as bid, budget, schedule, seasonality or product experiments.
+          type: number
+          example: 100000
+        audience_size_upper_bound:
+          description: The upper confidence bound of the estimated potential audience size. "Potential audience size" estimates the number of people you may be able to reach per month with your campaign. It is based on historical advertising data and the targeting criteria you select. It does not guarantee results or take into account factors such as bid, budget, schedule, seasonality or product experiments.
+          type: number
+          example: 150000
+    AudienceInsightType:
+      default: YOUR_TOTAL_AUDIENCE
+      type: string
+      example: YOUR_TOTAL_AUDIENCE
+      enum:
+      - YOUR_TOTAL_AUDIENCE
+      - YOUR_ENGAGED_AUDIENCE
+      - PINTEREST_TOTAL_AUDIENCE
+    AudienceCategory:
+      title: AudienceCategory
+      type: object
+      properties:
+        key:
+          title: key
+          description: Interest unique key (same as ID).
+          type: string
+          example: '1234567'
+        name:
+          title: name
+          description: Interest name.
+          type: string
+          example: travel
+        ratio:
+          title: ratio
+          description: Interest's percent of category's total audience.
+          type: number
+          example: 0.551
+        index:
+          title: index
+          description: Interest affinity index.
+          type: number
+          example: 1.2
+        id:
+          title: id
+          description: Interest ID.
+          type: string
+          example: '1234567'
+        subcategories:
+          title: subcategories
+          description: Subcategory interest distribution
+          type: array
+          items:
+            title: AudienceSubcategory
+            type: object
+            properties:
+              key:
+                title: key
+                description: Interest unique key (same as ID).
+                type: string
+                example: '958862518888'
+              name:
+                title: name
+                description: Subinterest name.
+                type: string
+                example: travel destinations
+              ratio:
+                title: ratio
+                description: Subinterest's percent of category's total audience.
+                type: number
+                example: 0.482
+              index:
+                title: index
+                description: Subinterest affinity index.
+                type: number
+                example: 1.2
+              id:
+                title: id
+                description: Subinterest ID.
+                type: string
+                example: '958862518888'
+    PlacementGroupType:
+      type: string
+      description: Campaign placement group type
+      example: ALL
+      default: ALL
+      enum:
+      - ALL
+      - SEARCH
+      - BROWSE
+      - OTHER
+    AudienceUpdateOperationType:
+      title: operation_type
+      type: string
+      description: Audience operation type (update or remove).
+      example: UPDATE
+      default: UPDATE
+      enum:
+      - UPDATE
+      - REMOVE
+  securitySchemes:
+    pinterest_oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.pinterest.com/oauth/
+          tokenUrl: https://api.pinterest.com/v5/oauth/token
+          scopes:
+            ads:read: See all of your advertising data, including ads, ad groups, campaigns etc.
+            ads:write: Create, update, or delete ads, ad groups, campaigns etc.
+            billing:read: See all of your billing data, billing profile, etc.
+            billing:write: Create, update, or delete billing data, billing profiles, etc.
+            biz_access:read: See business access data
+            biz_access:write: Create, update, or delete business access data
+            boards:read: See your public boards, including group boards you join
+            boards:read_secret: See your secret boards
+            boards:write: Create, update, or delete your public boards
+            boards:write_secret: Create, update, or delete your secret boards
+            catalogs:read: See all of your catalogs data
+            catalogs:write: Create, update, or delete your catalogs data
+            pins:read: See your public Pins
+            pins:read_secret: See your secret Pins
+            pins:write: Create, update, or delete your public Pins
+            pins:write_secret: Create, update, or delete your secret Pins
+            user_accounts:read: See your user accounts and followers
+            user_accounts:write: Update your user accounts and followers
+    conversion_token:
+      type: http
+      scheme: bearer
+      description: This security scheme only applies to the conversion events endpoint (POST /ad_accounts/{ad_account_id}/events). This endpoint requires a bearer token generated via Ads Manager (ads.pinterest.com).
+    basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Pin and Boards
+  tags:
+  - pins
+  - boards
+  - media
+  - aggregated_comments
+  - aggregated_pin_data
+  - user_account
+- name: Campaign Management
+  tags:
+  - ad_accounts
+  - campaigns
+  - ad_groups
+  - ads
+  - product_group_promotions
+  - bulk
+- name: Targeting
+  tags:
+  - audiences
+  - customer_lists
+  - keywords
+  - targeting_template
+  - audience_insights
+  - audience_sharing
+- name: Ad Formats
+  tags:
+  - lead_forms
+  - lead_ads
+  - leads_export
+- name: Billing
+  tags:
+  - billing
+  - order_lines
+  - terms_of_service
+- name: Business Access
+  tags:
+  - business_access_assets
+  - business_access_invite
+  - business_access_relationships
+- name: Conversions
+  tags:
+  - conversion_events
+  - conversion_tags
+- name: Others
+  tags:
+  - integrations
+  - oauth
+  - resources
+  - search
+  - terms
+- name: Shopping
+  tags:
+  - catalogs
+- name: Deprecated
+  tags:
+  - product_groups

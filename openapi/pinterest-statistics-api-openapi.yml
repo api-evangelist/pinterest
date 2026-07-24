@@ -1,0 +1,413 @@
+openapi: 3.0.3
+info:
+  version: 5.13.0
+  title: Pinterest Statistics API
+  description: This is the description of your API.
+  contact:
+    name: Pinterest, Inc.
+    url: https://developers.pinterest.com/
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  termsOfService: https://developers.pinterest.com/terms/
+servers:
+- url: https://api.pinterest.com/v5
+tags:
+- name: Statistics
+paths:
+  /catalogs/reports/stats:
+    get:
+      summary: List report stats
+      description: 'List aggregated numbers of issues for a catalog owned by the "operation user_account".
+
+        - By default, the "operation user_account" is the token user_account.
+
+
+        Optional: Business Access: Specify an <code>ad_account_id</code> (obtained via <a href=''/docs/api/v5/#operation/ad_accounts/list''>List ad accounts</a>) to use the owner of that ad_account as the "operation user_account". In order to do this, the token user_account must have one of the following <a href="https://help.pinterest.com/en/business/article/share-and-manage-access-to-your-ad-accounts">Business Access</a> roles on the ad_account: Owner, Admin, Catalogs Manager.'
+      operationId: reports/stats
+      security:
+      - pinterest_oauth2:
+        - catalogs:read
+      x-ratelimit-category: catalogs_read
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/query_ad_account_id'
+      - $ref: '#/components/parameters/query_page_size'
+      - $ref: '#/components/parameters/query_bookmark'
+      - $ref: '#/components/parameters/query_catalogs_report_stats_parameters'
+      responses:
+        '200':
+          description: Response containing the diagnostics aggregated counters
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Paginated'
+                - type: object
+                  properties:
+                    items:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/CatalogsReportStats'
+        '401':
+          description: Not authorized to access catalogs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                UnauthorizedAccess:
+                  value:
+                    code: 2
+                    message: Authentication failed.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Statistics
+components:
+  schemas:
+    CatalogsRetailReportParameters:
+      type: object
+      description: Parameters for retail report
+      properties:
+        catalog_type:
+          type: string
+          enum:
+          - RETAIL
+        report:
+          type: object
+          oneOf:
+          - $ref: '#/components/schemas/CatalogsReportFeedIngestionFilter'
+          - $ref: '#/components/schemas/CatalogsReportDistributionIssueFilter'
+          discriminator:
+            propertyName: report_type
+            mapping:
+              FEED_INGESTION_ISSUES: '#/components/schemas/CatalogsReportFeedIngestionFilter'
+              DISTRIBUTION_ISSUES: '#/components/schemas/CatalogsReportDistributionIssueFilter'
+          properties:
+            report_type:
+              type: string
+              enum:
+              - FEED_INGESTION_ISSUES
+              - DISTRIBUTION_ISSUES
+      required:
+      - catalog_type
+      - report
+    Paginated:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+        bookmark:
+          type: string
+          nullable: true
+      required:
+      - items
+    CatalogsReportStats:
+      type: object
+      description: Diagnostics aggregated numbers
+      oneOf:
+      - $ref: '#/components/schemas/CatalogsReportFeedIngestionStats'
+      - $ref: '#/components/schemas/CatalogsReportDistributionStats'
+      discriminator:
+        propertyName: report_type
+        mapping:
+          FEED_INGESTION_ISSUES: '#/components/schemas/CatalogsReportFeedIngestionStats'
+          DISTRIBUTION_ISSUES: '#/components/schemas/CatalogsReportDistributionStats'
+      properties:
+        report_type:
+          type: string
+          enum:
+          - FEED_INGESTION_ISSUES
+          - DISTRIBUTION_ISSUES
+      required:
+      - report_type
+    CatalogsReportFeedIngestionFilter:
+      type: object
+      additionalProperties: false
+      properties:
+        report_type:
+          type: string
+          enum:
+          - FEED_INGESTION_ISSUES
+        feed_id:
+          type: string
+          pattern: ^\d+$
+          description: ID of the feed entity.
+        processing_result_id:
+          type: string
+          pattern: ^\d+$
+          description: Unique identifier of a feed processing result. It can be acquired from the "id" field of the "items" array within the response of the [List processing results for a given feed](https://developers.pinterest.com/docs/api/v5/#operation/feed_processing_results/list). If not provided, default to most recent completed processing result.
+      required:
+      - report_type
+      - feed_id
+    CatalogsReportParameters:
+      type: object
+      description: Report parameters
+      properties:
+        catalog_type:
+          $ref: '#/components/schemas/CatalogsType'
+      required:
+      - catalog_type
+      oneOf:
+      - $ref: '#/components/schemas/CatalogsRetailReportParameters'
+      - $ref: '#/components/schemas/CatalogsHotelReportParameters'
+      discriminator:
+        propertyName: catalog_type
+        mapping:
+          RETAIL: '#/components/schemas/CatalogsRetailReportParameters'
+          HOTEL: '#/components/schemas/CatalogsHotelReportParameters'
+    CatalogsHotelReportParameters:
+      type: object
+      description: Parameters for hotel report
+      properties:
+        catalog_type:
+          type: string
+          enum:
+          - HOTEL
+        report:
+          type: object
+          oneOf:
+          - $ref: '#/components/schemas/CatalogsReportFeedIngestionFilter'
+          - $ref: '#/components/schemas/CatalogsReportDistributionIssueFilter'
+          discriminator:
+            propertyName: report_type
+            mapping:
+              FEED_INGESTION_ISSUES: '#/components/schemas/CatalogsReportFeedIngestionFilter'
+              DISTRIBUTION_ISSUES: '#/components/schemas/CatalogsReportDistributionIssueFilter'
+          properties:
+            report_type:
+              type: string
+              enum:
+              - FEED_INGESTION_ISSUES
+              - DISTRIBUTION_ISSUES
+      required:
+      - catalog_type
+      - report
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    CatalogsReportFeedIngestionStats:
+      type: object
+      properties:
+        report_type:
+          type: string
+          enum:
+          - FEED_INGESTION_ISSUES
+        catalog_id:
+          type: string
+          pattern: ^\d+$
+          description: ID of the catalog entity.
+        code:
+          description: The event code that a diagnostics aggregated number references
+          type: integer
+          example: 112
+        code_label:
+          description: A human-friendly label for the event code (e.g, 'AVAILABILITY_INVALID')
+          type: string
+          example: AVAILABILITY_INVALID
+        message:
+          description: Title message describing the diagnostic issue
+          type: string
+        occurrences:
+          description: Number of occurrences of the issue
+          example: 10
+          type: integer
+        severity:
+          description: An ERROR means that items have been dropped, while a WARN denotes that items have been ingested despite an issue
+          type: string
+          enum:
+          - WARN
+          - ERROR
+    CatalogsReportDistributionIssueFilter:
+      type: object
+      additionalProperties: false
+      properties:
+        report_type:
+          type: string
+          enum:
+          - DISTRIBUTION_ISSUES
+        catalog_id:
+          type: string
+          description: Unique identifier of a catalog. If not given, oldest catalog will be used
+          pattern: ^\d+$
+      required:
+      - report_type
+    CatalogsReportDistributionStats:
+      type: object
+      properties:
+        report_type:
+          type: string
+          enum:
+          - DISTRIBUTION_ISSUES
+        catalog_id:
+          type: string
+          pattern: ^\d+$
+          description: ID of the catalog entity.
+        code:
+          description: The event code that a diagnostics aggregated number references
+          type: integer
+        code_label:
+          description: A human-friendly label for the event code (e.g, 'SPAM')
+          type: string
+          example: SPAM
+        message:
+          description: Title message describing the diagnostic issue
+          type: string
+        occurrences:
+          description: Number of occurrences of the issue
+          example: 10
+          type: integer
+        ineligible_for_ads:
+          description: Indicates if issue makes items ineligible for ads distribution
+          example: true
+          type: boolean
+        ineligible_for_organic:
+          description: Indicates if issue makes items ineligible for organic distribution
+          example: true
+          type: boolean
+    CatalogsType:
+      description: Type of the catalog entity.
+      type: string
+      enum:
+      - RETAIL
+      - HOTEL
+      - CREATIVE_ASSETS
+  parameters:
+    query_page_size:
+      name: page_size
+      description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 250
+        default: 25
+    query_bookmark:
+      name: bookmark
+      description: Cursor used to fetch the next page of items
+      in: query
+      required: false
+      schema:
+        type: string
+    query_ad_account_id:
+      name: ad_account_id
+      description: Unique identifier of an ad account.
+      in: query
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
+    query_catalogs_report_stats_parameters:
+      name: parameters
+      in: query
+      description: Contains the parameters for report identification.
+      required: true
+      style: deepObject
+      schema:
+        $ref: '#/components/schemas/CatalogsReportParameters'
+  securitySchemes:
+    pinterest_oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.pinterest.com/oauth/
+          tokenUrl: https://api.pinterest.com/v5/oauth/token
+          scopes:
+            ads:read: See all of your advertising data, including ads, ad groups, campaigns etc.
+            ads:write: Create, update, or delete ads, ad groups, campaigns etc.
+            billing:read: See all of your billing data, billing profile, etc.
+            billing:write: Create, update, or delete billing data, billing profiles, etc.
+            biz_access:read: See business access data
+            biz_access:write: Create, update, or delete business access data
+            boards:read: See your public boards, including group boards you join
+            boards:read_secret: See your secret boards
+            boards:write: Create, update, or delete your public boards
+            boards:write_secret: Create, update, or delete your secret boards
+            catalogs:read: See all of your catalogs data
+            catalogs:write: Create, update, or delete your catalogs data
+            pins:read: See your public Pins
+            pins:read_secret: See your secret Pins
+            pins:write: Create, update, or delete your public Pins
+            pins:write_secret: Create, update, or delete your secret Pins
+            user_accounts:read: See your user accounts and followers
+            user_accounts:write: Update your user accounts and followers
+    conversion_token:
+      type: http
+      scheme: bearer
+      description: This security scheme only applies to the conversion events endpoint (POST /ad_accounts/{ad_account_id}/events). This endpoint requires a bearer token generated via Ads Manager (ads.pinterest.com).
+    basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Pin and Boards
+  tags:
+  - pins
+  - boards
+  - media
+  - aggregated_comments
+  - aggregated_pin_data
+  - user_account
+- name: Campaign Management
+  tags:
+  - ad_accounts
+  - campaigns
+  - ad_groups
+  - ads
+  - product_group_promotions
+  - bulk
+- name: Targeting
+  tags:
+  - audiences
+  - customer_lists
+  - keywords
+  - targeting_template
+  - audience_insights
+  - audience_sharing
+- name: Ad Formats
+  tags:
+  - lead_forms
+  - lead_ads
+  - leads_export
+- name: Billing
+  tags:
+  - billing
+  - order_lines
+  - terms_of_service
+- name: Business Access
+  tags:
+  - business_access_assets
+  - business_access_invite
+  - business_access_relationships
+- name: Conversions
+  tags:
+  - conversion_events
+  - conversion_tags
+- name: Others
+  tags:
+  - integrations
+  - oauth
+  - resources
+  - search
+  - terms
+- name: Shopping
+  tags:
+  - catalogs
+- name: Deprecated
+  tags:
+  - product_groups

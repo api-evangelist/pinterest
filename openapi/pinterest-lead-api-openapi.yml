@@ -1,0 +1,523 @@
+openapi: 3.0.3
+info:
+  version: 5.13.0
+  title: Pinterest Lead API
+  description: This is the description of your API.
+  contact:
+    name: Pinterest, Inc.
+    url: https://developers.pinterest.com/
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+  termsOfService: https://developers.pinterest.com/terms/
+servers:
+- url: https://api.pinterest.com/v5
+tags:
+- name: Lead
+paths:
+  /ad_accounts/{ad_account_id}/lead_forms:
+    get:
+      summary: Get lead forms
+      description: '<strong>This feature is currently in beta and not available to all apps, if you''re interested in joining the beta, please reach out to your Pinterest account manager.</strong>
+
+
+        Gets all Lead Forms associated with an ad account ID.
+
+
+        For more, see <a class="reference external" href="https://help.pinterest.com/en/business/article/lead-ads">Lead ads</a>.'
+      operationId: lead_forms/list
+      security:
+      - pinterest_oauth2:
+        - ads:read
+      x-ratelimit-category: ads_read
+      x-sandbox: enabled
+      parameters:
+      - $ref: '#/components/parameters/path_ad_account_id'
+      - $ref: '#/components/parameters/query_page_size'
+      - $ref: '#/components/parameters/query_order'
+      - $ref: '#/components/parameters/query_bookmark'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Paginated'
+                - type: object
+                  properties:
+                    items:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/LeadFormResponse'
+          description: Success
+        '400':
+          description: Invalid ad account lead forms parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 400
+                message: Invalid ad account lead forms parameters.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Lead
+  /ad_accounts/{ad_account_id}/lead_forms/{lead_form_id}:
+    get:
+      summary: Get lead form by id
+      description: '<strong>This feature is currently in beta and not available to all apps, if you''re interested in joining the beta, please reach out to your Pinterest account manager.</strong>
+
+
+        Gets a lead form given it''s ID. It must also be associated with the provided ad account ID.
+
+
+        For more, see <a class="reference external" href="https://help.pinterest.com/en/business/article/lead-ads">Lead ads</a>.'
+      operationId: lead_form/get
+      security:
+      - pinterest_oauth2:
+        - ads:read
+      x-ratelimit-category: ads_read
+      x-sandbox: enabled
+      parameters:
+      - $ref: '#/components/parameters/path_ad_account_id'
+      - $ref: '#/components/parameters/path_lead_form_id'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeadFormResponse'
+          description: Success
+        '400':
+          description: Invalid ad account lead forms parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 1
+                message: Invalid ad account lead forms parameters.
+        '404':
+          description: The lead form ID for the given ad account ID does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 4842
+                message: Lead form is not found.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Lead
+  /ad_accounts/{ad_account_id}/lead_forms/{lead_form_id}/test:
+    post:
+      summary: Create lead form test data
+      description: 'Create lead form test data based on the list of answers provided as part of the body.
+
+        - List of answers should follow the questions creation order.
+
+
+        <strong>This endpoint is currently in beta and not available to all apps. <a href=''/docs/new/about-beta-access/''>Learn more</a>.</strong>'
+      operationId: lead_form_test/create
+      security:
+      - pinterest_oauth2:
+        - ads:write
+      x-ratelimit-category: ads_write
+      x-sandbox: disabled
+      parameters:
+      - $ref: '#/components/parameters/path_ad_account_id'
+      - $ref: '#/components/parameters/path_lead_form_id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LeadFormTestRequest'
+        description: Subscription to create.
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeadFormTestResponse'
+          description: Success
+        '400':
+          description: Invalid parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 1
+                message: Invalid parameters.
+        '404':
+          description: Lead not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 4842
+                message: Lead not found.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Lead
+  /resources/lead_form_questions:
+    get:
+      summary: Get lead form questions
+      description: 'Get a list of all lead form question type names. Some questions might not be used.
+
+
+        <strong>This endpoint is currently in beta and not available to all apps. <a href=''/docs/new/about-beta-access/''>Learn more</a>.</strong>'
+      operationId: lead_form_questions/get
+      security:
+      - pinterest_oauth2:
+        - ads:read
+      x-ratelimit-category: ads_read
+      x-sandbox: enabled
+      responses:
+        '200':
+          description: Success
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+      - Lead
+components:
+  schemas:
+    LeadFormTestResponse:
+      title: LeadFormTestResponse
+      type: object
+      description: Response for lead data test API.
+      properties:
+        subscription_id:
+          description: Subscription ID.
+          example: '8078432025948590686'
+          type: string
+          pattern: ^\d+$
+    LeadFormStatus:
+      type: string
+      description: Status of the lead form
+      example: DRAFT
+      enum:
+      - DRAFT
+      - ACTIVE
+    LeadFormQuestionType:
+      type: string
+      description: Lead form question type
+      example: FIRST_NAME
+      enum:
+      - CUSTOM
+      - FULL_NAME
+      - FIRST_NAME
+      - LAST_NAME
+      - EMAIL
+      - PHONE_NUMBER
+      - ZIP_CODE
+      - AGE
+      - GENDER
+      - CITY
+      - COUNTRY
+      - PREFERRED_CONTACT_METHOD
+      - STATE_PROVINCE
+      - ADDRESS
+      - DATE_OF_BIRTH
+    LeadFormQuestion:
+      type: object
+      properties:
+        question_type:
+          $ref: '#/components/schemas/LeadFormQuestionType'
+        custom_question_field_type:
+          $ref: '#/components/schemas/LeadFormQuestionFieldType'
+        custom_question_label:
+          description: Question label for a custom question.
+          nullable: true
+          type: string
+        custom_question_options:
+          description: Question options for a custom question.
+          nullable: true
+          type: array
+          minItems: 0
+          maxItems: 5
+          items:
+            type: string
+    LeadFormTestRequest:
+      title: LeadFormTestRequest
+      description: Request to create test data for lead data test API.
+      type: object
+      properties:
+        answers:
+          description: Test lead answers. Should follow the creation order.
+          type: array
+          items:
+            type: string
+          example:
+          - John
+          - Doe
+          - abc@email.com
+          - '987654321'
+      required:
+      - answers
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    LeadFormResponse:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/LeadFormCommon'
+      - type: object
+        properties:
+          id:
+            description: The ID of this lead form
+            example: '7765300871171'
+            type: string
+            pattern: ^\d+$
+          ad_account_id:
+            description: The Ad Account ID that this lead form belongs to.
+            example: '549755885175'
+            type: string
+            pattern: ^\d+$
+          created_time:
+            description: Lead form creation time. Unix timestamp in seconds.
+            example: 1451431341
+            type: integer
+          updated_time:
+            description: Last update time. Unix timestamp in seconds.
+            example: 1451431341
+            type: integer
+    LeadFormCommon:
+      type: object
+      description: Creation fields
+      properties:
+        name:
+          description: Internal name of the lead form.
+          example: Lead Form 3/14/2023
+          type: string
+          nullable: true
+        privacy_policy_link:
+          description: A link to the advertiser's privacy policy. This will be included in the lead form's disclosure language.
+          example: https://www.advertisername.com/privacy-policy
+          type: string
+          nullable: true
+        has_accepted_terms:
+          description: Whether the advertiser has accepted Pinterest's terms of service for creating a lead ad.
+          example: false
+          type: boolean
+        completion_message:
+          description: A message for people who complete the form to let them know what happens next.
+          example: Thank you for submitting. We will contact you soon.
+          type: string
+          nullable: true
+        status:
+          $ref: '#/components/schemas/LeadFormStatus'
+        disclosure_language:
+          description: Additional disclosure language to be included in the lead form.
+          example: By entering your personal information, you agree that your data will be collected and used.
+          type: string
+          nullable: true
+        questions:
+          description: List of questions to be displayed on the lead form.
+          example:
+          - question_type: CUSTOM
+            custom_question_field_type: CHECKBOX
+            custom_question_label: What is your favorite animal?
+            custom_question_options:
+            - Dog
+            - Cat
+            - Bird
+            - Turtle
+          type: array
+          minItems: 0
+          maxItems: 10
+          items:
+            $ref: '#/components/schemas/LeadFormQuestion'
+    Paginated:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+        bookmark:
+          type: string
+          nullable: true
+      required:
+      - items
+    LeadFormQuestionFieldType:
+      type: string
+      description: Lead form question field type
+      example: RADIO_LIST
+      nullable: true
+      enum:
+      - TEXT_FIELD
+      - TEXT_AREA
+      - RADIO_LIST
+      - CHECKBOX
+      - null
+  parameters:
+    query_page_size:
+      name: page_size
+      description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 250
+        default: 25
+    query_bookmark:
+      name: bookmark
+      description: Cursor used to fetch the next page of items
+      in: query
+      required: false
+      schema:
+        type: string
+    path_ad_account_id:
+      name: ad_account_id
+      description: Unique identifier of an ad account.
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
+    query_order:
+      description: 'The order in which to sort the items returned: ASCENDING or DESCENDING
+
+        by ID. Note that higher-value IDs are associated with more-recently added
+
+        items.'
+      in: query
+      name: order
+      required: false
+      schema:
+        type: string
+        example: ASCENDING
+        enum:
+        - ASCENDING
+        - DESCENDING
+    path_lead_form_id:
+      name: lead_form_id
+      in: path
+      description: Unique identifier of a lead form.
+      example: '1234567890123'
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+  securitySchemes:
+    pinterest_oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.pinterest.com/oauth/
+          tokenUrl: https://api.pinterest.com/v5/oauth/token
+          scopes:
+            ads:read: See all of your advertising data, including ads, ad groups, campaigns etc.
+            ads:write: Create, update, or delete ads, ad groups, campaigns etc.
+            billing:read: See all of your billing data, billing profile, etc.
+            billing:write: Create, update, or delete billing data, billing profiles, etc.
+            biz_access:read: See business access data
+            biz_access:write: Create, update, or delete business access data
+            boards:read: See your public boards, including group boards you join
+            boards:read_secret: See your secret boards
+            boards:write: Create, update, or delete your public boards
+            boards:write_secret: Create, update, or delete your secret boards
+            catalogs:read: See all of your catalogs data
+            catalogs:write: Create, update, or delete your catalogs data
+            pins:read: See your public Pins
+            pins:read_secret: See your secret Pins
+            pins:write: Create, update, or delete your public Pins
+            pins:write_secret: Create, update, or delete your secret Pins
+            user_accounts:read: See your user accounts and followers
+            user_accounts:write: Update your user accounts and followers
+    conversion_token:
+      type: http
+      scheme: bearer
+      description: This security scheme only applies to the conversion events endpoint (POST /ad_accounts/{ad_account_id}/events). This endpoint requires a bearer token generated via Ads Manager (ads.pinterest.com).
+    basic:
+      type: http
+      scheme: basic
+x-tagGroups:
+- name: Pin and Boards
+  tags:
+  - pins
+  - boards
+  - media
+  - aggregated_comments
+  - aggregated_pin_data
+  - user_account
+- name: Campaign Management
+  tags:
+  - ad_accounts
+  - campaigns
+  - ad_groups
+  - ads
+  - product_group_promotions
+  - bulk
+- name: Targeting
+  tags:
+  - audiences
+  - customer_lists
+  - keywords
+  - targeting_template
+  - audience_insights
+  - audience_sharing
+- name: Ad Formats
+  tags:
+  - lead_forms
+  - lead_ads
+  - leads_export
+- name: Billing
+  tags:
+  - billing
+  - order_lines
+  - terms_of_service
+- name: Business Access
+  tags:
+  - business_access_assets
+  - business_access_invite
+  - business_access_relationships
+- name: Conversions
+  tags:
+  - conversion_events
+  - conversion_tags
+- name: Others
+  tags:
+  - integrations
+  - oauth
+  - resources
+  - search
+  - terms
+- name: Shopping
+  tags:
+  - catalogs
+- name: Deprecated
+  tags:
+  - product_groups
