@@ -1,31 +1,1897 @@
 aid: pinterest
 url: https://raw.githubusercontent.com/api-search/images/main/_apis/pinterest/apis.md
 apis:
-- aid: pinterest:pinterest-api
-  name: Pinterest API
-  tags:
-  - Images
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  baseURL: https://api.pinterest.com/v5
+- aid: pinterest:pinterest-access-api
+  name: Pinterest Access API
+  description: The Access API from Pinterest — 3 operation(s) for access.
   humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Access
   properties:
-  - url: https://developers.pinterest.com/docs/api/v5/
-    type: Documentation
-  - url: openapi/pinterest-openapi-original.yml
-    type: OpenAPI
-  - url: openapi/pinterest-asyncapi.yml
-    type: AsyncAPI
-  - url: graphql/pinterest-graphql.md
-    type: GraphQL
-  description: The Pinterest REST API v5 for managing ads, ad groups, ad accounts,
-    audiences, billing, boards, board sections, pins, catalogs, and analytics on Pinterest.
+  - type: OpenAPI
+    url: openapi/pinterest-access-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-accounts-api
+  name: Pinterest Accounts API
+  description: The Accounts API from Pinterest — 74 operation(s) for accounts.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-ad-api
+  name: Pinterest Ad API
+  description: The Ad API from Pinterest — 63 operation(s) for ad.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Ad
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-ad-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-ad-groups-api
+  name: Pinterest Ad_groups API
+  description: The Ad_groups API from Pinterest — 1 operation(s) for ad_groups.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Ad_groups
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-ad-groups-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-ads-api
+  name: Pinterest Ads API
+  description: The Ads API from Pinterest — 7 operation(s) for ads.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Ads
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-ads-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-analytics-api
+  name: Pinterest Analytics API
+  description: The Analytics API from Pinterest — 14 operation(s) for analytics.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Analytics
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-analytics-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-assets-api
+  name: Pinterest Assets API
+  description: The Assets API from Pinterest — 9 operation(s) for assets.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Assets
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-assets-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-audience-api
+  name: Pinterest Audience API
+  description: The Audience API from Pinterest — 3 operation(s) for audience.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Audience
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-audience-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-audience-insights-api
+  name: Pinterest Audience_insights API
+  description: The Audience_insights API from Pinterest — 1 operation(s) for audience_insights.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Audience_insights
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-audience-insights-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-audiences-api
+  name: Pinterest Audiences API
+  description: The Audiences API from Pinterest — 1 operation(s) for audiences.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Audiences
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-audiences-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-batch-api
+  name: Pinterest Batch API
+  description: The Batch API from Pinterest — 2 operation(s) for batch.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Batch
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-batch-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-bid-api
+  name: Pinterest Bid API
+  description: The Bid API from Pinterest — 1 operation(s) for bid.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Bid
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-bid-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-billing-api
+  name: Pinterest Billing API
+  description: The Billing API from Pinterest — 8 operation(s) for billing.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Billing
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-billing-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-board-api
+  name: Pinterest Board API
+  description: The Board API from Pinterest — 5 operation(s) for board.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Board
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-board-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-boards-api
+  name: Pinterest Boards API
+  description: The Boards API from Pinterest — 1 operation(s) for boards.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Boards
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-boards-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-bulk-api
+  name: Pinterest Bulk API
+  description: The Bulk API from Pinterest — 3 operation(s) for bulk.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Bulk
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-bulk-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-business-api
+  name: Pinterest Business API
+  description: The Business API from Pinterest — 13 operation(s) for business.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Business
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-business-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-campaigns-api
+  name: Pinterest Campaigns API
+  description: The Campaigns API from Pinterest — 4 operation(s) for campaigns.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Campaigns
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-campaigns-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-catalogs-api
+  name: Pinterest Catalogs API
+  description: The Catalogs API from Pinterest — 1 operation(s) for catalogs.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Catalogs
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-catalogs-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-commerce-api
+  name: Pinterest Commerce API
+  description: The Commerce API from Pinterest — 2 operation(s) for commerce.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Commerce
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-commerce-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-conversion-api
+  name: Pinterest Conversion API
+  description: The Conversion API from Pinterest — 4 operation(s) for conversion.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Conversion
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-conversion-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-conversions-api
+  name: Pinterest Conversions API
+  description: The Conversions API from Pinterest — 1 operation(s) for conversions.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Conversions
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-conversions-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-countries-api
+  name: Pinterest Countries API
+  description: The Countries API from Pinterest — 1 operation(s) for countries.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Countries
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-countries-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-counts-api
+  name: Pinterest Counts API
+  description: The Counts API from Pinterest — 1 operation(s) for counts.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Counts
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-counts-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-credit-api
+  name: Pinterest Credit API
+  description: The Credit API from Pinterest — 2 operation(s) for credit.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Credit
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-credit-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-custom-api
+  name: Pinterest Custom API
+  description: The Custom API from Pinterest — 1 operation(s) for custom.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Custom
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-custom-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-customer-api
+  name: Pinterest Customer API
+  description: The Customer API from Pinterest — 2 operation(s) for customer.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Customer
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-customer-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-customer-lists-api
+  name: Pinterest Customer_lists API
+  description: The Customer_lists API from Pinterest — 1 operation(s) for customer_lists.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Customer_lists
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-customer-lists-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-customers-api
+  name: Pinterest Customers API
+  description: The Customers API from Pinterest — 1 operation(s) for customers.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Customers
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-customers-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-deliveries-api
+  name: Pinterest Deliveries API
+  description: The Deliveries API from Pinterest — 1 operation(s) for deliveries.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Deliveries
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-deliveries-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-discounts-api
+  name: Pinterest Discounts API
+  description: The Discounts API from Pinterest — 1 operation(s) for discounts.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Discounts
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-discounts-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-downloads-api
+  name: Pinterest Downloads API
+  description: The Downloads API from Pinterest — 1 operation(s) for downloads.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Downloads
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-downloads-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-eligible-api
+  name: Pinterest Eligible API
+  description: The Eligible API from Pinterest — 1 operation(s) for eligible.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Eligible
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-eligible-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-employers-api
+  name: Pinterest Employers API
+  description: The Employers API from Pinterest — 1 operation(s) for employers.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Employers
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-employers-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-events-api
+  name: Pinterest Events API
+  description: The Events API from Pinterest — 1 operation(s) for events.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Events
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-events-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-external-api
+  name: Pinterest External API
+  description: The External API from Pinterest — 1 operation(s) for external.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - External
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-external-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-feed-api
+  name: Pinterest Feed API
+  description: The Feed API from Pinterest — 3 operation(s) for feed.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Feed
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-feed-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-feeds-api
+  name: Pinterest Feeds API
+  description: The Feeds API from Pinterest — 4 operation(s) for feeds.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Feeds
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-feeds-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-filters-api
+  name: Pinterest Filters API
+  description: The Filters API from Pinterest — 1 operation(s) for filters.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Filters
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-filters-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-floor-api
+  name: Pinterest Floor API
+  description: The Floor API from Pinterest — 1 operation(s) for floor.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Floor
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-floor-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-follow-api
+  name: Pinterest Follow API
+  description: The Follow API from Pinterest — 1 operation(s) for follow.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Follow
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-follow-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-followers-api
+  name: Pinterest Followers API
+  description: The Followers API from Pinterest — 1 operation(s) for followers.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Followers
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-followers-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-following-api
+  name: Pinterest Following API
+  description: The Following API from Pinterest — 3 operation(s) for following.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Following
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-following-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-forms-api
+  name: Pinterest Forms API
+  description: The Forms API from Pinterest — 4 operation(s) for forms.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Forms
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-forms-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-groups-api
+  name: Pinterest Groups API
+  description: The Groups API from Pinterest — 15 operation(s) for groups.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-groups-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-id-api
+  name: Pinterest Id API
+  description: The Id API from Pinterest — 1 operation(s) for id.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Id
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-id-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-ingest-api
+  name: Pinterest Ingest API
+  description: The Ingest API from Pinterest — 1 operation(s) for ingest.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Ingest
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-ingest-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-insertion-api
+  name: Pinterest Insertion API
+  description: The Insertion API from Pinterest — 3 operation(s) for insertion.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Insertion
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-insertion-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-insights-api
+  name: Pinterest Insights API
+  description: The Insights API from Pinterest — 2 operation(s) for insights.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Insights
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-insights-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-integrations-api
+  name: Pinterest Integrations API
+  description: The Integrations API from Pinterest — 5 operation(s) for integrations.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Integrations
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-integrations-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-interest-api
+  name: Pinterest Interest API
+  description: The Interest API from Pinterest — 1 operation(s) for interest.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Interest
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-interest-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-interests-api
+  name: Pinterest Interests API
+  description: The Interests API from Pinterest — 1 operation(s) for interests.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Interests
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-interests-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-invites-api
+  name: Pinterest Invites API
+  description: The Invites API from Pinterest — 3 operation(s) for invites.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Invites
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-invites-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-issues-api
+  name: Pinterest Issues API
+  description: The Issues API from Pinterest — 1 operation(s) for issues.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Issues
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-issues-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-item-api
+  name: Pinterest Item API
+  description: The Item API from Pinterest — 1 operation(s) for item.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Item
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-item-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-items-api
+  name: Pinterest Items API
+  description: The Items API from Pinterest — 3 operation(s) for items.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Items
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-items-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-keywords-api
+  name: Pinterest Keywords API
+  description: The Keywords API from Pinterest — 3 operation(s) for keywords.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Keywords
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-keywords-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-lead-api
+  name: Pinterest Lead API
+  description: The Lead API from Pinterest — 4 operation(s) for lead.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Lead
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-lead-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-line-api
+  name: Pinterest Line API
+  description: The Line API from Pinterest — 1 operation(s) for line.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Line
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-line-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-lines-api
+  name: Pinterest Lines API
+  description: The Lines API from Pinterest — 3 operation(s) for lines.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Lines
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-lines-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-logs-api
+  name: Pinterest Logs API
+  description: The Logs API from Pinterest — 1 operation(s) for logs.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Logs
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-logs-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-media-api
+  name: Pinterest Media API
+  description: The Media API from Pinterest — 2 operation(s) for media.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Media
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-media-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-member-api
+  name: Pinterest Member API
+  description: The Member API from Pinterest — 1 operation(s) for member.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Member
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-member-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-members-api
+  name: Pinterest Members API
+  description: The Members API from Pinterest — 4 operation(s) for members.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Members
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-members-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-metrics-api
+  name: Pinterest Metrics API
+  description: The Metrics API from Pinterest — 3 operation(s) for metrics.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Metrics
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-metrics-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-multiple-api
+  name: Pinterest Multiple API
+  description: The Multiple API from Pinterest — 1 operation(s) for multiple.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Multiple
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-multiple-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-order-api
+  name: Pinterest Order API
+  description: The Order API from Pinterest — 4 operation(s) for order.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Order
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-order-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-orders-api
+  name: Pinterest Orders API
+  description: The Orders API from Pinterest — 3 operation(s) for orders.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Orders
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-orders-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-page-api
+  name: Pinterest Page API
+  description: The Page API from Pinterest — 1 operation(s) for page.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Page
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-page-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-partners-api
+  name: Pinterest Partners API
+  description: The Partners API from Pinterest — 5 operation(s) for partners.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Partners
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-partners-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-pin-api
+  name: Pinterest Pin API
+  description: The Pin API from Pinterest — 4 operation(s) for pin.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Pin
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-pin-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-pins-api
+  name: Pinterest Pins API
+  description: The Pins API from Pinterest — 11 operation(s) for pins.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Pins
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-pins-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-previews-api
+  name: Pinterest Previews API
+  description: The Previews API from Pinterest — 1 operation(s) for previews.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Previews
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-previews-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-processing-api
+  name: Pinterest Processing API
+  description: The Processing API from Pinterest — 2 operation(s) for processing.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Processing
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-processing-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-product-api
+  name: Pinterest Product API
+  description: The Product API from Pinterest — 10 operation(s) for product.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Product
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-product-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-product-groups-api
+  name: Pinterest Product_groups API
+  description: The Product_groups API from Pinterest — 1 operation(s) for product_groups.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Product_groups
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-product-groups-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-products-api
+  name: Pinterest Products API
+  description: The Products API from Pinterest — 2 operation(s) for products.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Products
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-products-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-profiles-api
+  name: Pinterest Profiles API
+  description: The Profiles API from Pinterest — 1 operation(s) for profiles.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Profiles
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-profiles-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-promotion-api
+  name: Pinterest Promotion API
+  description: The Promotion API from Pinterest — 1 operation(s) for promotion.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Promotion
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-promotion-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-promotions-api
+  name: Pinterest Promotions API
+  description: The Promotions API from Pinterest — 2 operation(s) for promotions.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Promotions
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-promotions-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-questions-api
+  name: Pinterest Questions API
+  description: The Questions API from Pinterest — 1 operation(s) for questions.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Questions
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-questions-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-ready-api
+  name: Pinterest Ready API
+  description: The Ready API from Pinterest — 1 operation(s) for ready.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Ready
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-ready-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-redeem-api
+  name: Pinterest Redeem API
+  description: The Redeem API from Pinterest — 1 operation(s) for redeem.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Redeem
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-redeem-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-region-api
+  name: Pinterest Region API
+  description: The Region API from Pinterest — 1 operation(s) for region.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Region
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-region-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-related-api
+  name: Pinterest Related API
+  description: The Related API from Pinterest — 1 operation(s) for related.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Related
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-related-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-reports-api
+  name: Pinterest Reports API
+  description: The Reports API from Pinterest — 5 operation(s) for reports.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-reports-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-request-api
+  name: Pinterest Request API
+  description: The Request API from Pinterest — 1 operation(s) for request.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Request
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-request-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-resources-api
+  name: Pinterest Resources API
+  description: The Resources API from Pinterest — 6 operation(s) for resources.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Resources
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-resources-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-results-api
+  name: Pinterest Results API
+  description: The Results API from Pinterest — 2 operation(s) for results.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Results
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-results-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-sandbox-api
+  name: Pinterest Sandbox API
+  description: The Sandbox API from Pinterest — 1 operation(s) for sandbox.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Sandbox
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-sandbox-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-save-api
+  name: Pinterest Save API
+  description: The Save API from Pinterest — 1 operation(s) for save.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Save
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-save-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-search-api
+  name: Pinterest Search API
+  description: The Search API from Pinterest — 3 operation(s) for search.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Search
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-search-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-section-api
+  name: Pinterest Section API
+  description: The Section API from Pinterest — 2 operation(s) for section.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Section
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-section-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-sections-api
+  name: Pinterest Sections API
+  description: The Sections API from Pinterest — 3 operation(s) for sections.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Sections
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-sections-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-service-api
+  name: Pinterest Service API
+  description: The Service API from Pinterest — 1 operation(s) for service.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Service
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-service-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-state-api
+  name: Pinterest State API
+  description: The State API from Pinterest — 1 operation(s) for state.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - State
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-state-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-statistics-api
+  name: Pinterest Statistics API
+  description: The Statistics API from Pinterest — 1 operation(s) for statistics.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Statistics
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-statistics-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-status-api
+  name: Pinterest Status API
+  description: The Status API from Pinterest — 2 operation(s) for status.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Status
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-status-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-subscriptions-api
+  name: Pinterest Subscriptions API
+  description: The Subscriptions API from Pinterest — 2 operation(s) for subscriptions.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Subscriptions
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-subscriptions-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-suggested-api
+  name: Pinterest Suggested API
+  description: The Suggested API from Pinterest — 1 operation(s) for suggested.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Suggested
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-suggested-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-tags-api
+  name: Pinterest Tags API
+  description: The Tags API from Pinterest — 4 operation(s) for tags.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Tags
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-tags-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-targeting-api
+  name: Pinterest Targeting API
+  description: The Targeting API from Pinterest — 1 operation(s) for targeting.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Targeting
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-targeting-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-template-api
+  name: Pinterest Template API
+  description: The Template API from Pinterest — 1 operation(s) for template.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Template
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-template-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-templates-api
+  name: Pinterest Templates API
+  description: The Templates API from Pinterest — 3 operation(s) for templates.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Templates
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-templates-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-terms-api
+  name: Pinterest Terms API
+  description: The Terms API from Pinterest — 3 operation(s) for terms.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Terms
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-terms-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-test-api
+  name: Pinterest Test API
+  description: The Test API from Pinterest — 1 operation(s) for test.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Test
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-test-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-token-api
+  name: Pinterest Token API
+  description: The Token API from Pinterest — 1 operation(s) for token.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Token
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-token-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-top-api
+  name: Pinterest Top API
+  description: The Top API from Pinterest — 3 operation(s) for top.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Top
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-top-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-trend-api
+  name: Pinterest Trend API
+  description: The Trend API from Pinterest — 1 operation(s) for trend.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Trend
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-trend-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-type-api
+  name: Pinterest Type API
+  description: The Type API from Pinterest — 2 operation(s) for type.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Type
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-type-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-user-account-api
+  name: Pinterest User_account API
+  description: The User_account API from Pinterest — 3 operation(s) for user_account.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - User_account
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-user-account-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-user-api
+  name: Pinterest User API
+  description: The User API from Pinterest — 11 operation(s) for user.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - User
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-user-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-user-names-api
+  name: Pinterest User Names API
+  description: The User Names API from Pinterest — 2 operation(s) for user names.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - User Names
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-user-names-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-users-api
+  name: Pinterest Users API
+  description: The Users API from Pinterest — 1 operation(s) for users.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-users-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-verifications-api
+  name: Pinterest Verifications API
+  description: The Verifications API from Pinterest — 1 operation(s) for verifications.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Verifications
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-verifications-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-videos-api
+  name: Pinterest Videos API
+  description: The Videos API from Pinterest — 1 operation(s) for videos.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Videos
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-videos-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
+- aid: pinterest:pinterest-visit-api
+  name: Pinterest Visit API
+  description: The Visit API from Pinterest — 1 operation(s) for visit.
+  humanURL: https://developers.pinterest.com/
+  baseURL: https://api.pinterest.com/v5
+  tags:
+  - Visit
+  properties:
+  - type: OpenAPI
+    url: openapi/pinterest-visit-api-openapi.yml
+  - type: Documentation
+    url: https://developers.pinterest.com/docs/api/v5/
+  - type: AsyncAPI
+    url: openapi/pinterest-asyncapi.yml
+  - type: GraphQL
+    url: graphql/pinterest-graphql.md
 name: Pinterest
 tags:
 - Images
 - Social Media
 - Videos
 kind: contract
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: free
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Free
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/pinterest.png
 access: 3rd-Party
 common:
 - type: DomainSecurity
