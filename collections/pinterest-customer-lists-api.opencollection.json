@@ -1,0 +1,98 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pinterest Customer_lists API",
+    "version": "5.13.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Customer_lists",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get customer lists",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/ad_accounts/:ad_account_id/customer_lists",
+            "params": [
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of an ad account."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "The order in which to sort the items returned: ASCENDING or DESCENDING\nby ID. Note that higher-value IDs are associated with more-recently added\nitems."
+              },
+              {
+                "name": "bookmark",
+                "value": "",
+                "type": "query",
+                "description": "Cursor used to fetch the next page of items"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "<p>Get a set of customer lists including id and name based on the filters provided.</p>\n<p>(Customer lists are a type of audience.) For more information, see\n<a href=\"https://help.pinterest.com/en/business/article/audience-targeting\" target=\"_blank\">Audience targeting</a>\n or the <a href=\"/docs/ads/targeting/#Audiences\" target=\"_blank\">Audiences</a>\nsection of the ads management guide.</p>"
+        },
+        {
+          "info": {
+            "name": "Create customer lists",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pinterest.com/v5/ad_accounts/:ad_account_id/customer_lists",
+            "params": [
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of an ad account."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "<p>Create a customer list from your records(hashed or plain-text email addresses, or hashed MAIDs or IDFAs).</p>\n<p>A customer list is one of the four types of Pinterest audiences: for more information, see <a href=\"https://help.pinterest.com/en/business/article/audience-targeting\" target=\"_blank\">Audience targeting</a>\nor the <a href=\"/docs/ads/targeting/#Audiences\" target=\"_blank\">Audiences</a> section of the ads management guide.<p/>\n <p><b>Please review our <u><a href=\"https://help.pinterest"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

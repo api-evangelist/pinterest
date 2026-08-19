@@ -1,0 +1,244 @@
+{
+  "item": [
+    {
+      "id": "85fa0095-a7c0-4ce1-be5e-1498ab303979",
+      "name": "Request",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5027c31c-f67c-451d-9797-ee272fff25da",
+          "name": "Download advertiser entities in bulk",
+          "request": {
+            "name": "Download advertiser entities in bulk",
+            "description": {
+              "content": "Get the status of a bulk request by <code>request_id</code>, along with a download URL that will allow you to download the\nnew or updated entity data (campaigns, ad groups, product groups, ads, or keywords).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "bulk",
+                ":bulk_request_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include_details",
+                  "value": "false",
+                  "description": "if set to True then attach the errors/details to all the requests"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "bulk_request_id",
+                  "description": "(Required) Unique identifier of a bulk upsert request."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c1ff5f98-306e-4861-9cc6-150a9626868d",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "bulk",
+                    ":bulk_request_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_details",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bulk_request_id",
+                      "description": "(Required) Unique identifier of a bulk upsert request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"SUCCEEDED\",\n  \"result_url\": \"https://pinterest-waterloo.s3.us-east-1.amazonaws.com/bulk_framework/AD_ENTITY_UPSERT/549763856637-1659122537-0b4d77d3-f620-48ce-bec9-616106afb8d4/(...)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ef5d55e6-2249-4832-a931-412e5086cded",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "bulk",
+                    ":bulk_request_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_details",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bulk_request_id",
+                      "description": "(Required) Unique identifier of a bulk upsert request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5897,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.pinterest.com/v5",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "66633bc0-1248-4b74-b123-960e19190dd0",
+    "name": "Pinterest Request API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is the description of your API.\n\nContact Support:\n Name: Pinterest, Inc.",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,1098 @@
+{
+  "item": [
+    {
+      "id": "63372dff-89d4-449a-a8d9-c6eaa82d0b0f",
+      "name": "Orders",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "89b25cbf-06ae-4a10-9166-f0aaea0d190b",
+          "name": "Create insertion order through SSIO.",
+          "request": {
+            "name": "Create insertion order through SSIO.",
+            "description": {
+              "content": "Create insertion order through SSIO for <code>ad_account_id</code>.\n- The token's user_account must either be the Owner of the specified ad account, or have one of the necessary roles granted to them via <a href=\"https://help.pinterest.com/en/business/article/share-and-manage-access-to-your-ad-accounts\">Business Access</a>: Admin, Finance, Campaign.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "ssio",
+                "insertion_orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fa16b485-0aad-483e-bc22-a925bcd39b83",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ssio",
+                    "insertion_orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"order_line_type\": \"<string>\",\n  \"start_date\": \"2020-12-20\",\n  \"po_number\": \"<string>\",\n  \"pmp_id\": \"<string>\",\n  \"order_name\": \"<string>\",\n  \"media_contact_firstname\": \"<string>\",\n  \"media_contact_lastname\": \"<string>\",\n  \"media_contact_email\": \"test@example\",\n  \"currency_info\": \"USD\",\n  \"billto_company_id\": \"<string>\",\n  \"billto_business_address_id\": \"<string>\",\n  \"billto_billing_address_id\": \"<string>\",\n  \"billing_contact_firstname\": \"<string>\",\n  \"billing_contact_lastname\": \"<string>\",\n  \"billing_contact_email\": \"test@example\",\n  \"accepted_terms_id\": \"<string>\",\n  \"end_date\": \"2020-12-20\",\n  \"budget_amount\": 5000000,\n  \"agency_link\": \"<string>\",\n  \"user_email\": \"test@example\",\n  \"accepted_terms_time\": \"<integer>\",\n  \"estimated_monthly_spend\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"pin_order_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8cc31b9c-ece9-4ead-a2ae-3d1e8430f72a",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ssio",
+                    "insertion_orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"order_line_type\": \"<string>\",\n  \"start_date\": \"2020-12-20\",\n  \"po_number\": \"<string>\",\n  \"pmp_id\": \"<string>\",\n  \"order_name\": \"<string>\",\n  \"media_contact_firstname\": \"<string>\",\n  \"media_contact_lastname\": \"<string>\",\n  \"media_contact_email\": \"test@example\",\n  \"currency_info\": \"USD\",\n  \"billto_company_id\": \"<string>\",\n  \"billto_business_address_id\": \"<string>\",\n  \"billto_billing_address_id\": \"<string>\",\n  \"billing_contact_firstname\": \"<string>\",\n  \"billing_contact_lastname\": \"<string>\",\n  \"billing_contact_email\": \"test@example\",\n  \"accepted_terms_id\": \"<string>\",\n  \"end_date\": \"2020-12-20\",\n  \"budget_amount\": 5000000,\n  \"agency_link\": \"<string>\",\n  \"user_email\": \"test@example\",\n  \"accepted_terms_time\": \"<integer>\",\n  \"estimated_monthly_spend\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"Invalid request.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1fe42cfa-a589-48a9-8227-9f92c2047c28",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ssio",
+                    "insertion_orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"order_line_type\": \"<string>\",\n  \"start_date\": \"2020-12-20\",\n  \"po_number\": \"<string>\",\n  \"pmp_id\": \"<string>\",\n  \"order_name\": \"<string>\",\n  \"media_contact_firstname\": \"<string>\",\n  \"media_contact_lastname\": \"<string>\",\n  \"media_contact_email\": \"test@example\",\n  \"currency_info\": \"USD\",\n  \"billto_company_id\": \"<string>\",\n  \"billto_business_address_id\": \"<string>\",\n  \"billto_billing_address_id\": \"<string>\",\n  \"billing_contact_firstname\": \"<string>\",\n  \"billing_contact_lastname\": \"<string>\",\n  \"billing_contact_email\": \"test@example\",\n  \"accepted_terms_id\": \"<string>\",\n  \"end_date\": \"2020-12-20\",\n  \"budget_amount\": 5000000,\n  \"agency_link\": \"<string>\",\n  \"user_email\": \"test@example\",\n  \"accepted_terms_time\": \"<integer>\",\n  \"estimated_monthly_spend\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5525,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b3e5e840-5fc3-42db-bcbf-c588060ef661",
+          "name": "Edit insertion order through SSIO.",
+          "request": {
+            "name": "Edit insertion order through SSIO.",
+            "description": {
+              "content": "Edit insertion order through SSIO for <code>ad_account_id</code>.\n- The token's user_account must either be the Owner of the specified ad account, or have one of the necessary roles granted to them via <a href=\"https://help.pinterest.com/en/business/article/share-and-manage-access-to-your-ad-accounts\">Business Access</a>: Admin, Finance, Campaign.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "ssio",
+                "insertion_orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a004beda-cd8f-42f0-bc4b-c455ac8d355a",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ssio",
+                    "insertion_orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"start_date\": \"2020-12-20\",\n  \"end_date\": \"2020-12-20\",\n  \"po_number\": \"<string>\",\n  \"budget_amount\": 5000000,\n  \"billing_contact_firstname\": \"<string>\",\n  \"billing_contact_lastname\": \"<string>\",\n  \"billing_contact_email\": \"test@example\",\n  \"media_contact_firstname\": \"<string>\",\n  \"media_contact_lastname\": \"<string>\",\n  \"media_contact_email\": \"test@example\",\n  \"agency_link\": \"<string>\",\n  \"user_email\": \"test@example\",\n  \"oracle_line_id\": \"<string>\",\n  \"salesforce_order_id\": \"<string>\",\n  \"salesforce_order_line_id\": \"<string>\",\n  \"ads_manager_order_line_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"pin_order_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "89857fbf-7699-4e0f-aa2c-fd029899b5a5",
+              "name": "Invalid request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ssio",
+                    "insertion_orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"start_date\": \"2020-12-20\",\n  \"end_date\": \"2020-12-20\",\n  \"po_number\": \"<string>\",\n  \"budget_amount\": 5000000,\n  \"billing_contact_firstname\": \"<string>\",\n  \"billing_contact_lastname\": \"<string>\",\n  \"billing_contact_email\": \"test@example\",\n  \"media_contact_firstname\": \"<string>\",\n  \"media_contact_lastname\": \"<string>\",\n  \"media_contact_email\": \"test@example\",\n  \"agency_link\": \"<string>\",\n  \"user_email\": \"test@example\",\n  \"oracle_line_id\": \"<string>\",\n  \"salesforce_order_id\": \"<string>\",\n  \"salesforce_order_line_id\": \"<string>\",\n  \"ads_manager_order_line_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"Invalid request.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "318fc594-0cb1-4f0a-bedd-a201460a3b61",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ssio",
+                    "insertion_orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"start_date\": \"2020-12-20\",\n  \"end_date\": \"2020-12-20\",\n  \"po_number\": \"<string>\",\n  \"budget_amount\": 5000000,\n  \"billing_contact_firstname\": \"<string>\",\n  \"billing_contact_lastname\": \"<string>\",\n  \"billing_contact_email\": \"test@example\",\n  \"media_contact_firstname\": \"<string>\",\n  \"media_contact_lastname\": \"<string>\",\n  \"media_contact_email\": \"test@example\",\n  \"agency_link\": \"<string>\",\n  \"user_email\": \"test@example\",\n  \"oracle_line_id\": \"<string>\",\n  \"salesforce_order_id\": \"<string>\",\n  \"salesforce_order_line_id\": \"<string>\",\n  \"ads_manager_order_line_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5525,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bf3ad783-0971-4218-b780-4489e921f087",
+          "name": "Get insertion order status by ad account id.",
+          "request": {
+            "name": "Get insertion order status by ad account id.",
+            "description": {
+              "content": "Get insertion order status for account id <code>ad_account_id</code>.\n- The token's user_account must either be the Owner of the specified ad account, or have one of the necessary roles granted to them via <a href=\"https://help.pinterest.com/en/business/article/share-and-manage-access-to-your-ad-accounts\">Business Access</a>: Admin, Finance, Campaign.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "ssio",
+                "insertion_orders",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "bookmark",
+                  "value": "<string>",
+                  "description": "Cursor used to fetch the next page of items"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "25",
+                  "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1d7a0195-b5e7-4e84-91eb-735b5c46b177",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ssio",
+                    "insertion_orders",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"value\": \"<Error: Could not resolve allOf schema\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "36b9c0b0-1a53-4fb4-af5a-ab1da7a4db0e",
+              "name": "Invalid request parameter.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ssio",
+                    "insertion_orders",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"Invalid request parameter.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f1cd2808-10ec-44e3-881f-7d07a599e80c",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ssio",
+                    "insertion_orders",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5525,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7c156c7e-9940-4a9f-90ff-4e653dbb28aa",
+          "name": "Get insertion order status by pin order id.",
+          "request": {
+            "name": "Get insertion order status by pin order id.",
+            "description": {
+              "content": "Get insertion order status for pin order id <code>pin_order_id</code>.\n- The token's user_account must either be the Owner of the specified ad account, or have one of the necessary roles granted to them via <a href=\"https://help.pinterest.com/en/business/article/share-and-manage-access-to-your-ad-accounts\">Business Access</a>: Admin, Finance, Campaign.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "ssio",
+                "insertion_orders",
+                ":pin_order_id",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pin_order_id",
+                  "description": "(Required) The pin order id associated with the ssio insertion order"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5ef4e505-b992-4e9e-bfb3-5093157de2bf",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ssio",
+                    "insertion_orders",
+                    ":pin_order_id",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pin_order_id",
+                      "description": "(Required) The pin order id associated with the ssio insertion order"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"pin_order_id\": \"0Q01N0000015hekSAB\",\n  \"status\": \"Approved\",\n  \"creation_time\": \"2017-06-21T23:11:11.000Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "09a38481-00d0-407e-8342-d2cd39246923",
+              "name": "Invalid request parameter.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ssio",
+                    "insertion_orders",
+                    ":pin_order_id",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pin_order_id",
+                      "description": "(Required) The pin order id associated with the ssio insertion order"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"Invalid request parameter.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "10c5d90a-5a22-41a6-89fa-f5dfb59b0f92",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ssio",
+                    "insertion_orders",
+                    ":pin_order_id",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pin_order_id",
+                      "description": "(Required) The pin order id associated with the ssio insertion order"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5525,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.pinterest.com/v5",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "db5f43e9-ef1a-45b1-983e-f4e55a67c9c0",
+    "name": "Pinterest Orders API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is the description of your API.\n\nContact Support:\n Name: Pinterest, Inc.",
+      "type": "text/plain"
+    }
+  }
+}

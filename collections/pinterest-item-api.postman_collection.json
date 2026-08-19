@@ -1,0 +1,530 @@
+{
+  "item": [
+    {
+      "id": "34aed08b-7921-4353-a1fb-3e4a1dc51681",
+      "name": "Item",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f077f3d2-a854-4721-809b-aa59f6ccb5d5",
+          "name": "List item issues for a given processing result",
+          "request": {
+            "name": "List item issues for a given processing result",
+            "description": {
+              "content": "List item validation issues for a given feed processing result owned by the \"operation user_account\". Up to 20 random samples of affected items are returned for each error and warning code. Please note that for now query parameters 'item_numbers' and 'item_validation_issue' cannot be used simultaneously until it is implemented in some release in the future.\n- By default, the \"operation user_account\" is the token user_account.\n\nOptional: Business Access: Specify an <code>ad_account_id</code> (obtained via <a href='/docs/api/v5/#operation/ad_accounts/list'>List ad accounts</a>) to use the owner of that ad_account as the \"operation user_account\". In order to do this, the token user_account must have one of the following <a href=\"https://help.pinterest.com/en/business/article/share-and-manage-access-to-your-ad-accounts\">Business Access</a> roles on the ad_account: Owner, Admin, Catalogs Manager.\n\n<a href='/docs/shopping/catalog/'>Learn more</a>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catalogs",
+                "processing_results",
+                ":processing_result_id",
+                "item_issues"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "bookmark",
+                  "value": "<string>",
+                  "description": "Cursor used to fetch the next page of items"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "25",
+                  "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+                },
+                {
+                  "disabled": false,
+                  "key": "item_numbers",
+                  "value": "<integer>",
+                  "description": "Item number based on order of appearance in the Catalogs Feed. For example, '0' refers to first item found in a feed that was downloaded from a 'location' specified during feed creation."
+                },
+                {
+                  "disabled": false,
+                  "key": "item_numbers",
+                  "value": "<integer>",
+                  "description": "Item number based on order of appearance in the Catalogs Feed. For example, '0' refers to first item found in a feed that was downloaded from a 'location' specified during feed creation."
+                },
+                {
+                  "disabled": false,
+                  "key": "item_validation_issue",
+                  "value": "<string>",
+                  "description": "Filter item validation issues that have a given type of item validation issue."
+                },
+                {
+                  "disabled": false,
+                  "key": "ad_account_id",
+                  "value": "<string>",
+                  "description": "Unique identifier of an ad account."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "processing_result_id",
+                  "description": "(Required) Unique identifier of a feed processing result. It can be acquired from the \"id\" field of the \"items\" array within the response of the [List processing results for a given feed](https://developers.pinterest.com/docs/api/v5/#operation/feed_processing_results/list)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bf897a00-48ec-48fe-a1e2-90a37e326ba9",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "processing_results",
+                    ":processing_result_id",
+                    "item_issues"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "item_numbers",
+                      "value": "1"
+                    },
+                    {
+                      "key": "item_numbers",
+                      "value": "5"
+                    },
+                    {
+                      "key": "item_validation_issue",
+                      "value": "TITLE_MISSING"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "processing_result_id",
+                      "description": "(Required) Unique identifier of a feed processing result. It can be acquired from the \"id\" field of the \"items\" array within the response of the [List processing results for a given feed](https://developers.pinterest.com/docs/api/v5/#operation/feed_processing_results/list)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"item_number\": 0,\n      \"item_id\": \"DS0294-L\",\n      \"errors\": {\n        \"ADULT_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"ADWORDS_FORMAT_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"AVAILABILITY_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"BLOCKLISTED_IMAGE_SIGNATURE\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"DESCRIPTION_MISSING\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"DUPLICATE_PRODUCTS\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"IMAGE_LINK_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"IMAGE_LINK_LENGTH_TOO_LONG\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"IMAGE_LINK_MISSING\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"INVALID_DOMAIN\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"ITEMID_MISSING\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"ITEM_MAIN_IMAGE_DOWNLOAD_FAILURE\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"LINK_FORMAT_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"LINK_LENGTH_TOO_LONG\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"LIST_PRICE_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"MAX_ITEMS_PER_ITEM_GROUP_EXCEEDED\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"PARSE_LINE_ERROR\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"PINJOIN_CONTENT_UNSAFE\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"PRICE_CANNOT_BE_DETERMINED\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"PRICE_MISSING\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"PRODUCT_LINK_MISSING\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"PRODUCT_PRICE_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"TITLE_MISSING\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        }\n      },\n      \"warnings\": {\n        \"AD_LINK_FORMAT_WARNING\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"AD_LINK_SAME_AS_LINK\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"ADDITIONAL_IMAGE_LINK_LENGTH_TOO_LONG\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"ADDITIONAL_IMAGE_LINK_WARNING\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"ADWORDS_FORMAT_WARNING\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"ADWORDS_SAME_AS_LINK\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"AGE_GROUP_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"SIZE_SYSTEM_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"ANDROID_DEEP_LINK_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"AVAILABILITY_DATE_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"COUNTRY_DOES_NOT_MAP_TO_CURRENCY\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"CUSTOM_LABEL_LENGTH_TOO_LONG\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"DESCRIPTION_LENGTH_TOO_LONG\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"EXPIRATION_DATE_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"GENDER_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"GTIN_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"IMAGE_LINK_WARNING\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"IOS_DEEP_LINK_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"IS_BUNDLE_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"ITEM_ADDITIONAL_IMAGE_DOWNLOAD_FAILURE\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"LINK_FORMAT_WARNING\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"MIN_AD_PRICE_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"MPN_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"MULTIPACK_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"OPTIONAL_CONDITION_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"OPTIONAL_CONDITION_MISSING\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"OPTIONAL_PRODUCT_CATEGORY_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"OPTIONAL_PRODUCT_CATEGORY_MISSING\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"PRODUCT_CATEGORY_DEPTH_WARNING\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"PRODUCT_TYPE_LENGTH_TOO_LONG\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"SALES_PRICE_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"SALES_PRICE_TOO_LOW\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"SALES_PRICE_TOO_HIGH\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"SALE_DATE_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"SHIPPING_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"SHIPPING_HEIGHT_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"SHIPPING_WEIGHT_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"SHIPPING_WIDTH_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"SIZE_TYPE_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"TAX_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"TITLE_LENGTH_TOO_LONG\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"TOO_MANY_ADDITIONAL_IMAGE_LINKS\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"UTM_SOURCE_AUTO_CORRECTED\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"WEIGHT_UNIT_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        }\n      }\n    },\n    {\n      \"item_number\": 0,\n      \"item_id\": \"DS0294-L\",\n      \"errors\": {\n        \"ADULT_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"ADWORDS_FORMAT_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"AVAILABILITY_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"BLOCKLISTED_IMAGE_SIGNATURE\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"DESCRIPTION_MISSING\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"DUPLICATE_PRODUCTS\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"IMAGE_LINK_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"IMAGE_LINK_LENGTH_TOO_LONG\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"IMAGE_LINK_MISSING\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"INVALID_DOMAIN\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"ITEMID_MISSING\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"ITEM_MAIN_IMAGE_DOWNLOAD_FAILURE\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"LINK_FORMAT_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"LINK_LENGTH_TOO_LONG\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"LIST_PRICE_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"MAX_ITEMS_PER_ITEM_GROUP_EXCEEDED\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"PARSE_LINE_ERROR\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"PINJOIN_CONTENT_UNSAFE\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"PRICE_CANNOT_BE_DETERMINED\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"PRICE_MISSING\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"PRODUCT_LINK_MISSING\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"PRODUCT_PRICE_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"TITLE_MISSING\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        }\n      },\n      \"warnings\": {\n        \"AD_LINK_FORMAT_WARNING\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"AD_LINK_SAME_AS_LINK\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"ADDITIONAL_IMAGE_LINK_LENGTH_TOO_LONG\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"ADDITIONAL_IMAGE_LINK_WARNING\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"ADWORDS_FORMAT_WARNING\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"ADWORDS_SAME_AS_LINK\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"AGE_GROUP_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"SIZE_SYSTEM_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"ANDROID_DEEP_LINK_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"AVAILABILITY_DATE_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"COUNTRY_DOES_NOT_MAP_TO_CURRENCY\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"CUSTOM_LABEL_LENGTH_TOO_LONG\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"DESCRIPTION_LENGTH_TOO_LONG\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"EXPIRATION_DATE_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"GENDER_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"GTIN_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"IMAGE_LINK_WARNING\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"IOS_DEEP_LINK_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"IS_BUNDLE_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"ITEM_ADDITIONAL_IMAGE_DOWNLOAD_FAILURE\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"LINK_FORMAT_WARNING\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"MIN_AD_PRICE_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"MPN_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"MULTIPACK_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"OPTIONAL_CONDITION_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"OPTIONAL_CONDITION_MISSING\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"OPTIONAL_PRODUCT_CATEGORY_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"OPTIONAL_PRODUCT_CATEGORY_MISSING\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"PRODUCT_CATEGORY_DEPTH_WARNING\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"PRODUCT_TYPE_LENGTH_TOO_LONG\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"SALES_PRICE_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"SALES_PRICE_TOO_LOW\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"SALES_PRICE_TOO_HIGH\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"SALE_DATE_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"SHIPPING_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"SHIPPING_HEIGHT_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"SHIPPING_WEIGHT_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"SHIPPING_WIDTH_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"SIZE_TYPE_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"TAX_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"TITLE_LENGTH_TOO_LONG\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"TOO_MANY_ADDITIONAL_IMAGE_LINKS\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"UTM_SOURCE_AUTO_CORRECTED\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        },\n        \"WEIGHT_UNIT_INVALID\": {\n          \"attribute_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"provided_value\": \"string\"\n        }\n      }\n    }\n  ],\n  \"bookmark\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5701387a-4046-491c-9157-a8ece007de0d",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "processing_results",
+                    ":processing_result_id",
+                    "item_issues"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "item_numbers",
+                      "value": "1"
+                    },
+                    {
+                      "key": "item_numbers",
+                      "value": "5"
+                    },
+                    {
+                      "key": "item_validation_issue",
+                      "value": "TITLE_MISSING"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "processing_result_id",
+                      "description": "(Required) Unique identifier of a feed processing result. It can be acquired from the \"id\" field of the \"items\" array within the response of the [List processing results for a given feed](https://developers.pinterest.com/docs/api/v5/#operation/feed_processing_results/list)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 29,\n  \"message\": \"You are not permitted to access that resource.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ec9ac60-c58d-41f8-98b0-6c1a79ce1aab",
+              "name": "Processing Result not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "processing_results",
+                    ":processing_result_id",
+                    "item_issues"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "item_numbers",
+                      "value": "1"
+                    },
+                    {
+                      "key": "item_numbers",
+                      "value": "5"
+                    },
+                    {
+                      "key": "item_validation_issue",
+                      "value": "TITLE_MISSING"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "processing_result_id",
+                      "description": "(Required) Unique identifier of a feed processing result. It can be acquired from the \"id\" field of the \"items\" array within the response of the [List processing results for a given feed](https://developers.pinterest.com/docs/api/v5/#operation/feed_processing_results/list)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4184,\n  \"message\": \"Sorry! We could not find your processing result.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c890079-943a-4819-a1eb-c896f58ee98a",
+              "name": "Not implemented.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "processing_results",
+                    ":processing_result_id",
+                    "item_issues"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "item_numbers",
+                      "value": "1"
+                    },
+                    {
+                      "key": "item_numbers",
+                      "value": "5"
+                    },
+                    {
+                      "key": "item_validation_issue",
+                      "value": "TITLE_MISSING"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "processing_result_id",
+                      "description": "(Required) Unique identifier of a feed processing result. It can be acquired from the \"id\" field of the \"items\" array within the response of the [List processing results for a given feed](https://developers.pinterest.com/docs/api/v5/#operation/feed_processing_results/list)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Implemented",
+              "code": 501,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4181,\n  \"message\": \"Not implemented at the moment. Please, see documentation.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "407d0039-fd3e-4ca8-b25a-bd92399f77f9",
+              "name": "Unexpected error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "processing_results",
+                    ":processing_result_id",
+                    "item_issues"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "item_numbers",
+                      "value": "1"
+                    },
+                    {
+                      "key": "item_numbers",
+                      "value": "5"
+                    },
+                    {
+                      "key": "item_validation_issue",
+                      "value": "TITLE_MISSING"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "processing_result_id",
+                      "description": "(Required) Unique identifier of a feed processing result. It can be acquired from the \"id\" field of the \"items\" array within the response of the [List processing results for a given feed](https://developers.pinterest.com/docs/api/v5/#operation/feed_processing_results/list)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 299,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.pinterest.com/v5",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e2675968-08cc-4f52-a20b-27f43baaf999",
+    "name": "Pinterest Item API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is the description of your API.\n\nContact Support:\n Name: Pinterest, Inc.",
+      "type": "text/plain"
+    }
+  }
+}

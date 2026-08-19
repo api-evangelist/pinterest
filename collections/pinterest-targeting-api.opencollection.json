@@ -1,0 +1,65 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pinterest Targeting API",
+    "version": "5.13.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Targeting",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get targeting options",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/resources/targeting/:targeting_type",
+            "params": [
+              {
+                "name": "targeting_type",
+                "value": "",
+                "type": "path",
+                "description": "Public targeting type."
+              },
+              {
+                "name": "client_id",
+                "value": "",
+                "type": "query",
+                "description": "Client ID."
+              },
+              {
+                "name": "oauth_signature",
+                "value": "",
+                "type": "query",
+                "description": "Oauth signature"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query",
+                "description": "Timestamp"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "<p>You can use targeting values in ads placement to define your intended audience. </p> <p>Targeting metrics are organized around targeting specifications.</p> <p>For more information on ads targeting, see <a class=\"reference external\" href=\"https://help.pinterest.com/en/business/article/audience-targeting\" target=\"_blank\">Audience targeting</a>.</p>\n<p><b>Sample return:</b></p> <pre class=\"literal-block\"> [{&quot;36313&quot;: &quot;Australia: Moreton Bay - North&quot;, &quot;124735&quot;: &quot"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

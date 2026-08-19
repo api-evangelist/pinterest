@@ -1,0 +1,197 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pinterest Conversion API",
+    "version": "5.13.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Conversion",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get conversion tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/ad_accounts/:ad_account_id/conversion_tags",
+            "params": [
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of an ad account."
+              },
+              {
+                "name": "filter_deleted",
+                "value": "",
+                "type": "query",
+                "description": "Filter out deleted tags."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List conversion tags associated with an ad account."
+        },
+        {
+          "info": {
+            "name": "Create conversion tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pinterest.com/v5/ad_accounts/:ad_account_id/conversion_tags",
+            "params": [
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of an ad account."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a conversion tag, also known as <a href=\"https://help.pinterest.com/en/business/article/set-up-the-pinterest-tag\" target=\"_blank\">Pinterest tag</a>, with the option to enable enhanced match.<p/>\nThe Pinterest Tag tracks actions people take on the ad account s website after they view the ad account's ad on Pinterest. The advertiser needs to customize this tag to track conversions.<p/>\nFor more information, see:<p/>\n<a class=\"reference external\" href=\"https://help.pinterest.com/en/business/"
+        },
+        {
+          "info": {
+            "name": "Get Ocpm eligible conversion tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/ad_accounts/:ad_account_id/conversion_tags/ocpm_eligible",
+            "params": [
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of an ad account."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get Ocpm eligible conversion tag events for an ad account."
+        },
+        {
+          "info": {
+            "name": "Get page visit conversion tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/ad_accounts/:ad_account_id/conversion_tags/page_visit",
+            "params": [
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of an ad account."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "The order in which to sort the items returned: ASCENDING or DESCENDING\nby ID. Note that higher-value IDs are associated with more-recently added\nitems."
+              },
+              {
+                "name": "bookmark",
+                "value": "",
+                "type": "query",
+                "description": "Cursor used to fetch the next page of items"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get all page visit conversion tag events for an ad account."
+        },
+        {
+          "info": {
+            "name": "Get conversion tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/ad_accounts/:ad_account_id/conversion_tags/:conversion_tag_id",
+            "params": [
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of an ad account."
+              },
+              {
+                "name": "conversion_tag_id",
+                "value": "2617998078212",
+                "type": "path",
+                "description": "Id of the conversion tag."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get information about an existing conversion tag."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

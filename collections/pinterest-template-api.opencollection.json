@@ -1,0 +1,71 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pinterest Template API",
+    "version": "5.13.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Template",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create async request for an analytics report using a template",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pinterest.com/v5/ad_accounts/:ad_account_id/templates/:template_id/reports",
+            "params": [
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of an ad account."
+              },
+              {
+                "name": "template_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of a template."
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Metric report start date (UTC). Format: YYYY-MM-DD. Cannot be more than 2.5 years back from today."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "Metric report end date (UTC). Format: YYYY-MM-DD. Cannot be more than 2.5 years past start date."
+              },
+              {
+                "name": "granularity",
+                "value": "DAY",
+                "type": "query",
+                "description": "TOTAL - metrics are aggregated over the specified date range.<br> DAY - metrics are broken down daily.<br> HOUR - metrics are broken down hourly.<br>WEEKLY - metrics are broken down weekly.<br>MONTHLY - metrics are broken down monthly"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This takes a template ID and an optional custom timeframe and constructs an asynchronous report based on the\ntemplate. It returns a token that you can use to download the report when it is ready."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

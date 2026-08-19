@@ -1,0 +1,124 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pinterest Results API",
+    "version": "5.13.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Results",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List processing results for a given feed",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/catalogs/feeds/:feed_id/processing_results",
+            "params": [
+              {
+                "name": "feed_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of a feed"
+              },
+              {
+                "name": "bookmark",
+                "value": "",
+                "type": "query",
+                "description": "Cursor used to fetch the next page of items"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+              },
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier of an ad account."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Fetch a feed processing results owned by the \"operation user_account\". Please note that for now the bookmark parameter is not functional and only the first page will be available until it is implemented in some release in the near future.\n- By default, the \"operation user_account\" is the token user_account.\n\nOptional: Business Access: Specify an <code>ad_account_id</code> (obtained via <a href='/docs/api/v5/#operation/ad_accounts/list'>List ad accounts</a>) to use the owner of that ad_account as"
+        },
+        {
+          "info": {
+            "name": "List item issues for a given processing result",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/catalogs/processing_results/:processing_result_id/item_issues",
+            "params": [
+              {
+                "name": "bookmark",
+                "value": "",
+                "type": "query",
+                "description": "Cursor used to fetch the next page of items"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+              },
+              {
+                "name": "processing_result_id",
+                "value": "5224831246441439241",
+                "type": "path",
+                "description": "Unique identifier of a feed processing result. It can be acquired from the \"id\" field of the \"items\" array within the response of the [List processing results for a given feed](https://developers.pinterest.com/docs/api/v5/#operation/feed_processing_results/list)."
+              },
+              {
+                "name": "item_numbers",
+                "value": "1,5",
+                "type": "query",
+                "description": "Item number based on order of appearance in the Catalogs Feed. For example, '0' refers to first item found in a feed that was downloaded from a 'location' specified during feed creation."
+              },
+              {
+                "name": "item_validation_issue",
+                "value": "TITLE_MISSING",
+                "type": "query",
+                "description": "Filter item validation issues that have a given type of item validation issue."
+              },
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier of an ad account."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List item validation issues for a given feed processing result owned by the \"operation user_account\". Up to 20 random samples of affected items are returned for each error and warning code. Please note that for now query parameters 'item_numbers' and 'item_validation_issue' cannot be used simultaneously until it is implemented in some release in the future.\n- By default, the \"operation user_account\" is the token user_account.\n\nOptional: Business Access: Specify an <code>ad_account_id</code> (obt"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,532 @@
+{
+  "item": [
+    {
+      "id": "966d9fc8-aa77-4b12-aab5-d4254a78d50b",
+      "name": "Audiences",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b37d758f-55f8-4cf3-9f92-33c3b347496b",
+          "name": "List audiences",
+          "request": {
+            "name": "List audiences",
+            "description": {
+              "content": "Get list of audiences for the ad account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "audiences"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "bookmark",
+                  "value": "<string>",
+                  "description": "Cursor used to fetch the next page of items"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>",
+                  "description": "The order in which to sort the items returned: ASCENDING or DESCENDING by ID.\nFor received audiences, it is sorted by sharing event time.\nNote that higher-value IDs are associated with more-recently added items."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "25",
+                  "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+                },
+                {
+                  "disabled": false,
+                  "key": "ownership_type",
+                  "value": "OWNED",
+                  "description": "<strong>This feature is currently in beta and not available to all apps.</strong>\nFilter audiences by ownership type."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ae067a0b-b39e-4dea-ac6d-639cf3d7d2a3",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "audiences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "ASCENDING"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "ownership_type",
+                      "value": "OWNED"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"ad_account_id\": \"549755885175\",\n      \"id\": \"1234\",\n      \"name\": \"ACME Tools\",\n      \"audience_type\": \"string\",\n      \"description\": \"People who love making quilts.\",\n      \"rule\": {\n        \"country\": \"US\",\n        \"customer_list_id\": \"5497558859876\",\n        \"engagement_domain\": [\n          \"www.somedomain.com\"\n        ],\n        \"engagement_type\": \"click\",\n        \"event\": \"checkout\",\n        \"event_data\": {\n          \"currency\": \"USD\",\n          \"lead_type\": \"Newsletter\",\n          \"line_items\": {\n            \"product_brand\": \"Parker\",\n            \"product_category\": \"Shoes\",\n            \"product_id\": 1414,\n            \"product_name\": \"Parker Boots\",\n            \"product_price\": \"99.99\",\n            \"product_quantity\": 2,\n            \"product_variant\": \"Red\",\n            \"product_variant_id\": \"1414-34832\"\n          },\n          \"order_id\": \"X-151481\",\n          \"order_quantity\": 1,\n          \"page_name\": \"Our Favorite Pins on Pinterest.\",\n          \"promo_code\": \"WINTER10\",\n          \"property\": \"Athleta\",\n          \"search_query\": \"boots\",\n          \"value\": \"199.98\",\n          \"video_title\": \"How to style your Parker Boots\"\n        },\n        \"percentage\": 3,\n        \"pin_id\": [\n          \"34567\"\n        ],\n        \"prefill\": true,\n        \"retention_days\": 30,\n        \"seed_id\": [\n          \"2542620639259\",\n          \"2542620639261\"\n        ],\n        \"url\": [\n          \"string\",\n          \"string\"\n        ],\n        \"visitor_source_id\": \"549755885175\",\n        \"event_source\": {\n          \"=\": [\n            \"web\",\n            \"mobile\"\n          ]\n        },\n        \"ingestion_source\": {\n          \"=\": [\n            \"tag\"\n          ]\n        },\n        \"engager_type\": 1,\n        \"campaign_id\": [\n          \"626744528398\"\n        ],\n        \"ad_id\": [\n          \"687201361754\"\n        ],\n        \"objective_type\": [\n          \"AWARENESS\"\n        ],\n        \"ad_account_id\": \"549755885175\"\n      },\n      \"size\": 1000,\n      \"status\": \"string\",\n      \"type\": \"audience\",\n      \"created_timestamp\": 1451431341,\n      \"updated_timestamp\": 1451431341\n    },\n    {\n      \"ad_account_id\": \"549755885175\",\n      \"id\": \"1234\",\n      \"name\": \"ACME Tools\",\n      \"audience_type\": \"string\",\n      \"description\": \"People who love making quilts.\",\n      \"rule\": {\n        \"country\": \"US\",\n        \"customer_list_id\": \"5497558859876\",\n        \"engagement_domain\": [\n          \"www.somedomain.com\"\n        ],\n        \"engagement_type\": \"click\",\n        \"event\": \"checkout\",\n        \"event_data\": {\n          \"currency\": \"USD\",\n          \"lead_type\": \"Newsletter\",\n          \"line_items\": {\n            \"product_brand\": \"Parker\",\n            \"product_category\": \"Shoes\",\n            \"product_id\": 1414,\n            \"product_name\": \"Parker Boots\",\n            \"product_price\": \"99.99\",\n            \"product_quantity\": 2,\n            \"product_variant\": \"Red\",\n            \"product_variant_id\": \"1414-34832\"\n          },\n          \"order_id\": \"X-151481\",\n          \"order_quantity\": 1,\n          \"page_name\": \"Our Favorite Pins on Pinterest.\",\n          \"promo_code\": \"WINTER10\",\n          \"property\": \"Athleta\",\n          \"search_query\": \"boots\",\n          \"value\": \"199.98\",\n          \"video_title\": \"How to style your Parker Boots\"\n        },\n        \"percentage\": 3,\n        \"pin_id\": [\n          \"34567\"\n        ],\n        \"prefill\": true,\n        \"retention_days\": 30,\n        \"seed_id\": [\n          \"2542620639259\",\n          \"2542620639261\"\n        ],\n        \"url\": [\n          \"string\",\n          \"string\"\n        ],\n        \"visitor_source_id\": \"549755885175\",\n        \"event_source\": {\n          \"=\": [\n            \"web\",\n            \"mobile\"\n          ]\n        },\n        \"ingestion_source\": {\n          \"=\": [\n            \"tag\"\n          ]\n        },\n        \"engager_type\": 1,\n        \"campaign_id\": [\n          \"626744528398\"\n        ],\n        \"ad_id\": [\n          \"687201361754\"\n        ],\n        \"objective_type\": [\n          \"AWARENESS\"\n        ],\n        \"ad_account_id\": \"549755885175\"\n      },\n      \"size\": 1000,\n      \"status\": \"string\",\n      \"type\": \"audience\",\n      \"created_timestamp\": 1451431341,\n      \"updated_timestamp\": 1451431341\n    }\n  ],\n  \"bookmark\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d6c66f65-6eb1-4535-936e-b4c6d081731d",
+              "name": "Invalid ad account audience parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "audiences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "ASCENDING"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "ownership_type",
+                      "value": "OWNED"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"Invalid ad account audience parameters.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "55e0f67b-ba5f-43b1-9792-f510ceb9f60c",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "audiences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "ASCENDING"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "ownership_type",
+                      "value": "OWNED"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 887,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5d07f64e-6dfe-422c-a2c5-70e4ef76aadf",
+          "name": "Create audience",
+          "request": {
+            "name": "Create audience",
+            "description": {
+              "content": "Create an audience you can use in targeting for specific ad groups. Targeting combines customer information with\nthe ways users interact with Pinterest to help you reach specific groups of users; you can include or exclude\nspecific audience_ids when you create an ad group. <p/>\nFor more, see <a class=\"reference external\" href=\"https://help.pinterest.com/en/business/article/audience-targeting\" target=\"_blank\">Audience targeting</a>.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "audiences"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6e0d0570-360d-484a-ac30-a881d42e7d37",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "audiences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"audience_type\": \"ACTALIKE\",\n  \"name\": \"string\",\n  \"rule\": {\n    \"country\": \"US\",\n    \"customer_list_id\": \"5497558859876\",\n    \"engagement_domain\": [\n      \"www.somedomain.com\"\n    ],\n    \"engagement_type\": \"click\",\n    \"event\": \"checkout\",\n    \"event_data\": {\n      \"currency\": \"USD\",\n      \"lead_type\": \"Newsletter\",\n      \"line_items\": {\n        \"product_brand\": \"Parker\",\n        \"product_category\": \"Shoes\",\n        \"product_id\": 1414,\n        \"product_name\": \"Parker Boots\",\n        \"product_price\": \"99.99\",\n        \"product_quantity\": 2,\n        \"product_variant\": \"Red\",\n        \"product_variant_id\": \"1414-34832\"\n      },\n      \"order_id\": \"X-151481\",\n      \"order_quantity\": 1,\n      \"page_name\": \"Our Favorite Pins on Pinterest.\",\n      \"promo_code\": \"WINTER10\",\n      \"property\": \"Athleta\",\n      \"search_query\": \"boots\",\n      \"value\": \"199.98\",\n      \"video_title\": \"How to style your Parker Boots\"\n    },\n    \"percentage\": 3,\n    \"pin_id\": [\n      \"34567\"\n    ],\n    \"prefill\": true,\n    \"retention_days\": 30,\n    \"seed_id\": [\n      \"2542620639259\",\n      \"2542620639261\"\n    ],\n    \"url\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"visitor_source_id\": \"549755885175\",\n    \"event_source\": {\n      \"=\": [\n        \"web\",\n        \"mobile\"\n      ]\n    },\n    \"ingestion_source\": {\n      \"=\": [\n        \"tag\"\n      ]\n    },\n    \"engager_type\": 1,\n    \"campaign_id\": [\n      \"626744528398\"\n    ],\n    \"ad_id\": [\n      \"687201361754\"\n    ],\n    \"objective_type\": [\n      \"AWARENESS\"\n    ],\n    \"ad_account_id\": \"549755885175\"\n  },\n  \"ad_account_id\": \"549755885175\",\n  \"description\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ad_account_id\": \"549755885175\",\n  \"id\": \"1234\",\n  \"name\": \"ACME Tools\",\n  \"audience_type\": \"string\",\n  \"description\": \"People who love making quilts.\",\n  \"rule\": {\n    \"country\": \"US\",\n    \"customer_list_id\": \"5497558859876\",\n    \"engagement_domain\": [\n      \"www.somedomain.com\"\n    ],\n    \"engagement_type\": \"click\",\n    \"event\": \"checkout\",\n    \"event_data\": {\n      \"currency\": \"USD\",\n      \"lead_type\": \"Newsletter\",\n      \"line_items\": {\n        \"product_brand\": \"Parker\",\n        \"product_category\": \"Shoes\",\n        \"product_id\": 1414,\n        \"product_name\": \"Parker Boots\",\n        \"product_price\": \"99.99\",\n        \"product_quantity\": 2,\n        \"product_variant\": \"Red\",\n        \"product_variant_id\": \"1414-34832\"\n      },\n      \"order_id\": \"X-151481\",\n      \"order_quantity\": 1,\n      \"page_name\": \"Our Favorite Pins on Pinterest.\",\n      \"promo_code\": \"WINTER10\",\n      \"property\": \"Athleta\",\n      \"search_query\": \"boots\",\n      \"value\": \"199.98\",\n      \"video_title\": \"How to style your Parker Boots\"\n    },\n    \"percentage\": 3,\n    \"pin_id\": [\n      \"34567\"\n    ],\n    \"prefill\": true,\n    \"retention_days\": 30,\n    \"seed_id\": [\n      \"2542620639259\",\n      \"2542620639261\"\n    ],\n    \"url\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"visitor_source_id\": \"549755885175\",\n    \"event_source\": {\n      \"=\": [\n        \"web\",\n        \"mobile\"\n      ]\n    },\n    \"ingestion_source\": {\n      \"=\": [\n        \"tag\"\n      ]\n    },\n    \"engager_type\": 1,\n    \"campaign_id\": [\n      \"626744528398\"\n    ],\n    \"ad_id\": [\n      \"687201361754\"\n    ],\n    \"objective_type\": [\n      \"AWARENESS\"\n    ],\n    \"ad_account_id\": \"549755885175\"\n  },\n  \"size\": 1000,\n  \"status\": \"string\",\n  \"type\": \"audience\",\n  \"created_timestamp\": 1451431341,\n  \"updated_timestamp\": 1451431341\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "20509738-cc7d-4b9c-be5a-d22c215964ed",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "audiences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"audience_type\": \"ACTALIKE\",\n  \"name\": \"string\",\n  \"rule\": {\n    \"country\": \"US\",\n    \"customer_list_id\": \"5497558859876\",\n    \"engagement_domain\": [\n      \"www.somedomain.com\"\n    ],\n    \"engagement_type\": \"click\",\n    \"event\": \"checkout\",\n    \"event_data\": {\n      \"currency\": \"USD\",\n      \"lead_type\": \"Newsletter\",\n      \"line_items\": {\n        \"product_brand\": \"Parker\",\n        \"product_category\": \"Shoes\",\n        \"product_id\": 1414,\n        \"product_name\": \"Parker Boots\",\n        \"product_price\": \"99.99\",\n        \"product_quantity\": 2,\n        \"product_variant\": \"Red\",\n        \"product_variant_id\": \"1414-34832\"\n      },\n      \"order_id\": \"X-151481\",\n      \"order_quantity\": 1,\n      \"page_name\": \"Our Favorite Pins on Pinterest.\",\n      \"promo_code\": \"WINTER10\",\n      \"property\": \"Athleta\",\n      \"search_query\": \"boots\",\n      \"value\": \"199.98\",\n      \"video_title\": \"How to style your Parker Boots\"\n    },\n    \"percentage\": 3,\n    \"pin_id\": [\n      \"34567\"\n    ],\n    \"prefill\": true,\n    \"retention_days\": 30,\n    \"seed_id\": [\n      \"2542620639259\",\n      \"2542620639261\"\n    ],\n    \"url\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"visitor_source_id\": \"549755885175\",\n    \"event_source\": {\n      \"=\": [\n        \"web\",\n        \"mobile\"\n      ]\n    },\n    \"ingestion_source\": {\n      \"=\": [\n        \"tag\"\n      ]\n    },\n    \"engager_type\": 1,\n    \"campaign_id\": [\n      \"626744528398\"\n    ],\n    \"ad_id\": [\n      \"687201361754\"\n    ],\n    \"objective_type\": [\n      \"AWARENESS\"\n    ],\n    \"ad_account_id\": \"549755885175\"\n  },\n  \"ad_account_id\": \"549755885175\",\n  \"description\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 887,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.pinterest.com/v5",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "81b36b39-a09a-492e-9bf1-7fc1c931abe4",
+    "name": "Pinterest Audiences API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is the description of your API.\n\nContact Support:\n Name: Pinterest, Inc.",
+      "type": "text/plain"
+    }
+  }
+}

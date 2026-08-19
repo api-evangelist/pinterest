@@ -1,0 +1,1055 @@
+{
+  "item": [
+    {
+      "id": "d44258de-eac1-417d-b10b-d4dcf1c65b59",
+      "name": "Invites",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "dae0ee94-4299-4ad8-989c-6e700c72189c",
+          "name": "Accept or decline an invite/request",
+          "request": {
+            "name": "Accept or decline an invite/request",
+            "description": {
+              "content": "Accept or decline invites or requests.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "businesses",
+                "invites"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"invites\": [\n    {\n      \"invite_id\": \"<string>\",\n      \"action\": {\n        \"accept_invite\": \"<boolean>\",\n        \"asset_id_to_permissions\": {\n          \"key_0\": [\n            \"<string>\"\n          ]\n        }\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "35056d78-45c1-4b32-b1b9-3ac0ff07c716",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "businesses",
+                    "invites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invites\": [\n    {\n      \"invite_id\": \"<string>\",\n      \"action\": {\n        \"accept_invite\": \"<boolean>\",\n        \"asset_id_to_permissions\": {\n          \"key_0\": [\n            \"<string>\"\n          ],\n          \"key_1\": [\n            \"<string>\"\n          ],\n          \"key_2\": [\n            \"<string>\"\n          ]\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"exception\": {\n        \"invite_or_request_id\": \"383791336903426391\",\n        \"code\": 403,\n        \"message\": \"You hit the maximum number of pending invites allowed.\",\n        \"users_or_partner_ids\": [\n          \"businessMember0101\",\n          \"business+member@business.com\"\n        ]\n      },\n      \"invite\": {\n        \"id\": \"383791336903426391\",\n        \"invite_data\": {\n          \"invite_expiration\": 1709748104775,\n          \"invite_status\": \"PENDING\",\n          \"invite_type\": \"MEMBER_INVITE\",\n          \"last_updated_time\": 1646767577816,\n          \"sent_at\": 1646767577816\n        },\n        \"is_received_invite\": false,\n        \"user\": {\n          \"email\": \"business0101@business.com\",\n          \"id\": \"383791336903426391\",\n          \"username\": \"business0101\"\n        }\n      }\n    },\n    {\n      \"exception\": {\n        \"invite_or_request_id\": \"383791336903426391\",\n        \"code\": 403,\n        \"message\": \"You hit the maximum number of pending invites allowed.\",\n        \"users_or_partner_ids\": [\n          \"businessMember0101\",\n          \"business+member@business.com\"\n        ]\n      },\n      \"invite\": {\n        \"id\": \"383791336903426391\",\n        \"invite_data\": {\n          \"invite_expiration\": 1709748104775,\n          \"invite_status\": \"PENDING\",\n          \"invite_type\": \"MEMBER_INVITE\",\n          \"last_updated_time\": 1646767577816,\n          \"sent_at\": 1646767577816\n        },\n        \"is_received_invite\": false,\n        \"user\": {\n          \"email\": \"business0101@business.com\",\n          \"id\": \"383791336903426391\",\n          \"username\": \"business0101\"\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e7cb095-4fb2-4f74-9027-0acb0133dbf2",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "businesses",
+                    "invites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invites\": [\n    {\n      \"invite_id\": \"<string>\",\n      \"action\": {\n        \"accept_invite\": \"<boolean>\",\n        \"asset_id_to_permissions\": {\n          \"key_0\": [\n            \"<string>\"\n          ],\n          \"key_1\": [\n            \"<string>\"\n          ],\n          \"key_2\": [\n            \"<string>\"\n          ]\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 9759,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e691fd1a-5a46-47bc-81e9-249833c74520",
+          "name": "Update invite/request with an asset permission",
+          "request": {
+            "name": "Update invite/request with an asset permission",
+            "description": {
+              "content": "Assign asset permissions information to an existing invite/request. Can be used to:\n- Request access to a partner's asset. Note: This is only for when no existing partnership exists. If an existing\n  partnership exists, use \"Create a request to access an existing partner's assets\" to request access to your\n  partner's assets.\n    - invite_type=\"PARTNER_REQUEST\"\n- Invite a partner to access your business assets. Note: This is only for when there is no existing partnership.\n  If there is an existing partnership, use \"Assign/Update partner asset permissions\" to assign a partner access to\n  new assets.\n    - invite_type=\"PARTNER_INVITE\"\n- Invite a member to access your business assets. Note: This is only for when there is no existing membership.\n  If there is an existing membership, use \"Assign/Update member asset permissions\" to assign a member access to new\n  assets.\n    - invite_type=\"MEMBER_INVITE\"\n\nTo learn more about permission levels, visit https://help.pinterest.com/en/business/article/business-manager-overview.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "businesses",
+                ":business_id",
+                "invites",
+                "assets",
+                "access"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "business_id",
+                  "description": "(Required) Unique identifier of the requesting business."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"invites\": [\n    {\n      \"invite_id\": \"<string>\",\n      \"invite_type\": \"<string>\",\n      \"asset_id_to_permissions\": {\n        \"key_0\": [\n          \"<string>\"\n        ],\n        \"key_1\": [\n          \"<string>\"\n        ]\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a728b56e-867c-40c7-9039-a7af45d786e8",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "businesses",
+                    ":business_id",
+                    "invites",
+                    "assets",
+                    "access"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_id",
+                      "description": "(Required) Unique identifier of the requesting business."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invites\": [\n    {\n      \"invite_id\": \"1234567890123\",\n      \"invite_type\": \"MEMBER_INVITE\",\n      \"asset_id_to_permissions\": {\n        \"key_0\": [\n          \"<string>\"\n        ],\n        \"key_1\": [\n          \"<string>\"\n        ],\n        \"key_2\": [\n          \"<string>\"\n        ]\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"exception\": {\n        \"invite_or_request_id\": \"383791336903426391\",\n        \"code\": 403,\n        \"message\": \"You hit the maximum number of pending invites allowed.\",\n        \"users_or_partner_ids\": [\n          \"businessMember0101\",\n          \"business+member@business.com\"\n        ]\n      },\n      \"invite\": {\n        \"created_by_business_id\": \"1234567890123\",\n        \"created_by_user_id\": \"1234567890123\",\n        \"user\": {\n          \"email\": \"business0101@business.com\",\n          \"id\": \"383791336903426391\",\n          \"username\": \"business0101\"\n        },\n        \"id\": \"383791336903426391\",\n        \"invite_data\": {\n          \"invite_expiration\": 1709748104775,\n          \"invite_status\": \"PENDING\",\n          \"invite_type\": \"MEMBER_INVITE\",\n          \"last_updated_time\": 1646767577816,\n          \"sent_at\": 1646767577816\n        },\n        \"is_received_invite\": false\n      }\n    },\n    {\n      \"exception\": {\n        \"invite_or_request_id\": \"383791336903426391\",\n        \"code\": 403,\n        \"message\": \"You hit the maximum number of pending invites allowed.\",\n        \"users_or_partner_ids\": [\n          \"businessMember0101\",\n          \"business+member@business.com\"\n        ]\n      },\n      \"invite\": {\n        \"created_by_business_id\": \"1234567890123\",\n        \"created_by_user_id\": \"1234567890123\",\n        \"user\": {\n          \"email\": \"business0101@business.com\",\n          \"id\": \"383791336903426391\",\n          \"username\": \"business0101\"\n        },\n        \"id\": \"383791336903426391\",\n        \"invite_data\": {\n          \"invite_expiration\": 1709748104775,\n          \"invite_status\": \"PENDING\",\n          \"invite_type\": \"MEMBER_INVITE\",\n          \"last_updated_time\": 1646767577816,\n          \"sent_at\": 1646767577816\n        },\n        \"is_received_invite\": true\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b8b0b6fd-361f-40ce-bb91-c7d02aa8a6b7",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "businesses",
+                    ":business_id",
+                    "invites",
+                    "assets",
+                    "access"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_id",
+                      "description": "(Required) Unique identifier of the requesting business."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invites\": [\n    {\n      \"invite_id\": \"1234567890123\",\n      \"invite_type\": \"MEMBER_INVITE\",\n      \"asset_id_to_permissions\": {\n        \"key_0\": [\n          \"<string>\"\n        ],\n        \"key_1\": [\n          \"<string>\"\n        ],\n        \"key_2\": [\n          \"<string>\"\n        ]\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 9759,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "097ab9e2-0296-4e13-915e-2d4b909b1fe9",
+          "name": "Get invites/requests",
+          "request": {
+            "name": "Get invites/requests",
+            "description": {
+              "content": "Get the membership/partnership invites and/or requests for the authorized user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "businesses",
+                ":business_id",
+                "invites"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "is_member",
+                  "value": "true",
+                  "description": "A boolean field to indicate whether the invite is to create a partnership or a membership."
+                },
+                {
+                  "disabled": false,
+                  "key": "invite_status",
+                  "value": "<string>",
+                  "description": "A list of invite statuses to filter invites by. Only invites whose status is in the provided statuses will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "invite_type",
+                  "value": "<string>",
+                  "description": "Invite type to filter invites by. Only invites of the specified type will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "bookmark",
+                  "value": "<string>",
+                  "description": "Cursor used to fetch the next page of items"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "25",
+                  "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "business_id",
+                  "description": "(Required) Unique identifier of the requesting business."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "17107e6b-30c4-4780-a902-f02e770f1251",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "businesses",
+                    ":business_id",
+                    "invites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "is_member",
+                      "value": "true"
+                    },
+                    {
+                      "key": "invite_status",
+                      "value": "PENDING"
+                    },
+                    {
+                      "key": "invite_type",
+                      "value": "MEMBER_INVITE"
+                    },
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_id",
+                      "description": "(Required) Unique identifier of the requesting business."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"assets_summary\": {\n        \"ad_accounts\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"permissions\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"permissions\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"profiles\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"permissions\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"permissions\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"business_roles\": [\n        \"BIZ_ADMIN\"\n      ],\n      \"created_by_business\": {\n        \"email\": \"business0101@business.com\",\n        \"id\": \"383791336903426391\",\n        \"username\": \"business0101\"\n      },\n      \"created_by_user\": {\n        \"email\": \"business0101@business.com\",\n        \"id\": \"383791336903426391\",\n        \"username\": \"business0101\"\n      },\n      \"created_time\": 1646767577816,\n      \"id\": \"383791336903426391\",\n      \"invite_data\": {\n        \"invite_expiration\": 1709748104775,\n        \"invite_status\": \"PENDING\",\n        \"invite_type\": \"MEMBER_INVITE\",\n        \"last_updated_time\": 1646767577816,\n        \"sent_at\": 1646767577816\n      },\n      \"is_received_invite\": false,\n      \"user\": {\n        \"email\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"username\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    {\n      \"assets_summary\": {\n        \"ad_accounts\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"permissions\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"permissions\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"profiles\": [\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"permissions\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"permissions\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"business_roles\": [\n        \"BIZ_ADMIN\"\n      ],\n      \"created_by_business\": {\n        \"email\": \"business0101@business.com\",\n        \"id\": \"383791336903426391\",\n        \"username\": \"business0101\"\n      },\n      \"created_by_user\": {\n        \"email\": \"business0101@business.com\",\n        \"id\": \"383791336903426391\",\n        \"username\": \"business0101\"\n      },\n      \"created_time\": 1646767577816,\n      \"id\": \"383791336903426391\",\n      \"invite_data\": {\n        \"invite_expiration\": 1709748104775,\n        \"invite_status\": \"PENDING\",\n        \"invite_type\": \"MEMBER_INVITE\",\n        \"last_updated_time\": 1646767577816,\n        \"sent_at\": 1646767577816\n      },\n      \"is_received_invite\": false,\n      \"user\": {\n        \"email\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"username\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    }\n  ],\n  \"bookmark\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "58ba687d-197e-45cb-adb5-240e0fb09721",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "businesses",
+                    ":business_id",
+                    "invites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "is_member",
+                      "value": "true"
+                    },
+                    {
+                      "key": "invite_status",
+                      "value": "PENDING"
+                    },
+                    {
+                      "key": "invite_type",
+                      "value": "MEMBER_INVITE"
+                    },
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_id",
+                      "description": "(Required) Unique identifier of the requesting business."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 9759,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "590239ac-c06b-41f9-9116-7585d2322091",
+          "name": "Create invites or requests",
+          "request": {
+            "name": "Create invites or requests",
+            "description": {
+              "content": "Create batch invites or requests. Can create batch invites or requests as described below.\n- Invite members to join the business. This would required specifying the following:\n    - invite_type=\"MEMBER_INVITE\"\n    - business_role=\"EMPLOYEE\" OR business_role=\"BIZ_ADMIN\" (To learn more about business roles, visit\n    https://help.pinterest.com/en/business/article/profile-permissions-in-business-access.)\n    - members\n- Invite partners to access your business assets. This would require specifying the following:\n    - invite_type=\"PARTNER_INVITE\"\n    - business_role=\"PARTNER\"\n    - partners\n- Request to be a partner so you can access their assets. This would require specifying the following:\n    - invite_type=\"PARTNER_REQUEST\"\n    - business_role=\"PARTNER\"\n    - partners",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "businesses",
+                ":business_id",
+                "invites"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "business_id",
+                  "description": "(Required) Business id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"business_role\": \"<string>\",\n  \"invite_type\": \"<string>\",\n  \"members\": [\n    \"<string>\"\n  ],\n  \"partners\": [\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "424d61d1-7c4b-41ff-b0ad-bc002ce2fd19",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "businesses",
+                    ":business_id",
+                    "invites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_id",
+                      "description": "(Required) Business id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"business_role\": \"BIZ_ADMIN\",\n  \"invite_type\": \"MEMBER_INVITE\",\n  \"members\": [\n    \"business0101\",\n    \"user@business.com\"\n  ],\n  \"partners\": [\n    \"809944451643622187\",\n    \"766456567741825556\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"exception\": {\n        \"invite_or_request_id\": \"383791336903426391\",\n        \"code\": 403,\n        \"message\": \"You hit the maximum number of pending invites allowed.\",\n        \"users_or_partner_ids\": [\n          \"businessMember0101\",\n          \"business+member@business.com\"\n        ]\n      },\n      \"invite\": {\n        \"id\": \"383791336903426391\",\n        \"user\": {\n          \"email\": \"business0101@business.com\",\n          \"id\": \"383791336903426391\",\n          \"username\": \"business0101\"\n        }\n      }\n    },\n    {\n      \"exception\": {\n        \"invite_or_request_id\": \"383791336903426391\",\n        \"code\": 403,\n        \"message\": \"You hit the maximum number of pending invites allowed.\",\n        \"users_or_partner_ids\": [\n          \"businessMember0101\",\n          \"business+member@business.com\"\n        ]\n      },\n      \"invite\": {\n        \"id\": \"383791336903426391\",\n        \"user\": {\n          \"email\": \"business0101@business.com\",\n          \"id\": \"383791336903426391\",\n          \"username\": \"business0101\"\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "31c0cb3b-1361-4a34-8856-1d1a68eca6d2",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "businesses",
+                    ":business_id",
+                    "invites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_id",
+                      "description": "(Required) Business id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"business_role\": \"BIZ_ADMIN\",\n  \"invite_type\": \"MEMBER_INVITE\",\n  \"members\": [\n    \"business0101\",\n    \"user@business.com\"\n  ],\n  \"partners\": [\n    \"809944451643622187\",\n    \"766456567741825556\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 9759,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4913fb3b-e07d-48d8-a4d3-35884ab521f1",
+          "name": "Cancel invites/requests",
+          "request": {
+            "name": "Cancel invites/requests",
+            "description": {
+              "content": "Cancel membership/partnership invites and/or requests.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "businesses",
+                ":business_id",
+                "invites"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "business_id",
+                  "description": "(Required) Business id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"invite_ids\": [\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6abe32f1-4080-4395-b086-908dad1e1475",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "businesses",
+                    ":business_id",
+                    "invites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_id",
+                      "description": "(Required) Business id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invite_ids\": [\n    \"1234567890123456789\",\n    \"1122334455667788991\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"exception\": {\n        \"invite_id\": \"5776\",\n        \"message\": \"Business Invite request cannot be performed on current invitation status.\"\n      },\n      \"invite\": {\n        \"id\": \"383791336903426391\",\n        \"invite_data\": {\n          \"invite_expiration\": 1709748104775,\n          \"invite_status\": \"PENDING\",\n          \"invite_type\": \"MEMBER_INVITE\",\n          \"last_updated_time\": 1646767577816,\n          \"sent_at\": 1646767577816\n        },\n        \"is_received_invite\": true,\n        \"user\": {\n          \"email\": \"business0101@business.com\",\n          \"id\": \"383791336903426391\",\n          \"username\": \"business0101\"\n        }\n      }\n    },\n    {\n      \"exception\": {\n        \"invite_id\": \"5270\",\n        \"message\": \"Business Invite request cannot be performed on current invitation status.\"\n      },\n      \"invite\": {\n        \"id\": \"383791336903426391\",\n        \"invite_data\": {\n          \"invite_expiration\": 1709748104775,\n          \"invite_status\": \"PENDING\",\n          \"invite_type\": \"MEMBER_INVITE\",\n          \"last_updated_time\": 1646767577816,\n          \"sent_at\": 1646767577816\n        },\n        \"is_received_invite\": true,\n        \"user\": {\n          \"email\": \"business0101@business.com\",\n          \"id\": \"383791336903426391\",\n          \"username\": \"business0101\"\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "05235f0c-865b-460c-9346-d2417df2183c",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "businesses",
+                    ":business_id",
+                    "invites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_id",
+                      "description": "(Required) Business id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invite_ids\": [\n    \"1234567890123456789\",\n    \"1122334455667788991\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 9759,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.pinterest.com/v5",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "03a1d717-95ba-41a2-b253-dc7665151d44",
+    "name": "Pinterest Invites API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is the description of your API.\n\nContact Support:\n Name: Pinterest, Inc.",
+      "type": "text/plain"
+    }
+  }
+}

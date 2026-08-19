@@ -1,0 +1,354 @@
+{
+  "item": [
+    {
+      "id": "0fa11d5a-08f5-4603-bf20-ed6ceecace19",
+      "name": "Statistics",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d636ad89-950b-4480-b07c-b7b6f61eb44e",
+          "name": "List report stats",
+          "request": {
+            "name": "List report stats",
+            "description": {
+              "content": "List aggregated numbers of issues for a catalog owned by the \"operation user_account\".\n- By default, the \"operation user_account\" is the token user_account.\n\nOptional: Business Access: Specify an <code>ad_account_id</code> (obtained via <a href='/docs/api/v5/#operation/ad_accounts/list'>List ad accounts</a>) to use the owner of that ad_account as the \"operation user_account\". In order to do this, the token user_account must have one of the following <a href=\"https://help.pinterest.com/en/business/article/share-and-manage-access-to-your-ad-accounts\">Business Access</a> roles on the ad_account: Owner, Admin, Catalogs Manager.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catalogs",
+                "reports",
+                "stats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ad_account_id",
+                  "value": "<string>",
+                  "description": "Unique identifier of an ad account."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "25",
+                  "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+                },
+                {
+                  "disabled": false,
+                  "key": "bookmark",
+                  "value": "<string>",
+                  "description": "Cursor used to fetch the next page of items"
+                },
+                {
+                  "disabled": false,
+                  "key": "parameters[catalog_type]",
+                  "value": "<string>",
+                  "description": "(Required) Contains the parameters for report identification."
+                },
+                {
+                  "disabled": false,
+                  "key": "parameters[report][report_type]",
+                  "value": "<string>",
+                  "description": "(Required) Contains the parameters for report identification."
+                },
+                {
+                  "disabled": false,
+                  "key": "parameters[report][feed_id]",
+                  "value": "<string>",
+                  "description": "(Required) Contains the parameters for report identification."
+                },
+                {
+                  "disabled": false,
+                  "key": "parameters[report][processing_result_id]",
+                  "value": "<string>",
+                  "description": "(Required) Contains the parameters for report identification."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2265321e-f919-4469-b6d0-0a341aa848b3",
+              "name": "Response containing the diagnostics aggregated counters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "reports",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "parameters[catalog_type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "parameters[report][report_type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "parameters[report][feed_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "parameters[report][processing_result_id]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"report_type\": \"FEED_INGESTION_ISSUES\",\n      \"catalog_id\": \"2414\",\n      \"code\": 112,\n      \"code_label\": \"AVAILABILITY_INVALID\",\n      \"message\": \"string\",\n      \"occurrences\": 10,\n      \"severity\": \"ERROR\"\n    },\n    {\n      \"report_type\": \"FEED_INGESTION_ISSUES\",\n      \"catalog_id\": \"38611932489\",\n      \"code\": 112,\n      \"code_label\": \"AVAILABILITY_INVALID\",\n      \"message\": \"string\",\n      \"occurrences\": 10,\n      \"severity\": \"ERROR\"\n    }\n  ],\n  \"bookmark\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a3c91e39-fc5f-4ae8-bce1-5ee8b33db4e0",
+              "name": "Not authorized to access catalogs",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "reports",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "parameters[catalog_type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "parameters[report][report_type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "parameters[report][feed_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "parameters[report][processing_result_id]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 2,\n  \"message\": \"Authentication failed.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a150f070-576b-4c21-b047-8602f5d23e36",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "reports",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "parameters[catalog_type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "parameters[report][report_type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "parameters[report][feed_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "parameters[report][processing_result_id]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8108,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.pinterest.com/v5",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "34dbdda2-04d3-42db-acff-5fad0ad344f0",
+    "name": "Pinterest Statistics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is the description of your API.\n\nContact Support:\n Name: Pinterest, Inc.",
+      "type": "text/plain"
+    }
+  }
+}

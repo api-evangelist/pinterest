@@ -1,0 +1,123 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pinterest Terms API",
+    "version": "5.13.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Terms",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get terms of service",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/ad_accounts/:ad_account_id/terms_of_service",
+            "params": [
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of an ad account."
+              },
+              {
+                "name": "include_html",
+                "value": "",
+                "type": "query",
+                "description": "Return HTML in TOS text."
+              },
+              {
+                "name": "tos_type",
+                "value": "",
+                "type": "query",
+                "description": "Request type."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the text of the terms of service and see whether the advertiser has accepted the terms of service."
+        },
+        {
+          "info": {
+            "name": "List related terms",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/terms/related",
+            "params": [
+              {
+                "name": "terms",
+                "value": "",
+                "type": "query",
+                "description": "List of input terms."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get a list of terms logically related to each input term. <p/>\nExample: the term 'workout' would list related terms like 'one song workout', 'yoga workout', 'workout motivation', etc."
+        },
+        {
+          "info": {
+            "name": "List suggested terms",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/terms/suggested",
+            "params": [
+              {
+                "name": "term",
+                "value": "sports",
+                "type": "query",
+                "description": "Input term."
+              },
+              {
+                "name": "limit",
+                "value": "4",
+                "type": "query",
+                "description": "Max suggested terms to return."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get popular search terms that begin with your input term. <p/>\nExample: 'sport' would return popular terms like 'sports bar' and 'sportswear', but not 'motor sports' since the phrase does not begin with the given term."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

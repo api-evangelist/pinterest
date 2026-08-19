@@ -1,0 +1,2455 @@
+{
+  "item": [
+    {
+      "id": "30b07cbd-b6bb-4b5e-b1a2-35bb0cc6da01",
+      "name": "Ads",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6e806412-6c2a-453e-aa66-904fc1c33d20",
+          "name": "Create ad preview with pin or image",
+          "request": {
+            "name": "Create ad preview with pin or image",
+            "description": {
+              "content": "Create an ad preview given an ad account ID and either an existing organic pin ID or the URL for an image to be used to create the Pin and the ad. <p/>\nIf you are creating a preview from an existing Pin, that Pin must be promotable: that is, it must have a clickthrough link and meet other requirements. (See <a href=\"https://help.pinterest.com/en/business/article/promoted-pins-overview\" target=\"_blank\">Ads Overview</a>.) <p/>\nYou can view the returned preview URL on a webpage or iframe for 7 days, after which the URL expires. Collection ads are not currently supported ad preview.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "ad_previews"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"image_url\": \"<string>\",\n  \"title\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "61a97860-56e8-4e1f-806d-c260f02b1895",
+              "name": "Successful ad preview creation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ad_previews"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"image_url\": \"https://somewebsite.com/someimage.jpg\",\n  \"title\": \"My Preview Image\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"url\": \"https://ads.pinterest.com/ad-preview/58f1a0e9ab0bd0f99462a0e4c5dd7e8297888c8a36331e88f757abe8f0295d31/\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9a1850c1-817e-4099-8a01-e4db4fdd6d14",
+              "name": "Invalid Pin parameters response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ad_previews"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"image_url\": \"https://somewebsite.com/someimage.jpg\",\n  \"title\": \"My Preview Image\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1,\n  \"message\": \"Whoops! It looks like you entered an invalid URL. Try creating a Pin again with a valid URL.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "12973bcf-1d17-4a17-b077-e0041d9ccb96",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ad_previews"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"image_url\": \"https://somewebsite.com/someimage.jpg\",\n  \"title\": \"My Preview Image\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 277,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1d4f540d-ba92-45a5-9622-9d6245edbf9d",
+          "name": "List ads",
+          "request": {
+            "name": "List ads",
+            "description": {
+              "content": "List ads that meet the filters provided:\n  - Listed campaign ids or ad group ids or ad ids\n  - Listed entity statuses <p/>\nIf no filter is provided, all ads in the ad account are returned. <p/>\n<strong>Note:</strong><p/>\nProvide only campaign_id or ad_group_id or ad_id. Do not provide more than one type. <p/>\nReview status is provided for each ad; if review_status is REJECTED, the rejected_reasons field will contain additional information.\nFor more, see <a href=\"https://policy.pinterest.com/en/advertising-guidelines\">Pinterest advertising standards</a>.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "ads"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "campaign_ids",
+                  "value": "<string>",
+                  "description": "List of Campaign Ids to use to filter the results."
+                },
+                {
+                  "disabled": false,
+                  "key": "ad_group_ids",
+                  "value": "<string>",
+                  "description": "List of Ad group Ids to use to filter the results."
+                },
+                {
+                  "disabled": false,
+                  "key": "ad_ids",
+                  "value": "<string>",
+                  "description": "List of Ad Ids to use to filter the results."
+                },
+                {
+                  "disabled": false,
+                  "key": "entity_statuses",
+                  "value": "ACTIVE",
+                  "description": "Entity status"
+                },
+                {
+                  "disabled": false,
+                  "key": "entity_statuses",
+                  "value": "PAUSED",
+                  "description": "Entity status"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "25",
+                  "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>",
+                  "description": "The order in which to sort the items returned: ASCENDING or DESCENDING\nby ID. Note that higher-value IDs are associated with more-recently added\nitems."
+                },
+                {
+                  "disabled": false,
+                  "key": "bookmark",
+                  "value": "<string>",
+                  "description": "Cursor used to fetch the next page of items"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3b7d1972-62ba-4c26-8434-001450513063",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "campaign_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ad_group_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ad_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "entity_statuses",
+                      "value": "ACTIVE"
+                    },
+                    {
+                      "key": "entity_statuses",
+                      "value": "PAUSED"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "order",
+                      "value": "ASCENDING"
+                    },
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"ad_group_id\": \"2680059592705\",\n      \"android_deep_link\": \"string\",\n      \"carousel_android_deep_links\": [\n        \"string\",\n        \"string\"\n      ],\n      \"carousel_destination_urls\": [\n        \"string\",\n        \"string\"\n      ],\n      \"carousel_ios_deep_links\": [\n        \"string\",\n        \"string\"\n      ],\n      \"click_tracking_url\": \"string\",\n      \"creative_type\": \"REGULAR\",\n      \"destination_url\": \"string\",\n      \"ios_deep_link\": \"string\",\n      \"is_pin_deleted\": false,\n      \"is_removable\": false,\n      \"name\": \"string\",\n      \"status\": \"ACTIVE\",\n      \"tracking_urls\": {\n        \"impression\": [\n          \"URL1\",\n          \"URL2\"\n        ],\n        \"click\": [\n          \"URL1\",\n          \"URL2\"\n        ],\n        \"engagement\": [\n          \"URL1\",\n          \"URL2\"\n        ],\n        \"buyable_button\": [\n          \"URL1\",\n          \"URL2\"\n        ],\n        \"audience_verification\": [\n          \"URL1\",\n          \"URL2\"\n        ]\n      },\n      \"view_tracking_url\": \"string\",\n      \"lead_form_id\": \"AG5\",\n      \"grid_click_type\": \"CLOSEUP\",\n      \"customizable_cta_type\": \"LEARN_MORE\",\n      \"quiz_pin_data\": {\n        \"questions\": [\n          {\n            \"question_id\": 1,\n            \"question_text\": \"Where do you thrive?\",\n            \"options\": [\n              {\n                \"text\": \"Hangout vibes\"\n              },\n              {\n                \"text\": \"Time to party!\"\n              },\n              {\n                \"text\": \"Keeping it lowkey\"\n              }\n            ]\n          },\n          {\n            \"question_id\": 2,\n            \"question_text\": \"Where would you nap?\",\n            \"options\": [\n              {\n                \"text\": \"Hammock in the mountains\"\n              },\n              {\n                \"text\": \"Beach towel in the sand\"\n              },\n              {\n                \"text\": \"Tent under the stars\"\n              }\n            ]\n          },\n          {\n            \"question_id\": 2,\n            \"question_text\": \"Who are you taking?\",\n            \"options\": [\n              {\n                \"text\": \"No onesolo trip!\"\n              },\n              {\n                \"text\": \"My best friend\"\n              },\n              {\n                \"text\": \"The family\"\n              }\n            ]\n          }\n        ],\n        \"results\": [\n          {\n            \"organicPinId\": \"1234\",\n            \"android_deep_link\": \"https://www.pinterest.com/\",\n            \"iOS_deep_link\": \"https://www.pinterest.com/\",\n            \"destination_url\": \"https://www.pinterest.com/\",\n            \"result_id\": 1\n          },\n          {\n            \"organicPinId\": \"1234\",\n            \"android_deep_link\": \"https://www.pinterest.com/\",\n            \"iOS_deep_link\": \"https://www.pinterest.com/\",\n            \"destination_url\": \"https://www.pinterest.com/\",\n            \"result_id\": 2\n          },\n          {\n            \"organicPinId\": \"1234\",\n            \"android_deep_link\": \"https://www.pinterest.com/\",\n            \"iOS_deep_link\": \"https://www.pinterest.com/\",\n            \"destination_url\": \"https://www.pinterest.com/\",\n            \"result_id\": 3\n          }\n        ]\n      },\n      \"pin_id\": \"394205773611545468\",\n      \"ad_account_id\": \"549755885175\",\n      \"campaign_id\": \"626735565838\",\n      \"collection_items_destination_url_template\": \"string\",\n      \"created_time\": 1451431341,\n      \"id\": \"687195134316\",\n      \"rejected_reasons\": [\n        \"PROHIBITED_PRODUCT\",\n        \"LANDING_PAGE\"\n      ],\n      \"rejection_labels\": [\n        \"string\",\n        \"string\"\n      ],\n      \"review_status\": \"PENDING\",\n      \"type\": \"pinpromotion\",\n      \"updated_time\": 1451431341,\n      \"summary_status\": \"APPROVED\"\n    },\n    {\n      \"ad_group_id\": \"2680059592705\",\n      \"android_deep_link\": \"string\",\n      \"carousel_android_deep_links\": [\n        \"string\",\n        \"string\"\n      ],\n      \"carousel_destination_urls\": [\n        \"string\",\n        \"string\"\n      ],\n      \"carousel_ios_deep_links\": [\n        \"string\",\n        \"string\"\n      ],\n      \"click_tracking_url\": \"string\",\n      \"creative_type\": \"REGULAR\",\n      \"destination_url\": \"string\",\n      \"ios_deep_link\": \"string\",\n      \"is_pin_deleted\": false,\n      \"is_removable\": false,\n      \"name\": \"string\",\n      \"status\": \"ACTIVE\",\n      \"tracking_urls\": {\n        \"impression\": [\n          \"URL1\",\n          \"URL2\"\n        ],\n        \"click\": [\n          \"URL1\",\n          \"URL2\"\n        ],\n        \"engagement\": [\n          \"URL1\",\n          \"URL2\"\n        ],\n        \"buyable_button\": [\n          \"URL1\",\n          \"URL2\"\n        ],\n        \"audience_verification\": [\n          \"URL1\",\n          \"URL2\"\n        ]\n      },\n      \"view_tracking_url\": \"string\",\n      \"lead_form_id\": \"54946720660\",\n      \"grid_click_type\": \"CLOSEUP\",\n      \"customizable_cta_type\": \"LEARN_MORE\",\n      \"quiz_pin_data\": {\n        \"questions\": [\n          {\n            \"question_id\": 1,\n            \"question_text\": \"Where do you thrive?\",\n            \"options\": [\n              {\n                \"text\": \"Hangout vibes\"\n              },\n              {\n                \"text\": \"Time to party!\"\n              },\n              {\n                \"text\": \"Keeping it lowkey\"\n              }\n            ]\n          },\n          {\n            \"question_id\": 2,\n            \"question_text\": \"Where would you nap?\",\n            \"options\": [\n              {\n                \"text\": \"Hammock in the mountains\"\n              },\n              {\n                \"text\": \"Beach towel in the sand\"\n              },\n              {\n                \"text\": \"Tent under the stars\"\n              }\n            ]\n          },\n          {\n            \"question_id\": 2,\n            \"question_text\": \"Who are you taking?\",\n            \"options\": [\n              {\n                \"text\": \"No onesolo trip!\"\n              },\n              {\n                \"text\": \"My best friend\"\n              },\n              {\n                \"text\": \"The family\"\n              }\n            ]\n          }\n        ],\n        \"results\": [\n          {\n            \"organicPinId\": \"1234\",\n            \"android_deep_link\": \"https://www.pinterest.com/\",\n            \"iOS_deep_link\": \"https://www.pinterest.com/\",\n            \"destination_url\": \"https://www.pinterest.com/\",\n            \"result_id\": 1\n          },\n          {\n            \"organicPinId\": \"1234\",\n            \"android_deep_link\": \"https://www.pinterest.com/\",\n            \"iOS_deep_link\": \"https://www.pinterest.com/\",\n            \"destination_url\": \"https://www.pinterest.com/\",\n            \"result_id\": 2\n          },\n          {\n            \"organicPinId\": \"1234\",\n            \"android_deep_link\": \"https://www.pinterest.com/\",\n            \"iOS_deep_link\": \"https://www.pinterest.com/\",\n            \"destination_url\": \"https://www.pinterest.com/\",\n            \"result_id\": 3\n          }\n        ]\n      },\n      \"pin_id\": \"394205773611545468\",\n      \"ad_account_id\": \"549755885175\",\n      \"campaign_id\": \"626735565838\",\n      \"collection_items_destination_url_template\": \"string\",\n      \"created_time\": 1451431341,\n      \"id\": \"687195134316\",\n      \"rejected_reasons\": [\n        \"CAPS_AND_SYMBOLS\",\n        \"INCONSISTENT_LANG_FR\"\n      ],\n      \"rejection_labels\": [\n        \"string\",\n        \"string\"\n      ],\n      \"review_status\": \"PENDING\",\n      \"type\": \"pinpromotion\",\n      \"updated_time\": 1451431341,\n      \"summary_status\": \"APPROVED\"\n    }\n  ],\n  \"bookmark\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ac2f78f6-4967-42c6-8a1e-4478bc4c249f",
+              "name": "Invalid ad account ads parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "campaign_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ad_group_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ad_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "entity_statuses",
+                      "value": "ACTIVE"
+                    },
+                    {
+                      "key": "entity_statuses",
+                      "value": "PAUSED"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "order",
+                      "value": "ASCENDING"
+                    },
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"Invalid ad account ads parameters.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "65d58d2c-af34-44fa-ae70-0a9e690b8ac5",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "campaign_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ad_group_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ad_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "entity_statuses",
+                      "value": "ACTIVE"
+                    },
+                    {
+                      "key": "entity_statuses",
+                      "value": "PAUSED"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "order",
+                      "value": "ASCENDING"
+                    },
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 277,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a62d13b5-47a0-4e76-a531-c9cfd45ed2bd",
+          "name": "Create ads",
+          "request": {
+            "name": "Create ads",
+            "description": {
+              "content": "Create multiple new ads. Request must contain ad_group_id, creative_type, and the source Pin pin_id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "ads"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  \"<object>\"\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "719e0dc3-f0b8-4af3-ad7f-c13d761735ae",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  \"<object>\"\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"data\": {\n        \"ad_group_id\": \"2680059592705\",\n        \"android_deep_link\": \"<string>\",\n        \"carousel_android_deep_links\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"carousel_destination_urls\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"carousel_ios_deep_links\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"click_tracking_url\": \"<string>\",\n        \"creative_type\": \"REGULAR\",\n        \"destination_url\": \"<string>\",\n        \"ios_deep_link\": \"<string>\",\n        \"is_pin_deleted\": false,\n        \"is_removable\": false,\n        \"name\": \"<string>\",\n        \"status\": \"ACTIVE\",\n        \"tracking_urls\": {},\n        \"view_tracking_url\": \"<string>\",\n        \"lead_form_id\": \"<string>\",\n        \"grid_click_type\": \"CLOSEUP\",\n        \"customizable_cta_type\": \"LEARN_MORE\",\n        \"quiz_pin_data\": {},\n        \"pin_id\": \"394205773611545468\",\n        \"ad_account_id\": \"549755885175\",\n        \"campaign_id\": \"626735565838\",\n        \"collection_items_destination_url_template\": \"string\",\n        \"created_time\": 1451431341,\n        \"id\": \"687195134316\",\n        \"rejected_reasons\": [\n          \"WEAPONS\",\n          \"OTHER\"\n        ],\n        \"rejection_labels\": [\n          \"string\",\n          \"string\"\n        ],\n        \"review_status\": \"PENDING\",\n        \"type\": \"pinpromotion\",\n        \"updated_time\": 1451431341,\n        \"summary_status\": \"APPROVED\"\n      },\n      \"exceptions\": {\n        \"code\": 2,\n        \"message\": \"Advertiser not found.\"\n      }\n    },\n    {\n      \"data\": {\n        \"ad_group_id\": \"2680059592705\",\n        \"android_deep_link\": \"<string>\",\n        \"carousel_android_deep_links\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"carousel_destination_urls\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"carousel_ios_deep_links\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"click_tracking_url\": \"<string>\",\n        \"creative_type\": \"REGULAR\",\n        \"destination_url\": \"<string>\",\n        \"ios_deep_link\": \"<string>\",\n        \"is_pin_deleted\": false,\n        \"is_removable\": false,\n        \"name\": \"<string>\",\n        \"status\": \"ACTIVE\",\n        \"tracking_urls\": {},\n        \"view_tracking_url\": \"<string>\",\n        \"lead_form_id\": \"<string>\",\n        \"grid_click_type\": \"CLOSEUP\",\n        \"customizable_cta_type\": \"LEARN_MORE\",\n        \"quiz_pin_data\": {},\n        \"pin_id\": \"394205773611545468\",\n        \"ad_account_id\": \"549755885175\",\n        \"campaign_id\": \"626735565838\",\n        \"collection_items_destination_url_template\": \"string\",\n        \"created_time\": 1451431341,\n        \"id\": \"687195134316\",\n        \"rejected_reasons\": [\n          \"AUTHENTICITY\",\n          \"EXAGGERATED_CLAIMS\"\n        ],\n        \"rejection_labels\": [\n          \"string\",\n          \"string\"\n        ],\n        \"review_status\": \"PENDING\",\n        \"type\": \"pinpromotion\",\n        \"updated_time\": 1451431341,\n        \"summary_status\": \"APPROVED\"\n      },\n      \"exceptions\": {\n        \"code\": 2,\n        \"message\": \"Advertiser not found.\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4a9a32fe-0fd8-447a-bb01-3e3bc3354d5b",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  \"<object>\"\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 277,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "91a1e524-9e20-4c9d-9bb3-12de44eebf66",
+          "name": "Update ads",
+          "request": {
+            "name": "Update ads",
+            "description": {
+              "content": "Update multiple existing ads",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "ads"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  \"<object>\"\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1bac56ef-da33-4424-8663-71f5ff7b947d",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"id\": \"687195134316\",\n    \"ad_group_id\": \"2680059592705\",\n    \"android_deep_link\": \"<string>\",\n    \"carousel_android_deep_links\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"carousel_destination_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"carousel_ios_deep_links\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"click_tracking_url\": \"<string>\",\n    \"creative_type\": \"REGULAR\",\n    \"destination_url\": \"<string>\",\n    \"ios_deep_link\": \"<string>\",\n    \"is_pin_deleted\": false,\n    \"is_removable\": false,\n    \"name\": \"<string>\",\n    \"status\": \"ACTIVE\",\n    \"tracking_urls\": {\n      \"impression\": [\n        \"URL1\",\n        \"URL2\"\n      ],\n      \"click\": [\n        \"URL1\",\n        \"URL2\"\n      ],\n      \"engagement\": [\n        \"URL1\",\n        \"URL2\"\n      ],\n      \"buyable_button\": [\n        \"URL1\",\n        \"URL2\"\n      ],\n      \"audience_verification\": [\n        \"URL1\",\n        \"URL2\"\n      ]\n    },\n    \"view_tracking_url\": \"<string>\",\n    \"lead_form_id\": \"<string>\",\n    \"grid_click_type\": \"CLOSEUP\",\n    \"customizable_cta_type\": \"LEARN_MORE\",\n    \"quiz_pin_data\": {\n      \"questions\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"results\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    },\n    \"pin_id\": \"394205773611545468\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"data\": {\n        \"ad_group_id\": \"2680059592705\",\n        \"android_deep_link\": \"<string>\",\n        \"carousel_android_deep_links\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"carousel_destination_urls\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"carousel_ios_deep_links\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"click_tracking_url\": \"<string>\",\n        \"creative_type\": \"REGULAR\",\n        \"destination_url\": \"<string>\",\n        \"ios_deep_link\": \"<string>\",\n        \"is_pin_deleted\": false,\n        \"is_removable\": false,\n        \"name\": \"<string>\",\n        \"status\": \"ACTIVE\",\n        \"tracking_urls\": {},\n        \"view_tracking_url\": \"<string>\",\n        \"lead_form_id\": \"<string>\",\n        \"grid_click_type\": \"CLOSEUP\",\n        \"customizable_cta_type\": \"LEARN_MORE\",\n        \"quiz_pin_data\": {},\n        \"pin_id\": \"394205773611545468\",\n        \"ad_account_id\": \"549755885175\",\n        \"campaign_id\": \"626735565838\",\n        \"collection_items_destination_url_template\": \"string\",\n        \"created_time\": 1451431341,\n        \"id\": \"687195134316\",\n        \"rejected_reasons\": [\n          \"PINTEREST_BRAND\",\n          \"IMAGE_LOW_QUALITY\"\n        ],\n        \"rejection_labels\": [\n          \"string\",\n          \"string\"\n        ],\n        \"review_status\": \"PENDING\",\n        \"type\": \"pinpromotion\",\n        \"updated_time\": 1451431341,\n        \"summary_status\": \"APPROVED\"\n      },\n      \"exceptions\": {\n        \"code\": 2,\n        \"message\": \"Advertiser not found.\"\n      }\n    },\n    {\n      \"data\": {\n        \"ad_group_id\": \"2680059592705\",\n        \"android_deep_link\": \"<string>\",\n        \"carousel_android_deep_links\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"carousel_destination_urls\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"carousel_ios_deep_links\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"click_tracking_url\": \"<string>\",\n        \"creative_type\": \"REGULAR\",\n        \"destination_url\": \"<string>\",\n        \"ios_deep_link\": \"<string>\",\n        \"is_pin_deleted\": false,\n        \"is_removable\": false,\n        \"name\": \"<string>\",\n        \"status\": \"ACTIVE\",\n        \"tracking_urls\": {},\n        \"view_tracking_url\": \"<string>\",\n        \"lead_form_id\": \"<string>\",\n        \"grid_click_type\": \"CLOSEUP\",\n        \"customizable_cta_type\": \"LEARN_MORE\",\n        \"quiz_pin_data\": {},\n        \"pin_id\": \"394205773611545468\",\n        \"ad_account_id\": \"549755885175\",\n        \"campaign_id\": \"626735565838\",\n        \"collection_items_destination_url_template\": \"string\",\n        \"created_time\": 1451431341,\n        \"id\": \"687195134316\",\n        \"rejected_reasons\": [\n          \"LANDING_PAGE_HARDWALL\",\n          \"WEAPONS\"\n        ],\n        \"rejection_labels\": [\n          \"string\",\n          \"string\"\n        ],\n        \"review_status\": \"PENDING\",\n        \"type\": \"pinpromotion\",\n        \"updated_time\": 1451431341,\n        \"summary_status\": \"APPROVED\"\n      },\n      \"exceptions\": {\n        \"code\": 2,\n        \"message\": \"Advertiser not found.\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "56d993a0-9b2e-47c4-b0e4-04e6ec306d9a",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"id\": \"687195134316\",\n    \"ad_group_id\": \"2680059592705\",\n    \"android_deep_link\": \"<string>\",\n    \"carousel_android_deep_links\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"carousel_destination_urls\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"carousel_ios_deep_links\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"click_tracking_url\": \"<string>\",\n    \"creative_type\": \"REGULAR\",\n    \"destination_url\": \"<string>\",\n    \"ios_deep_link\": \"<string>\",\n    \"is_pin_deleted\": false,\n    \"is_removable\": false,\n    \"name\": \"<string>\",\n    \"status\": \"ACTIVE\",\n    \"tracking_urls\": {\n      \"impression\": [\n        \"URL1\",\n        \"URL2\"\n      ],\n      \"click\": [\n        \"URL1\",\n        \"URL2\"\n      ],\n      \"engagement\": [\n        \"URL1\",\n        \"URL2\"\n      ],\n      \"buyable_button\": [\n        \"URL1\",\n        \"URL2\"\n      ],\n      \"audience_verification\": [\n        \"URL1\",\n        \"URL2\"\n      ]\n    },\n    \"view_tracking_url\": \"<string>\",\n    \"lead_form_id\": \"<string>\",\n    \"grid_click_type\": \"CLOSEUP\",\n    \"customizable_cta_type\": \"LEARN_MORE\",\n    \"quiz_pin_data\": {\n      \"questions\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"results\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ]\n    },\n    \"pin_id\": \"394205773611545468\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 277,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ce7c0563-f8e9-4a42-a8c8-c9a7db36d15c",
+          "name": "Get ad analytics",
+          "request": {
+            "name": "Get ad analytics",
+            "description": {
+              "content": "Get analytics for the specified ads in the specified <code>ad_account_id</code>, filtered by the specified options.\n- The token's user_account must either be the Owner of the specified ad account, or have one of the necessary roles granted to them via <a href=\"https://help.pinterest.com/en/business/article/share-and-manage-access-to-your-ad-accounts\">Business Access</a>: Admin, Analyst, Campaign Manager.\n- If granularity is not HOUR, the furthest back you can are allowed to pull data is 90 days before the current date in UTC time and the max time range supported is 90 days.\n- If granularity is HOUR, the furthest back you can are allowed to pull data is 8 days before the current date in UTC time and the max time range supported is 3 days.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "ads",
+                "analytics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>",
+                  "description": "(Required) Metric report start date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days back from today."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>",
+                  "description": "(Required) Metric report end date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days past start_date."
+                },
+                {
+                  "disabled": false,
+                  "key": "ad_ids",
+                  "value": "<string>",
+                  "description": "(Required) List of Ad Ids to use to filter the results."
+                },
+                {
+                  "disabled": false,
+                  "key": "columns",
+                  "value": "<string>,<string>",
+                  "description": "(Required) Columns to retrieve, encoded as a comma-separated string. **NOTE**: Any metrics defined as MICRO_DOLLARS returns a value based on the advertiser profile's currency field. For USD,($1/1,000,000, or $0.000001 - one one-ten-thousandth of a cent). it's microdollars. Otherwise, it's in microunits of the advertiser's currency.<br/>For example, if the advertiser's currency is GBP (British pound sterling), all MICRO_DOLLARS fields will be in GBP microunits (1/1,000,000 British pound).<br/>If a column has no value, it may not be returned"
+                },
+                {
+                  "disabled": false,
+                  "key": "granularity",
+                  "value": "<string>",
+                  "description": "(Required) TOTAL - metrics are aggregated over the specified date range.<br> DAY - metrics are broken down daily.<br> HOUR - metrics are broken down hourly.<br>WEEKLY - metrics are broken down weekly.<br>MONTHLY - metrics are broken down monthly"
+                },
+                {
+                  "disabled": false,
+                  "key": "click_window_days",
+                  "value": "30",
+                  "description": "Number of days to use as the conversion attribution window for a pin click action. Applies to Pinterest Tag conversion metrics. Prior conversion tags use their defined attribution windows. If not specified, defaults to `30` days."
+                },
+                {
+                  "disabled": false,
+                  "key": "engagement_window_days",
+                  "value": "30",
+                  "description": "Number of days to use as the conversion attribution window for an engagement action. Engagements include saves, closeups, link clicks, and carousel card swipes. Applies to Pinterest Tag conversion metrics. Prior conversion tags use their defined attribution windows. If not specified, defaults to `30` days."
+                },
+                {
+                  "disabled": false,
+                  "key": "view_window_days",
+                  "value": "1",
+                  "description": "Number of days to use as the conversion attribution window for a view action. Applies to Pinterest Tag conversion metrics. Prior conversion tags use their defined attribution windows. If not specified, defaults to `1` day."
+                },
+                {
+                  "disabled": false,
+                  "key": "conversion_report_time",
+                  "value": "TIME_OF_AD_ACTION",
+                  "description": "The date by which the conversion metrics returned from this endpoint will be reported. There are two dates associated with a conversion event: the date that the user interacted with the ad, and the date that the user completed a conversion event."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fc5efb24-1679-49b7-8a41-2edd0e279c40",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ads",
+                    "analytics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "ad_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "columns",
+                      "value": "TOTAL_CONVERSIONS,TOTAL_CONVERSIONS"
+                    },
+                    {
+                      "key": "granularity",
+                      "value": "DAY"
+                    },
+                    {
+                      "key": "click_window_days",
+                      "value": "1"
+                    },
+                    {
+                      "key": "engagement_window_days",
+                      "value": "30"
+                    },
+                    {
+                      "key": "view_window_days",
+                      "value": "1"
+                    },
+                    {
+                      "key": "conversion_report_time",
+                      "value": "TIME_OF_AD_ACTION"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"DATE\": \"2021-04-01\",\n    \"AD_ID\": \"547602124502\",\n    \"SPEND_IN_DOLLAR\": 30,\n    \"TOTAL_CLICKTHROUGH\": 216\n  },\n  {\n    \"DATE\": \"2021-04-01\",\n    \"AD_ID\": \"547602124502\",\n    \"SPEND_IN_DOLLAR\": 30,\n    \"TOTAL_CLICKTHROUGH\": 216\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8a120e0d-f23e-405a-bfe1-04c90caa2e74",
+              "name": "Invalid ad account ads analytics parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ads",
+                    "analytics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "ad_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "columns",
+                      "value": "TOTAL_CONVERSIONS,TOTAL_CONVERSIONS"
+                    },
+                    {
+                      "key": "granularity",
+                      "value": "DAY"
+                    },
+                    {
+                      "key": "click_window_days",
+                      "value": "1"
+                    },
+                    {
+                      "key": "engagement_window_days",
+                      "value": "30"
+                    },
+                    {
+                      "key": "view_window_days",
+                      "value": "1"
+                    },
+                    {
+                      "key": "conversion_report_time",
+                      "value": "TIME_OF_AD_ACTION"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"Invalid ad account ads analytics parameters.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8b1bbaf4-9429-4748-857c-ddde622d41ca",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ads",
+                    "analytics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "ad_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "columns",
+                      "value": "TOTAL_CONVERSIONS,TOTAL_CONVERSIONS"
+                    },
+                    {
+                      "key": "granularity",
+                      "value": "DAY"
+                    },
+                    {
+                      "key": "click_window_days",
+                      "value": "1"
+                    },
+                    {
+                      "key": "engagement_window_days",
+                      "value": "30"
+                    },
+                    {
+                      "key": "view_window_days",
+                      "value": "1"
+                    },
+                    {
+                      "key": "conversion_report_time",
+                      "value": "TIME_OF_AD_ACTION"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 277,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "940614d5-71b9-45d2-9109-2449e2950e74",
+          "name": "Get ads credit discounts",
+          "request": {
+            "name": "Get ads credit discounts",
+            "description": {
+              "content": "Returns the list of discounts applied to the account.\n\n<strong>This endpoint might not be available to all apps. <a href='/docs/new/about-beta-access/'>Learn more</a>.</strong>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "ads_credit",
+                "discounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "bookmark",
+                  "value": "<string>",
+                  "description": "Cursor used to fetch the next page of items"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "25",
+                  "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4c7387f9-ca13-456a-a072-11478a513a3a",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ads_credit",
+                    "discounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"active\": true,\n      \"advertiser_id\": \"12312451231\",\n      \"discountType\": \"SALES_INCENTIVE_CREDIT\",\n      \"discountInMicroCurrency\": 125000000,\n      \"discountCurrency\": \"USD\",\n      \"title\": \"Ads Credits\",\n      \"remainingDiscountInMicroCurrency\": 125000000\n    },\n    {\n      \"active\": true,\n      \"advertiser_id\": \"12312451231\",\n      \"discountType\": null,\n      \"discountInMicroCurrency\": 125000000,\n      \"discountCurrency\": \"USD\",\n      \"title\": \"Ads Credits\",\n      \"remainingDiscountInMicroCurrency\": 125000000\n    }\n  ],\n  \"bookmark\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "20a27f73-e19b-40c0-a378-6c765da1587e",
+              "name": "Unexpected error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ads_credit",
+                    "discounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 277,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3e10f836-5138-4729-8a5f-4eefd88cb3bf",
+          "name": "Redeem ad credits",
+          "request": {
+            "name": "Redeem ad credits",
+            "description": {
+              "content": "Redeem ads credit on behalf of the ad account id and apply it towards billing.\n\n<strong>This endpoint might not be available to all apps. <a href='/docs/new/about-beta-access/'>Learn more</a>.</strong>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "ads_credit",
+                "redeem"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"offerCodeHash\": \"<string>\",\n  \"validateOnly\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8f6cdcf6-bf8e-438d-85af-e848d895e700",
+              "name": "Successfully redeemed ad credits.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ads_credit",
+                    "redeem"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"offerCodeHash\": \"138e9e0ff7e38cf511b880975eb574c09aa9d5e1657590ab0431040da68caa67\",\n  \"validateOnly\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"errorCode\": 2708,\n  \"errorMessage\": \"The offer has already been redeemed by this advertiser\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e3477e90-fa9d-4053-aef0-89ca2e894e21",
+              "name": "Error thrown when unable to redeem offer code.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ads_credit",
+                    "redeem"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"offerCodeHash\": \"138e9e0ff7e38cf511b880975eb574c09aa9d5e1657590ab0431040da68caa67\",\n  \"validateOnly\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 15,\n  \"message\": \"Unable to redeem offer code. Try again later.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "62a3b800-41ed-437c-b9af-5ac6f94f3ed6",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ads_credit",
+                    "redeem"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"offerCodeHash\": \"138e9e0ff7e38cf511b880975eb574c09aa9d5e1657590ab0431040da68caa67\",\n  \"validateOnly\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 277,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2e91a0db-c06c-42d3-83d0-411a7286797c",
+          "name": "Get targeting analytics for ads",
+          "request": {
+            "name": "Get targeting analytics for ads",
+            "description": {
+              "content": "Get targeting analytics for one or more ads. For the requested ad(s) and metrics,\nthe response will include the requested metric information (e.g. SPEND_IN_DOLLAR) for the requested target type\n(e.g. \"age_bucket\") for applicable values (e.g. \"45-49\"). <p/>\n- The token's user_account must either be the Owner of the specified ad account, or have one\nof the necessary roles granted to them via\n<a href=\"https://help.pinterest.com/en/business/article/share-and-manage-access-to-your-ad-accounts\">Business Access</a>: Admin, Analyst, Campaign Manager.\n- If granularity is not HOUR, the furthest back you can are allowed to pull data is 90 days before the current date in UTC time and the max time range supported is 90 days.\n- If granularity is HOUR, the furthest back you can are allowed to pull data is 8 days before the current date in UTC time and the max time range supported is 3 days.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "ads",
+                "targeting_analytics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ad_ids",
+                  "value": "<string>",
+                  "description": "(Required) List of Ad Ids to use to filter the results."
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>",
+                  "description": "(Required) Metric report start date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days back from today."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>",
+                  "description": "(Required) Metric report end date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days past start_date."
+                },
+                {
+                  "disabled": false,
+                  "key": "targeting_types",
+                  "value": "<string>",
+                  "description": "(Required) Targeting type breakdowns for the report. The reporting per targeting type <br> is independent from each other. [\"AGE_BUCKET_AND_GENDER\"] is in BETA and not yet available to all users."
+                },
+                {
+                  "disabled": false,
+                  "key": "columns",
+                  "value": "<string>,<string>",
+                  "description": "(Required) Columns to retrieve, encoded as a comma-separated string. **NOTE**: Any metrics defined as MICRO_DOLLARS returns a value based on the advertiser profile's currency field. For USD,($1/1,000,000, or $0.000001 - one one-ten-thousandth of a cent). it's microdollars. Otherwise, it's in microunits of the advertiser's currency.<br/>For example, if the advertiser's currency is GBP (British pound sterling), all MICRO_DOLLARS fields will be in GBP microunits (1/1,000,000 British pound).<br/>If a column has no value, it may not be returned"
+                },
+                {
+                  "disabled": false,
+                  "key": "granularity",
+                  "value": "<string>",
+                  "description": "(Required) TOTAL - metrics are aggregated over the specified date range.<br> DAY - metrics are broken down daily.<br> HOUR - metrics are broken down hourly.<br>WEEKLY - metrics are broken down weekly.<br>MONTHLY - metrics are broken down monthly"
+                },
+                {
+                  "disabled": false,
+                  "key": "click_window_days",
+                  "value": "30",
+                  "description": "Number of days to use as the conversion attribution window for a pin click action. Applies to Pinterest Tag conversion metrics. Prior conversion tags use their defined attribution windows. If not specified, defaults to `30` days."
+                },
+                {
+                  "disabled": false,
+                  "key": "engagement_window_days",
+                  "value": "30",
+                  "description": "Number of days to use as the conversion attribution window for an engagement action. Engagements include saves, closeups, link clicks, and carousel card swipes. Applies to Pinterest Tag conversion metrics. Prior conversion tags use their defined attribution windows. If not specified, defaults to `30` days."
+                },
+                {
+                  "disabled": false,
+                  "key": "view_window_days",
+                  "value": "1",
+                  "description": "Number of days to use as the conversion attribution window for a view action. Applies to Pinterest Tag conversion metrics. Prior conversion tags use their defined attribution windows. If not specified, defaults to `1` day."
+                },
+                {
+                  "disabled": false,
+                  "key": "conversion_report_time",
+                  "value": "TIME_OF_AD_ACTION",
+                  "description": "The date by which the conversion metrics returned from this endpoint will be reported. There are two dates associated with a conversion event: the date that the user interacted with the ad, and the date that the user completed a conversion event."
+                },
+                {
+                  "disabled": false,
+                  "key": "attribution_types",
+                  "value": "<string>",
+                  "description": "List of types of attribution for the conversion report"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2d9c07b0-697d-4658-afb3-49d6631365c8",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ads",
+                    "targeting_analytics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "targeting_types",
+                      "value": "APPTYPE"
+                    },
+                    {
+                      "key": "columns",
+                      "value": "TOTAL_CONVERSIONS,TOTAL_CONVERSIONS"
+                    },
+                    {
+                      "key": "granularity",
+                      "value": "DAY"
+                    },
+                    {
+                      "key": "click_window_days",
+                      "value": "1"
+                    },
+                    {
+                      "key": "engagement_window_days",
+                      "value": "30"
+                    },
+                    {
+                      "key": "view_window_days",
+                      "value": "1"
+                    },
+                    {
+                      "key": "conversion_report_time",
+                      "value": "TIME_OF_AD_ACTION"
+                    },
+                    {
+                      "key": "attribution_types",
+                      "value": "INDIVIDUAL"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"targeting_type\": \"KEYWORD\",\n      \"targeting_value\": \"christmas decor ideas\",\n      \"metrics\": {\n        \"AD_GROUP_ID\": 2680067996745,\n        \"DATE\": \"2022-04-26\",\n        \"SPEND_IN_DOLLAR\": 240\n      }\n    },\n    {\n      \"targeting_type\": \"APPTYPE\",\n      \"targeting_value\": \"iphone\",\n      \"metrics\": {\n        \"AD_GROUP_ID\": 2680067996745,\n        \"DATE\": \"2022-04-26\",\n        \"SPEND_IN_DOLLAR\": 240\n      }\n    },\n    {\n      \"targeting_type\": \"APPTYPE\",\n      \"targeting_value\": \"ipad\",\n      \"metrics\": {\n        \"AD_GROUP_ID\": 2680067996745,\n        \"DATE\": \"2022-04-26\",\n        \"SPEND_IN_DOLLAR\": 240\n      }\n    },\n    {\n      \"targeting_type\": \"APPTYPE\",\n      \"targeting_value\": \"web\",\n      \"metrics\": {\n        \"AD_GROUP_ID\": 2680067996745,\n        \"DATE\": \"2022-04-26\",\n        \"SPEND_IN_DOLLAR\": 240\n      }\n    },\n    {\n      \"targeting_type\": \"APPTYPE\",\n      \"targeting_value\": \"web_mobile\",\n      \"metrics\": {\n        \"AD_GROUP_ID\": 2680067996745,\n        \"DATE\": \"2022-04-26\",\n        \"SPEND_IN_DOLLAR\": 240\n      }\n    },\n    {\n      \"targeting_type\": \"APPTYPE\",\n      \"targeting_value\": \"android_mobile\",\n      \"metrics\": {\n        \"AD_GROUP_ID\": 2680067996745,\n        \"DATE\": \"2022-04-26\",\n        \"SPEND_IN_DOLLAR\": 240\n      }\n    },\n    {\n      \"targeting_type\": \"APPTYPE\",\n      \"targeting_value\": \"android_tablet\",\n      \"metrics\": {\n        \"AD_GROUP_ID\": 2680067996745,\n        \"DATE\": \"2022-04-26\",\n        \"SPEND_IN_DOLLAR\": 240\n      }\n    },\n    {\n      \"targeting_type\": \"GENDER\",\n      \"targeting_value\": \"female\",\n      \"metrics\": {\n        \"AD_GROUP_ID\": 2680067996745,\n        \"DATE\": \"2022-04-26\",\n        \"SPEND_IN_DOLLAR\": 240\n      }\n    },\n    {\n      \"targeting_type\": \"LOCATION\",\n      \"targeting_value\": 500,\n      \"metrics\": {\n        \"AD_GROUP_ID\": 2680067996745,\n        \"DATE\": \"2022-04-26\",\n        \"SPEND_IN_DOLLAR\": 240\n      }\n    },\n    {\n      \"targeting_type\": \"PLACEMENT\",\n      \"targeting_value\": \"SEARCH\",\n      \"metrics\": {\n        \"AD_GROUP_ID\": 2680067996745,\n        \"DATE\": \"2022-04-26\",\n        \"SPEND_IN_DOLLAR\": 240\n      }\n    },\n    {\n      \"targeting_type\": \"COUNTRY\",\n      \"targeting_value\": \"US\",\n      \"metrics\": {\n        \"AD_GROUP_ID\": 2680067996745,\n        \"DATE\": \"2022-04-26\",\n        \"SPEND_IN_DOLLAR\": 240\n      }\n    },\n    {\n      \"targeting_type\": \"TARGETED_INTEREST\",\n      \"targeting_value\": \"Food and Drinks\",\n      \"metrics\": {\n        \"AD_GROUP_ID\": 2680067996745,\n        \"DATE\": \"2022-04-26\",\n        \"SPEND_IN_DOLLAR\": 240\n      }\n    },\n    {\n      \"targeting_type\": \"PINNER_INTEREST\",\n      \"targeting_value\": \"Chocolate Cookies\",\n      \"metrics\": {\n        \"AD_GROUP_ID\": 2680067996745,\n        \"DATE\": \"2022-04-26\",\n        \"SPEND_IN_DOLLAR\": 240\n      }\n    },\n    {\n      \"targeting_type\": \"AUDIENCE_INCLUDE\",\n      \"targeting_value\": 254261234567,\n      \"metrics\": {\n        \"AD_GROUP_ID\": 2680067996745,\n        \"DATE\": \"2022-04-26\",\n        \"SPEND_IN_DOLLAR\": 240\n      }\n    },\n    {\n      \"targeting_type\": \"GEO\",\n      \"targeting_value\": \"US:94102\",\n      \"metrics\": {\n        \"AD_GROUP_ID\": 2680067996745,\n        \"DATE\": \"2022-04-26\",\n        \"SPEND_IN_DOLLAR\": 240\n      }\n    },\n    {\n      \"targeting_type\": \"AGE_BUCKET\",\n      \"targeting_value\": \"45-49\",\n      \"metrics\": {\n        \"AD_GROUP_ID\": 2680067996745,\n        \"DATE\": \"2022-04-26\",\n        \"SPEND_IN_DOLLAR\": 240\n      }\n    },\n    {\n      \"targeting_type\": \"REGION\",\n      \"targeting_value\": \"US-CA\",\n      \"metrics\": {\n        \"AD_GROUP_ID\": 2680067996745,\n        \"DATE\": \"2022-04-26\",\n        \"SPEND_IN_DOLLAR\": 240\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2717fde6-08a0-4058-8b38-1cf4bc2abaf4",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ads",
+                    "targeting_analytics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "targeting_types",
+                      "value": "APPTYPE"
+                    },
+                    {
+                      "key": "columns",
+                      "value": "TOTAL_CONVERSIONS,TOTAL_CONVERSIONS"
+                    },
+                    {
+                      "key": "granularity",
+                      "value": "DAY"
+                    },
+                    {
+                      "key": "click_window_days",
+                      "value": "1"
+                    },
+                    {
+                      "key": "engagement_window_days",
+                      "value": "30"
+                    },
+                    {
+                      "key": "view_window_days",
+                      "value": "1"
+                    },
+                    {
+                      "key": "conversion_report_time",
+                      "value": "TIME_OF_AD_ACTION"
+                    },
+                    {
+                      "key": "attribution_types",
+                      "value": "INDIVIDUAL"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 277,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e1f4dd19-cbad-4414-b67c-cc6b2cb22782",
+          "name": "Get ad",
+          "request": {
+            "name": "Get ad",
+            "description": {
+              "content": "Get a specific ad given the ad ID. If your pin is rejected, rejected_reasons will\ncontain additional information from the Ad Review process.\nFor more information about our policies and rejection reasons see the <a href=\"https://www.pinterest.com/_/_/policy/advertising-guidelines/\"\ntarget=\"_blank\">Pinterest advertising standards</a>.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "ads",
+                ":ad_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_id",
+                  "description": "(Required) Unique identifier of an ad."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "90f6c9a9-de26-423b-a4ac-698203c1ea05",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ads",
+                    ":ad_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_id",
+                      "description": "(Required) Unique identifier of an ad."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ad_group_id\": \"2680059592705\",\n  \"android_deep_link\": \"<string>\",\n  \"carousel_android_deep_links\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"carousel_destination_urls\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"carousel_ios_deep_links\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"click_tracking_url\": \"<string>\",\n  \"creative_type\": \"REGULAR\",\n  \"destination_url\": \"<string>\",\n  \"ios_deep_link\": \"<string>\",\n  \"is_pin_deleted\": false,\n  \"is_removable\": false,\n  \"name\": \"<string>\",\n  \"status\": \"ACTIVE\",\n  \"tracking_urls\": {\n    \"impression\": [\n      \"URL1\",\n      \"URL2\"\n    ],\n    \"click\": [\n      \"URL1\",\n      \"URL2\"\n    ],\n    \"engagement\": [\n      \"URL1\",\n      \"URL2\"\n    ],\n    \"buyable_button\": [\n      \"URL1\",\n      \"URL2\"\n    ],\n    \"audience_verification\": [\n      \"URL1\",\n      \"URL2\"\n    ]\n  },\n  \"view_tracking_url\": \"<string>\",\n  \"lead_form_id\": \"<string>\",\n  \"grid_click_type\": \"CLOSEUP\",\n  \"customizable_cta_type\": \"LEARN_MORE\",\n  \"quiz_pin_data\": {\n    \"questions\": [\n      {\n        \"question_id\": 5413.9975715406,\n        \"question_text\": \"string\",\n        \"options\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      },\n      {\n        \"question_id\": 7928.780574825901,\n        \"question_text\": \"string\",\n        \"options\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ]\n      }\n    ],\n    \"results\": [\n      {\n        \"organic_pin_id\": \"pinId\",\n        \"android_deep_link\": \"https://www.pinterest.com/\",\n        \"ios_deep_link\": \"https://www.pinterest.com/\",\n        \"destination_url\": \"https://www.pinterest.com/\"\n      },\n      {\n        \"organic_pin_id\": \"pinId\",\n        \"android_deep_link\": \"https://www.pinterest.com/\",\n        \"ios_deep_link\": \"https://www.pinterest.com/\",\n        \"destination_url\": \"https://www.pinterest.com/\"\n      }\n    ]\n  },\n  \"pin_id\": \"394205773611545468\",\n  \"ad_account_id\": \"549755885175\",\n  \"campaign_id\": \"626735565838\",\n  \"collection_items_destination_url_template\": \"string\",\n  \"created_time\": 1451431341,\n  \"id\": \"687195134316\",\n  \"rejected_reasons\": [\n    \"TARGETING\",\n    \"ALCOHOL\"\n  ],\n  \"rejection_labels\": [\n    \"string\",\n    \"string\"\n  ],\n  \"review_status\": \"PENDING\",\n  \"type\": \"pinpromotion\",\n  \"updated_time\": 1451431341,\n  \"summary_status\": \"APPROVED\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e5eec3c8-a8a3-42b8-9a0d-4422efa7ff0d",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ads",
+                    ":ad_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_id",
+                      "description": "(Required) Unique identifier of an ad."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 277,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.pinterest.com/v5",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "1606c167-4963-4190-8eb7-7ab7d65d903a",
+    "name": "Pinterest Ads API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is the description of your API.\n\nContact Support:\n Name: Pinterest, Inc.",
+      "type": "text/plain"
+    }
+  }
+}

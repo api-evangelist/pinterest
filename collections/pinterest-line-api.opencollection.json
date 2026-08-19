@@ -1,0 +1,53 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pinterest Line API",
+    "version": "5.13.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Line",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get order line",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/ad_accounts/:ad_account_id/order_lines/:order_line_id",
+            "params": [
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of an ad account."
+              },
+              {
+                "name": "order_line_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of an order line."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get a specific existing order line associated with an ad account."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

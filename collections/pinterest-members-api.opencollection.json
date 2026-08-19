@@ -1,0 +1,327 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pinterest Members API",
+    "version": "5.13.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Members",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get members with access to asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/businesses/:business_id/assets/:asset_id/members",
+            "params": [
+              {
+                "name": "business_id",
+                "value": "729090764583391194",
+                "type": "path",
+                "description": "Unique identifier of the requesting business."
+              },
+              {
+                "name": "asset_id",
+                "value": "729090764583391194",
+                "type": "path",
+                "description": "Unique identifier of a business asset."
+              },
+              {
+                "name": "bookmark",
+                "value": "",
+                "type": "query",
+                "description": "Cursor used to fetch the next page of items"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+              },
+              {
+                "name": "start_index",
+                "value": "0",
+                "type": "query",
+                "description": "An index to start fetching the results from. Only the results starting from this index will be returned."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get all the members the requesting business has granted access to on the given asset."
+        },
+        {
+          "info": {
+            "name": "Get business members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/businesses/:business_id/members",
+            "params": [
+              {
+                "name": "business_id",
+                "value": "729090764583391194",
+                "type": "path",
+                "description": "Unique identifier of the requesting business."
+              },
+              {
+                "name": "assets_summary",
+                "value": "",
+                "type": "query",
+                "description": "Include assets summary in the response if this is true.\n\nThe assets summary returns a dictionary representing a summary of the assets\nfor the business user ID, with information like the ad accounts and profiles\nthe user has permissions for and what those permissions are"
+              },
+              {
+                "name": "business_roles",
+                "value": "",
+                "type": "query",
+                "description": "A list of business roles to filter the members by. Only members whose roles are in the specified roles will be returned."
+              },
+              {
+                "name": "member_ids",
+                "value": "00101010101,2222220101",
+                "type": "query",
+                "description": "A list of business members ids separated by comma."
+              },
+              {
+                "name": "start_index",
+                "value": "0",
+                "type": "query",
+                "description": "An index to start fetching the results from. Only the results starting from this index will be returned."
+              },
+              {
+                "name": "bookmark",
+                "value": "",
+                "type": "query",
+                "description": "Cursor used to fetch the next page of items"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get all members of the specified business.\nThe return response will include the member's business_role and assets they have access to if assets_summary=TRUE"
+        },
+        {
+          "info": {
+            "name": "Update member's business role",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.pinterest.com/v5/businesses/:business_id/members",
+            "params": [
+              {
+                "name": "business_id",
+                "value": "729090764583391194",
+                "type": "path",
+                "description": "Business id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update a member's business role within the business."
+        },
+        {
+          "info": {
+            "name": "Terminate business memberships",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.pinterest.com/v5/businesses/:business_id/members",
+            "params": [
+              {
+                "name": "business_id",
+                "value": "729090764583391194",
+                "type": "path",
+                "description": "Business id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Terminate memberships between the specified members and your business."
+        },
+        {
+          "info": {
+            "name": "Get assets assigned to a member",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/businesses/:business_id/members/:member_id/assets",
+            "params": [
+              {
+                "name": "business_id",
+                "value": "729090764583391194",
+                "type": "path",
+                "description": "Unique identifier of the requesting business."
+              },
+              {
+                "name": "member_id",
+                "value": "729090764583391194",
+                "type": "path",
+                "description": "The member id to fetch assets for."
+              },
+              {
+                "name": "asset_type",
+                "value": "",
+                "type": "query",
+                "description": "A resource type to filter the assets by. Only assets of the specified type will be returned."
+              },
+              {
+                "name": "start_index",
+                "value": "0",
+                "type": "query",
+                "description": "An index to start fetching the results from. Only the results starting from this index will be returned."
+              },
+              {
+                "name": "bookmark",
+                "value": "",
+                "type": "query",
+                "description": "Cursor used to fetch the next page of items"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get assets on which you assigned asset permissions to the given member. Can be used to:\n- get all assets, regardless of asset type or\n- get assets of one asset type by using the asset_type query.\nThe return response will include the permissions the member has to that asset and the asset type."
+        },
+        {
+          "info": {
+            "name": "Assign/Update member asset permissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.pinterest.com/v5/businesses/:business_id/members/assets/access",
+            "params": [
+              {
+                "name": "business_id",
+                "value": "729090764583391194",
+                "type": "path",
+                "description": "Unique identifier of the requesting business."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Grant multiple members access to assets and/or update multiple member's exisiting permissions to an asset.\nNote: Not all listed permissions are applicable to each asset type. For example, PROFILE_PUBLISHER would not be applicable to an asset of type AD_ACCOUNT. The permission level PROFILE_PUBLISHER is only available to an asset of the type PROFILE.\n"
+        },
+        {
+          "info": {
+            "name": "Delete member access to asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.pinterest.com/v5/businesses/:business_id/members/assets/access",
+            "params": [
+              {
+                "name": "business_id",
+                "value": "729090764583391194",
+                "type": "path",
+                "description": "Unique identifier of the requesting business."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Terminate multiple members' access to an asset."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

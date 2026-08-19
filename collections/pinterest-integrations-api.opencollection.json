@@ -1,0 +1,223 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pinterest Integrations API",
+    "version": "5.13.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Integrations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create commerce integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pinterest.com/v5/integrations/commerce",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create commerce integration metadata to link an external business ID with a Pinterest merchant & ad account.\nNote: If you're interested in joining the beta, please reach out to your Pinterest account manager."
+        },
+        {
+          "info": {
+            "name": "Get commerce integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/integrations/commerce/:external_business_id",
+            "params": [
+              {
+                "name": "external_business_id",
+                "value": "",
+                "type": "path",
+                "description": "External business ID for the integration."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get commerce integration metadata associated with the given external business ID.\nNote: If you're interested in joining the beta, please reach out to your Pinterest account manager."
+        },
+        {
+          "info": {
+            "name": "Update commerce integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.pinterest.com/v5/integrations/commerce/:external_business_id",
+            "params": [
+              {
+                "name": "external_business_id",
+                "value": "",
+                "type": "path",
+                "description": "External business ID for the integration."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update commerce integration metadata for the given external business ID.\nNote: If you're interested in joining the beta, please reach out to your Pinterest account manager."
+        },
+        {
+          "info": {
+            "name": "Delete commerce integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.pinterest.com/v5/integrations/commerce/:external_business_id",
+            "params": [
+              {
+                "name": "external_business_id",
+                "value": "",
+                "type": "path",
+                "description": "External business ID for the integration."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete commerce integration metadata for the given external business ID.\nNote: If you're interested in joining the beta, please reach out to your Pinterest account manager."
+        },
+        {
+          "info": {
+            "name": "Receives batched logs from integration applications.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pinterest.com/v5/integrations/logs",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint receives batched logs from integration applications on partner platforms.\nNote: If you're interested in joining the beta, please reach out to your Pinterest account manager."
+        },
+        {
+          "info": {
+            "name": "Get integration metadata list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/integrations",
+            "params": [
+              {
+                "name": "bookmark",
+                "value": "",
+                "type": "query",
+                "description": "Cursor used to fetch the next page of items"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get integration metadata list.\nNote: If you're interested in joining the beta, please reach out to your Pinterest account manager."
+        },
+        {
+          "info": {
+            "name": "Get integration metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/integrations/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Integration ID."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get integration metadata by ID.\nNote: If you're interested in joining the beta, please reach out to your Pinterest account manager."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

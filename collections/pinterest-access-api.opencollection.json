@@ -1,0 +1,150 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pinterest Access API",
+    "version": "5.13.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Access",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Update invite/request with an asset permission",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pinterest.com/v5/businesses/:business_id/invites/assets/access",
+            "params": [
+              {
+                "name": "business_id",
+                "value": "729090764583391194",
+                "type": "path",
+                "description": "Unique identifier of the requesting business."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Assign asset permissions information to an existing invite/request. Can be used to:\n- Request access to a partner's asset. Note: This is only for when no existing partnership exists. If an existing\n  partnership exists, use \"Create a request to access an existing partner's assets\" to request access to your\n  partner's assets.\n    - invite_type=\"PARTNER_REQUEST\"\n- Invite a partner to access your business assets. Note: This is only for when there is no existing partnership.\n  If there is an existi"
+        },
+        {
+          "info": {
+            "name": "Create a request to access an existing partner's assets.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pinterest.com/v5/businesses/:business_id/requests/assets/access",
+            "params": [
+              {
+                "name": "business_id",
+                "value": "729090764583391194",
+                "type": "path",
+                "description": "Unique identifier of the requesting business."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a request to access an existing partner's assets with the specified permissions. The request will be sent to the partner for approval. The assets that can be requested are ad accounts and profiles."
+        },
+        {
+          "info": {
+            "name": "Assign/Update member asset permissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.pinterest.com/v5/businesses/:business_id/members/assets/access",
+            "params": [
+              {
+                "name": "business_id",
+                "value": "729090764583391194",
+                "type": "path",
+                "description": "Unique identifier of the requesting business."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Grant multiple members access to assets and/or update multiple member's exisiting permissions to an asset.\nNote: Not all listed permissions are applicable to each asset type. For example, PROFILE_PUBLISHER would not be applicable to an asset of type AD_ACCOUNT. The permission level PROFILE_PUBLISHER is only available to an asset of the type PROFILE.\n"
+        },
+        {
+          "info": {
+            "name": "Delete member access to asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.pinterest.com/v5/businesses/:business_id/members/assets/access",
+            "params": [
+              {
+                "name": "business_id",
+                "value": "729090764583391194",
+                "type": "path",
+                "description": "Unique identifier of the requesting business."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Terminate multiple members' access to an asset."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

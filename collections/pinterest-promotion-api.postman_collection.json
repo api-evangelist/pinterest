@@ -1,0 +1,227 @@
+{
+  "item": [
+    {
+      "id": "9923d153-f3d3-4106-9bfe-64828f6fe033",
+      "name": "Promotion",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fc510a65-c32c-471f-aaa1-4eea01a94872",
+          "name": "Get a product group promotion by id",
+          "request": {
+            "name": "Get a product group promotion by id",
+            "description": {
+              "content": "Get a product group promotion by id",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "product_group_promotions",
+                ":product_group_promotion_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "product_group_promotion_id",
+                  "description": "(Required) Unique identifier of a product group promotion"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8d278736-d5fe-4fbd-9821-465985e6bbe6",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "product_group_promotions",
+                    ":product_group_promotion_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product_group_promotion_id",
+                      "description": "(Required) Unique identifier of a product group promotion"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"data\": {\n        \"id\": \"2680059592705\",\n        \"ad_group_id\": \"2680059592705\",\n        \"bid_in_micro_currency\": 14000000,\n        \"included\": true,\n        \"definition\": \"*/product_type_0='kitchen'/product_type_1='beverage appliances'\",\n        \"relative_definition\": \"product_type_1='beverage appliances'\",\n        \"parent_id\": \"1231234\",\n        \"slideshow_collections_title\": \"slideshow title\",\n        \"slideshow_collections_description\": \"slideshow description\",\n        \"is_mdl\": true,\n        \"status\": \"ACTIVE\",\n        \"tracking_url\": \"https://www.pinterest.com\",\n        \"catalog_product_group_id\": \"1231235\",\n        \"catalog_product_group_name\": \"catalogProductGroupName\",\n        \"collections_hero_pin_id\": \"123123\",\n        \"collections_hero_destination_url\": \"http://www.pinterest.com\",\n        \"grid_click_type\": \"CLOSEUP\",\n        \"creative_type\": \"REGULAR\"\n      },\n      \"exceptions\": {}\n    },\n    {\n      \"data\": {\n        \"id\": \"2680059592705\",\n        \"ad_group_id\": \"2680059592705\",\n        \"bid_in_micro_currency\": 14000000,\n        \"included\": true,\n        \"definition\": \"*/product_type_0='kitchen'/product_type_1='beverage appliances'\",\n        \"relative_definition\": \"product_type_1='beverage appliances'\",\n        \"parent_id\": \"1231234\",\n        \"slideshow_collections_title\": \"slideshow title\",\n        \"slideshow_collections_description\": \"slideshow description\",\n        \"is_mdl\": true,\n        \"status\": \"ACTIVE\",\n        \"tracking_url\": \"https://www.pinterest.com\",\n        \"catalog_product_group_id\": \"1231235\",\n        \"catalog_product_group_name\": \"catalogProductGroupName\",\n        \"collections_hero_pin_id\": \"123123\",\n        \"collections_hero_destination_url\": \"http://www.pinterest.com\",\n        \"grid_click_type\": \"CLOSEUP\",\n        \"creative_type\": \"REGULAR\"\n      },\n      \"exceptions\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "710d350f-7a03-4237-ab9c-f1cfd6d9735f",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "product_group_promotions",
+                    ":product_group_promotion_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product_group_promotion_id",
+                      "description": "(Required) Unique identifier of a product group promotion"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 6377,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.pinterest.com/v5",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4b7cb8bd-4a2b-421e-a619-3312e9f9669b",
+    "name": "Pinterest Promotion API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is the description of your API.\n\nContact Support:\n Name: Pinterest, Inc.",
+      "type": "text/plain"
+    }
+  }
+}

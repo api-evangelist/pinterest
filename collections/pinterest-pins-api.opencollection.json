@@ -1,0 +1,796 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pinterest Pins API",
+    "version": "5.13.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Pins",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Pins on board",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/boards/:board_id/pins",
+            "params": [
+              {
+                "name": "board_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of a board."
+              },
+              {
+                "name": "bookmark",
+                "value": "",
+                "type": "query",
+                "description": "Cursor used to fetch the next page of items"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+              },
+              {
+                "name": "creative_types",
+                "value": "",
+                "type": "query",
+                "description": "Pin creative types filter. </p><strong>Note:</strong> SHOP_THE_PIN has been deprecated. Please use COLLECTION instead."
+              },
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier of an ad account."
+              },
+              {
+                "name": "pin_metrics",
+                "value": "",
+                "type": "query",
+                "description": "Specify whether to return 90d and lifetime Pin metrics. Total comments and total reactions are only available with lifetime Pin metrics. If Pin was created before <code>2023-03-20</code> lifetime metrics will only be available for Video and Idea Pin formats. Lifetime metrics are available for all Pin formats since then."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get a list of the Pins on a board owned by the \"operation user_account\" - or on a group board that has been shared with this account.\n- Optional: Business Access: Specify an ad_account_id to use the owner of that ad_account as the \"operation user_account\".\n- By default, the \"operation user_account\" is the token user_account."
+        },
+        {
+          "info": {
+            "name": "List Pins on board section",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/boards/:board_id/sections/:section_id/pins",
+            "params": [
+              {
+                "name": "board_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of a board."
+              },
+              {
+                "name": "section_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of a board section."
+              },
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier of an ad account."
+              },
+              {
+                "name": "bookmark",
+                "value": "",
+                "type": "query",
+                "description": "Cursor used to fetch the next page of items"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get a list of the Pins on a board section of a board owned by the \"operation user_account\" - or on a group board that has been shared with this account.\nOptional: Business Access: Specify an ad_account_id to use the owner of that ad_account as the \"operation user_account\".\n- By default, the \"operation user_account\" is the token user_account."
+        },
+        {
+          "info": {
+            "name": "List Pins",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/pins",
+            "params": [
+              {
+                "name": "bookmark",
+                "value": "",
+                "type": "query",
+                "description": "Cursor used to fetch the next page of items"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+              },
+              {
+                "name": "pin_filter",
+                "value": "",
+                "type": "query",
+                "description": "Pin filter."
+              },
+              {
+                "name": "include_protected_pins",
+                "value": "",
+                "type": "query",
+                "description": "Specify if return pins from protected boards"
+              },
+              {
+                "name": "pin_type",
+                "value": "",
+                "type": "query",
+                "description": "The type of pins to return, currently only enabled for private pins"
+              },
+              {
+                "name": "creative_types",
+                "value": "",
+                "type": "query",
+                "description": "Pin creative types filter. </p><strong>Note:</strong> SHOP_THE_PIN has been deprecated. Please use COLLECTION instead."
+              },
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier of an ad account."
+              },
+              {
+                "name": "pin_metrics",
+                "value": "",
+                "type": "query",
+                "description": "Specify whether to return 90d and lifetime Pin metrics. Total comments and total reactions are only available with lifetime Pin metrics. If Pin was created before <code>2023-03-20</code> lifetime metrics will only be available for Video and Idea Pin formats. Lifetime metrics are available for all Pin formats since then."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get a list of the Pins owned by the \"operation user_account\".\n  - By default, the \"operation user_account\" is the token user_account.\n  - All Pins owned by the \"operation user_account\" are included, regardless of who owns the board they are on.\nOptional: Business Access: Specify an ad_account_id to use the owner of that ad_account as the \"operation user_account\".\n\nDisclaimer: there are known performance issues when filtering by field <code>creative_type</code> and including protected pins. If yo"
+        },
+        {
+          "info": {
+            "name": "Create Pin",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pinterest.com/v5/pins",
+            "params": [
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier of an ad account."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a Pin on a board or board section owned by the \"operation user_account\".\n\nNote: If the current \"operation user_account\" (defined by the access token) has access to another user's Ad Accounts via Pinterest Business Access, you can modify your request to make use of the current operation_user_account's permissions to those Ad Accounts by including the ad_account_id in the path parameters for the request (e.g. .../?ad_account_id=12345&...).\n\n- This function is intended solely for publishing "
+        },
+        {
+          "info": {
+            "name": "Get Pin",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/pins/:pin_id",
+            "params": [
+              {
+                "name": "pin_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of a Pin."
+              },
+              {
+                "name": "pin_metrics",
+                "value": "",
+                "type": "query",
+                "description": "Specify whether to return 90d and lifetime Pin metrics. Total comments and total reactions are only available with lifetime Pin metrics. If Pin was created before <code>2023-03-20</code> lifetime metrics will only be available for Video and Idea Pin formats. Lifetime metrics are available for all Pin formats since then."
+              },
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier of an ad account."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get a Pin owned by the \"operation user_account\" - or on a group board that has been shared with this account.\n- By default, the \"operation user_account\" is the token user_account.\n\nOptional: Business Access: Specify an <code>ad_account_id</code> (obtained via <a href='/docs/api/v5/#operation/ad_accounts/list'>List ad accounts</a>) to use the owner of that ad_account as the \"operation user_account\". In order to do this, the token user_account must have one of the following <a href=\"https://help.p"
+        },
+        {
+          "info": {
+            "name": "Update Pin",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.pinterest.com/v5/pins/:pin_id",
+            "params": [
+              {
+                "name": "pin_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of a Pin."
+              },
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier of an ad account."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update a pin owned by the \"operating user_account\".\n- By default, the \"operation user_account\" is the token user_account.\n\nOptional: Business Access: Specify an <code>ad_account_id</code> (obtained via <a href='/docs/api/v5/#operation/ad_accounts/list'>List ad accounts</a>) to use the owner of that ad_account as the \"operation user_account\". In order to do this, the token user_account must have one of the following <a href=\"https://help.pinterest.com/en/business/article/share-and-manage-access-t"
+        },
+        {
+          "info": {
+            "name": "Delete Pin",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.pinterest.com/v5/pins/:pin_id",
+            "params": [
+              {
+                "name": "pin_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of a Pin."
+              },
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier of an ad account."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete a Pins owned by the \"operation user_account\" - or on a group board that has been shared with this account.\n- By default, the \"operation user_account\" is the token user_account.\n\nOptional: Business Access: Specify an <code>ad_account_id</code> (obtained via <a href='/docs/api/v5/#operation/ad_accounts/list'>List ad accounts</a>) to use the owner of that ad_account as the \"operation user_account\". In order to do this, the token user_account must have one of the following <a href=\"https://he"
+        },
+        {
+          "info": {
+            "name": "Get Pin analytics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/pins/:pin_id/analytics",
+            "params": [
+              {
+                "name": "pin_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of a Pin."
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Metric report start date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days back from today."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "Metric report end date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days past start_date."
+              },
+              {
+                "name": "app_types",
+                "value": "",
+                "type": "query",
+                "description": "Apps or devices to get data for, default is all."
+              },
+              {
+                "name": "metric_types",
+                "value": "",
+                "type": "query",
+                "description": "Pin metric types to get data for. Keep in mind this cannot have ALL if split_field is set to any value other than <code>NO_SPLIT</code>."
+              },
+              {
+                "name": "split_field",
+                "value": "",
+                "type": "query",
+                "description": "How to split the data into groups. Not including this param means data won't be split."
+              },
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier of an ad account."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get analytics for a Pin owned by the \"operation user_account\" - or on a group board that has been shared with this account.\n- By default, the \"operation user_account\" is the token user_account.\n\nOptional: Business Access: Specify an <code>ad_account_id</code> (obtained via <a href=\"https://developers.pinterest.com/docs/api/v5/#operation/ad_accounts/list\">List ad accounts</a>) to use the owner of that ad_account as the \"operation user_account\". In order to do this, the token user_account must hav"
+        },
+        {
+          "info": {
+            "name": "Get multiple Pin analytics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/pins/analytics",
+            "params": [
+              {
+                "name": "pin_ids",
+                "value": "",
+                "type": "query",
+                "description": "List of Pin IDs."
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Metric report start date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days back from today."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "Metric report end date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days past start_date."
+              },
+              {
+                "name": "app_types",
+                "value": "",
+                "type": "query",
+                "description": "Apps or devices to get data for, default is all."
+              },
+              {
+                "name": "metric_types",
+                "value": "",
+                "type": "query",
+                "description": "Pin metric types to get data for."
+              },
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier of an ad account."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "<strong>This endpoint is currently in beta and not available to all apps. <a href='/docs/new/about-beta-access/'>Learn more</a>.</strong>\n\nGet analytics for multiple pins owned by the \"operation user_account\" - or on a group board that has been shared with this account.\n- The maximum number of pins supported in a single request is 100.\n- By default, the \"operation user_account\" is the token user_account.\n\nOptional: Business Access: Specify an <code>ad_account_id</code> (obtained via <a href=\"htt"
+        },
+        {
+          "info": {
+            "name": "Save Pin",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pinterest.com/v5/pins/:pin_id/save",
+            "params": [
+              {
+                "name": "pin_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of a Pin."
+              },
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier of an ad account."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Save a Pin on a board or board section owned by the \"operation user_account\".\n- By default, the \"operation user_account\" is the token user_account.\nOptional: Business Access: Specify an <code>ad_account_id</code> (obtained via <a href='/docs/api/v5/#operation/ad_accounts/list'>List ad accounts</a>) to use the owner of that ad_account as the \"operation user_account\". In order to do this, the token user_account must have one of the following <a href=\"https://help.pinterest.com/en/business/article/"
+        },
+        {
+          "info": {
+            "name": "Search user's Pins",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/search/pins",
+            "params": [
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier of an ad account."
+              },
+              {
+                "name": "query",
+                "value": "Plants",
+                "type": "query",
+                "description": "Search query. Can contain pin description keywords or comma-separated pin IDs."
+              },
+              {
+                "name": "bookmark",
+                "value": "",
+                "type": "query",
+                "description": "Cursor used to fetch the next page of items"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Search for pins for the \"operation user_account\".\n- By default, the \"operation user_account\" is the token user_account.\n\nIf using Business Access: Specify an ad_account_id to use the owner of that ad_account as the \"operation user_account\". See <a href='/docs/reference/business-access/'>Understanding Business Access</a> for more information."
+        },
+        {
+          "info": {
+            "name": "Search pins by a given search term",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/search/partner/pins",
+            "params": [
+              {
+                "name": "term",
+                "value": "",
+                "type": "query",
+                "description": "Search term to look up pins."
+              },
+              {
+                "name": "country_code",
+                "value": "US",
+                "type": "query",
+                "description": "Two letter country code (ISO 3166-1 alpha-2)"
+              },
+              {
+                "name": "bookmark",
+                "value": "",
+                "type": "query",
+                "description": "Cursor used to fetch the next page of items"
+              },
+              {
+                "name": "locale",
+                "value": "",
+                "type": "query",
+                "description": "Search locale."
+              },
+              {
+                "name": "limit",
+                "value": "4",
+                "type": "query",
+                "description": "Max search result size"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "<strong>This endpoint is currently in beta and not available to all apps. <a href='/docs/new/about-beta-access/'>Learn more</a>.</strong>\n\nGet the top 10 Pins by a given search term."
+        },
+        {
+          "info": {
+            "name": "Get user account top pins analytics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/user_account/analytics/top_pins",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Metric report start date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days back from today."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "Metric report end date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days past start_date."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Specify sorting order for metrics"
+              },
+              {
+                "name": "from_claimed_content",
+                "value": "",
+                "type": "query",
+                "description": "Filter on Pins that match your claimed domain."
+              },
+              {
+                "name": "pin_format",
+                "value": "",
+                "type": "query",
+                "description": "Pin formats to get data for, default is all."
+              },
+              {
+                "name": "app_types",
+                "value": "",
+                "type": "query",
+                "description": "Apps or devices to get data for, default is all."
+              },
+              {
+                "name": "content_type",
+                "value": "",
+                "type": "query",
+                "description": "Filter to paid or organic data. Default is all."
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Filter to activity from Pins created and saved by your, or activity created and saved by others from your claimed accounts"
+              },
+              {
+                "name": "metric_types",
+                "value": "",
+                "type": "query",
+                "description": "Metric types to get data for, default is all. "
+              },
+              {
+                "name": "num_of_pins",
+                "value": "25",
+                "type": "query",
+                "description": "Number of pins to include, default is 10. Max is 50."
+              },
+              {
+                "name": "created_in_last_n_days",
+                "value": "30",
+                "type": "query",
+                "description": "Get metrics for pins created in the last \"n\" days."
+              },
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier of an ad account."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Gets analytics data about a user's top pins (limited to the top 50).\n- By default, the \"operation user_account\" is the token user_account.\n\nOptional: Business Access: Specify an ad_account_id to use the owner of that ad_account as the \"operation user_account\"."
+        },
+        {
+          "info": {
+            "name": "Get user account top video pins analytics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/user_account/analytics/top_video_pins",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Metric report start date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days back from today."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "Metric report end date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days past start_date."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Specify sorting order for video metrics"
+              },
+              {
+                "name": "from_claimed_content",
+                "value": "",
+                "type": "query",
+                "description": "Filter on Pins that match your claimed domain."
+              },
+              {
+                "name": "pin_format",
+                "value": "",
+                "type": "query",
+                "description": "Pin formats to get data for, default is all."
+              },
+              {
+                "name": "app_types",
+                "value": "",
+                "type": "query",
+                "description": "Apps or devices to get data for, default is all."
+              },
+              {
+                "name": "content_type",
+                "value": "",
+                "type": "query",
+                "description": "Filter to paid or organic data. Default is all."
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Filter to activity from Pins created and saved by your, or activity created and saved by others from your claimed accounts"
+              },
+              {
+                "name": "metric_types",
+                "value": "",
+                "type": "query",
+                "description": "Metric types to get video data for, default is all. "
+              },
+              {
+                "name": "num_of_pins",
+                "value": "25",
+                "type": "query",
+                "description": "Number of pins to include, default is 10. Max is 50."
+              },
+              {
+                "name": "created_in_last_n_days",
+                "value": "30",
+                "type": "query",
+                "description": "Get metrics for pins created in the last \"n\" days."
+              },
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier of an ad account."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Gets analytics data about a user's top video pins (limited to the top 50).\n- By default, the \"operation user_account\" is the token user_account.\n\nOptional: Business Access: Specify an ad_account_id to use the owner of that ad_account as the \"operation user_account\"."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

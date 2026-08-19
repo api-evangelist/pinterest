@@ -1,0 +1,2534 @@
+{
+  "item": [
+    {
+      "id": "56d8ac90-e962-4d7b-960c-53e1ea25b080",
+      "name": "Assets",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "22a7b190-2555-450b-846e-3b99c1fe7a01",
+          "name": "Get members with access to asset",
+          "request": {
+            "name": "Get members with access to asset",
+            "description": {
+              "content": "Get all the members the requesting business has granted access to on the given asset.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "businesses",
+                ":business_id",
+                "assets",
+                ":asset_id",
+                "members"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "bookmark",
+                  "value": "<string>",
+                  "description": "Cursor used to fetch the next page of items"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "25",
+                  "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+                },
+                {
+                  "disabled": false,
+                  "key": "start_index",
+                  "value": "0",
+                  "description": "An index to start fetching the results from. Only the results starting from this index will be returned."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "business_id",
+                  "description": "(Required) Unique identifier of the requesting business."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "asset_id",
+                  "description": "(Required) Unique identifier of a business asset."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5627b99e-97c5-41bd-b73d-1458b31af8b4",
+              "name": "Sucess",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "businesses",
+                    ":business_id",
+                    "assets",
+                    ":asset_id",
+                    "members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "start_index",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_id",
+                      "description": "(Required) Unique identifier of the requesting business."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "asset_id",
+                      "description": "(Required) Unique identifier of a business asset."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"permissions\": [\n        \"FINANCE_MANAGER\",\n        \"CATALOGS_MANAGER\",\n        \"AUDIENCE_MANAGER\"\n      ],\n      \"user\": {\n        \"email\": \"business0101@business.com\",\n        \"id\": \"383791336903426391\",\n        \"username\": \"business0101\"\n      }\n    },\n    {\n      \"permissions\": [\n        \"FINANCE_MANAGER\",\n        \"CATALOGS_MANAGER\",\n        \"AUDIENCE_MANAGER\"\n      ],\n      \"user\": {\n        \"email\": \"business0101@business.com\",\n        \"id\": \"383791336903426391\",\n        \"username\": \"business0101\"\n      }\n    }\n  ],\n  \"bookmark\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "060f181b-3070-4c3a-8db4-eef59f418416",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "businesses",
+                    ":business_id",
+                    "assets",
+                    ":asset_id",
+                    "members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "start_index",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_id",
+                      "description": "(Required) Unique identifier of the requesting business."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "asset_id",
+                      "description": "(Required) Unique identifier of a business asset."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4883,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2d732288-071e-4299-96ca-44b2dbb10e05",
+          "name": "Get partners with access to asset",
+          "request": {
+            "name": "Get partners with access to asset",
+            "description": {
+              "content": "Get all the partners the requesting business has granted access to on the given asset.\nNote: If the asset has been shared with you, an empty array will be returned. This is because an asset shared with\nyou cannot be shared with a different partner.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "businesses",
+                ":business_id",
+                "assets",
+                ":asset_id",
+                "partners"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start_index",
+                  "value": "0",
+                  "description": "An index to start fetching the results from. Only the results starting from this index will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "bookmark",
+                  "value": "<string>",
+                  "description": "Cursor used to fetch the next page of items"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "25",
+                  "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "business_id",
+                  "description": "(Required) Unique identifier of the requesting business."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "asset_id",
+                  "description": "(Required) Unique identifier of a business asset."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8de12740-9971-4338-a565-1f47c5cb9ea3",
+              "name": "Sucess",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "businesses",
+                    ":business_id",
+                    "assets",
+                    ":asset_id",
+                    "partners"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_index",
+                      "value": "0"
+                    },
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_id",
+                      "description": "(Required) Unique identifier of the requesting business."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "asset_id",
+                      "description": "(Required) Unique identifier of a business asset."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"permissions\": [\n        \"FINANCE_MANAGER\",\n        \"CATALOGS_MANAGER\",\n        \"AUDIENCE_MANAGER\"\n      ],\n      \"user\": {\n        \"email\": \"business0101@business.com\",\n        \"id\": \"383791336903426391\",\n        \"username\": \"business0101\"\n      }\n    },\n    {\n      \"permissions\": [\n        \"FINANCE_MANAGER\",\n        \"CATALOGS_MANAGER\",\n        \"AUDIENCE_MANAGER\"\n      ],\n      \"user\": {\n        \"email\": \"business0101@business.com\",\n        \"id\": \"383791336903426391\",\n        \"username\": \"business0101\"\n      }\n    }\n  ],\n  \"bookmark\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "825282e2-9f66-481f-8c0a-5b177faa89c2",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "businesses",
+                    ":business_id",
+                    "assets",
+                    ":asset_id",
+                    "partners"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_index",
+                      "value": "0"
+                    },
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_id",
+                      "description": "(Required) Unique identifier of the requesting business."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "asset_id",
+                      "description": "(Required) Unique identifier of a business asset."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4883,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "870827eb-a89a-4374-8872-6c9e354e2a96",
+          "name": "Update invite/request with an asset permission",
+          "request": {
+            "name": "Update invite/request with an asset permission",
+            "description": {
+              "content": "Assign asset permissions information to an existing invite/request. Can be used to:\n- Request access to a partner's asset. Note: This is only for when no existing partnership exists. If an existing\n  partnership exists, use \"Create a request to access an existing partner's assets\" to request access to your\n  partner's assets.\n    - invite_type=\"PARTNER_REQUEST\"\n- Invite a partner to access your business assets. Note: This is only for when there is no existing partnership.\n  If there is an existing partnership, use \"Assign/Update partner asset permissions\" to assign a partner access to\n  new assets.\n    - invite_type=\"PARTNER_INVITE\"\n- Invite a member to access your business assets. Note: This is only for when there is no existing membership.\n  If there is an existing membership, use \"Assign/Update member asset permissions\" to assign a member access to new\n  assets.\n    - invite_type=\"MEMBER_INVITE\"\n\nTo learn more about permission levels, visit https://help.pinterest.com/en/business/article/business-manager-overview.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "businesses",
+                ":business_id",
+                "invites",
+                "assets",
+                "access"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "business_id",
+                  "description": "(Required) Unique identifier of the requesting business."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"invites\": [\n    {\n      \"invite_id\": \"<string>\",\n      \"invite_type\": \"<string>\",\n      \"asset_id_to_permissions\": {\n        \"key_0\": [\n          \"<string>\"\n        ],\n        \"key_1\": [\n          \"<string>\"\n        ],\n        \"key_2\": [\n          \"<string>\"\n        ]\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fe3d3f62-8837-4b37-8b1a-495bac02b4b0",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "businesses",
+                    ":business_id",
+                    "invites",
+                    "assets",
+                    "access"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_id",
+                      "description": "(Required) Unique identifier of the requesting business."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invites\": [\n    {\n      \"invite_id\": \"1234567890123\",\n      \"invite_type\": \"MEMBER_INVITE\",\n      \"asset_id_to_permissions\": {\n        \"key_0\": [\n          \"<string>\"\n        ],\n        \"key_1\": [\n          \"<string>\"\n        ]\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"exception\": {\n        \"invite_or_request_id\": \"383791336903426391\",\n        \"code\": 403,\n        \"message\": \"You hit the maximum number of pending invites allowed.\",\n        \"users_or_partner_ids\": [\n          \"businessMember0101\",\n          \"business+member@business.com\"\n        ]\n      },\n      \"invite\": {\n        \"created_by_business_id\": \"1234567890123\",\n        \"created_by_user_id\": \"1234567890123\",\n        \"user\": {\n          \"email\": \"business0101@business.com\",\n          \"id\": \"383791336903426391\",\n          \"username\": \"business0101\"\n        },\n        \"id\": \"383791336903426391\",\n        \"invite_data\": {\n          \"invite_expiration\": 1709748104775,\n          \"invite_status\": \"PENDING\",\n          \"invite_type\": \"MEMBER_INVITE\",\n          \"last_updated_time\": 1646767577816,\n          \"sent_at\": 1646767577816\n        },\n        \"is_received_invite\": true\n      }\n    },\n    {\n      \"exception\": {\n        \"invite_or_request_id\": \"383791336903426391\",\n        \"code\": 403,\n        \"message\": \"You hit the maximum number of pending invites allowed.\",\n        \"users_or_partner_ids\": [\n          \"businessMember0101\",\n          \"business+member@business.com\"\n        ]\n      },\n      \"invite\": {\n        \"created_by_business_id\": \"1234567890123\",\n        \"created_by_user_id\": \"1234567890123\",\n        \"user\": {\n          \"email\": \"business0101@business.com\",\n          \"id\": \"383791336903426391\",\n          \"username\": \"business0101\"\n        },\n        \"id\": \"383791336903426391\",\n        \"invite_data\": {\n          \"invite_expiration\": 1709748104775,\n          \"invite_status\": \"PENDING\",\n          \"invite_type\": \"MEMBER_INVITE\",\n          \"last_updated_time\": 1646767577816,\n          \"sent_at\": 1646767577816\n        },\n        \"is_received_invite\": false\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "55a3dc24-8cd7-435a-94cb-5245d9a333ba",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "businesses",
+                    ":business_id",
+                    "invites",
+                    "assets",
+                    "access"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_id",
+                      "description": "(Required) Unique identifier of the requesting business."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invites\": [\n    {\n      \"invite_id\": \"1234567890123\",\n      \"invite_type\": \"MEMBER_INVITE\",\n      \"asset_id_to_permissions\": {\n        \"key_0\": [\n          \"<string>\"\n        ],\n        \"key_1\": [\n          \"<string>\"\n        ]\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4883,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cf066f1c-4f03-4fe7-8861-1681dd9c253c",
+          "name": "Create a request to access an existing partner's assets.",
+          "request": {
+            "name": "Create a request to access an existing partner's assets.",
+            "description": {
+              "content": "Create a request to access an existing partner's assets with the specified permissions. The request will be sent to the partner for approval. The assets that can be requested are ad accounts and profiles.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "businesses",
+                ":business_id",
+                "requests",
+                "assets",
+                "access"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "business_id",
+                  "description": "(Required) Unique identifier of the requesting business."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"asset_requests\": [\n    {\n      \"partner_id\": \"<string>\",\n      \"asset_id_to_permissions\": {\n        \"key_0\": [\n          \"<string>\"\n        ]\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "183b7c3a-22a9-459c-9b52-a80577d1dd81",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "businesses",
+                    ":business_id",
+                    "requests",
+                    "assets",
+                    "access"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_id",
+                      "description": "(Required) Unique identifier of the requesting business."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"asset_requests\": [\n    {\n      \"partner_id\": \"809944451643622187\",\n      \"asset_id_to_permissions\": {\n        \"key_0\": [\n          \"<string>\"\n        ],\n        \"key_1\": [\n          \"<string>\"\n        ],\n        \"key_2\": [\n          \"<string>\"\n        ]\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"exceptions\": [\n    {\n      \"code\": 2932,\n      \"messages\": [\n        \"Invalid asset id: 549760723247\",\n        \"Invalid asset id: 546760723248\"\n      ]\n    },\n    {\n      \"code\": 2932,\n      \"messages\": [\n        \"Invalid asset id: 549760723247\",\n        \"Invalid asset id: 546760723248\"\n      ]\n    }\n  ],\n  \"invites\": {\n    \"766456567741825556\": \"5349280584552211583\",\n    \"733242520489967216\": \"5349280584552211845\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "da57664e-0361-40b6-bfb4-929d4d142429",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "businesses",
+                    ":business_id",
+                    "requests",
+                    "assets",
+                    "access"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_id",
+                      "description": "(Required) Unique identifier of the requesting business."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"asset_requests\": [\n    {\n      \"partner_id\": \"809944451643622187\",\n      \"asset_id_to_permissions\": {\n        \"key_0\": [\n          \"<string>\"\n        ],\n        \"key_1\": [\n          \"<string>\"\n        ],\n        \"key_2\": [\n          \"<string>\"\n        ]\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4883,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2a58dad3-2413-4ba7-8771-528548482262",
+          "name": "List business assets",
+          "request": {
+            "name": "List business assets",
+            "description": {
+              "content": "Get all the assets the requesting business has access to. This includes assets the business owns and assets the business has access to through partnerships.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "businesses",
+                ":business_id",
+                "assets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "permissions",
+                  "value": "<string>",
+                  "description": "A list of asset permissions used to filter the assets. Only assets where the requesting business has at least one of the specified permissions will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "permissions",
+                  "value": "<string>",
+                  "description": "A list of asset permissions used to filter the assets. Only assets where the requesting business has at least one of the specified permissions will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "asset_type",
+                  "value": "AD_ACCOUNT",
+                  "description": "A resource type to filter the assets by. Only assets of the specified type will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "start_index",
+                  "value": "0",
+                  "description": "An index to start fetching the results from. Only the results starting from this index will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "bookmark",
+                  "value": "<string>",
+                  "description": "Cursor used to fetch the next page of items"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "25",
+                  "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "business_id",
+                  "description": "(Required) Unique identifier of the requesting business."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3eaff3d9-462e-4c95-9876-d8b9f9eeee77",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "businesses",
+                    ":business_id",
+                    "assets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "permissions",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "permissions",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "asset_type",
+                      "value": "AD_ACCOUNT"
+                    },
+                    {
+                      "key": "start_index",
+                      "value": "0"
+                    },
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_id",
+                      "description": "(Required) Unique identifier of the requesting business."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"asset_id\": \"549755885175\",\n      \"asset_type\": \"AD_ACCOUNT\"\n    },\n    {\n      \"asset_id\": \"549755885175\",\n      \"asset_type\": \"AD_ACCOUNT\"\n    }\n  ],\n  \"bookmark\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d3147e24-39e4-43a9-9218-d98d9b1b25b2",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "businesses",
+                    ":business_id",
+                    "assets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "permissions",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "permissions",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "asset_type",
+                      "value": "AD_ACCOUNT"
+                    },
+                    {
+                      "key": "start_index",
+                      "value": "0"
+                    },
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_id",
+                      "description": "(Required) Unique identifier of the requesting business."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4883,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0681d362-ea0d-4b16-9877-5e17c116a20f",
+          "name": "Get assets assigned to a member",
+          "request": {
+            "name": "Get assets assigned to a member",
+            "description": {
+              "content": "Get assets on which you assigned asset permissions to the given member. Can be used to:\n- get all assets, regardless of asset type or\n- get assets of one asset type by using the asset_type query.\nThe return response will include the permissions the member has to that asset and the asset type.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "businesses",
+                ":business_id",
+                "members",
+                ":member_id",
+                "assets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "asset_type",
+                  "value": "AD_ACCOUNT",
+                  "description": "A resource type to filter the assets by. Only assets of the specified type will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "start_index",
+                  "value": "0",
+                  "description": "An index to start fetching the results from. Only the results starting from this index will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "bookmark",
+                  "value": "<string>",
+                  "description": "Cursor used to fetch the next page of items"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "25",
+                  "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "business_id",
+                  "description": "(Required) Unique identifier of the requesting business."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "member_id",
+                  "description": "(Required) The member id to fetch assets for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "48349ba0-7c3d-4aab-b576-ab75bd0f0cb9",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "businesses",
+                    ":business_id",
+                    "members",
+                    ":member_id",
+                    "assets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "asset_type",
+                      "value": "AD_ACCOUNT"
+                    },
+                    {
+                      "key": "start_index",
+                      "value": "0"
+                    },
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_id",
+                      "description": "(Required) Unique identifier of the requesting business."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "member_id",
+                      "description": "(Required) The member id to fetch assets for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"asset_id\": \"549755885175\",\n      \"asset_type\": \"AD_ACCOUNT\",\n      \"permissions\": [\n        \"FINANCE_MANAGER\",\n        \"CATALOGS_MANAGER\",\n        \"AUDIENCE_MANAGER\"\n      ]\n    },\n    {\n      \"asset_id\": \"549755885175\",\n      \"asset_type\": \"AD_ACCOUNT\",\n      \"permissions\": [\n        \"FINANCE_MANAGER\",\n        \"CATALOGS_MANAGER\",\n        \"AUDIENCE_MANAGER\"\n      ]\n    }\n  ],\n  \"bookmark\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5954b51c-bd31-4a44-bb9a-fe527427bf0e",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "businesses",
+                    ":business_id",
+                    "members",
+                    ":member_id",
+                    "assets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "asset_type",
+                      "value": "AD_ACCOUNT"
+                    },
+                    {
+                      "key": "start_index",
+                      "value": "0"
+                    },
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_id",
+                      "description": "(Required) Unique identifier of the requesting business."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "member_id",
+                      "description": "(Required) The member id to fetch assets for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4883,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d9b7f60f-add2-4414-beb2-209af5f8e8e3",
+          "name": "Assign/Update member asset permissions",
+          "request": {
+            "name": "Assign/Update member asset permissions",
+            "description": {
+              "content": "Grant multiple members access to assets and/or update multiple member's exisiting permissions to an asset.\nNote: Not all listed permissions are applicable to each asset type. For example, PROFILE_PUBLISHER would not be applicable to an asset of type AD_ACCOUNT. The permission level PROFILE_PUBLISHER is only available to an asset of the type PROFILE.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "businesses",
+                ":business_id",
+                "members",
+                "assets",
+                "access"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "business_id",
+                  "description": "(Required) Unique identifier of the requesting business."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accesses\": [\n    {\n      \"asset_id\": \"<string>\",\n      \"member_id\": \"<string>\",\n      \"permissions\": [\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1d7b8d0e-6671-468b-ad0a-7872a18af843",
+              "name": "response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "businesses",
+                    ":business_id",
+                    "members",
+                    "assets",
+                    "access"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_id",
+                      "description": "(Required) Unique identifier of the requesting business."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accesses\": [\n    {\n      \"asset_id\": \"549755885175\",\n      \"member_id\": \"140943737684417\",\n      \"permissions\": [\n        \"ANALYST\",\n        \"ADMIN\"\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"response\": {\n        \"asset_id\": \"549755885175\",\n        \"member_id\": \"140943737684417\",\n        \"permissions\": [\n          \"FINANCE_MANAGER\",\n          \"CATALOGS_MANAGER\",\n          \"AUDIENCE_MANAGER\"\n        ]\n      }\n    },\n    {\n      \"response\": {\n        \"asset_id\": \"549755885175\",\n        \"member_id\": \"140943737684417\",\n        \"permissions\": [\n          \"FINANCE_MANAGER\",\n          \"CATALOGS_MANAGER\",\n          \"AUDIENCE_MANAGER\"\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9406d600-6aa7-4da9-848b-162f54781f5f",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "businesses",
+                    ":business_id",
+                    "members",
+                    "assets",
+                    "access"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_id",
+                      "description": "(Required) Unique identifier of the requesting business."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accesses\": [\n    {\n      \"asset_id\": \"549755885175\",\n      \"member_id\": \"140943737684417\",\n      \"permissions\": [\n        \"ANALYST\",\n        \"ADMIN\"\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4883,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "269ad3ee-6516-40de-adcc-f2c30d8c17b8",
+          "name": "Delete member access to asset",
+          "request": {
+            "name": "Delete member access to asset",
+            "description": {
+              "content": "Terminate multiple members' access to an asset.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "businesses",
+                ":business_id",
+                "members",
+                "assets",
+                "access"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "business_id",
+                  "description": "(Required) Unique identifier of the requesting business."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accesses\": [\n    {\n      \"asset_id\": \"<string>\",\n      \"member_id\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1335d893-1172-49e7-9170-c8f82ea03dec",
+              "name": "response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "businesses",
+                    ":business_id",
+                    "members",
+                    "assets",
+                    "access"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_id",
+                      "description": "(Required) Unique identifier of the requesting business."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accesses\": [\n    {\n      \"asset_id\": \"549755885175\",\n      \"member_id\": \"140943737684417\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"asset_id\": \"549755885175\",\n      \"member_id\": \"140943737684417\"\n    },\n    {\n      \"asset_id\": \"549755885175\",\n      \"member_id\": \"140943737684417\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4aa410d1-841b-4161-a23f-96618e74c625",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "businesses",
+                    ":business_id",
+                    "members",
+                    "assets",
+                    "access"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_id",
+                      "description": "(Required) Unique identifier of the requesting business."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accesses\": [\n    {\n      \"asset_id\": \"549755885175\",\n      \"member_id\": \"140943737684417\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4883,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c2e73208-36be-4da6-b8c0-238a41a23092",
+          "name": "Assign/Update partner asset permissions",
+          "request": {
+            "name": "Assign/Update partner asset permissions",
+            "description": {
+              "content": "Grant multiple partners access to assets and/or update multiple partner's exisiting permissions to an asset.\nIf your partner already had permissions on the asset, they will be overriden with the new permissions you assign to them.\nTo learn more about permission levels, visit https://help.pinterest.com/en/business/article/business-manager-overview\n\nNote: Not all listed permissions are applicable to each asset type. For example, PROFILE_PUBLISHER would not be\napplicable to an asset of type AD_ACCOUNT. The permission level PROFILE_PUBLISHER is only available to an asset of\nthe type PROFILE.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "businesses",
+                ":business_id",
+                "partners",
+                "assets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "business_id",
+                  "description": "(Required) Unique identifier of the requesting business."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accesses\": [\n    {\n      \"partner_id\": \"<string>\",\n      \"asset_id\": \"<string>\",\n      \"permissions\": [\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a89e46b8-c262-438d-bbc1-434a56c2a620",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "businesses",
+                    ":business_id",
+                    "partners",
+                    "assets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_id",
+                      "description": "(Required) Unique identifier of the requesting business."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accesses\": [\n    {\n      \"partner_id\": \"1234567890123\",\n      \"asset_id\": \"549755885175\",\n      \"permissions\": [\n        \"ANALYST\",\n        \"ADMIN\"\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"asset_id\": \"549755885175\",\n      \"asset_type\": \"AD_ACCOUNT\",\n      \"partner_id\": \"140943737684417\",\n      \"permissions\": [\n        \"FINANCE_MANAGER\",\n        \"CATALOGS_MANAGER\",\n        \"AUDIENCE_MANAGER\"\n      ]\n    },\n    {\n      \"asset_id\": \"549755885175\",\n      \"asset_type\": \"AD_ACCOUNT\",\n      \"partner_id\": \"140943737684417\",\n      \"permissions\": [\n        \"FINANCE_MANAGER\",\n        \"CATALOGS_MANAGER\",\n        \"AUDIENCE_MANAGER\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d4f50d69-89ab-4394-9afe-48881bf25864",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "businesses",
+                    ":business_id",
+                    "partners",
+                    "assets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_id",
+                      "description": "(Required) Unique identifier of the requesting business."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accesses\": [\n    {\n      \"partner_id\": \"1234567890123\",\n      \"asset_id\": \"549755885175\",\n      \"permissions\": [\n        \"ANALYST\",\n        \"ADMIN\"\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4883,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b34d9227-3a6f-4f60-87a8-563b48807c61",
+          "name": "Delete partner access to asset",
+          "request": {
+            "name": "Delete partner access to asset",
+            "description": {
+              "content": "Terminate multiple partners' access to an asset. If\n- partner_type=INTERNAL: You will terminate a partner's asset access to your business assets.\n- partner_type=EXTERNAL: You will terminate your own access to your partner's business assets.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "businesses",
+                ":business_id",
+                "partners",
+                "assets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "business_id",
+                  "description": "(Required) Unique identifier of the requesting business."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accesses\": [\n    {\n      \"partner_id\": \"<string>\",\n      \"asset_id\": \"<string>\",\n      \"partner_type\": \"INTERNAL\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "281667a7-ee65-4c48-9dd9-12cf76632c19",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "businesses",
+                    ":business_id",
+                    "partners",
+                    "assets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_id",
+                      "description": "(Required) Unique identifier of the requesting business."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accesses\": [\n    {\n      \"partner_id\": \"1234567890123\",\n      \"asset_id\": \"549755885175\",\n      \"partner_type\": \"INTERNAL\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"asset_id\": \"549755885175\",\n      \"asset_type\": \"AD_ACCOUNT\",\n      \"permissions\": [\n        \"FINANCE_MANAGER\",\n        \"CATALOGS_MANAGER\",\n        \"AUDIENCE_MANAGER\"\n      ],\n      \"is_shared_partner\": false,\n      \"partner_id\": \"140943737684417\"\n    },\n    {\n      \"asset_id\": \"549755885175\",\n      \"asset_type\": \"AD_ACCOUNT\",\n      \"permissions\": [\n        \"FINANCE_MANAGER\",\n        \"CATALOGS_MANAGER\",\n        \"AUDIENCE_MANAGER\"\n      ],\n      \"is_shared_partner\": false,\n      \"partner_id\": \"140943737684417\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e40f538-fcdf-47a7-b405-a86f285c533f",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "businesses",
+                    ":business_id",
+                    "partners",
+                    "assets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_id",
+                      "description": "(Required) Unique identifier of the requesting business."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accesses\": [\n    {\n      \"partner_id\": \"1234567890123\",\n      \"asset_id\": \"549755885175\",\n      \"partner_type\": \"INTERNAL\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4883,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "33f09859-c044-4ce4-b5ad-f642e7572b58",
+          "name": "Get assets assigned to a partner or assets assigned by a partner",
+          "request": {
+            "name": "Get assets assigned to a partner or assets assigned by a partner",
+            "description": {
+              "content": "Can be used to get the business assets your partner has granted you access to or the business assets you have\ngranted your partner access to. If you specify:\n- partner_type=INTERNAL, you will retrieve your business assets that the partner has access to.\n- partner_type=EXTERNAL, you will retrieve the partner's business assets that the partner has granted you access to.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "businesses",
+                ":business_id",
+                "partners",
+                ":partner_id",
+                "assets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "partner_type",
+                  "value": "<string>",
+                  "description": "Specifies whether to fetch internal or external (shared) partners.\nIf partner_type=INTERNAL, the asset being queried is for accesses the partner has to your business assets.<br>\nIf partner_type=EXTERNAL, the asset being queried is for the accesses you have to the partner's business asset."
+                },
+                {
+                  "disabled": false,
+                  "key": "asset_type",
+                  "value": "AD_ACCOUNT",
+                  "description": "A resource type to filter the assets by. Only assets of the specified type will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "start_index",
+                  "value": "0",
+                  "description": "An index to start fetching the results from. Only the results starting from this index will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "25",
+                  "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+                },
+                {
+                  "disabled": false,
+                  "key": "bookmark",
+                  "value": "<string>",
+                  "description": "Cursor used to fetch the next page of items"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "business_id",
+                  "description": "(Required) Unique identifier of the requesting business."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "partner_id",
+                  "description": "(Required) The partner id to be bound to the Business"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "27179bc8-9af4-42d3-b790-850df0a7f940",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "businesses",
+                    ":business_id",
+                    "partners",
+                    ":partner_id",
+                    "assets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "partner_type",
+                      "value": "INTERNAL"
+                    },
+                    {
+                      "key": "asset_type",
+                      "value": "AD_ACCOUNT"
+                    },
+                    {
+                      "key": "start_index",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_id",
+                      "description": "(Required) Unique identifier of the requesting business."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "partner_id",
+                      "description": "(Required) The partner id to be bound to the Business"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"asset_id\": \"549755885175\",\n      \"asset_type\": \"AD_ACCOUNT\",\n      \"permissions\": [\n        \"FINANCE_MANAGER\",\n        \"CATALOGS_MANAGER\",\n        \"AUDIENCE_MANAGER\"\n      ]\n    },\n    {\n      \"asset_id\": \"549755885175\",\n      \"asset_type\": \"AD_ACCOUNT\",\n      \"permissions\": [\n        \"FINANCE_MANAGER\",\n        \"CATALOGS_MANAGER\",\n        \"AUDIENCE_MANAGER\"\n      ]\n    }\n  ],\n  \"bookmark\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9395b7b3-0594-4d32-9474-dbad990e672d",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "businesses",
+                    ":business_id",
+                    "partners",
+                    ":partner_id",
+                    "assets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "partner_type",
+                      "value": "INTERNAL"
+                    },
+                    {
+                      "key": "asset_type",
+                      "value": "AD_ACCOUNT"
+                    },
+                    {
+                      "key": "start_index",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "business_id",
+                      "description": "(Required) Unique identifier of the requesting business."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "partner_id",
+                      "description": "(Required) The partner id to be bound to the Business"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4883,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.pinterest.com/v5",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "3caab249-e7de-44e7-a490-b4cd6ae8a9ef",
+    "name": "Pinterest Assets API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is the description of your API.\n\nContact Support:\n Name: Pinterest, Inc.",
+      "type": "text/plain"
+    }
+  }
+}

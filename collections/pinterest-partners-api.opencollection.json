@@ -1,0 +1,353 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pinterest Partners API",
+    "version": "5.13.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Partners",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get partners with access to asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/businesses/:business_id/assets/:asset_id/partners",
+            "params": [
+              {
+                "name": "business_id",
+                "value": "729090764583391194",
+                "type": "path",
+                "description": "Unique identifier of the requesting business."
+              },
+              {
+                "name": "asset_id",
+                "value": "729090764583391194",
+                "type": "path",
+                "description": "Unique identifier of a business asset."
+              },
+              {
+                "name": "start_index",
+                "value": "0",
+                "type": "query",
+                "description": "An index to start fetching the results from. Only the results starting from this index will be returned."
+              },
+              {
+                "name": "bookmark",
+                "value": "",
+                "type": "query",
+                "description": "Cursor used to fetch the next page of items"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get all the partners the requesting business has granted access to on the given asset.\nNote: If the asset has been shared with you, an empty array will be returned. This is because an asset shared with\nyou cannot be shared with a different partner."
+        },
+        {
+          "info": {
+            "name": "Assign/Update partner asset permissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.pinterest.com/v5/businesses/:business_id/partners/assets",
+            "params": [
+              {
+                "name": "business_id",
+                "value": "729090764583391194",
+                "type": "path",
+                "description": "Unique identifier of the requesting business."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Grant multiple partners access to assets and/or update multiple partner's exisiting permissions to an asset.\nIf your partner already had permissions on the asset, they will be overriden with the new permissions you assign to them.\nTo learn more about permission levels, visit https://help.pinterest.com/en/business/article/business-manager-overview\n\nNote: Not all listed permissions are applicable to each asset type. For example, PROFILE_PUBLISHER would not be\napplicable to an asset of type AD_ACCO"
+        },
+        {
+          "info": {
+            "name": "Delete partner access to asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.pinterest.com/v5/businesses/:business_id/partners/assets",
+            "params": [
+              {
+                "name": "business_id",
+                "value": "729090764583391194",
+                "type": "path",
+                "description": "Unique identifier of the requesting business."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Terminate multiple partners' access to an asset. If\n- partner_type=INTERNAL: You will terminate a partner's asset access to your business assets.\n- partner_type=EXTERNAL: You will terminate your own access to your partner's business assets."
+        },
+        {
+          "info": {
+            "name": "Get assets assigned to a partner or assets assigned by a partner",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/businesses/:business_id/partners/:partner_id/assets",
+            "params": [
+              {
+                "name": "business_id",
+                "value": "729090764583391194",
+                "type": "path",
+                "description": "Unique identifier of the requesting business."
+              },
+              {
+                "name": "partner_id",
+                "value": "729090764583391194",
+                "type": "path",
+                "description": "The partner id to be bound to the Business"
+              },
+              {
+                "name": "partner_type",
+                "value": "INTERNAL",
+                "type": "query",
+                "description": "Specifies whether to fetch internal or external (shared) partners.\nIf partner_type=INTERNAL, the asset being queried is for accesses the partner has to your business assets.<br>\nIf partner_type=EXTERNAL, the asset being queried is for the accesses you have to the partner's business asset."
+              },
+              {
+                "name": "asset_type",
+                "value": "",
+                "type": "query",
+                "description": "A resource type to filter the assets by. Only assets of the specified type will be returned."
+              },
+              {
+                "name": "start_index",
+                "value": "0",
+                "type": "query",
+                "description": "An index to start fetching the results from. Only the results starting from this index will be returned."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+              },
+              {
+                "name": "bookmark",
+                "value": "",
+                "type": "query",
+                "description": "Cursor used to fetch the next page of items"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Can be used to get the business assets your partner has granted you access to or the business assets you have\ngranted your partner access to. If you specify:\n- partner_type=INTERNAL, you will retrieve your business assets that the partner has access to.\n- partner_type=EXTERNAL, you will retrieve the partner's business assets that the partner has granted you access to."
+        },
+        {
+          "info": {
+            "name": "Get business partners",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/businesses/:business_id/partners",
+            "params": [
+              {
+                "name": "business_id",
+                "value": "729090764583391194",
+                "type": "path",
+                "description": "Unique identifier of the requesting business."
+              },
+              {
+                "name": "assets_summary",
+                "value": "",
+                "type": "query",
+                "description": "Include assets summary in the response if this is true.\n\nThe assets summary returns a dictionary representing a summary of the assets\nfor the business user ID, with information like the ad accounts and profiles\nthe user has permissions for and what those permissions are"
+              },
+              {
+                "name": "partner_type",
+                "value": "INTERNAL",
+                "type": "query",
+                "description": "Specifies whether to fetch internal or external (shared) partners.\nIf partner_type=INTERNAL, the asset being queried is for accesses the partner has to your business assets.<br>\nIf partner_type=EXTERNAL, the asset being queried is for the accesses you have to the partner's business asset."
+              },
+              {
+                "name": "partner_ids",
+                "value": "00101010101,2222220101",
+                "type": "query",
+                "description": "A list of business partner ids separated by commas used to filter the results. Only partners with the specified ids will be returned."
+              },
+              {
+                "name": "start_index",
+                "value": "0",
+                "type": "query",
+                "description": "An index to start fetching the results from. Only the results starting from this index will be returned."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+              },
+              {
+                "name": "bookmark",
+                "value": "",
+                "type": "query",
+                "description": "Cursor used to fetch the next page of items"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get all partners of the specified business.\n\nIf the assets_summary=TRUE and:\n- partner_type=INTERNAL, the business assets returned are your business assets the partner has access to.\n- partner_type=EXTERNAL, the business assets returned are your partner's business assets the partner has granted you\n  access to."
+        },
+        {
+          "info": {
+            "name": "Terminate business partnerships",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.pinterest.com/v5/businesses/:business_id/partners",
+            "params": [
+              {
+                "name": "business_id",
+                "value": "729090764583391194",
+                "type": "path",
+                "description": "Unique identifier of the requesting business."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Terminate partnerships between the specified partners and your business.\nNote: You may only batch terminate partners of the same partner type."
+        },
+        {
+          "info": {
+            "name": "Search pins by a given search term",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/search/partner/pins",
+            "params": [
+              {
+                "name": "term",
+                "value": "",
+                "type": "query",
+                "description": "Search term to look up pins."
+              },
+              {
+                "name": "country_code",
+                "value": "US",
+                "type": "query",
+                "description": "Two letter country code (ISO 3166-1 alpha-2)"
+              },
+              {
+                "name": "bookmark",
+                "value": "",
+                "type": "query",
+                "description": "Cursor used to fetch the next page of items"
+              },
+              {
+                "name": "locale",
+                "value": "",
+                "type": "query",
+                "description": "Search locale."
+              },
+              {
+                "name": "limit",
+                "value": "4",
+                "type": "query",
+                "description": "Max search result size"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "<strong>This endpoint is currently in beta and not available to all apps. <a href='/docs/new/about-beta-access/'>Learn more</a>.</strong>\n\nGet the top 10 Pins by a given search term."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

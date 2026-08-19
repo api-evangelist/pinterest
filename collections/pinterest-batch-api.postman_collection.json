@@ -1,0 +1,826 @@
+{
+  "item": [
+    {
+      "id": "5845f74e-8d97-430a-bb47-81a42ea81ffc",
+      "name": "Batch",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0858f527-1c36-4585-9f7b-f409e9149d92",
+          "name": "Operate on item batch",
+          "request": {
+            "name": "Operate on item batch",
+            "description": {
+              "content": "This endpoint supports multiple operations on a set of one or more catalog items owned by the \"operation user_account\". <a href=\"/docs/shopping/catalog/#Update%20items%20in%20batch\" target=\"_blank\">See detailed documentation here.</a>\n- By default, the \"operation user_account\" is the token user_account.\n\nOptional: Business Access: Specify an <code>ad_account_id</code> (obtained via <a href='/docs/api/v5/#operation/ad_accounts/list'>List ad accounts</a>) to use the owner of that ad_account as the \"operation user_account\". In order to do this, the token user_account must have one of the following <a href=\"https://help.pinterest.com/en/business/article/share-and-manage-access-to-your-ad-accounts\">Business Access</a> roles on the ad_account: Owner, Admin, Catalogs Manager.\n\nNote: The catalog type of Creative Assets is only allowed in the <a href='https://api-sandbox.pinterest.com/v5'>Pinterest API Sandbox</a>.\nIf access is required, please contact your partner manager.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catalogs",
+                "items",
+                "batch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ad_account_id",
+                  "value": "<string>",
+                  "description": "Unique identifier of an ad account."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"catalog_type\": \"<string>\",\n  \"country\": \"<string>\",\n  \"language\": \"<string>\",\n  \"items\": [\n    {\n      \"item_id\": \"<string>\",\n      \"operation\": \"<string>\",\n      \"attributes\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4df8302b-40fa-40e9-a9d7-7f2e29e1c080",
+              "name": "Response containing the requested catalogs items batch",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "items",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"catalog_type\": \"<string>\",\n  \"country\": \"US\",\n  \"language\": \"EN\",\n  \"items\": [\n    {\n      \"item_id\": \"DS0294-M\",\n      \"operation\": \"<string>\",\n      \"attributes\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"catalog_type\": \"<string>\",\n  \"batch_id\": \"595953100599279259-66753b9bb65c46c49bd8503b27fecf9e\",\n  \"created_time\": \"2020-01-01T20:10:40-00:00\",\n  \"completed_time\": \"2022-03-10T15:37:10-00:00\",\n  \"status\": \"PROCESSING\",\n  \"items\": [\n    {\n      \"item_id\": \"DS0294-M\",\n      \"errors\": [\n        {\n          \"attribute\": \"title\",\n          \"code\": 106,\n          \"message\": \"Title is missing from product metadata.\"\n        },\n        {\n          \"attribute\": \"title\",\n          \"code\": 106,\n          \"message\": \"Title is missing from product metadata.\"\n        }\n      ],\n      \"warnings\": [\n        {\n          \"attribute\": \"title\",\n          \"code\": 106,\n          \"message\": \"Title is missing from product metadata.\"\n        },\n        {\n          \"attribute\": \"title\",\n          \"code\": 106,\n          \"message\": \"Title is missing from product metadata.\"\n        }\n      ],\n      \"status\": \"SUCCESS\"\n    },\n    {\n      \"item_id\": \"DS0294-M\",\n      \"errors\": [\n        {\n          \"attribute\": \"title\",\n          \"code\": 106,\n          \"message\": \"Title is missing from product metadata.\"\n        },\n        {\n          \"attribute\": \"title\",\n          \"code\": 106,\n          \"message\": \"Title is missing from product metadata.\"\n        }\n      ],\n      \"warnings\": [\n        {\n          \"attribute\": \"title\",\n          \"code\": 106,\n          \"message\": \"Title is missing from product metadata.\"\n        },\n        {\n          \"attribute\": \"title\",\n          \"code\": 106,\n          \"message\": \"Title is missing from product metadata.\"\n        }\n      ],\n      \"status\": \"SUCCESS\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2d152512-7cd8-4334-9e88-20437204f501",
+              "name": "Invalid request parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "items",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"catalog_type\": \"<string>\",\n  \"country\": \"US\",\n  \"language\": \"EN\",\n  \"items\": [\n    {\n      \"item_id\": \"DS0294-M\",\n      \"operation\": \"<string>\",\n      \"attributes\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1,\n  \"message\": \"Invalid request: {'country': 'US', 'language': 'EN', 'operation': 'CREATE', 'items': [{'item_id': 'RAY_01_', 'attributes': {'image_link': 'https://www.example.com/', 'title': 'My Product'}}]} ('https://www.example.com/' is not of type array)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ee75d693-248c-44fb-9073-922a9e2973b3",
+              "name": "Not authenticated to post catalogs items",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "items",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"catalog_type\": \"<string>\",\n  \"country\": \"US\",\n  \"language\": \"EN\",\n  \"items\": [\n    {\n      \"item_id\": \"DS0294-M\",\n      \"operation\": \"<string>\",\n      \"attributes\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 2,\n  \"message\": \"Authentication failed.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c806d6dd-c850-4213-94fa-b089d680631b",
+              "name": "Not authorized to post catalogs items",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "items",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"catalog_type\": \"<string>\",\n  \"country\": \"US\",\n  \"language\": \"EN\",\n  \"items\": [\n    {\n      \"item_id\": \"DS0294-M\",\n      \"operation\": \"<string>\",\n      \"attributes\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5920,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42bdf010-8749-44b8-bcd3-f38912721914",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "items",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"catalog_type\": \"<string>\",\n  \"country\": \"US\",\n  \"language\": \"EN\",\n  \"items\": [\n    {\n      \"item_id\": \"DS0294-M\",\n      \"operation\": \"<string>\",\n      \"attributes\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5920,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9a5af6a2-c2a9-4590-98b8-200d73e8a539",
+          "name": "Get catalogs item batch status",
+          "request": {
+            "name": "Get catalogs item batch status",
+            "description": {
+              "content": "Get a single catalogs items batch owned by the \"operating user_account\". <a href=\"/docs/shopping/catalog/#Update%20items%20in%20batch\" target=\"_blank\">See detailed documentation here.</a>\n- By default, the \"operation user_account\" is the token user_account.\n\nOptional: Business Access: Specify an <code>ad_account_id</code> (obtained via <a href='/docs/api/v5/#operation/ad_accounts/list'>List ad accounts</a>) to use the owner of that ad_account as the \"operation user_account\". In order to do this, the token user_account must have one of the following <a href=\"https://help.pinterest.com/en/business/article/share-and-manage-access-to-your-ad-accounts\">Business Access</a> roles on the ad_account: Owner, Admin, Catalogs Manager.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catalogs",
+                "items",
+                "batch",
+                ":batch_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ad_account_id",
+                  "value": "<string>",
+                  "description": "Unique identifier of an ad account."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "batch_id",
+                  "description": "(Required) Id of a catalogs items batch to fetch"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b1077ca6-3f79-413f-82e4-eb0e8fedfe26",
+              "name": "Response containing the requested catalogs items batch",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "items",
+                    "batch",
+                    ":batch_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batch_id",
+                      "description": "(Required) Id of a catalogs items batch to fetch"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"catalog_type\": \"<string>\",\n  \"batch_id\": \"595953100599279259-66753b9bb65c46c49bd8503b27fecf9e\",\n  \"created_time\": \"2020-01-01T20:10:40-00:00\",\n  \"completed_time\": \"2022-03-10T15:37:10-00:00\",\n  \"status\": \"PROCESSING\",\n  \"items\": [\n    {\n      \"item_id\": \"DS0294-M\",\n      \"errors\": [\n        {\n          \"attribute\": \"title\",\n          \"code\": 106,\n          \"message\": \"Title is missing from product metadata.\"\n        },\n        {\n          \"attribute\": \"title\",\n          \"code\": 106,\n          \"message\": \"Title is missing from product metadata.\"\n        }\n      ],\n      \"warnings\": [\n        {\n          \"attribute\": \"title\",\n          \"code\": 106,\n          \"message\": \"Title is missing from product metadata.\"\n        },\n        {\n          \"attribute\": \"title\",\n          \"code\": 106,\n          \"message\": \"Title is missing from product metadata.\"\n        }\n      ],\n      \"status\": \"SUCCESS\"\n    },\n    {\n      \"item_id\": \"DS0294-M\",\n      \"errors\": [\n        {\n          \"attribute\": \"title\",\n          \"code\": 106,\n          \"message\": \"Title is missing from product metadata.\"\n        },\n        {\n          \"attribute\": \"title\",\n          \"code\": 106,\n          \"message\": \"Title is missing from product metadata.\"\n        }\n      ],\n      \"warnings\": [\n        {\n          \"attribute\": \"title\",\n          \"code\": 106,\n          \"message\": \"Title is missing from product metadata.\"\n        },\n        {\n          \"attribute\": \"title\",\n          \"code\": 106,\n          \"message\": \"Title is missing from product metadata.\"\n        }\n      ],\n      \"status\": \"SUCCESS\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "98fda95f-c3d7-44b6-b7dc-465fd0b1e8cb",
+              "name": "Not authenticated to access catalogs items batch",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "items",
+                    "batch",
+                    ":batch_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batch_id",
+                      "description": "(Required) Id of a catalogs items batch to fetch"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 2,\n  \"message\": \"Authentication failed.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "30b3c92a-3870-44ab-b25f-fe5bdf63af8d",
+              "name": "Not authorized to access catalogs items batch",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "items",
+                    "batch",
+                    ":batch_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batch_id",
+                      "description": "(Required) Id of a catalogs items batch to fetch"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5920,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c7cee04-00b5-42c1-b292-0ed041d35579",
+              "name": "Catalogs items batch not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "items",
+                    "batch",
+                    ":batch_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batch_id",
+                      "description": "(Required) Id of a catalogs items batch to fetch"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4331,\n  \"message\": \"Sorry! We could not find your batch ID.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "569824a3-c286-45d5-8804-453f8248c950",
+              "name": "Method Not Allowed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "items",
+                    "batch",
+                    ":batch_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batch_id",
+                      "description": "(Required) Id of a catalogs items batch to fetch"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"failure\",\n  \"code\": 5,\n  \"data\": \"405 Method Not Allowed: The method is not allowed for the requested URL.\",\n  \"message\": \"Method not allowed\",\n  \"endpoint_name\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e5c63bb-4a06-478e-b483-c3b63f7240f7",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "items",
+                    "batch",
+                    ":batch_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batch_id",
+                      "description": "(Required) Id of a catalogs items batch to fetch"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5920,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.pinterest.com/v5",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "9b5cf5d5-31df-431e-adcd-aff04285106d",
+    "name": "Pinterest Batch API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is the description of your API.\n\nContact Support:\n Name: Pinterest, Inc.",
+      "type": "text/plain"
+    }
+  }
+}

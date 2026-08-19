@@ -1,0 +1,98 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pinterest Boards API",
+    "version": "5.13.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Boards",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List boards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/boards",
+            "params": [
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier of an ad account."
+              },
+              {
+                "name": "bookmark",
+                "value": "",
+                "type": "query",
+                "description": "Cursor used to fetch the next page of items"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+              },
+              {
+                "name": "privacy",
+                "value": "",
+                "type": "query",
+                "description": "Privacy setting for a board."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get a list of the boards owned by the \"operation user_account\" + group boards where this account is a collaborator\nOptional: Business Access: Specify an ad_account_id to use the owner of that ad_account as the \"operation user_account\".\nOptional: Specify a privacy type (public, protected, or secret) to indicate which boards to return.\n- If no privacy is specified, all boards that can be returned (based on the scopes of the token and ad_account role if applicable) will be returned."
+        },
+        {
+          "info": {
+            "name": "Create board",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pinterest.com/v5/boards",
+            "params": [
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier of an ad account."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a board owned by the \"operation user_account\".\nOptional: Business Access: Specify an ad_account_id to use the owner of that ad_account as the \"operation user_account\".\n- By default, the \"operation user_account\" is the token user_account."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

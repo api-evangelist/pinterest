@@ -1,0 +1,1294 @@
+{
+  "item": [
+    {
+      "id": "79fab441-8a7a-4de8-addc-32e60adbde62",
+      "name": "Top",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "19a66d3d-9250-407f-be8e-e463d753f331",
+          "name": "List trending keywords",
+          "request": {
+            "name": "List trending keywords",
+            "description": {
+              "content": "<p>Get the top trending search keywords among the Pinterest user audience.</p>\n<p>Trending keywords can be used to inform ad targeting, budget strategy, and creative decisions about which products and Pins will resonate with your audience.</p>\n<p>Geographic, demographic and interest-based filters are available to narrow down to the top trends among a specific audience. Multiple trend types are supported that can be used to identify newly-popular, evergreen or seasonal keywords.</p>\n<p>For an interactive way to explore this data, please visit <a href=\"https://trends.pinterest.com\">trends.pinterest.com</a>.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "trends",
+                "keywords",
+                ":region",
+                "top",
+                ":trend_type"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "interests",
+                  "value": "<string>",
+                  "description": "If set, filters the results to trends associated with the specified interests.<br />\nIf unset, trends for all interests will be returned.<br />\nThe list of supported interests is:\n- `animals` - Animals\n- `architecture` - Architecture\n- `art` - Art\n- `beauty` - Beauty\n- `childrens_fashion` - Children's Fashion\n- `design` - Design\n- `diy_and_crafts` - DIY & Crafts\n- `education` - Education\n- `electronics` - Electronics\n- `entertainment` - Entertainment\n- `event_planning` - Event Planning\n- `finance` - Finance\n- `food_and_drinks` - Food & Drink\n- `gardening` - Gardening\n- `health` - Health\n- `home_decor` - Home Decor\n- `mens_fashion` - Men's Fashion\n- `parenting` - Parenting\n- `quotes` - Quotes\n- `sport` - Sports\n- `travel` - Travel\n- `vehicles` - Vehicles\n- `wedding` - Wedding\n- `womens_fashion` - Women's Fashion"
+                },
+                {
+                  "disabled": false,
+                  "key": "interests",
+                  "value": "<string>",
+                  "description": "If set, filters the results to trends associated with the specified interests.<br />\nIf unset, trends for all interests will be returned.<br />\nThe list of supported interests is:\n- `animals` - Animals\n- `architecture` - Architecture\n- `art` - Art\n- `beauty` - Beauty\n- `childrens_fashion` - Children's Fashion\n- `design` - Design\n- `diy_and_crafts` - DIY & Crafts\n- `education` - Education\n- `electronics` - Electronics\n- `entertainment` - Entertainment\n- `event_planning` - Event Planning\n- `finance` - Finance\n- `food_and_drinks` - Food & Drink\n- `gardening` - Gardening\n- `health` - Health\n- `home_decor` - Home Decor\n- `mens_fashion` - Men's Fashion\n- `parenting` - Parenting\n- `quotes` - Quotes\n- `sport` - Sports\n- `travel` - Travel\n- `vehicles` - Vehicles\n- `wedding` - Wedding\n- `womens_fashion` - Women's Fashion"
+                },
+                {
+                  "disabled": false,
+                  "key": "genders",
+                  "value": "<string>",
+                  "description": "If set, filters the results to trends among users who identify with the specified gender(s).<br />\nIf unset, trends among all genders will be returned.<br />\nThe `unknown` group includes users with unspecified or customized gender profile settings."
+                },
+                {
+                  "disabled": false,
+                  "key": "genders",
+                  "value": "<string>",
+                  "description": "If set, filters the results to trends among users who identify with the specified gender(s).<br />\nIf unset, trends among all genders will be returned.<br />\nThe `unknown` group includes users with unspecified or customized gender profile settings."
+                },
+                {
+                  "disabled": false,
+                  "key": "ages",
+                  "value": "<string>",
+                  "description": "If set, filters the results to trends among users in the specified age range(s).<br />\nIf unset, trends among all age groups will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "ages",
+                  "value": "<string>",
+                  "description": "If set, filters the results to trends among users in the specified age range(s).<br />\nIf unset, trends among all age groups will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "include_keywords",
+                  "value": "<string>",
+                  "description": "If set, filters the results to top trends which include at least one of the specified keywords.<br />\nIf unset, no keyword filtering logic is applied."
+                },
+                {
+                  "disabled": false,
+                  "key": "normalize_against_group",
+                  "value": "false",
+                  "description": "Governs how the resulting time series data will be normalized to a [0-100] scale.<br />\nBy default (`false`), the data will be normalized independently for each keyword.  The peak search volume observation in *each* keyword's time series will be represented by the value 100.  This is ideal for analyzing when an individual keyword is expected to peak in interest.<br />\nIf set to `true`, the data will be normalized as a group.  The peak search volume observation across *all* keywords in the response will be represented by the value 100, and all other values scaled accordingly.  Use this option when you wish to compare relative search volume between multiple keywords."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "The maximum number of trending keywords that will be returned. Keywords are returned in trend-ranked order, so a `limit` of 50 will return the top 50 trends."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The geographic region of interest. Only top trends within the specified region will be returned.<br />\nThe `region` parameter is formatted as ISO 3166-2 country codes delimited by `+`, corresponding to the following geographic areas:\n- `US` - United States\n- `CA` - Canada\n- `DE` - Germany\n- `FR` - France\n- `ES` - Spain\n- `IT` - Italy\n- `DE+AT+CH` - Germanic countries\n- `GB+IE` - Great Britain & Ireland\n- `IT+ES+PT+GR+MT` - Southern Europe\n- `PL+RO+HU+SK+CZ` - Eastern Europe\n- `SE+DK+FI+NO` - Nordic countries\n- `NL+BE+LU` - Benelux\n- `AR` - Argentina\n- `BR` - Brazil\n- `CO` - Colombia\n- `MX` - Mexico\n- `MX+AR+CO+CL` - Hispanic LatAm\n- `AU+NZ` - Australasia"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "trend_type",
+                  "description": "(Required) The methodology used to rank how trendy a keyword is.\n- `growing` trends have high upward growth in search volume over the last quarter\n- `monthly` trends have high search volume in the last month\n- `yearly` trends have high search volume in the last year\n- `seasonal` trends have high upward growth in search volume over the last month and exhibit a seasonal recurring pattern (typically annual)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c1fa2d8a-ed79-4e2a-8b5a-a03d575914ce",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "trends",
+                    "keywords",
+                    ":region",
+                    "top",
+                    ":trend_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "interests",
+                      "value": "beauty"
+                    },
+                    {
+                      "key": "interests",
+                      "value": "womens_fashion"
+                    },
+                    {
+                      "key": "genders",
+                      "value": "female"
+                    },
+                    {
+                      "key": "genders",
+                      "value": "unknown"
+                    },
+                    {
+                      "key": "ages",
+                      "value": "35-44"
+                    },
+                    {
+                      "key": "ages",
+                      "value": "50-54"
+                    },
+                    {
+                      "key": "include_keywords",
+                      "value": "recipes"
+                    },
+                    {
+                      "key": "include_keywords",
+                      "value": "dessert"
+                    },
+                    {
+                      "key": "normalize_against_group",
+                      "value": "true"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The geographic region of interest. Only top trends within the specified region will be returned.<br />\nThe `region` parameter is formatted as ISO 3166-2 country codes delimited by `+`, corresponding to the following geographic areas:\n- `US` - United States\n- `CA` - Canada\n- `DE` - Germany\n- `FR` - France\n- `ES` - Spain\n- `IT` - Italy\n- `DE+AT+CH` - Germanic countries\n- `GB+IE` - Great Britain & Ireland\n- `IT+ES+PT+GR+MT` - Southern Europe\n- `PL+RO+HU+SK+CZ` - Eastern Europe\n- `SE+DK+FI+NO` - Nordic countries\n- `NL+BE+LU` - Benelux\n- `AR` - Argentina\n- `BR` - Brazil\n- `CO` - Colombia\n- `MX` - Mexico\n- `MX+AR+CO+CL` - Hispanic LatAm\n- `AU+NZ` - Australasia"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "trend_type",
+                      "description": "(Required) The methodology used to rank how trendy a keyword is.\n- `growing` trends have high upward growth in search volume over the last quarter\n- `monthly` trends have high search volume in the last month\n- `yearly` trends have high search volume in the last year\n- `seasonal` trends have high upward growth in search volume over the last month and exhibit a seasonal recurring pattern (typically annual)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"trends\": [\n    {\n      \"keyword\": \"couples halloween costumes\",\n      \"pct_growth_wow\": 50,\n      \"pct_growth_mom\": 400,\n      \"pct_growth_yoy\": -5,\n      \"time_series\": {\n        \"2023-10-10\": 31,\n        \"2023-10-17\": 54,\n        \"2023-10-24\": 77,\n        \"2023-10-31\": 100\n      }\n    },\n    {\n      \"keyword\": \"couples halloween costumes\",\n      \"pct_growth_wow\": 50,\n      \"pct_growth_mom\": 400,\n      \"pct_growth_yoy\": -5,\n      \"time_series\": {\n        \"2023-10-10\": 31,\n        \"2023-10-17\": 54,\n        \"2023-10-24\": 77,\n        \"2023-10-31\": 100\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d101963f-0df0-4b5d-833a-0f6ba266ce05",
+              "name": "Invalid trending keywords request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "trends",
+                    "keywords",
+                    ":region",
+                    "top",
+                    ":trend_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "interests",
+                      "value": "beauty"
+                    },
+                    {
+                      "key": "interests",
+                      "value": "womens_fashion"
+                    },
+                    {
+                      "key": "genders",
+                      "value": "female"
+                    },
+                    {
+                      "key": "genders",
+                      "value": "unknown"
+                    },
+                    {
+                      "key": "ages",
+                      "value": "35-44"
+                    },
+                    {
+                      "key": "ages",
+                      "value": "50-54"
+                    },
+                    {
+                      "key": "include_keywords",
+                      "value": "recipes"
+                    },
+                    {
+                      "key": "include_keywords",
+                      "value": "dessert"
+                    },
+                    {
+                      "key": "normalize_against_group",
+                      "value": "true"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The geographic region of interest. Only top trends within the specified region will be returned.<br />\nThe `region` parameter is formatted as ISO 3166-2 country codes delimited by `+`, corresponding to the following geographic areas:\n- `US` - United States\n- `CA` - Canada\n- `DE` - Germany\n- `FR` - France\n- `ES` - Spain\n- `IT` - Italy\n- `DE+AT+CH` - Germanic countries\n- `GB+IE` - Great Britain & Ireland\n- `IT+ES+PT+GR+MT` - Southern Europe\n- `PL+RO+HU+SK+CZ` - Eastern Europe\n- `SE+DK+FI+NO` - Nordic countries\n- `NL+BE+LU` - Benelux\n- `AR` - Argentina\n- `BR` - Brazil\n- `CO` - Colombia\n- `MX` - Mexico\n- `MX+AR+CO+CL` - Hispanic LatAm\n- `AU+NZ` - Australasia"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "trend_type",
+                      "description": "(Required) The methodology used to rank how trendy a keyword is.\n- `growing` trends have high upward growth in search volume over the last quarter\n- `monthly` trends have high search volume in the last month\n- `yearly` trends have high search volume in the last year\n- `seasonal` trends have high upward growth in search volume over the last month and exhibit a seasonal recurring pattern (typically annual)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"Invalid trending keywords request parameters\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ab45deb-9252-4b4a-8286-b923579af62e",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "trends",
+                    "keywords",
+                    ":region",
+                    "top",
+                    ":trend_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "interests",
+                      "value": "beauty"
+                    },
+                    {
+                      "key": "interests",
+                      "value": "womens_fashion"
+                    },
+                    {
+                      "key": "genders",
+                      "value": "female"
+                    },
+                    {
+                      "key": "genders",
+                      "value": "unknown"
+                    },
+                    {
+                      "key": "ages",
+                      "value": "35-44"
+                    },
+                    {
+                      "key": "ages",
+                      "value": "50-54"
+                    },
+                    {
+                      "key": "include_keywords",
+                      "value": "recipes"
+                    },
+                    {
+                      "key": "include_keywords",
+                      "value": "dessert"
+                    },
+                    {
+                      "key": "normalize_against_group",
+                      "value": "true"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The geographic region of interest. Only top trends within the specified region will be returned.<br />\nThe `region` parameter is formatted as ISO 3166-2 country codes delimited by `+`, corresponding to the following geographic areas:\n- `US` - United States\n- `CA` - Canada\n- `DE` - Germany\n- `FR` - France\n- `ES` - Spain\n- `IT` - Italy\n- `DE+AT+CH` - Germanic countries\n- `GB+IE` - Great Britain & Ireland\n- `IT+ES+PT+GR+MT` - Southern Europe\n- `PL+RO+HU+SK+CZ` - Eastern Europe\n- `SE+DK+FI+NO` - Nordic countries\n- `NL+BE+LU` - Benelux\n- `AR` - Argentina\n- `BR` - Brazil\n- `CO` - Colombia\n- `MX` - Mexico\n- `MX+AR+CO+CL` - Hispanic LatAm\n- `AU+NZ` - Australasia"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "trend_type",
+                      "description": "(Required) The methodology used to rank how trendy a keyword is.\n- `growing` trends have high upward growth in search volume over the last quarter\n- `monthly` trends have high search volume in the last month\n- `yearly` trends have high search volume in the last year\n- `seasonal` trends have high upward growth in search volume over the last month and exhibit a seasonal recurring pattern (typically annual)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3872,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "580643df-6b18-4aa0-b104-a423bcf6df13",
+          "name": "Get user account top pins analytics",
+          "request": {
+            "name": "Get user account top pins analytics",
+            "description": {
+              "content": "Gets analytics data about a user's top pins (limited to the top 50).\n- By default, the \"operation user_account\" is the token user_account.\n\nOptional: Business Access: Specify an ad_account_id to use the owner of that ad_account as the \"operation user_account\".",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user_account",
+                "analytics",
+                "top_pins"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>",
+                  "description": "(Required) Metric report start date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days back from today."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>",
+                  "description": "(Required) Metric report end date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days past start_date."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "<string>",
+                  "description": "(Required) Specify sorting order for metrics"
+                },
+                {
+                  "disabled": false,
+                  "key": "from_claimed_content",
+                  "value": "BOTH",
+                  "description": "Filter on Pins that match your claimed domain."
+                },
+                {
+                  "disabled": false,
+                  "key": "pin_format",
+                  "value": "ALL",
+                  "description": "Pin formats to get data for, default is all."
+                },
+                {
+                  "disabled": false,
+                  "key": "app_types",
+                  "value": "ALL",
+                  "description": "Apps or devices to get data for, default is all."
+                },
+                {
+                  "disabled": false,
+                  "key": "content_type",
+                  "value": "ALL",
+                  "description": "Filter to paid or organic data. Default is all."
+                },
+                {
+                  "disabled": false,
+                  "key": "source",
+                  "value": "ALL",
+                  "description": "Filter to activity from Pins created and saved by your, or activity created and saved by others from your claimed accounts"
+                },
+                {
+                  "disabled": false,
+                  "key": "metric_types",
+                  "value": "<string>,<string>",
+                  "description": "Metric types to get data for, default is all. "
+                },
+                {
+                  "disabled": false,
+                  "key": "num_of_pins",
+                  "value": "10",
+                  "description": "Number of pins to include, default is 10. Max is 50."
+                },
+                {
+                  "disabled": false,
+                  "key": "created_in_last_n_days",
+                  "value": "<integer>",
+                  "description": "Get metrics for pins created in the last \"n\" days."
+                },
+                {
+                  "disabled": false,
+                  "key": "ad_account_id",
+                  "value": "<string>",
+                  "description": "Unique identifier of an ad account."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b7f70d07-24ff-426e-ba18-d3e47227c434",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "analytics",
+                    "top_pins"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "from_claimed_content",
+                      "value": "BOTH"
+                    },
+                    {
+                      "key": "pin_format",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "app_types",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "content_type",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "source",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "metric_types",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "num_of_pins",
+                      "value": "25"
+                    },
+                    {
+                      "key": "created_in_last_n_days",
+                      "value": "30"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"date_availability\": {\n    \"latest_available_timestamp\": 1649116799000,\n    \"is_realtime\": false\n  },\n  \"pins\": [\n    {\n      \"metrics\": {\n        \"CLOSEUP\": 1,\n        \"CLOSEUP_RATE\": 0,\n        \"ENGAGEMENT\": 1,\n        \"ENGAGEMENT_RATE\": 0,\n        \"IMPRESSION\": 240,\n        \"OUTBOUND_CLICK\": 20,\n        \"OUTBOUND_CLICK_RATE\": 0.08,\n        \"PIN_CLICK\": 37,\n        \"PIN_CLICK_RATE\": 0.15,\n        \"QUARTILE_95_PERCENT_VIEW\": 8,\n        \"SAVE\": 20,\n        \"SAVE_RATE\": 0.18,\n        \"VIDEO_10S_VIEW\": 2,\n        \"VIDEO_AVG_WATCH_TIME\": 2507.75,\n        \"VIDEO_MRC_VIEW\": 20,\n        \"VIDEO_START\": 29,\n        \"VIDEO_V50_WATCH_TIME\": 10031\n      },\n      \"data_status\": {\n        \"key_0\": \"READY\",\n        \"key_1\": \"READY\"\n      },\n      \"pin_id\": \"642396334344813594\"\n    },\n    {\n      \"metrics\": {\n        \"CLOSEUP\": 1,\n        \"CLOSEUP_RATE\": 0,\n        \"ENGAGEMENT\": 1,\n        \"ENGAGEMENT_RATE\": 0,\n        \"IMPRESSION\": 240,\n        \"OUTBOUND_CLICK\": 20,\n        \"OUTBOUND_CLICK_RATE\": 0.08,\n        \"PIN_CLICK\": 37,\n        \"PIN_CLICK_RATE\": 0.15,\n        \"QUARTILE_95_PERCENT_VIEW\": 8,\n        \"SAVE\": 20,\n        \"SAVE_RATE\": 0.18,\n        \"VIDEO_10S_VIEW\": 2,\n        \"VIDEO_AVG_WATCH_TIME\": 2507.75,\n        \"VIDEO_MRC_VIEW\": 20,\n        \"VIDEO_START\": 29,\n        \"VIDEO_V50_WATCH_TIME\": 10031\n      },\n      \"data_status\": {\n        \"key_0\": \"READY\"\n      },\n      \"pin_id\": \"642396334344813594\"\n    }\n  ],\n  \"sort_by\": \"IMPRESSION\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "95b2b695-d9b1-4f74-aeb2-578bb797479b",
+              "name": "Not authorized to access the user account analytics.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "analytics",
+                    "top_pins"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "from_claimed_content",
+                      "value": "BOTH"
+                    },
+                    {
+                      "key": "pin_format",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "app_types",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "content_type",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "source",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "metric_types",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "num_of_pins",
+                      "value": "25"
+                    },
+                    {
+                      "key": "created_in_last_n_days",
+                      "value": "30"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"Not authorized to access the user account analytics.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "89397f37-70ec-4359-8df4-5450c7ef2d6a",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "analytics",
+                    "top_pins"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "from_claimed_content",
+                      "value": "BOTH"
+                    },
+                    {
+                      "key": "pin_format",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "app_types",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "content_type",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "source",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "metric_types",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "num_of_pins",
+                      "value": "25"
+                    },
+                    {
+                      "key": "created_in_last_n_days",
+                      "value": "30"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3872,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a10904ab-92df-40aa-9de3-f216c8a43346",
+          "name": "Get user account top video pins analytics",
+          "request": {
+            "name": "Get user account top video pins analytics",
+            "description": {
+              "content": "Gets analytics data about a user's top video pins (limited to the top 50).\n- By default, the \"operation user_account\" is the token user_account.\n\nOptional: Business Access: Specify an ad_account_id to use the owner of that ad_account as the \"operation user_account\".",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user_account",
+                "analytics",
+                "top_video_pins"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>",
+                  "description": "(Required) Metric report start date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days back from today."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>",
+                  "description": "(Required) Metric report end date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days past start_date."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "<string>",
+                  "description": "(Required) Specify sorting order for video metrics"
+                },
+                {
+                  "disabled": false,
+                  "key": "from_claimed_content",
+                  "value": "BOTH",
+                  "description": "Filter on Pins that match your claimed domain."
+                },
+                {
+                  "disabled": false,
+                  "key": "pin_format",
+                  "value": "ALL",
+                  "description": "Pin formats to get data for, default is all."
+                },
+                {
+                  "disabled": false,
+                  "key": "app_types",
+                  "value": "ALL",
+                  "description": "Apps or devices to get data for, default is all."
+                },
+                {
+                  "disabled": false,
+                  "key": "content_type",
+                  "value": "ALL",
+                  "description": "Filter to paid or organic data. Default is all."
+                },
+                {
+                  "disabled": false,
+                  "key": "source",
+                  "value": "ALL",
+                  "description": "Filter to activity from Pins created and saved by your, or activity created and saved by others from your claimed accounts"
+                },
+                {
+                  "disabled": false,
+                  "key": "metric_types",
+                  "value": "<string>,<string>",
+                  "description": "Metric types to get video data for, default is all. "
+                },
+                {
+                  "disabled": false,
+                  "key": "num_of_pins",
+                  "value": "10",
+                  "description": "Number of pins to include, default is 10. Max is 50."
+                },
+                {
+                  "disabled": false,
+                  "key": "created_in_last_n_days",
+                  "value": "<integer>",
+                  "description": "Get metrics for pins created in the last \"n\" days."
+                },
+                {
+                  "disabled": false,
+                  "key": "ad_account_id",
+                  "value": "<string>",
+                  "description": "Unique identifier of an ad account."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "83594b0f-f432-417a-8275-ecf80b160290",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "analytics",
+                    "top_video_pins"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "from_claimed_content",
+                      "value": "BOTH"
+                    },
+                    {
+                      "key": "pin_format",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "app_types",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "content_type",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "source",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "metric_types",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "num_of_pins",
+                      "value": "25"
+                    },
+                    {
+                      "key": "created_in_last_n_days",
+                      "value": "30"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"date_availability\": {\n    \"latest_available_timestamp\": 1649116799000,\n    \"is_realtime\": false\n  },\n  \"pins\": [\n    {\n      \"metrics\": {\n        \"IMPRESSION\": 7,\n        \"QUARTILE_95_PERCENT_VIEW\": 2,\n        \"SAVE\": 1,\n        \"VIDEO_10S_VIEW\": 5,\n        \"VIDEO_AVG_WATCH_TIME\": 86989,\n        \"VIDEO_MRC_VIEW\": 2,\n        \"VIDEO_START\": 2,\n        \"VIDEO_V50_WATCH_TIME\": 173979,\n        \"OUTBOUND_CLICK\": 2\n      },\n      \"data_status\": {\n        \"key_0\": \"READY\"\n      },\n      \"pin_id\": \"642396334344813594\"\n    },\n    {\n      \"metrics\": {\n        \"IMPRESSION\": 7,\n        \"QUARTILE_95_PERCENT_VIEW\": 2,\n        \"SAVE\": 1,\n        \"VIDEO_10S_VIEW\": 5,\n        \"VIDEO_AVG_WATCH_TIME\": 86989,\n        \"VIDEO_MRC_VIEW\": 2,\n        \"VIDEO_START\": 2,\n        \"VIDEO_V50_WATCH_TIME\": 173979,\n        \"OUTBOUND_CLICK\": 2\n      },\n      \"data_status\": {\n        \"key_0\": \"READY\"\n      },\n      \"pin_id\": \"642396334344813594\"\n    }\n  ],\n  \"sort_by\": \"IMPRESSION\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8f23ab02-bbbe-4c24-92fd-d904c6876015",
+              "name": "Not authorized to access the user account analytics.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "analytics",
+                    "top_video_pins"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "from_claimed_content",
+                      "value": "BOTH"
+                    },
+                    {
+                      "key": "pin_format",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "app_types",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "content_type",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "source",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "metric_types",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "num_of_pins",
+                      "value": "25"
+                    },
+                    {
+                      "key": "created_in_last_n_days",
+                      "value": "30"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"Not authorized to access the user account analytics.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fe042249-371a-4095-b440-ec0dc085950d",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "analytics",
+                    "top_video_pins"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "from_claimed_content",
+                      "value": "BOTH"
+                    },
+                    {
+                      "key": "pin_format",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "app_types",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "content_type",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "source",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "metric_types",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "num_of_pins",
+                      "value": "25"
+                    },
+                    {
+                      "key": "created_in_last_n_days",
+                      "value": "30"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3872,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.pinterest.com/v5",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "657ae23a-2f96-462e-93c1-399a83c40ae1",
+    "name": "Pinterest Top API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is the description of your API.\n\nContact Support:\n Name: Pinterest, Inc.",
+      "type": "text/plain"
+    }
+  }
+}

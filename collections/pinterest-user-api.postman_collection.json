@@ -1,0 +1,3436 @@
+{
+  "item": [
+    {
+      "id": "ce3a9b01-f836-4477-a204-088c89305fd3",
+      "name": "User",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "64763d71-801a-42a6-ae18-7e001a49a7b6",
+          "name": "Get user account",
+          "request": {
+            "name": "Get user account",
+            "description": {
+              "content": "Get account information for the \"operation user_account\"\n- By default, the \"operation user_account\" is the token user_account.\n\nIf using Business Access: Specify an ad_account_id to use the owner of that ad_account as the \"operation user_account\". See <a href='/docs/reference/business-access/'>Understanding Business Access</a> for more information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user_account"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ad_account_id",
+                  "value": "<string>",
+                  "description": "Unique identifier of an ad account."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9c8b7615-8d90-4ed4-914b-729aef9e1c56",
+              "name": "response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account_type\": \"BUSINESS\",\n  \"id\": \"2783136121146311751\",\n  \"profile_image\": \"string\",\n  \"website_url\": \"string\",\n  \"username\": \"string\",\n  \"about\": \"string\",\n  \"business_name\": \"string\",\n  \"board_count\": 14,\n  \"pin_count\": 339,\n  \"follower_count\": 10,\n  \"following_count\": 347,\n  \"monthly_views\": 163\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "65ae62a6-4eeb-43c6-9e2b-727f5a6fd3a1",
+              "name": "Not authorized to access the user account.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"Not authorized to access the user account.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c5f86b3-680e-4b89-aa04-4b26e6868fbb",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3061,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c14a1b0d-ae87-4a8e-a368-b913b5087562",
+          "name": "Get user account analytics",
+          "request": {
+            "name": "Get user account analytics",
+            "description": {
+              "content": "Get analytics for the \"operation user_account\"\n- By default, the \"operation user_account\" is the token user_account.\n\nOptional: Business Access: Specify an ad_account_id to use the owner of that ad_account as the \"operation user_account\".",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user_account",
+                "analytics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>",
+                  "description": "(Required) Metric report start date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days back from today."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>",
+                  "description": "(Required) Metric report end date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days past start_date."
+                },
+                {
+                  "disabled": false,
+                  "key": "from_claimed_content",
+                  "value": "BOTH",
+                  "description": "Filter on Pins that match your claimed domain."
+                },
+                {
+                  "disabled": false,
+                  "key": "pin_format",
+                  "value": "ALL",
+                  "description": "Pin formats to get data for, default is all."
+                },
+                {
+                  "disabled": false,
+                  "key": "app_types",
+                  "value": "ALL",
+                  "description": "Apps or devices to get data for, default is all."
+                },
+                {
+                  "disabled": false,
+                  "key": "content_type",
+                  "value": "ALL",
+                  "description": "Filter to paid or organic data. Default is all."
+                },
+                {
+                  "disabled": false,
+                  "key": "source",
+                  "value": "ALL",
+                  "description": "Filter to activity from Pins created and saved by your, or activity created and saved by others from your claimed accounts"
+                },
+                {
+                  "disabled": false,
+                  "key": "metric_types",
+                  "value": "<string>,<string>",
+                  "description": "Metric types to get data for, default is all. "
+                },
+                {
+                  "disabled": false,
+                  "key": "split_field",
+                  "value": "NO_SPLIT",
+                  "description": "How to split the data into groups. Not including this param means data won't be split."
+                },
+                {
+                  "disabled": false,
+                  "key": "ad_account_id",
+                  "value": "<string>",
+                  "description": "Unique identifier of an ad account."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3097b380-068f-449c-8091-42144f23f6b2",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "analytics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "from_claimed_content",
+                      "value": "BOTH"
+                    },
+                    {
+                      "key": "pin_format",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "app_types",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "content_type",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "source",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "metric_types",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "split_field",
+                      "value": "NO_SPLIT"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": {\n    \"summary_metrics\": {\n      \"CLOSEUP\": 1,\n      \"CLOSEUP_RATE\": 0,\n      \"ENGAGEMENT\": 1,\n      \"ENGAGEMENT_RATE\": 0,\n      \"IMPRESSION\": 240,\n      \"OUTBOUND_CLICK\": 20,\n      \"OUTBOUND_CLICK_RATE\": 0.08,\n      \"PIN_CLICK\": 37,\n      \"PIN_CLICK_RATE\": 0.15,\n      \"PROFILE_VISIT\": 0,\n      \"QUARTILE_95_PERCENT_VIEW\": 8,\n      \"SAVE\": 20,\n      \"SAVE_RATE\": 0.18,\n      \"VIDEO_10S_VIEW\": 2,\n      \"VIDEO_AVG_WATCH_TIME\": 2507.75,\n      \"VIDEO_MRC_VIEW\": 20,\n      \"VIDEO_START\": 29,\n      \"VIDEO_V50_WATCH_TIME\": 10031\n    },\n    \"daily_metrics\": [\n      {\n        \"data_status\": \"READY\",\n        \"date\": \"2019-12-01\",\n        \"metrics\": {\n          \"CLOSEUP\": 1,\n          \"CLOSEUP_RATE\": 0,\n          \"ENGAGEMENT\": 1,\n          \"ENGAGEMENT_RATE\": 0,\n          \"IMPRESSION\": 240,\n          \"OUTBOUND_CLICK\": 20,\n          \"OUTBOUND_CLICK_RATE\": 0.08,\n          \"PIN_CLICK\": 37,\n          \"PIN_CLICK_RATE\": 0.15,\n          \"QUARTILE_95_PERCENT_VIEW\": 8,\n          \"SAVE\": 20,\n          \"SAVE_RATE\": 0.18,\n          \"VIDEO_10S_VIEW\": 2,\n          \"VIDEO_AVG_WATCH_TIME\": 2507.75,\n          \"VIDEO_MRC_VIEW\": 20,\n          \"VIDEO_START\": 29,\n          \"VIDEO_V50_WATCH_TIME\": 10031\n        }\n      },\n      {\n        \"data_status\": \"READY\",\n        \"date\": \"2019-12-01\",\n        \"metrics\": {\n          \"CLOSEUP\": 1,\n          \"CLOSEUP_RATE\": 0,\n          \"ENGAGEMENT\": 1,\n          \"ENGAGEMENT_RATE\": 0,\n          \"IMPRESSION\": 240,\n          \"OUTBOUND_CLICK\": 20,\n          \"OUTBOUND_CLICK_RATE\": 0.08,\n          \"PIN_CLICK\": 37,\n          \"PIN_CLICK_RATE\": 0.15,\n          \"QUARTILE_95_PERCENT_VIEW\": 8,\n          \"SAVE\": 20,\n          \"SAVE_RATE\": 0.18,\n          \"VIDEO_10S_VIEW\": 2,\n          \"VIDEO_AVG_WATCH_TIME\": 2507.75,\n          \"VIDEO_MRC_VIEW\": 20,\n          \"VIDEO_START\": 29,\n          \"VIDEO_V50_WATCH_TIME\": 10031\n        }\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2395645c-e523-400b-b144-0684e78f7480",
+              "name": "Invalid user accounts analytics parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "analytics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "from_claimed_content",
+                      "value": "BOTH"
+                    },
+                    {
+                      "key": "pin_format",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "app_types",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "content_type",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "source",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "metric_types",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "split_field",
+                      "value": "NO_SPLIT"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"Invalid user accounts analytics parameters.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d63c896a-536b-449a-a48d-b4545ff5a831",
+              "name": "Not authorized to access the user account analytics.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "analytics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "from_claimed_content",
+                      "value": "BOTH"
+                    },
+                    {
+                      "key": "pin_format",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "app_types",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "content_type",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "source",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "metric_types",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "split_field",
+                      "value": "NO_SPLIT"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"Not authorized to access the user account analytics.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f7a8720-4d3b-4bb3-b1bb-8afbf08a0f04",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "analytics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "from_claimed_content",
+                      "value": "BOTH"
+                    },
+                    {
+                      "key": "pin_format",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "app_types",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "content_type",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "source",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "metric_types",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "split_field",
+                      "value": "NO_SPLIT"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3061,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "403d01a8-3ea8-4cf3-8764-3361f368bbc3",
+          "name": "Get user account top pins analytics",
+          "request": {
+            "name": "Get user account top pins analytics",
+            "description": {
+              "content": "Gets analytics data about a user's top pins (limited to the top 50).\n- By default, the \"operation user_account\" is the token user_account.\n\nOptional: Business Access: Specify an ad_account_id to use the owner of that ad_account as the \"operation user_account\".",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user_account",
+                "analytics",
+                "top_pins"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>",
+                  "description": "(Required) Metric report start date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days back from today."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>",
+                  "description": "(Required) Metric report end date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days past start_date."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "<string>",
+                  "description": "(Required) Specify sorting order for metrics"
+                },
+                {
+                  "disabled": false,
+                  "key": "from_claimed_content",
+                  "value": "BOTH",
+                  "description": "Filter on Pins that match your claimed domain."
+                },
+                {
+                  "disabled": false,
+                  "key": "pin_format",
+                  "value": "ALL",
+                  "description": "Pin formats to get data for, default is all."
+                },
+                {
+                  "disabled": false,
+                  "key": "app_types",
+                  "value": "ALL",
+                  "description": "Apps or devices to get data for, default is all."
+                },
+                {
+                  "disabled": false,
+                  "key": "content_type",
+                  "value": "ALL",
+                  "description": "Filter to paid or organic data. Default is all."
+                },
+                {
+                  "disabled": false,
+                  "key": "source",
+                  "value": "ALL",
+                  "description": "Filter to activity from Pins created and saved by your, or activity created and saved by others from your claimed accounts"
+                },
+                {
+                  "disabled": false,
+                  "key": "metric_types",
+                  "value": "<string>,<string>",
+                  "description": "Metric types to get data for, default is all. "
+                },
+                {
+                  "disabled": false,
+                  "key": "num_of_pins",
+                  "value": "10",
+                  "description": "Number of pins to include, default is 10. Max is 50."
+                },
+                {
+                  "disabled": false,
+                  "key": "created_in_last_n_days",
+                  "value": "<integer>",
+                  "description": "Get metrics for pins created in the last \"n\" days."
+                },
+                {
+                  "disabled": false,
+                  "key": "ad_account_id",
+                  "value": "<string>",
+                  "description": "Unique identifier of an ad account."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5a7133cc-2472-4517-afa5-51c14e445f73",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "analytics",
+                    "top_pins"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "from_claimed_content",
+                      "value": "BOTH"
+                    },
+                    {
+                      "key": "pin_format",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "app_types",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "content_type",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "source",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "metric_types",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "num_of_pins",
+                      "value": "25"
+                    },
+                    {
+                      "key": "created_in_last_n_days",
+                      "value": "30"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"date_availability\": {\n    \"latest_available_timestamp\": 1649116799000,\n    \"is_realtime\": false\n  },\n  \"pins\": [\n    {\n      \"metrics\": {\n        \"CLOSEUP\": 1,\n        \"CLOSEUP_RATE\": 0,\n        \"ENGAGEMENT\": 1,\n        \"ENGAGEMENT_RATE\": 0,\n        \"IMPRESSION\": 240,\n        \"OUTBOUND_CLICK\": 20,\n        \"OUTBOUND_CLICK_RATE\": 0.08,\n        \"PIN_CLICK\": 37,\n        \"PIN_CLICK_RATE\": 0.15,\n        \"QUARTILE_95_PERCENT_VIEW\": 8,\n        \"SAVE\": 20,\n        \"SAVE_RATE\": 0.18,\n        \"VIDEO_10S_VIEW\": 2,\n        \"VIDEO_AVG_WATCH_TIME\": 2507.75,\n        \"VIDEO_MRC_VIEW\": 20,\n        \"VIDEO_START\": 29,\n        \"VIDEO_V50_WATCH_TIME\": 10031\n      },\n      \"data_status\": {\n        \"key_0\": \"READY\",\n        \"key_1\": \"READY\",\n        \"key_2\": \"READY\"\n      },\n      \"pin_id\": \"642396334344813594\"\n    },\n    {\n      \"metrics\": {\n        \"CLOSEUP\": 1,\n        \"CLOSEUP_RATE\": 0,\n        \"ENGAGEMENT\": 1,\n        \"ENGAGEMENT_RATE\": 0,\n        \"IMPRESSION\": 240,\n        \"OUTBOUND_CLICK\": 20,\n        \"OUTBOUND_CLICK_RATE\": 0.08,\n        \"PIN_CLICK\": 37,\n        \"PIN_CLICK_RATE\": 0.15,\n        \"QUARTILE_95_PERCENT_VIEW\": 8,\n        \"SAVE\": 20,\n        \"SAVE_RATE\": 0.18,\n        \"VIDEO_10S_VIEW\": 2,\n        \"VIDEO_AVG_WATCH_TIME\": 2507.75,\n        \"VIDEO_MRC_VIEW\": 20,\n        \"VIDEO_START\": 29,\n        \"VIDEO_V50_WATCH_TIME\": 10031\n      },\n      \"data_status\": {\n        \"key_0\": \"READY\",\n        \"key_1\": \"READY\",\n        \"key_2\": \"READY\",\n        \"key_3\": \"READY\",\n        \"key_4\": \"READY\"\n      },\n      \"pin_id\": \"642396334344813594\"\n    }\n  ],\n  \"sort_by\": \"IMPRESSION\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d0004795-ce9b-45af-9676-619e7fd432b7",
+              "name": "Not authorized to access the user account analytics.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "analytics",
+                    "top_pins"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "from_claimed_content",
+                      "value": "BOTH"
+                    },
+                    {
+                      "key": "pin_format",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "app_types",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "content_type",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "source",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "metric_types",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "num_of_pins",
+                      "value": "25"
+                    },
+                    {
+                      "key": "created_in_last_n_days",
+                      "value": "30"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"Not authorized to access the user account analytics.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5bb64632-52e2-40b7-8020-9dabf7e9d7b6",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "analytics",
+                    "top_pins"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "from_claimed_content",
+                      "value": "BOTH"
+                    },
+                    {
+                      "key": "pin_format",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "app_types",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "content_type",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "source",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "metric_types",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "num_of_pins",
+                      "value": "25"
+                    },
+                    {
+                      "key": "created_in_last_n_days",
+                      "value": "30"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3061,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0eb6e1cc-8bdf-4f3a-81be-1d69ef1b624b",
+          "name": "Get user account top video pins analytics",
+          "request": {
+            "name": "Get user account top video pins analytics",
+            "description": {
+              "content": "Gets analytics data about a user's top video pins (limited to the top 50).\n- By default, the \"operation user_account\" is the token user_account.\n\nOptional: Business Access: Specify an ad_account_id to use the owner of that ad_account as the \"operation user_account\".",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user_account",
+                "analytics",
+                "top_video_pins"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>",
+                  "description": "(Required) Metric report start date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days back from today."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>",
+                  "description": "(Required) Metric report end date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days past start_date."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "<string>",
+                  "description": "(Required) Specify sorting order for video metrics"
+                },
+                {
+                  "disabled": false,
+                  "key": "from_claimed_content",
+                  "value": "BOTH",
+                  "description": "Filter on Pins that match your claimed domain."
+                },
+                {
+                  "disabled": false,
+                  "key": "pin_format",
+                  "value": "ALL",
+                  "description": "Pin formats to get data for, default is all."
+                },
+                {
+                  "disabled": false,
+                  "key": "app_types",
+                  "value": "ALL",
+                  "description": "Apps or devices to get data for, default is all."
+                },
+                {
+                  "disabled": false,
+                  "key": "content_type",
+                  "value": "ALL",
+                  "description": "Filter to paid or organic data. Default is all."
+                },
+                {
+                  "disabled": false,
+                  "key": "source",
+                  "value": "ALL",
+                  "description": "Filter to activity from Pins created and saved by your, or activity created and saved by others from your claimed accounts"
+                },
+                {
+                  "disabled": false,
+                  "key": "metric_types",
+                  "value": "<string>,<string>",
+                  "description": "Metric types to get video data for, default is all. "
+                },
+                {
+                  "disabled": false,
+                  "key": "num_of_pins",
+                  "value": "10",
+                  "description": "Number of pins to include, default is 10. Max is 50."
+                },
+                {
+                  "disabled": false,
+                  "key": "created_in_last_n_days",
+                  "value": "<integer>",
+                  "description": "Get metrics for pins created in the last \"n\" days."
+                },
+                {
+                  "disabled": false,
+                  "key": "ad_account_id",
+                  "value": "<string>",
+                  "description": "Unique identifier of an ad account."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0f437715-b59d-41a8-91f3-e8f525266fa3",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "analytics",
+                    "top_video_pins"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "from_claimed_content",
+                      "value": "BOTH"
+                    },
+                    {
+                      "key": "pin_format",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "app_types",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "content_type",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "source",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "metric_types",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "num_of_pins",
+                      "value": "25"
+                    },
+                    {
+                      "key": "created_in_last_n_days",
+                      "value": "30"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"date_availability\": {\n    \"latest_available_timestamp\": 1649116799000,\n    \"is_realtime\": false\n  },\n  \"pins\": [\n    {\n      \"metrics\": {\n        \"IMPRESSION\": 7,\n        \"QUARTILE_95_PERCENT_VIEW\": 2,\n        \"SAVE\": 1,\n        \"VIDEO_10S_VIEW\": 5,\n        \"VIDEO_AVG_WATCH_TIME\": 86989,\n        \"VIDEO_MRC_VIEW\": 2,\n        \"VIDEO_START\": 2,\n        \"VIDEO_V50_WATCH_TIME\": 173979,\n        \"OUTBOUND_CLICK\": 2\n      },\n      \"data_status\": {\n        \"key_0\": \"READY\",\n        \"key_1\": \"READY\"\n      },\n      \"pin_id\": \"642396334344813594\"\n    },\n    {\n      \"metrics\": {\n        \"IMPRESSION\": 7,\n        \"QUARTILE_95_PERCENT_VIEW\": 2,\n        \"SAVE\": 1,\n        \"VIDEO_10S_VIEW\": 5,\n        \"VIDEO_AVG_WATCH_TIME\": 86989,\n        \"VIDEO_MRC_VIEW\": 2,\n        \"VIDEO_START\": 2,\n        \"VIDEO_V50_WATCH_TIME\": 173979,\n        \"OUTBOUND_CLICK\": 2\n      },\n      \"data_status\": {\n        \"key_0\": \"READY\"\n      },\n      \"pin_id\": \"642396334344813594\"\n    }\n  ],\n  \"sort_by\": \"IMPRESSION\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b49a52bb-538a-4fb8-a1a6-9e9a16122a1d",
+              "name": "Not authorized to access the user account analytics.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "analytics",
+                    "top_video_pins"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "from_claimed_content",
+                      "value": "BOTH"
+                    },
+                    {
+                      "key": "pin_format",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "app_types",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "content_type",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "source",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "metric_types",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "num_of_pins",
+                      "value": "25"
+                    },
+                    {
+                      "key": "created_in_last_n_days",
+                      "value": "30"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"Not authorized to access the user account analytics.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dc3030cd-337d-47ed-b36c-4974a09f4aaa",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "analytics",
+                    "top_video_pins"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "from_claimed_content",
+                      "value": "BOTH"
+                    },
+                    {
+                      "key": "pin_format",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "app_types",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "content_type",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "source",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "metric_types",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "num_of_pins",
+                      "value": "25"
+                    },
+                    {
+                      "key": "created_in_last_n_days",
+                      "value": "30"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3061,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8a790213-d8f9-4d26-b924-6c5479125ff0",
+          "name": "List linked businesses",
+          "request": {
+            "name": "List linked businesses",
+            "description": {
+              "content": "Get a list of your linked business accounts.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user_account",
+                "businesses"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6c6ea368-ca6c-4317-b903-ede78e6eb93e",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "businesses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"username\": \"username\",\n    \"image_small_url\": \"https://www.example.com/dj23454f53dfk2324.jpg\",\n    \"image_medium_url\": \"https://www.example.com/dj23454f53dfk2324.jpg\",\n    \"image_large_url\": \"https://www.example.com/dj23454f53dfk2324.jpg\",\n    \"image_xlarge_url\": \"https://www.example.com/dj23454f53dfk2324.jpg\"\n  },\n  {\n    \"username\": \"username\",\n    \"image_small_url\": \"https://www.example.com/dj23454f53dfk2324.jpg\",\n    \"image_medium_url\": \"https://www.example.com/dj23454f53dfk2324.jpg\",\n    \"image_large_url\": \"https://www.example.com/dj23454f53dfk2324.jpg\",\n    \"image_xlarge_url\": \"https://www.example.com/dj23454f53dfk2324.jpg\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a9c48830-ee3d-4e07-965d-ea9ffa9a2b33",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "businesses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3061,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3f69bd37-4c04-45f5-a2b9-5e45ac98ae46",
+          "name": "List followers",
+          "request": {
+            "name": "List followers",
+            "description": {
+              "content": "Get a list of your followers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user_account",
+                "followers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "bookmark",
+                  "value": "<string>",
+                  "description": "Cursor used to fetch the next page of items"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "25",
+                  "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e6f7c602-9d77-4573-87e8-c41b46b56b80",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "followers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"username\": \"username\",\n      \"type\": \"user\"\n    },\n    {\n      \"username\": \"username\",\n      \"type\": \"user\"\n    }\n  ],\n  \"bookmark\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ad8dbfe-e0a2-4619-9a9e-fe18ae861f3e",
+              "name": "Invalid user id",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "followers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"Invalid user id\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "452511b7-de94-48bc-9441-0760299c437d",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "followers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3061,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eb79e6a0-1430-4ad7-b382-a46bac28db4a",
+          "name": "List following",
+          "request": {
+            "name": "List following",
+            "description": {
+              "content": "Get a list of who a certain user follows.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user_account",
+                "following"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "bookmark",
+                  "value": "<string>",
+                  "description": "Cursor used to fetch the next page of items"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "25",
+                  "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+                },
+                {
+                  "disabled": false,
+                  "key": "feed_type",
+                  "value": "ALL",
+                  "description": "Thrift param specifying what type of followees will be kept. Default to include all followees."
+                },
+                {
+                  "disabled": false,
+                  "key": "explicit_following",
+                  "value": "false",
+                  "description": "Whether or not to include implicit user follows, which means followees with board follows. When explicit_following is True, it means we only want explicit user follows."
+                },
+                {
+                  "disabled": false,
+                  "key": "ad_account_id",
+                  "value": "<string>",
+                  "description": "Unique identifier of an ad account."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1cca91f8-6214-4cee-bd0e-74ccb6205b62",
+              "name": "response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "following"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "feed_type",
+                      "value": "CREATOR_ONLY"
+                    },
+                    {
+                      "key": "explicit_following",
+                      "value": "false"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"value\": \"<Error: Could not resolve allOf schema\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "63d9fa76-266c-406d-8a80-272edaf7fd1b",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "following"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "feed_type",
+                      "value": "CREATOR_ONLY"
+                    },
+                    {
+                      "key": "explicit_following",
+                      "value": "false"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3061,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0b65dbf0-98f8-4965-a972-9b5bd3deaff8",
+          "name": "List following boards",
+          "request": {
+            "name": "List following boards",
+            "description": {
+              "content": "Get a list of the boards a user follows. The request returns a board summary object array.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user_account",
+                "following",
+                "boards"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "bookmark",
+                  "value": "<string>",
+                  "description": "Cursor used to fetch the next page of items"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "25",
+                  "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+                },
+                {
+                  "disabled": false,
+                  "key": "explicit_following",
+                  "value": "false",
+                  "description": "Whether or not to include implicit user follows, which means followees with board follows. When explicit_following is True, it means we only want explicit user follows."
+                },
+                {
+                  "disabled": false,
+                  "key": "ad_account_id",
+                  "value": "<string>",
+                  "description": "Unique identifier of an ad account."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cd4520d7-022e-4bab-b09b-10abf88ae22d",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "following",
+                    "boards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "explicit_following",
+                      "value": "false"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"name\": \"Summer Recipes\",\n      \"id\": \"549755885175\",\n      \"created_at\": \"2020-01-01T20:10:40-00:00\",\n      \"board_pins_modified_at\": \"2020-01-01T20:10:40-00:00\",\n      \"description\": \"My favorite summer recipes\",\n      \"collaborator_count\": 17,\n      \"pin_count\": 5,\n      \"follower_count\": 13,\n      \"media\": {\n        \"image_cover_url\": \"https://i.pinimg.com/400x300/fd/cd/d5/fdcdd5a6d8a80824add0d054125cd957.jpg\",\n        \"pin_thumbnail_urls\": [\n          \"https://i.pinimg.com/150x150/b4/57/10/b45710f1ede96af55230f4b43935c4af.jpg\",\n          \"https://i.pinimg.com/150x150/dd/ff/46/ddff4616e39c1935cd05738794fa860e.jpg\",\n          \"https://i.pinimg.com/150x150/84/ac/59/84ac59b670ccb5b903dace480a98930c.jpg\",\n          \"https://i.pinimg.com/150x150/4c/54/6f/4c546f521be85e30838fb742bfff6936.jpg\"\n        ]\n      },\n      \"owner\": {\n        \"username\": \"string\"\n      },\n      \"privacy\": \"PUBLIC\"\n    },\n    {\n      \"name\": \"Summer Recipes\",\n      \"id\": \"549755885175\",\n      \"created_at\": \"2020-01-01T20:10:40-00:00\",\n      \"board_pins_modified_at\": \"2020-01-01T20:10:40-00:00\",\n      \"description\": \"My favorite summer recipes\",\n      \"collaborator_count\": 17,\n      \"pin_count\": 5,\n      \"follower_count\": 13,\n      \"media\": {\n        \"image_cover_url\": \"https://i.pinimg.com/400x300/fd/cd/d5/fdcdd5a6d8a80824add0d054125cd957.jpg\",\n        \"pin_thumbnail_urls\": [\n          \"https://i.pinimg.com/150x150/b4/57/10/b45710f1ede96af55230f4b43935c4af.jpg\",\n          \"https://i.pinimg.com/150x150/dd/ff/46/ddff4616e39c1935cd05738794fa860e.jpg\",\n          \"https://i.pinimg.com/150x150/84/ac/59/84ac59b670ccb5b903dace480a98930c.jpg\",\n          \"https://i.pinimg.com/150x150/4c/54/6f/4c546f521be85e30838fb742bfff6936.jpg\"\n        ]\n      },\n      \"owner\": {\n        \"username\": \"string\"\n      },\n      \"privacy\": \"PUBLIC\"\n    }\n  ],\n  \"bookmark\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b017b1d5-21d7-4e03-b01f-66561876461a",
+              "name": "Invalid user id",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "following",
+                    "boards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "explicit_following",
+                      "value": "false"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"Invalid user id\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b3fc9044-1e48-4fd9-bb6a-5a4c0ac95ecb",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "following",
+                    "boards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "explicit_following",
+                      "value": "false"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3061,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a148c639-112e-4fb0-a568-dc9b26048196",
+          "name": "Follow user",
+          "request": {
+            "name": "Follow user",
+            "description": {
+              "content": "<strong>This endpoint is currently in beta and not available to all apps. <a href='/docs/new/about-beta-access/'>Learn more</a>.</strong>\n\nUse this request, as a signed-in user, to follow another user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user_account",
+                "following",
+                ":username"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "username",
+                  "description": "(Required) A valid username"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"auto_follow\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a62b2857-64ad-452a-8d61-6f3e2896bbcf",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "following",
+                    ":username"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) A valid username"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"auto_follow\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"username\": \"username\",\n  \"type\": \"user\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4f826216-000d-4eb8-8719-26a1e4ed4c76",
+              "name": "User not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "following",
+                    ":username"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) A valid username"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"auto_follow\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 30,\n  \"message\": \"User not found.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fbfc70ab-146b-43da-a153-3f0e0111932a",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "following",
+                    ":username"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "username",
+                      "description": "(Required) A valid username"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"auto_follow\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3061,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "acdbe1c2-d5a9-4717-9734-e59b2968ba95",
+          "name": "Verify website",
+          "request": {
+            "name": "Verify website",
+            "description": {
+              "content": "Verify a website as a signed-in user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user_account",
+                "websites"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"website\": \"<string>\",\n  \"verification_method\": \"METATAG\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "822d00b1-ecc1-4fec-8d16-85f605b8c65a",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "websites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"website\": \"pintest-website-12345678.test/test_1\",\n  \"verification_method\": \"METATAG\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"website\": \"mysite.test\",\n  \"status\": \"success\",\n  \"verified_at\": \"2022-12-14T21:03:01.602000\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c483e36-a647-4748-bcbc-50c8c677ecba",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "websites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"website\": \"pintest-website-12345678.test/test_1\",\n  \"verification_method\": \"METATAG\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3061,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cb09001c-a624-4271-8e78-1c85b90eba16",
+          "name": "Get user websites",
+          "request": {
+            "name": "Get user websites",
+            "description": {
+              "content": "Get user websites, claimed or not",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user_account",
+                "websites"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "bookmark",
+                  "value": "<string>",
+                  "description": "Cursor used to fetch the next page of items"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "25",
+                  "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "652a75b6-bce7-4b94-9bc5-de98c64e4808",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "websites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"website\": \"mysite.test\",\n      \"status\": \"success\",\n      \"verified_at\": \"2022-12-14T21:03:01.602000\"\n    },\n    {\n      \"website\": \"mysite.test\",\n      \"status\": \"success\",\n      \"verified_at\": \"2022-12-14T21:03:01.602000\"\n    }\n  ],\n  \"bookmark\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fc8043a3-c2df-4552-8c31-2f6633988d86",
+              "name": "Not authorized to access the user website list.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "websites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"Not authorized to access the user website list.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ae1ee0fe-2577-4428-a755-f45a3eed3aca",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "websites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3061,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9af1b993-e72d-4eaf-af9c-45f2c5589034",
+          "name": "Unverify website",
+          "request": {
+            "name": "Unverify website",
+            "description": {
+              "content": "Unverifu a website verified by the signed-in user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user_account",
+                "websites"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "website",
+                  "value": "<string>",
+                  "description": "(Required) Website with path or domain only"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6579ce9c-27ee-4c55-b096-313f9143d54b",
+              "name": "Successfully unverified website",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "websites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "website",
+                      "value": "mysite.test"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3a118bdb-0c4f-494f-9e4c-11273c7f1f6c",
+              "name": "Website not in user list.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "websites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "website",
+                      "value": "mysite.test"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 404,\n  \"message\": \"Website not in user list.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d5086ad0-b0eb-4e50-8f28-c51270df8111",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "websites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "website",
+                      "value": "mysite.test"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3061,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "26d14777-9a5f-4772-b46f-652ea4489a6c",
+          "name": "Get user verification code for website claiming",
+          "request": {
+            "name": "Get user verification code for website claiming",
+            "description": {
+              "content": "Get verification code for user to install on the website to claim it.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user_account",
+                "websites",
+                "verification"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "86db455a-671b-4d86-8fe2-3dc493105305",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "websites",
+                    "verification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"verification_code\": \"e1edcc1a43976c646367e9c6c9a9b7b6\",\n  \"dns_txt_record\": \"pinterest-site-verification=e1edcc1a43976c646367e9c6c9a9b7b6\",\n  \"metatag\": \"<meta name=\\\"p:domain_verify\\\" content=\\\"e1edcc1a43976c646367e9c6c9a9b7b6\\\"/>\",\n  \"filename\": \"pinterest-e1edc.html\",\n  \"file_content\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fcea62c7-736f-4909-ac74-15e6d8879643",
+              "name": "Not authorized to access the user verification code for website claiming.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "websites",
+                    "verification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"Not authorized to access the user verification code for website claiming.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "049611ee-9efe-4daf-aa22-e813416965fa",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "websites",
+                    "verification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3061,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.pinterest.com/v5",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c64e01ce-76c5-4b42-9090-c39d3bce91d0",
+    "name": "Pinterest User API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is the description of your API.\n\nContact Support:\n Name: Pinterest, Inc.",
+      "type": "text/plain"
+    }
+  }
+}

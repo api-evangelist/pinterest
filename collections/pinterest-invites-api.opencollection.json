@@ -1,0 +1,201 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pinterest Invites API",
+    "version": "5.13.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Invites",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Accept or decline an invite/request",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.pinterest.com/v5/businesses/invites",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Accept or decline invites or requests."
+        },
+        {
+          "info": {
+            "name": "Update invite/request with an asset permission",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pinterest.com/v5/businesses/:business_id/invites/assets/access",
+            "params": [
+              {
+                "name": "business_id",
+                "value": "729090764583391194",
+                "type": "path",
+                "description": "Unique identifier of the requesting business."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Assign asset permissions information to an existing invite/request. Can be used to:\n- Request access to a partner's asset. Note: This is only for when no existing partnership exists. If an existing\n  partnership exists, use \"Create a request to access an existing partner's assets\" to request access to your\n  partner's assets.\n    - invite_type=\"PARTNER_REQUEST\"\n- Invite a partner to access your business assets. Note: This is only for when there is no existing partnership.\n  If there is an existi"
+        },
+        {
+          "info": {
+            "name": "Get invites/requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/businesses/:business_id/invites",
+            "params": [
+              {
+                "name": "business_id",
+                "value": "729090764583391194",
+                "type": "path",
+                "description": "Unique identifier of the requesting business."
+              },
+              {
+                "name": "is_member",
+                "value": "",
+                "type": "query",
+                "description": "A boolean field to indicate whether the invite is to create a partnership or a membership."
+              },
+              {
+                "name": "invite_status",
+                "value": "",
+                "type": "query",
+                "description": "A list of invite statuses to filter invites by. Only invites whose status is in the provided statuses will be returned."
+              },
+              {
+                "name": "invite_type",
+                "value": "",
+                "type": "query",
+                "description": "Invite type to filter invites by. Only invites of the specified type will be returned."
+              },
+              {
+                "name": "bookmark",
+                "value": "",
+                "type": "query",
+                "description": "Cursor used to fetch the next page of items"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the membership/partnership invites and/or requests for the authorized user."
+        },
+        {
+          "info": {
+            "name": "Create invites or requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pinterest.com/v5/businesses/:business_id/invites",
+            "params": [
+              {
+                "name": "business_id",
+                "value": "729090764583391194",
+                "type": "path",
+                "description": "Business id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create batch invites or requests. Can create batch invites or requests as described below.\n- Invite members to join the business. This would required specifying the following:\n    - invite_type=\"MEMBER_INVITE\"\n    - business_role=\"EMPLOYEE\" OR business_role=\"BIZ_ADMIN\" (To learn more about business roles, visit\n    https://help.pinterest.com/en/business/article/profile-permissions-in-business-access.)\n    - members\n- Invite partners to access your business assets. This would require specifying t"
+        },
+        {
+          "info": {
+            "name": "Cancel invites/requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.pinterest.com/v5/businesses/:business_id/invites",
+            "params": [
+              {
+                "name": "business_id",
+                "value": "729090764583391194",
+                "type": "path",
+                "description": "Business id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Cancel membership/partnership invites and/or requests."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

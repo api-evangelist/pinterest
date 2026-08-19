@@ -1,0 +1,235 @@
+{
+  "item": [
+    {
+      "id": "fee4a260-f138-428b-9586-200576d9bfee",
+      "name": "Downloads",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1746d96e-1426-4497-9bf1-e0a436a398b1",
+          "name": "Get advertiser entities in bulk",
+          "request": {
+            "name": "Get advertiser entities in bulk",
+            "description": {
+              "content": "Create an asynchronous report that may include information on campaigns, ad groups, product groups, ads,\nand/or keywords; can filter by campaigns. Though the entities may be active, archived, or paused,\nonly active entities will return data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "bulk",
+                "download"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"entity_types\": [\n    \"<string>\"\n  ],\n  \"entity_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"updated_since\": \"<string>\",\n  \"campaign_filter\": {\n    \"start_time\": \"<string>\",\n    \"end_time\": \"<string>\",\n    \"name\": \"<string>\",\n    \"campaign_status\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"objective_type\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"output_format\": \"JSON\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dc498131-133e-4bdd-866b-2bc536afbe2c",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "bulk",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entity_types\": [\n    \"CAMPAIGN\",\n    \"AD_GROUP\"\n  ],\n  \"entity_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"updated_since\": \"1622848072\",\n  \"campaign_filter\": {\n    \"start_time\": \"1622848072\",\n    \"end_time\": \"1622848072\",\n    \"name\": \"campaign name\",\n    \"campaign_status\": [\n      \"RUNNING\",\n      \"RUNNING\"\n    ],\n    \"objective_type\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"output_format\": \"JSON\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_id\": \"2680059592705\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "462ea89b-95bb-49aa-bf48-d0a29e39fa5a",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "bulk",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entity_types\": [\n    \"CAMPAIGN\",\n    \"AD_GROUP\"\n  ],\n  \"entity_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"updated_since\": \"1622848072\",\n  \"campaign_filter\": {\n    \"start_time\": \"1622848072\",\n    \"end_time\": \"1622848072\",\n    \"name\": \"campaign name\",\n    \"campaign_status\": [\n      \"RUNNING\",\n      \"RUNNING\"\n    ],\n    \"objective_type\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"output_format\": \"JSON\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3068,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.pinterest.com/v5",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ba813b08-3e5b-4ddf-b726-66ee650720ae",
+    "name": "Pinterest Downloads API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is the description of your API.\n\nContact Support:\n Name: Pinterest, Inc.",
+      "type": "text/plain"
+    }
+  }
+}

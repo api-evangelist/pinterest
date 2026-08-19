@@ -1,0 +1,232 @@
+{
+  "item": [
+    {
+      "id": "bc14bb6c-4720-4662-adf3-959c25986ba3",
+      "name": "Bid",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "94d9b096-821d-4346-b67e-c097a894e75e",
+          "name": "Get bid floors",
+          "request": {
+            "name": "Get bid floors",
+            "description": {
+              "content": "List bid floors for your campaign configuration. Bid floors are given in microcurrency values based on the currency in the bid floor specification. <p/>\n<p>Microcurrency is used to track very small transactions, based on the currency set in the advertisers profile.</p>\n<p>A microcurrency unit is 10^(-6) of the standard unit of currency selected in the advertiser s profile.</p>\n<p><strong>Equivalency equations</strong>, using dollars as an example currency:</p>\n<ul>\n  <li>$1 = 1,000,000 microdollars</li>\n  <li>1 microdollar = $0.000001 </li>\n</ul>\n<p><strong>To convert between currency and microcurrency</strong>, using dollars as an example currency:</p>\n<ul>\n  <li>To convert dollars to microdollars, mutiply dollars by 1,000,000</li>\n  <li>To convert microdollars to dollars, divide microdollars by 1,000,000</li>\n </ul>\nFor more on bid floors see <a class=\"reference external\" href=\"https://help.pinterest.com/en/business/article/set-your-bid\"> Set your bid</a>.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "bid_floor"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bid_floor_specs\": [\n    {\n      \"billable_event\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"countries\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"objective_type\": \"<string>\",\n      \"optimization_goal_metadata\": {\n        \"conversion_tag_v3_goal_metadata\": {\n          \"attribution_windows\": {\n            \"click_window_days\": \"<integer>\",\n            \"engagement_window_days\": \"<integer>\",\n            \"view_window_days\": \"<integer>\"\n          },\n          \"conversion_event\": \"<string>\",\n          \"conversion_tag_id\": \"<string>\",\n          \"cpa_goal_value_in_micro_currency\": \"<string>\",\n          \"is_roas_optimized\": \"<boolean>\",\n          \"learning_mode_type\": \"<string>\"\n        },\n        \"frequency_goal_metadata\": {\n          \"frequency\": \"<integer>\",\n          \"timerange\": \"<string>\"\n        },\n        \"scrollup_goal_metadata\": {\n          \"scrollup_goal_value_in_micro_currency\": \"<string>\"\n        }\n      },\n      \"creative_type\": \"<string>\"\n    },\n    {\n      \"billable_event\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"countries\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"objective_type\": \"<string>\",\n      \"optimization_goal_metadata\": {\n        \"conversion_tag_v3_goal_metadata\": {\n          \"attribution_windows\": {\n            \"click_window_days\": \"<integer>\",\n            \"engagement_window_days\": \"<integer>\",\n            \"view_window_days\": \"<integer>\"\n          },\n          \"conversion_event\": \"<string>\",\n          \"conversion_tag_id\": \"<string>\",\n          \"cpa_goal_value_in_micro_currency\": \"<string>\",\n          \"is_roas_optimized\": \"<boolean>\",\n          \"learning_mode_type\": \"<string>\"\n        },\n        \"frequency_goal_metadata\": {\n          \"frequency\": \"<integer>\",\n          \"timerange\": \"<string>\"\n        },\n        \"scrollup_goal_metadata\": {\n          \"scrollup_goal_value_in_micro_currency\": \"<string>\"\n        }\n      },\n      \"creative_type\": \"<string>\"\n    }\n  ],\n  \"targeting_spec\": {\n    \"AGE_BUCKET\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"APPTYPE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"AUDIENCE_EXCLUDE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"AUDIENCE_INCLUDE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"GENDER\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"GEO\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"INTEREST\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"LOCALE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"LOCATION\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"SHOPPING_RETARGETING\": [\n      {\n        \"lookback_window\": \"<integer>\",\n        \"tag_types\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"exclusion_window\": \"<integer>\"\n      },\n      {\n        \"lookback_window\": \"<integer>\",\n        \"tag_types\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"exclusion_window\": \"<integer>\"\n      }\n    ],\n    \"TARGETING_STRATEGY\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d083fbe5-f0ed-4bf4-9151-a8e08772c400",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "bid_floor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bid_floor_specs\": [\n    {\n      \"billable_event\": \"CLICKTHROUGH\",\n      \"creative_type\": \"REGULAR\",\n      \"currency\": \"USD\",\n      \"countries\": [\n        \"US\",\n        \"US\"\n      ],\n      \"optimization_goal_metadata\": {\n        \"frequency_goal_metadata\": {\n          \"timerange\": \"DAY\",\n          \"frequency\": 5\n        },\n        \"conversion_tag_v3_goal_metadata\": {\n          \"attribution_windows\": {\n            \"view_window_days\": 1,\n            \"click_window_days\": 0,\n            \"engagement_window_days\": 6\n          },\n          \"conversion_tag_id\": \"123456789\",\n          \"learning_mode_type\": \"ACTIVE\",\n          \"conversion_event\": \"PAGE_VISIT\",\n          \"is_roas_optimized\": true,\n          \"cpa_goal_value_in_micro_currency\": \"123456789\"\n        },\n        \"scrollup_goal_metadata\": {\n          \"scrollup_goal_value_in_micro_currency\": \"123456789\"\n        }\n      }\n    },\n    {\n      \"billable_event\": \"CLICKTHROUGH\",\n      \"creative_type\": \"REGULAR\",\n      \"currency\": \"USD\",\n      \"countries\": [\n        \"US\",\n        \"US\"\n      ],\n      \"optimization_goal_metadata\": {\n        \"frequency_goal_metadata\": {\n          \"timerange\": \"DAY\",\n          \"frequency\": 5\n        },\n        \"conversion_tag_v3_goal_metadata\": {\n          \"attribution_windows\": {\n            \"view_window_days\": 1,\n            \"click_window_days\": 0,\n            \"engagement_window_days\": 6\n          },\n          \"conversion_tag_id\": \"123456789\",\n          \"learning_mode_type\": \"ACTIVE\",\n          \"conversion_event\": \"PAGE_VISIT\",\n          \"is_roas_optimized\": true,\n          \"cpa_goal_value_in_micro_currency\": \"123456789\"\n        },\n        \"scrollup_goal_metadata\": {\n          \"scrollup_goal_value_in_micro_currency\": \"123456789\"\n        }\n      }\n    }\n  ],\n  \"targeting_spec\": {\n    \"AGE_BUCKET\": [\n      \"35-44\",\n      \"50-54\"\n    ],\n    \"APPTYPE\": [\n      \"ipad\",\n      \"iphone\"\n    ],\n    \"AUDIENCE_EXCLUDE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"AUDIENCE_INCLUDE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"GENDER\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"GEO\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"INTEREST\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"LOCALE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"LOCATION\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"SHOPPING_RETARGETING\": [\n      {\n        \"lookback_window\": 30,\n        \"exclusion_window\": 14,\n        \"tag_types\": [\n          0,\n          6\n        ]\n      },\n      {\n        \"lookback_window\": 30,\n        \"exclusion_window\": 14,\n        \"tag_types\": [\n          0,\n          6\n        ]\n      }\n    ],\n    \"TARGETING_STRATEGY\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bid_floors\": [\n    100000,\n    200000\n  ],\n  \"type\": \"bidfloor\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ea98b6ad-099f-4141-b531-ed20e17975d5",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "bid_floor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bid_floor_specs\": [\n    {\n      \"billable_event\": \"CLICKTHROUGH\",\n      \"creative_type\": \"REGULAR\",\n      \"currency\": \"USD\",\n      \"countries\": [\n        \"US\",\n        \"US\"\n      ],\n      \"optimization_goal_metadata\": {\n        \"frequency_goal_metadata\": {\n          \"timerange\": \"DAY\",\n          \"frequency\": 5\n        },\n        \"conversion_tag_v3_goal_metadata\": {\n          \"attribution_windows\": {\n            \"view_window_days\": 1,\n            \"click_window_days\": 0,\n            \"engagement_window_days\": 6\n          },\n          \"conversion_tag_id\": \"123456789\",\n          \"learning_mode_type\": \"ACTIVE\",\n          \"conversion_event\": \"PAGE_VISIT\",\n          \"is_roas_optimized\": true,\n          \"cpa_goal_value_in_micro_currency\": \"123456789\"\n        },\n        \"scrollup_goal_metadata\": {\n          \"scrollup_goal_value_in_micro_currency\": \"123456789\"\n        }\n      }\n    },\n    {\n      \"billable_event\": \"CLICKTHROUGH\",\n      \"creative_type\": \"REGULAR\",\n      \"currency\": \"USD\",\n      \"countries\": [\n        \"US\",\n        \"US\"\n      ],\n      \"optimization_goal_metadata\": {\n        \"frequency_goal_metadata\": {\n          \"timerange\": \"DAY\",\n          \"frequency\": 5\n        },\n        \"conversion_tag_v3_goal_metadata\": {\n          \"attribution_windows\": {\n            \"view_window_days\": 1,\n            \"click_window_days\": 0,\n            \"engagement_window_days\": 6\n          },\n          \"conversion_tag_id\": \"123456789\",\n          \"learning_mode_type\": \"ACTIVE\",\n          \"conversion_event\": \"PAGE_VISIT\",\n          \"is_roas_optimized\": true,\n          \"cpa_goal_value_in_micro_currency\": \"123456789\"\n        },\n        \"scrollup_goal_metadata\": {\n          \"scrollup_goal_value_in_micro_currency\": \"123456789\"\n        }\n      }\n    }\n  ],\n  \"targeting_spec\": {\n    \"AGE_BUCKET\": [\n      \"35-44\",\n      \"50-54\"\n    ],\n    \"APPTYPE\": [\n      \"ipad\",\n      \"iphone\"\n    ],\n    \"AUDIENCE_EXCLUDE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"AUDIENCE_INCLUDE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"GENDER\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"GEO\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"INTEREST\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"LOCALE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"LOCATION\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"SHOPPING_RETARGETING\": [\n      {\n        \"lookback_window\": 30,\n        \"exclusion_window\": 14,\n        \"tag_types\": [\n          0,\n          6\n        ]\n      },\n      {\n        \"lookback_window\": 30,\n        \"exclusion_window\": 14,\n        \"tag_types\": [\n          0,\n          6\n        ]\n      }\n    ],\n    \"TARGETING_STRATEGY\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3886,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.pinterest.com/v5",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "5db89ec8-93df-40a7-9934-167de3e95621",
+    "name": "Pinterest Bid API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is the description of your API.\n\nContact Support:\n Name: Pinterest, Inc.",
+      "type": "text/plain"
+    }
+  }
+}

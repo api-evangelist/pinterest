@@ -1,0 +1,2162 @@
+{
+  "item": [
+    {
+      "id": "bbd8a34e-8065-4ecc-a8b3-0afa1f5f92de",
+      "name": "Pin",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3486a922-7c85-4821-8120-ba2de947f925",
+          "name": "Get insertion order status by pin order id.",
+          "request": {
+            "name": "Get insertion order status by pin order id.",
+            "description": {
+              "content": "Get insertion order status for pin order id <code>pin_order_id</code>.\n- The token's user_account must either be the Owner of the specified ad account, or have one of the necessary roles granted to them via <a href=\"https://help.pinterest.com/en/business/article/share-and-manage-access-to-your-ad-accounts\">Business Access</a>: Admin, Finance, Campaign.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "ssio",
+                "insertion_orders",
+                ":pin_order_id",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pin_order_id",
+                  "description": "(Required) The pin order id associated with the ssio insertion order"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4054a199-93f9-42f2-8318-7bf84b500acb",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ssio",
+                    "insertion_orders",
+                    ":pin_order_id",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pin_order_id",
+                      "description": "(Required) The pin order id associated with the ssio insertion order"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"pin_order_id\": \"0Q01N0000015hekSAB\",\n  \"status\": \"Approved\",\n  \"creation_time\": \"2017-06-21T23:11:11.000Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "004d988d-fef8-41f3-bdb7-0b9b317206a9",
+              "name": "Invalid request parameter.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ssio",
+                    "insertion_orders",
+                    ":pin_order_id",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pin_order_id",
+                      "description": "(Required) The pin order id associated with the ssio insertion order"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"Invalid request parameter.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7b7f8ea4-35d1-4514-a8df-fbcbeffc0023",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ssio",
+                    "insertion_orders",
+                    ":pin_order_id",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pin_order_id",
+                      "description": "(Required) The pin order id associated with the ssio insertion order"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4029,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9ec90598-2c6f-4515-bb55-4eaac6bc5954",
+          "name": "Get Pin",
+          "request": {
+            "name": "Get Pin",
+            "description": {
+              "content": "Get a Pin owned by the \"operation user_account\" - or on a group board that has been shared with this account.\n- By default, the \"operation user_account\" is the token user_account.\n\nOptional: Business Access: Specify an <code>ad_account_id</code> (obtained via <a href='/docs/api/v5/#operation/ad_accounts/list'>List ad accounts</a>) to use the owner of that ad_account as the \"operation user_account\". In order to do this, the token user_account must have one of the following <a href=\"https://help.pinterest.com/en/business/article/share-and-manage-access-to-your-ad-accounts\">Business Access</a> roles on the ad_account:\n\n- For Pins on public or protected boards: Owner, Admin, Analyst, Campaign Manager.\n- For Pins on secret boards: Owner, Admin.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pins",
+                ":pin_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "pin_metrics",
+                  "value": "false",
+                  "description": "Specify whether to return 90d and lifetime Pin metrics. Total comments and total reactions are only available with lifetime Pin metrics. If Pin was created before <code>2023-03-20</code> lifetime metrics will only be available for Video and Idea Pin formats. Lifetime metrics are available for all Pin formats since then."
+                },
+                {
+                  "disabled": false,
+                  "key": "ad_account_id",
+                  "value": "<string>",
+                  "description": "Unique identifier of an ad account."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pin_id",
+                  "description": "(Required) Unique identifier of a Pin."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4887f39c-1264-4938-a595-ae73feea4bf2",
+              "name": "response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pins",
+                    ":pin_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pin_metrics",
+                      "value": "false"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pin_id",
+                      "description": "(Required) Unique identifier of a Pin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"813744226420795884\",\n  \"created_at\": \"2020-01-01T20:10:40-00:00\",\n  \"link\": \"https://www.pinterest.com/\",\n  \"title\": \"string\",\n  \"description\": \"string\",\n  \"dominant_color\": \"#6E7874\",\n  \"alt_text\": \"string\",\n  \"creative_type\": \"REGULAR\",\n  \"board_id\": \"14666\",\n  \"board_section_id\": \"24\",\n  \"board_owner\": {\n    \"username\": \"string\"\n  },\n  \"is_owner\": true,\n  \"media\": {\n    \"media_type\": \"string\"\n  },\n  \"parent_pin_id\": \"999\",\n  \"is_standard\": true,\n  \"has_been_promoted\": false,\n  \"note\": \"string\",\n  \"pin_metrics\": {\n    \"pin_metrics\": [\n      {\n        \"90d\": {\n          \"pin_click\": 7,\n          \"impression\": 2,\n          \"clickthrough\": 3\n        },\n        \"all_time\": {\n          \"pin_click\": 7,\n          \"impression\": 2,\n          \"clickthrough\": 3,\n          \"reaction\": 10,\n          \"comment\": 2\n        }\n      },\n      null\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "badbdbfe-052c-4ae7-9338-643f9114a949",
+              "name": "Not authorized to access board or Pin.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pins",
+                    ":pin_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pin_metrics",
+                      "value": "false"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pin_id",
+                      "description": "(Required) Unique identifier of a Pin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 29,\n  \"message\": \"You are not permitted to access that resource.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f828c8e3-e079-4891-b690-a420b2a9236b",
+              "name": "Pin not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pins",
+                    ":pin_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pin_metrics",
+                      "value": "false"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pin_id",
+                      "description": "(Required) Unique identifier of a Pin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 50,\n  \"message\": \"Pin not found.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "205265e0-e293-4e88-8782-01c2810e6bff",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pins",
+                    ":pin_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pin_metrics",
+                      "value": "false"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pin_id",
+                      "description": "(Required) Unique identifier of a Pin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4029,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "81de2603-5521-4171-a55d-0521074b0bfe",
+          "name": "Delete Pin",
+          "request": {
+            "name": "Delete Pin",
+            "description": {
+              "content": "Delete a Pins owned by the \"operation user_account\" - or on a group board that has been shared with this account.\n- By default, the \"operation user_account\" is the token user_account.\n\nOptional: Business Access: Specify an <code>ad_account_id</code> (obtained via <a href='/docs/api/v5/#operation/ad_accounts/list'>List ad accounts</a>) to use the owner of that ad_account as the \"operation user_account\". In order to do this, the token user_account must have one of the following <a href=\"https://help.pinterest.com/en/business/article/share-and-manage-access-to-your-ad-accounts\">Business Access</a> roles on the ad_account:\n\n- For Pins on public or protected boards: Owner, Admin, Analyst, Campaign Manager.\n- For Pins on secret boards: Owner, Admin.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pins",
+                ":pin_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ad_account_id",
+                  "value": "<string>",
+                  "description": "Unique identifier of an ad account."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pin_id",
+                  "description": "(Required) Unique identifier of a Pin."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3bd0fb26-b1f3-432b-8eb2-a6a654b69970",
+              "name": "Successfully deleted Pin",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pins",
+                    ":pin_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pin_id",
+                      "description": "(Required) Unique identifier of a Pin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "92dcdf30-af3b-42b0-b7e3-41e5bc9c9a72",
+              "name": "Not authorized to access board or Pin.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pins",
+                    ":pin_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pin_id",
+                      "description": "(Required) Unique identifier of a Pin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"Not authorized to access board or Pin.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f366a8b1-f133-4ba4-92a5-e36d83e35657",
+              "name": "Pin not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pins",
+                    ":pin_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pin_id",
+                      "description": "(Required) Unique identifier of a Pin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 404,\n  \"message\": \"Pin not found.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "29b8cba0-d902-4bb2-8e8d-cc7f43127a63",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pins",
+                    ":pin_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pin_id",
+                      "description": "(Required) Unique identifier of a Pin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4029,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9cfcb190-3cde-4aa2-a2f1-89fb25901c1b",
+          "name": "Update Pin",
+          "request": {
+            "name": "Update Pin",
+            "description": {
+              "content": "Update a pin owned by the \"operating user_account\".\n- By default, the \"operation user_account\" is the token user_account.\n\nOptional: Business Access: Specify an <code>ad_account_id</code> (obtained via <a href='/docs/api/v5/#operation/ad_accounts/list'>List ad accounts</a>) to use the owner of that ad_account as the \"operation user_account\". In order to do this, the token user_account must have one of the following <a href=\"https://help.pinterest.com/en/business/article/share-and-manage-access-to-your-ad-accounts\">Business Access</a> roles on the ad_account:\n\n- For Pins on public or protected boards: Owner, Admin, Analyst, Campaign Manager.\n- For Pins on secret boards: Owner, Admin.\n\n<strong>This endpoint is currently in beta and not available to all apps. <a href='/docs/new/about-beta-access/'>Learn more</a>.</strong>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pins",
+                ":pin_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ad_account_id",
+                  "value": "<string>",
+                  "description": "Unique identifier of an ad account."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pin_id",
+                  "description": "(Required) Unique identifier of a Pin."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"alt_text\": \"<string>\",\n  \"board_id\": \"<string>\",\n  \"board_section_id\": \"<string>\",\n  \"description\": \"<string>\",\n  \"link\": \"<string>\",\n  \"title\": \"<string>\",\n  \"carousel_slots\": [\n    {\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"link\": \"<string>\"\n    },\n    {\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"link\": \"<string>\"\n    }\n  ],\n  \"note\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "293ab693-012c-487f-a8ac-fc69a35f7c0a",
+              "name": "response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pins",
+                    ":pin_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pin_id",
+                      "description": "(Required) Unique identifier of a Pin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"alt_text\": \"<string>\",\n  \"board_id\": \"<string>\",\n  \"board_section_id\": \"<string>\",\n  \"description\": \"<string>\",\n  \"link\": \"https://www.pinterest.com/\",\n  \"title\": \"<string>\",\n  \"carousel_slots\": [\n    {\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"link\": \"<string>\"\n    },\n    {\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"link\": \"<string>\"\n    }\n  ],\n  \"note\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"813744226420795884\",\n  \"created_at\": \"2020-01-01T20:10:40-00:00\",\n  \"link\": \"https://www.pinterest.com/\",\n  \"title\": \"string\",\n  \"description\": \"string\",\n  \"dominant_color\": \"#6E7874\",\n  \"alt_text\": \"string\",\n  \"creative_type\": \"REGULAR\",\n  \"board_id\": \"14666\",\n  \"board_section_id\": \"24\",\n  \"board_owner\": {\n    \"username\": \"string\"\n  },\n  \"is_owner\": true,\n  \"media\": {\n    \"media_type\": \"string\"\n  },\n  \"parent_pin_id\": \"999\",\n  \"is_standard\": true,\n  \"has_been_promoted\": false,\n  \"note\": \"string\",\n  \"pin_metrics\": {\n    \"pin_metrics\": [\n      {\n        \"90d\": {\n          \"pin_click\": 7,\n          \"impression\": 2,\n          \"clickthrough\": 3\n        },\n        \"all_time\": {\n          \"pin_click\": 7,\n          \"impression\": 2,\n          \"clickthrough\": 3,\n          \"reaction\": 10,\n          \"comment\": 2\n        }\n      },\n      null\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "54f3077d-0994-4df3-93a7-ce2afb73dc3d",
+              "name": "Not authorized to update Pin.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pins",
+                    ":pin_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pin_id",
+                      "description": "(Required) Unique identifier of a Pin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"alt_text\": \"<string>\",\n  \"board_id\": \"<string>\",\n  \"board_section_id\": \"<string>\",\n  \"description\": \"<string>\",\n  \"link\": \"https://www.pinterest.com/\",\n  \"title\": \"<string>\",\n  \"carousel_slots\": [\n    {\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"link\": \"<string>\"\n    },\n    {\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"link\": \"<string>\"\n    }\n  ],\n  \"note\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 29,\n  \"message\": \"Not authorized to update Pin.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a6082b82-98db-4063-bb3d-8d35259b5321",
+              "name": "Pin not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pins",
+                    ":pin_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pin_id",
+                      "description": "(Required) Unique identifier of a Pin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"alt_text\": \"<string>\",\n  \"board_id\": \"<string>\",\n  \"board_section_id\": \"<string>\",\n  \"description\": \"<string>\",\n  \"link\": \"https://www.pinterest.com/\",\n  \"title\": \"<string>\",\n  \"carousel_slots\": [\n    {\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"link\": \"<string>\"\n    },\n    {\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"link\": \"<string>\"\n    }\n  ],\n  \"note\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 50,\n  \"message\": \"Pin not found.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f64c8117-10e4-462a-962b-9f4cf2963ffc",
+              "name": "This request exceeded a rate limit. This can happen if the client exceeds one\nof the published rate limits or if multiple write operations are applied to\nan object within a short time window.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pins",
+                    ":pin_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pin_id",
+                      "description": "(Required) Unique identifier of a Pin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"alt_text\": \"<string>\",\n  \"board_id\": \"<string>\",\n  \"board_section_id\": \"<string>\",\n  \"description\": \"<string>\",\n  \"link\": \"https://www.pinterest.com/\",\n  \"title\": \"<string>\",\n  \"carousel_slots\": [\n    {\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"link\": \"<string>\"\n    },\n    {\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"link\": \"<string>\"\n    }\n  ],\n  \"note\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8,\n  \"message\": \"This request exceeded a rate limit. This can happen if the client exceeds one\\nof the published rate limits or if multiple write operations are applied to\\nan object within a short time window.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "92e1d513-6482-4f24-b6f9-73982d33d94c",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pins",
+                    ":pin_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pin_id",
+                      "description": "(Required) Unique identifier of a Pin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"alt_text\": \"<string>\",\n  \"board_id\": \"<string>\",\n  \"board_section_id\": \"<string>\",\n  \"description\": \"<string>\",\n  \"link\": \"https://www.pinterest.com/\",\n  \"title\": \"<string>\",\n  \"carousel_slots\": [\n    {\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"link\": \"<string>\"\n    },\n    {\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"link\": \"<string>\"\n    }\n  ],\n  \"note\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4029,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1c8f0def-3dae-4b18-8ff4-eb4b34b357e6",
+          "name": "Get Pin analytics",
+          "request": {
+            "name": "Get Pin analytics",
+            "description": {
+              "content": "Get analytics for a Pin owned by the \"operation user_account\" - or on a group board that has been shared with this account.\n- By default, the \"operation user_account\" is the token user_account.\n\nOptional: Business Access: Specify an <code>ad_account_id</code> (obtained via <a href=\"https://developers.pinterest.com/docs/api/v5/#operation/ad_accounts/list\">List ad accounts</a>) to use the owner of that ad_account as the \"operation user_account\". In order to do this, the token user_account must have one of the following <a href=\"https://help.pinterest.com/en/business/article/share-and-manage-access-to-your-ad-accounts\">Business Access</a> roles on the ad_account:\n\n- For Pins on public or protected boards: Admin, Analyst.\n- For Pins on secret boards: Admin.\n\nIf Pin was created before <code>2023-03-20</code> lifetime metrics will only be available for Video and Idea Pin formats. Lifetime metrics are available for all Pin formats since then.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pins",
+                ":pin_id",
+                "analytics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>",
+                  "description": "(Required) Metric report start date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days back from today."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>",
+                  "description": "(Required) Metric report end date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days past start_date."
+                },
+                {
+                  "disabled": false,
+                  "key": "app_types",
+                  "value": "ALL",
+                  "description": "Apps or devices to get data for, default is all."
+                },
+                {
+                  "disabled": false,
+                  "key": "metric_types",
+                  "value": "<string>,<string>",
+                  "description": "(Required) Pin metric types to get data for. Keep in mind this cannot have ALL if split_field is set to any value other than <code>NO_SPLIT</code>."
+                },
+                {
+                  "disabled": false,
+                  "key": "split_field",
+                  "value": "NO_SPLIT",
+                  "description": "How to split the data into groups. Not including this param means data won't be split."
+                },
+                {
+                  "disabled": false,
+                  "key": "ad_account_id",
+                  "value": "<string>",
+                  "description": "Unique identifier of an ad account."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pin_id",
+                  "description": "(Required) Unique identifier of a Pin."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "95ae4ac2-c1dc-40c9-a122-632820577169",
+              "name": "response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pins",
+                    ":pin_id",
+                    "analytics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "app_types",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "metric_types",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "split_field",
+                      "value": "NO_SPLIT"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pin_id",
+                      "description": "(Required) Unique identifier of a Pin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": {\n    \"lifetime_metrics\": {\n      \"TOTAL_COMMENTS\": 10,\n      \"TOTAL_REACTIONS\": 12\n    },\n    \"daily_metrics\": [\n      {\n        \"data_status\": \"READY\",\n        \"date\": \"2019-12-01\",\n        \"metrics\": {\n          \"IMPRESSION\": 240,\n          \"OUTBOUND_CLICK\": 20,\n          \"PIN_CLICK\": 37,\n          \"QUARTILE_95_PERCENT_VIEW\": 8,\n          \"SAVE\": 20,\n          \"SAVE_RATE\": 0.18,\n          \"VIDEO_10S_VIEW\": 2,\n          \"VIDEO_AVG_WATCH_TIME\": 2507.75,\n          \"VIDEO_MRC_VIEW\": 20,\n          \"VIDEO_START\": 29,\n          \"VIDEO_V50_WATCH_TIME\": 10031\n        }\n      },\n      {\n        \"data_status\": \"READY\",\n        \"date\": \"2019-12-01\",\n        \"metrics\": {\n          \"IMPRESSION\": 240,\n          \"OUTBOUND_CLICK\": 20,\n          \"PIN_CLICK\": 37,\n          \"QUARTILE_95_PERCENT_VIEW\": 8,\n          \"SAVE\": 20,\n          \"SAVE_RATE\": 0.18,\n          \"VIDEO_10S_VIEW\": 2,\n          \"VIDEO_AVG_WATCH_TIME\": 2507.75,\n          \"VIDEO_MRC_VIEW\": 20,\n          \"VIDEO_START\": 29,\n          \"VIDEO_V50_WATCH_TIME\": 10031\n        }\n      }\n    ],\n    \"summary_metrics\": {\n      \"IMPRESSION\": 240,\n      \"OUTBOUND_CLICK\": 20,\n      \"PIN_CLICK\": 37,\n      \"QUARTILE_95_PERCENT_VIEW\": 8,\n      \"SAVE\": 20,\n      \"SAVE_RATE\": 0.18,\n      \"VIDEO_10S_VIEW\": 2,\n      \"VIDEO_AVG_WATCH_TIME\": 2507.75,\n      \"VIDEO_MRC_VIEW\": 20,\n      \"VIDEO_START\": 29,\n      \"VIDEO_V50_WATCH_TIME\": 10031\n    }\n  },\n  \"key_1\": {\n    \"lifetime_metrics\": {\n      \"TOTAL_COMMENTS\": 10,\n      \"TOTAL_REACTIONS\": 12\n    },\n    \"daily_metrics\": [\n      {\n        \"data_status\": \"READY\",\n        \"date\": \"2019-12-01\",\n        \"metrics\": {\n          \"IMPRESSION\": 240,\n          \"OUTBOUND_CLICK\": 20,\n          \"PIN_CLICK\": 37,\n          \"QUARTILE_95_PERCENT_VIEW\": 8,\n          \"SAVE\": 20,\n          \"SAVE_RATE\": 0.18,\n          \"VIDEO_10S_VIEW\": 2,\n          \"VIDEO_AVG_WATCH_TIME\": 2507.75,\n          \"VIDEO_MRC_VIEW\": 20,\n          \"VIDEO_START\": 29,\n          \"VIDEO_V50_WATCH_TIME\": 10031\n        }\n      },\n      {\n        \"data_status\": \"READY\",\n        \"date\": \"2019-12-01\",\n        \"metrics\": {\n          \"IMPRESSION\": 240,\n          \"OUTBOUND_CLICK\": 20,\n          \"PIN_CLICK\": 37,\n          \"QUARTILE_95_PERCENT_VIEW\": 8,\n          \"SAVE\": 20,\n          \"SAVE_RATE\": 0.18,\n          \"VIDEO_10S_VIEW\": 2,\n          \"VIDEO_AVG_WATCH_TIME\": 2507.75,\n          \"VIDEO_MRC_VIEW\": 20,\n          \"VIDEO_START\": 29,\n          \"VIDEO_V50_WATCH_TIME\": 10031\n        }\n      }\n    ],\n    \"summary_metrics\": {\n      \"IMPRESSION\": 240,\n      \"OUTBOUND_CLICK\": 20,\n      \"PIN_CLICK\": 37,\n      \"QUARTILE_95_PERCENT_VIEW\": 8,\n      \"SAVE\": 20,\n      \"SAVE_RATE\": 0.18,\n      \"VIDEO_10S_VIEW\": 2,\n      \"VIDEO_AVG_WATCH_TIME\": 2507.75,\n      \"VIDEO_MRC_VIEW\": 20,\n      \"VIDEO_START\": 29,\n      \"VIDEO_V50_WATCH_TIME\": 10031\n    }\n  },\n  \"key_2\": {\n    \"lifetime_metrics\": {\n      \"TOTAL_COMMENTS\": 10,\n      \"TOTAL_REACTIONS\": 12\n    },\n    \"daily_metrics\": [\n      {\n        \"data_status\": \"READY\",\n        \"date\": \"2019-12-01\",\n        \"metrics\": {\n          \"IMPRESSION\": 240,\n          \"OUTBOUND_CLICK\": 20,\n          \"PIN_CLICK\": 37,\n          \"QUARTILE_95_PERCENT_VIEW\": 8,\n          \"SAVE\": 20,\n          \"SAVE_RATE\": 0.18,\n          \"VIDEO_10S_VIEW\": 2,\n          \"VIDEO_AVG_WATCH_TIME\": 2507.75,\n          \"VIDEO_MRC_VIEW\": 20,\n          \"VIDEO_START\": 29,\n          \"VIDEO_V50_WATCH_TIME\": 10031\n        }\n      },\n      {\n        \"data_status\": \"READY\",\n        \"date\": \"2019-12-01\",\n        \"metrics\": {\n          \"IMPRESSION\": 240,\n          \"OUTBOUND_CLICK\": 20,\n          \"PIN_CLICK\": 37,\n          \"QUARTILE_95_PERCENT_VIEW\": 8,\n          \"SAVE\": 20,\n          \"SAVE_RATE\": 0.18,\n          \"VIDEO_10S_VIEW\": 2,\n          \"VIDEO_AVG_WATCH_TIME\": 2507.75,\n          \"VIDEO_MRC_VIEW\": 20,\n          \"VIDEO_START\": 29,\n          \"VIDEO_V50_WATCH_TIME\": 10031\n        }\n      }\n    ],\n    \"summary_metrics\": {\n      \"IMPRESSION\": 240,\n      \"OUTBOUND_CLICK\": 20,\n      \"PIN_CLICK\": 37,\n      \"QUARTILE_95_PERCENT_VIEW\": 8,\n      \"SAVE\": 20,\n      \"SAVE_RATE\": 0.18,\n      \"VIDEO_10S_VIEW\": 2,\n      \"VIDEO_AVG_WATCH_TIME\": 2507.75,\n      \"VIDEO_MRC_VIEW\": 20,\n      \"VIDEO_START\": 29,\n      \"VIDEO_V50_WATCH_TIME\": 10031\n    }\n  },\n  \"key_3\": {\n    \"lifetime_metrics\": {\n      \"TOTAL_COMMENTS\": 10,\n      \"TOTAL_REACTIONS\": 12\n    },\n    \"daily_metrics\": [\n      {\n        \"data_status\": \"READY\",\n        \"date\": \"2019-12-01\",\n        \"metrics\": {\n          \"IMPRESSION\": 240,\n          \"OUTBOUND_CLICK\": 20,\n          \"PIN_CLICK\": 37,\n          \"QUARTILE_95_PERCENT_VIEW\": 8,\n          \"SAVE\": 20,\n          \"SAVE_RATE\": 0.18,\n          \"VIDEO_10S_VIEW\": 2,\n          \"VIDEO_AVG_WATCH_TIME\": 2507.75,\n          \"VIDEO_MRC_VIEW\": 20,\n          \"VIDEO_START\": 29,\n          \"VIDEO_V50_WATCH_TIME\": 10031\n        }\n      },\n      {\n        \"data_status\": \"READY\",\n        \"date\": \"2019-12-01\",\n        \"metrics\": {\n          \"IMPRESSION\": 240,\n          \"OUTBOUND_CLICK\": 20,\n          \"PIN_CLICK\": 37,\n          \"QUARTILE_95_PERCENT_VIEW\": 8,\n          \"SAVE\": 20,\n          \"SAVE_RATE\": 0.18,\n          \"VIDEO_10S_VIEW\": 2,\n          \"VIDEO_AVG_WATCH_TIME\": 2507.75,\n          \"VIDEO_MRC_VIEW\": 20,\n          \"VIDEO_START\": 29,\n          \"VIDEO_V50_WATCH_TIME\": 10031\n        }\n      }\n    ],\n    \"summary_metrics\": {\n      \"IMPRESSION\": 240,\n      \"OUTBOUND_CLICK\": 20,\n      \"PIN_CLICK\": 37,\n      \"QUARTILE_95_PERCENT_VIEW\": 8,\n      \"SAVE\": 20,\n      \"SAVE_RATE\": 0.18,\n      \"VIDEO_10S_VIEW\": 2,\n      \"VIDEO_AVG_WATCH_TIME\": 2507.75,\n      \"VIDEO_MRC_VIEW\": 20,\n      \"VIDEO_START\": 29,\n      \"VIDEO_V50_WATCH_TIME\": 10031\n    }\n  },\n  \"key_4\": {\n    \"lifetime_metrics\": {\n      \"TOTAL_COMMENTS\": 10,\n      \"TOTAL_REACTIONS\": 12\n    },\n    \"daily_metrics\": [\n      {\n        \"data_status\": \"READY\",\n        \"date\": \"2019-12-01\",\n        \"metrics\": {\n          \"IMPRESSION\": 240,\n          \"OUTBOUND_CLICK\": 20,\n          \"PIN_CLICK\": 37,\n          \"QUARTILE_95_PERCENT_VIEW\": 8,\n          \"SAVE\": 20,\n          \"SAVE_RATE\": 0.18,\n          \"VIDEO_10S_VIEW\": 2,\n          \"VIDEO_AVG_WATCH_TIME\": 2507.75,\n          \"VIDEO_MRC_VIEW\": 20,\n          \"VIDEO_START\": 29,\n          \"VIDEO_V50_WATCH_TIME\": 10031\n        }\n      },\n      {\n        \"data_status\": \"READY\",\n        \"date\": \"2019-12-01\",\n        \"metrics\": {\n          \"IMPRESSION\": 240,\n          \"OUTBOUND_CLICK\": 20,\n          \"PIN_CLICK\": 37,\n          \"QUARTILE_95_PERCENT_VIEW\": 8,\n          \"SAVE\": 20,\n          \"SAVE_RATE\": 0.18,\n          \"VIDEO_10S_VIEW\": 2,\n          \"VIDEO_AVG_WATCH_TIME\": 2507.75,\n          \"VIDEO_MRC_VIEW\": 20,\n          \"VIDEO_START\": 29,\n          \"VIDEO_V50_WATCH_TIME\": 10031\n        }\n      }\n    ],\n    \"summary_metrics\": {\n      \"IMPRESSION\": 240,\n      \"OUTBOUND_CLICK\": 20,\n      \"PIN_CLICK\": 37,\n      \"QUARTILE_95_PERCENT_VIEW\": 8,\n      \"SAVE\": 20,\n      \"SAVE_RATE\": 0.18,\n      \"VIDEO_10S_VIEW\": 2,\n      \"VIDEO_AVG_WATCH_TIME\": 2507.75,\n      \"VIDEO_MRC_VIEW\": 20,\n      \"VIDEO_START\": 29,\n      \"VIDEO_V50_WATCH_TIME\": 10031\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "83b8dcb9-f402-42e3-af1c-c55c64280d25",
+              "name": "Invalid pins analytics parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pins",
+                    ":pin_id",
+                    "analytics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "app_types",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "metric_types",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "split_field",
+                      "value": "NO_SPLIT"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pin_id",
+                      "description": "(Required) Unique identifier of a Pin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"Invalid pins analytics parameters.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1164a32d-a8aa-430c-bd25-2a184168af04",
+              "name": "Not authorized to access board or Pin.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pins",
+                    ":pin_id",
+                    "analytics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "app_types",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "metric_types",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "split_field",
+                      "value": "NO_SPLIT"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pin_id",
+                      "description": "(Required) Unique identifier of a Pin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"Not authorized to access board or Pin.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "66c34a0c-b097-45c8-a7ff-1def8005aa20",
+              "name": "Pin not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pins",
+                    ":pin_id",
+                    "analytics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "app_types",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "metric_types",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "split_field",
+                      "value": "NO_SPLIT"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pin_id",
+                      "description": "(Required) Unique identifier of a Pin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 404,\n  \"message\": \"Pin not found.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7fdf05f8-bae4-4f6a-ad67-61b64974ae69",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pins",
+                    ":pin_id",
+                    "analytics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "app_types",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "metric_types",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "split_field",
+                      "value": "NO_SPLIT"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pin_id",
+                      "description": "(Required) Unique identifier of a Pin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4029,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "95769315-2f04-4b2b-a803-a7bb55a869b6",
+          "name": "Save Pin",
+          "request": {
+            "name": "Save Pin",
+            "description": {
+              "content": "Save a Pin on a board or board section owned by the \"operation user_account\".\n- By default, the \"operation user_account\" is the token user_account.\nOptional: Business Access: Specify an <code>ad_account_id</code> (obtained via <a href='/docs/api/v5/#operation/ad_accounts/list'>List ad accounts</a>) to use the owner of that ad_account as the \"operation user_account\". In order to do this, the token user_account must have one of the following <a href=\"https://help.pinterest.com/en/business/article/share-and-manage-access-to-your-ad-accounts\">Business Access</a> roles on the ad_account:\n\n- For Pins on public or protected boards: Owner, Admin, Analyst, Campaign Manager.\n- For Pins on secret boards: Owner, Admin.\n\n- Any Pin type can be saved: image Pin, video Pin, Idea Pin, product Pin, etc.\n- Any public Pin can be saved given a pin ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pins",
+                ":pin_id",
+                "save"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ad_account_id",
+                  "value": "<string>",
+                  "description": "Unique identifier of an ad account."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pin_id",
+                  "description": "(Required) Unique identifier of a Pin."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"board_id\": \"<string>\",\n  \"board_section_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b2bf5f20-d713-4e72-a633-fe96548cb9e9",
+              "name": "Successfully saved pin.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pins",
+                    ":pin_id",
+                    "save"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pin_id",
+                      "description": "(Required) Unique identifier of a Pin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"board_id\": \"<string>\",\n  \"board_section_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"813744226420795884\",\n  \"created_at\": \"2020-01-01T20:10:40-00:00\",\n  \"link\": \"https://www.pinterest.com/\",\n  \"title\": \"string\",\n  \"description\": \"string\",\n  \"dominant_color\": \"#6E7874\",\n  \"alt_text\": \"string\",\n  \"creative_type\": \"REGULAR\",\n  \"board_id\": \"14666\",\n  \"board_section_id\": \"24\",\n  \"board_owner\": {\n    \"username\": \"string\"\n  },\n  \"is_owner\": true,\n  \"media\": {\n    \"media_type\": \"string\"\n  },\n  \"parent_pin_id\": \"999\",\n  \"is_standard\": true,\n  \"has_been_promoted\": false,\n  \"note\": \"string\",\n  \"pin_metrics\": {\n    \"pin_metrics\": [\n      {\n        \"90d\": {\n          \"pin_click\": 7,\n          \"impression\": 2,\n          \"clickthrough\": 3\n        },\n        \"all_time\": {\n          \"pin_click\": 7,\n          \"impression\": 2,\n          \"clickthrough\": 3,\n          \"reaction\": 10,\n          \"comment\": 2\n        }\n      },\n      null\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fc4e730e-2fcf-4a02-b12f-19061a7738cd",
+              "name": "Not authorized to access Board or Pin.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pins",
+                    ":pin_id",
+                    "save"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pin_id",
+                      "description": "(Required) Unique identifier of a Pin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"board_id\": \"<string>\",\n  \"board_section_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 29,\n  \"message\": \"You are not permitted to access that resource.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "39e9a2e6-a39d-4938-bb88-883cd6eb59a7",
+              "name": "Board or Pin not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pins",
+                    ":pin_id",
+                    "save"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pin_id",
+                      "description": "(Required) Unique identifier of a Pin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"board_id\": \"<string>\",\n  \"board_section_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 40,\n  \"message\": \"Board not found.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6d108659-a504-4a00-851b-2078d609a96f",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pins",
+                    ":pin_id",
+                    "save"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pin_id",
+                      "description": "(Required) Unique identifier of a Pin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"board_id\": \"<string>\",\n  \"board_section_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4029,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.pinterest.com/v5",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e8ca5e1c-0dbd-495c-854a-a3b551c55b9b",
+    "name": "Pinterest Pin API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is the description of your API.\n\nContact Support:\n Name: Pinterest, Inc.",
+      "type": "text/plain"
+    }
+  }
+}

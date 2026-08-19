@@ -1,0 +1,650 @@
+{
+  "item": [
+    {
+      "id": "4b88aef5-0885-4639-ab63-de6d5e519c99",
+      "name": "Bulk",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f3b72f7f-3bc3-409d-ada7-e90851deb98c",
+          "name": "Get advertiser entities in bulk",
+          "request": {
+            "name": "Get advertiser entities in bulk",
+            "description": {
+              "content": "Create an asynchronous report that may include information on campaigns, ad groups, product groups, ads,\nand/or keywords; can filter by campaigns. Though the entities may be active, archived, or paused,\nonly active entities will return data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "bulk",
+                "download"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"entity_types\": [\n    \"<string>\"\n  ],\n  \"entity_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"updated_since\": \"<string>\",\n  \"campaign_filter\": {\n    \"start_time\": \"<string>\",\n    \"end_time\": \"<string>\",\n    \"name\": \"<string>\",\n    \"campaign_status\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"objective_type\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"output_format\": \"JSON\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d156d0fd-ca0f-4f21-8f08-191753219b00",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "bulk",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entity_types\": [\n    \"CAMPAIGN\",\n    \"AD_GROUP\"\n  ],\n  \"entity_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"updated_since\": \"1622848072\",\n  \"campaign_filter\": {\n    \"start_time\": \"1622848072\",\n    \"end_time\": \"1622848072\",\n    \"name\": \"campaign name\",\n    \"campaign_status\": [\n      \"RUNNING\",\n      \"RUNNING\"\n    ],\n    \"objective_type\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"output_format\": \"JSON\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_id\": \"2680059592705\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "91beaea7-c54d-49e7-993c-70f6cd363b4c",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "bulk",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entity_types\": [\n    \"CAMPAIGN\",\n    \"AD_GROUP\"\n  ],\n  \"entity_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"updated_since\": \"1622848072\",\n  \"campaign_filter\": {\n    \"start_time\": \"1622848072\",\n    \"end_time\": \"1622848072\",\n    \"name\": \"campaign name\",\n    \"campaign_status\": [\n      \"RUNNING\",\n      \"RUNNING\"\n    ],\n    \"objective_type\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"output_format\": \"JSON\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4459,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f626acf0-f667-4406-9792-a514b0bb0b43",
+          "name": "Create/update ad entities in bulk",
+          "request": {
+            "name": "Create/update ad entities in bulk",
+            "description": {
+              "content": "Either create or update any combination of campaigns, ad groups, product groups, ads, or keywords.\nNote that this request will be processed asynchronously; the response will include a <code>request_id</code>\nthat can be used to obtain the status of the request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "bulk",
+                "upsert"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"create\": {\n    \"campaigns\": [\n      \"<object>\",\n      \"<object>\"\n    ],\n    \"ad_groups\": [\n      \"<object>\",\n      \"<object>\"\n    ],\n    \"ads\": [\n      \"<object>\",\n      \"<object>\"\n    ],\n    \"product_groups\": [\n      {\n        \"ad_group_id\": \"<string>\",\n        \"product_group_promotion\": [\n          \"<object>\",\n          \"<object>\"\n        ]\n      },\n      {\n        \"ad_group_id\": \"<string>\",\n        \"product_group_promotion\": [\n          \"<object>\",\n          \"<object>\"\n        ]\n      }\n    ],\n    \"keywords\": [\n      {\n        \"keywords\": [\n          {\n            \"match_type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": \"<string>\",\n            \"bid\": \"<integer>\"\n          },\n          {\n            \"match_type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": \"<string>\",\n            \"bid\": \"<integer>\"\n          }\n        ],\n        \"parent_id\": \"<string>\"\n      },\n      {\n        \"keywords\": [\n          {\n            \"match_type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": \"<string>\",\n            \"bid\": \"<integer>\"\n          },\n          {\n            \"match_type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": \"<string>\",\n            \"bid\": \"<integer>\"\n          }\n        ],\n        \"parent_id\": \"<string>\"\n      }\n    ]\n  },\n  \"update\": {\n    \"campaigns\": [\n      \"<object>\",\n      \"<object>\"\n    ],\n    \"ad_groups\": [\n      \"<object>\",\n      \"<object>\"\n    ],\n    \"ads\": [\n      \"<object>\",\n      \"<object>\"\n    ],\n    \"product_groups\": [\n      {\n        \"ad_group_id\": \"<string>\",\n        \"product_group_promotion\": [\n          {\n            \"id\": \"<string>\",\n            \"ad_group_id\": \"<string>\",\n            \"bid_in_micro_currency\": \"<integer>\",\n            \"included\": \"<boolean>\",\n            \"definition\": \"<string>\",\n            \"relative_definition\": \"<string>\",\n            \"parent_id\": \"<string>\",\n            \"slideshow_collections_title\": \"<string>\",\n            \"slideshow_collections_description\": \"<string>\",\n            \"is_mdl\": \"<boolean>\",\n            \"status\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tracking_url\": \"<string>\",\n            \"catalog_product_group_id\": \"<string>\",\n            \"catalog_product_group_name\": \"<string>\",\n            \"collections_hero_pin_id\": \"<string>\",\n            \"collections_hero_destination_url\": \"<string>\",\n            \"grid_click_type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"id\": \"<string>\",\n            \"ad_group_id\": \"<string>\",\n            \"bid_in_micro_currency\": \"<integer>\",\n            \"included\": \"<boolean>\",\n            \"definition\": \"<string>\",\n            \"relative_definition\": \"<string>\",\n            \"parent_id\": \"<string>\",\n            \"slideshow_collections_title\": \"<string>\",\n            \"slideshow_collections_description\": \"<string>\",\n            \"is_mdl\": \"<boolean>\",\n            \"status\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tracking_url\": \"<string>\",\n            \"catalog_product_group_id\": \"<string>\",\n            \"catalog_product_group_name\": \"<string>\",\n            \"collections_hero_pin_id\": \"<string>\",\n            \"collections_hero_destination_url\": \"<string>\",\n            \"grid_click_type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      {\n        \"ad_group_id\": \"<string>\",\n        \"product_group_promotion\": [\n          {\n            \"id\": \"<string>\",\n            \"ad_group_id\": \"<string>\",\n            \"bid_in_micro_currency\": \"<integer>\",\n            \"included\": \"<boolean>\",\n            \"definition\": \"<string>\",\n            \"relative_definition\": \"<string>\",\n            \"parent_id\": \"<string>\",\n            \"slideshow_collections_title\": \"<string>\",\n            \"slideshow_collections_description\": \"<string>\",\n            \"is_mdl\": \"<boolean>\",\n            \"status\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tracking_url\": \"<string>\",\n            \"catalog_product_group_id\": \"<string>\",\n            \"catalog_product_group_name\": \"<string>\",\n            \"collections_hero_pin_id\": \"<string>\",\n            \"collections_hero_destination_url\": \"<string>\",\n            \"grid_click_type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"id\": \"<string>\",\n            \"ad_group_id\": \"<string>\",\n            \"bid_in_micro_currency\": \"<integer>\",\n            \"included\": \"<boolean>\",\n            \"definition\": \"<string>\",\n            \"relative_definition\": \"<string>\",\n            \"parent_id\": \"<string>\",\n            \"slideshow_collections_title\": \"<string>\",\n            \"slideshow_collections_description\": \"<string>\",\n            \"is_mdl\": \"<boolean>\",\n            \"status\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"tracking_url\": \"<string>\",\n            \"catalog_product_group_id\": \"<string>\",\n            \"catalog_product_group_name\": \"<string>\",\n            \"collections_hero_pin_id\": \"<string>\",\n            \"collections_hero_destination_url\": \"<string>\",\n            \"grid_click_type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      }\n    ],\n    \"keywords\": [\n      {\n        \"id\": \"<string>\",\n        \"archived\": \"<boolean>\",\n        \"bid\": \"<integer>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"archived\": \"<boolean>\",\n        \"bid\": \"<integer>\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "aedc9384-d4a7-426e-8e50-e4e5ce691169",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "bulk",
+                    "upsert"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"create\": {\n    \"campaigns\": [\n      {\n        \"name\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"objective_type\": \"<string>\",\n        \"ad_account_id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"status\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"lifetime_spend_cap\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"daily_spend_cap\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"order_line_id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"tracking_urls\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"start_time\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"end_time\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"summary_status\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"is_flexible_daily_budgets\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"default_ad_group_budget_in_micro_currency\": 0,\n        \"is_automated_campaign\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      {\n        \"name\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"objective_type\": \"<string>\",\n        \"ad_account_id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"status\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"lifetime_spend_cap\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"daily_spend_cap\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"order_line_id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"tracking_urls\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"start_time\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"end_time\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"summary_status\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"is_flexible_daily_budgets\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"default_ad_group_budget_in_micro_currency\": 0,\n        \"is_automated_campaign\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    ],\n    \"ad_groups\": [\n      {\n        \"billable_event\": \"CLICKTHROUGH\",\n        \"campaign_id\": \"626736533506\",\n        \"name\": \"Ad Group For Pin: 687195905986\",\n        \"status\": \"string\",\n        \"budget_in_micro_currency\": 5000000,\n        \"bid_in_micro_currency\": 5000000,\n        \"optimization_goal_metadata\": {},\n        \"budget_type\": \"DAILY\",\n        \"start_time\": 5686848000,\n        \"end_time\": 5705424000,\n        \"targeting_spec\": {\n          \"AGE_BUCKET\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"APPTYPE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"AUDIENCE_EXCLUDE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"AUDIENCE_INCLUDE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"GENDER\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"GEO\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"INTEREST\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"LOCALE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"LOCATION\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"SHOPPING_RETARGETING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"TARGETING_STRATEGY\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"lifetime_frequency_cap\": 100,\n        \"tracking_urls\": {},\n        \"auto_targeting_enabled\": true,\n        \"placement_group\": \"string\",\n        \"pacing_delivery_type\": \"STANDARD\",\n        \"bid_strategy_type\": \"MAX_BID\",\n        \"targeting_template_ids\": [\n          \"643\"\n        ]\n      },\n      {\n        \"billable_event\": \"CLICKTHROUGH\",\n        \"campaign_id\": \"626736533506\",\n        \"name\": \"Ad Group For Pin: 687195905986\",\n        \"status\": \"string\",\n        \"budget_in_micro_currency\": 5000000,\n        \"bid_in_micro_currency\": 5000000,\n        \"optimization_goal_metadata\": {},\n        \"budget_type\": \"DAILY\",\n        \"start_time\": 5686848000,\n        \"end_time\": 5705424000,\n        \"targeting_spec\": {\n          \"AGE_BUCKET\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"APPTYPE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"AUDIENCE_EXCLUDE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"AUDIENCE_INCLUDE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"GENDER\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"GEO\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"INTEREST\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"LOCALE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"LOCATION\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"SHOPPING_RETARGETING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"TARGETING_STRATEGY\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"lifetime_frequency_cap\": 100,\n        \"tracking_urls\": {},\n        \"auto_targeting_enabled\": true,\n        \"placement_group\": \"string\",\n        \"pacing_delivery_type\": \"STANDARD\",\n        \"bid_strategy_type\": \"MAX_BID\",\n        \"targeting_template_ids\": [\n          \"643\"\n        ]\n      }\n    ],\n    \"ads\": [\n      \"<object>\",\n      \"<object>\"\n    ],\n    \"product_groups\": [\n      {\n        \"product_group_promotion\": [\n          {\n            \"slideshow_collections_description\": \"Description\",\n            \"collections_hero_pin_id\": \"123123\",\n            \"catalog_product_group_name\": \"catalogProductGroupName\",\n            \"collections_hero_destination_url\": \"http://www.pinterest.com\",\n            \"tracking_url\": \"https://www.pinterest.com\",\n            \"slideshow_collections_title\": \"Title\",\n            \"is_mdl\": true,\n            \"status\": \"ACTIVE\",\n            \"creative_type\": \"REGULAR\"\n          },\n          {\n            \"slideshow_collections_description\": \"Description\",\n            \"collections_hero_pin_id\": \"123123\",\n            \"catalog_product_group_name\": \"catalogProductGroupName\",\n            \"collections_hero_destination_url\": \"http://www.pinterest.com\",\n            \"tracking_url\": \"https://www.pinterest.com\",\n            \"slideshow_collections_title\": \"Title\",\n            \"is_mdl\": true,\n            \"status\": \"ACTIVE\",\n            \"creative_type\": \"REGULAR\"\n          }\n        ],\n        \"ad_group_id\": \"2680059592705\"\n      },\n      {\n        \"product_group_promotion\": [\n          {\n            \"slideshow_collections_description\": \"Description\",\n            \"collections_hero_pin_id\": \"123123\",\n            \"catalog_product_group_name\": \"catalogProductGroupName\",\n            \"collections_hero_destination_url\": \"http://www.pinterest.com\",\n            \"tracking_url\": \"https://www.pinterest.com\",\n            \"slideshow_collections_title\": \"Title\",\n            \"is_mdl\": true,\n            \"status\": \"ACTIVE\",\n            \"creative_type\": \"REGULAR\"\n          },\n          {\n            \"slideshow_collections_description\": \"Description\",\n            \"collections_hero_pin_id\": \"123123\",\n            \"catalog_product_group_name\": \"catalogProductGroupName\",\n            \"collections_hero_destination_url\": \"http://www.pinterest.com\",\n            \"tracking_url\": \"https://www.pinterest.com\",\n            \"slideshow_collections_title\": \"Title\",\n            \"is_mdl\": true,\n            \"status\": \"ACTIVE\",\n            \"creative_type\": \"REGULAR\"\n          }\n        ],\n        \"ad_group_id\": \"2680059592705\"\n      }\n    ],\n    \"keywords\": [\n      {\n        \"keywords\": [\n          {\n            \"match_type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": \"<string>\",\n            \"bid\": 200000\n          },\n          {\n            \"match_type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": \"<string>\",\n            \"bid\": 200000\n          }\n        ],\n        \"parent_id\": \"383791336903426391\"\n      },\n      {\n        \"keywords\": [\n          {\n            \"match_type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": \"<string>\",\n            \"bid\": 200000\n          },\n          {\n            \"match_type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": \"<string>\",\n            \"bid\": 200000\n          }\n        ],\n        \"parent_id\": \"383791336903426391\"\n      }\n    ]\n  },\n  \"update\": {\n    \"campaigns\": [\n      {\n        \"id\": \"549755885175\",\n        \"ad_account_id\": \"549755885175\",\n        \"name\": \"ACME Tools\",\n        \"status\": \"ACTIVE\",\n        \"lifetime_spend_cap\": 1432744744,\n        \"daily_spend_cap\": 1432744744,\n        \"order_line_id\": \"549755885175\",\n        \"tracking_urls\": {},\n        \"start_time\": 1580865126,\n        \"end_time\": 1644023526,\n        \"summary_status\": \"string\",\n        \"is_flexible_daily_budgets\": true,\n        \"default_ad_group_budget_in_micro_currency\": 0,\n        \"is_automated_campaign\": true,\n        \"is_campaign_budget_optimization\": true,\n        \"objective_type\": \"<string>\"\n      },\n      {\n        \"id\": \"549755885175\",\n        \"ad_account_id\": \"549755885175\",\n        \"name\": \"ACME Tools\",\n        \"status\": \"ACTIVE\",\n        \"lifetime_spend_cap\": 1432744744,\n        \"daily_spend_cap\": 1432744744,\n        \"order_line_id\": \"549755885175\",\n        \"tracking_urls\": {},\n        \"start_time\": 1580865126,\n        \"end_time\": 1644023526,\n        \"summary_status\": \"string\",\n        \"is_flexible_daily_budgets\": true,\n        \"default_ad_group_budget_in_micro_currency\": 0,\n        \"is_automated_campaign\": true,\n        \"is_campaign_budget_optimization\": true,\n        \"objective_type\": \"<string>\"\n      }\n    ],\n    \"ad_groups\": [\n      {\n        \"id\": \"2680060704746\",\n        \"name\": \"Ad Group For Pin: 687195905986\",\n        \"status\": \"string\",\n        \"budget_in_micro_currency\": 5000000,\n        \"bid_in_micro_currency\": 5000000,\n        \"optimization_goal_metadata\": {},\n        \"budget_type\": \"string\",\n        \"start_time\": 5686848000,\n        \"end_time\": 5705424000,\n        \"targeting_spec\": {\n          \"AGE_BUCKET\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"APPTYPE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"AUDIENCE_EXCLUDE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"AUDIENCE_INCLUDE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"GENDER\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"GEO\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"INTEREST\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"LOCALE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"LOCATION\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"SHOPPING_RETARGETING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"TARGETING_STRATEGY\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"lifetime_frequency_cap\": 100,\n        \"tracking_urls\": {},\n        \"auto_targeting_enabled\": true,\n        \"placement_group\": \"string\",\n        \"pacing_delivery_type\": \"string\",\n        \"campaign_id\": \"626736533506\",\n        \"billable_event\": \"CLICKTHROUGH\",\n        \"bid_strategy_type\": \"MAX_BID\",\n        \"targeting_template_ids\": [\n          \"643\"\n        ]\n      },\n      {\n        \"id\": \"2680060704746\",\n        \"name\": \"Ad Group For Pin: 687195905986\",\n        \"status\": \"string\",\n        \"budget_in_micro_currency\": 5000000,\n        \"bid_in_micro_currency\": 5000000,\n        \"optimization_goal_metadata\": {},\n        \"budget_type\": \"string\",\n        \"start_time\": 5686848000,\n        \"end_time\": 5705424000,\n        \"targeting_spec\": {\n          \"AGE_BUCKET\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"APPTYPE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"AUDIENCE_EXCLUDE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"AUDIENCE_INCLUDE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"GENDER\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"GEO\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"INTEREST\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"LOCALE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"LOCATION\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"SHOPPING_RETARGETING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"TARGETING_STRATEGY\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"lifetime_frequency_cap\": 100,\n        \"tracking_urls\": {},\n        \"auto_targeting_enabled\": true,\n        \"placement_group\": \"string\",\n        \"pacing_delivery_type\": \"string\",\n        \"campaign_id\": \"626736533506\",\n        \"billable_event\": \"CLICKTHROUGH\",\n        \"bid_strategy_type\": \"MAX_BID\",\n        \"targeting_template_ids\": [\n          \"643\"\n        ]\n      }\n    ],\n    \"ads\": [\n      {\n        \"id\": \"687195134316\",\n        \"ad_group_id\": \"2680059592705\",\n        \"android_deep_link\": \"<string>\",\n        \"carousel_android_deep_links\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"carousel_destination_urls\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"carousel_ios_deep_links\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"click_tracking_url\": \"<string>\",\n        \"creative_type\": \"REGULAR\",\n        \"destination_url\": \"<string>\",\n        \"ios_deep_link\": \"<string>\",\n        \"is_pin_deleted\": false,\n        \"is_removable\": false,\n        \"name\": \"<string>\",\n        \"status\": \"ACTIVE\",\n        \"tracking_urls\": {},\n        \"view_tracking_url\": \"<string>\",\n        \"lead_form_id\": \"<string>\",\n        \"grid_click_type\": \"CLOSEUP\",\n        \"customizable_cta_type\": \"LEARN_MORE\",\n        \"quiz_pin_data\": {},\n        \"pin_id\": \"394205773611545468\"\n      },\n      {\n        \"id\": \"687195134316\",\n        \"ad_group_id\": \"2680059592705\",\n        \"android_deep_link\": \"<string>\",\n        \"carousel_android_deep_links\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"carousel_destination_urls\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"carousel_ios_deep_links\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"click_tracking_url\": \"<string>\",\n        \"creative_type\": \"REGULAR\",\n        \"destination_url\": \"<string>\",\n        \"ios_deep_link\": \"<string>\",\n        \"is_pin_deleted\": false,\n        \"is_removable\": false,\n        \"name\": \"<string>\",\n        \"status\": \"ACTIVE\",\n        \"tracking_urls\": {},\n        \"view_tracking_url\": \"<string>\",\n        \"lead_form_id\": \"<string>\",\n        \"grid_click_type\": \"CLOSEUP\",\n        \"customizable_cta_type\": \"LEARN_MORE\",\n        \"quiz_pin_data\": {},\n        \"pin_id\": \"394205773611545468\"\n      }\n    ],\n    \"product_groups\": [\n      {\n        \"product_group_promotion\": [\n          {\n            \"catalog_product_group_id\": \"1234123\",\n            \"slideshow_collections_description\": \"Description\",\n            \"collections_hero_pin_id\": \"123123\",\n            \"catalog_product_group_name\": \"ProductGroupName\",\n            \"collections_hero_destination_url\": \"http://www.pinterest.com\",\n            \"tracking_url\": \"https://www.pinterest.com\",\n            \"slideshow_collections_title\": \"Title\",\n            \"status\": \"ACTIVE\"\n          },\n          {\n            \"catalog_product_group_id\": \"1231231\",\n            \"slideshow_collections_description\": \"Other description\",\n            \"collections_hero_pin_id\": \"123124\",\n            \"catalog_product_group_name\": \"ProductGroupName\",\n            \"collections_hero_destination_url\": \"http://www.pinterest.com\",\n            \"tracking_url\": \"https://www.pinterest.com\",\n            \"slideshow_collections_title\": \"Title\",\n            \"status\": \"ACTIVE\"\n          }\n        ],\n        \"ad_group_id\": \"26823439592705\"\n      },\n      {\n        \"product_group_promotion\": [\n          {\n            \"catalog_product_group_id\": \"1234123\",\n            \"slideshow_collections_description\": \"Description\",\n            \"collections_hero_pin_id\": \"123123\",\n            \"catalog_product_group_name\": \"ProductGroupName\",\n            \"collections_hero_destination_url\": \"http://www.pinterest.com\",\n            \"tracking_url\": \"https://www.pinterest.com\",\n            \"slideshow_collections_title\": \"Title\",\n            \"status\": \"ACTIVE\"\n          },\n          {\n            \"catalog_product_group_id\": \"1231231\",\n            \"slideshow_collections_description\": \"Other description\",\n            \"collections_hero_pin_id\": \"123124\",\n            \"catalog_product_group_name\": \"ProductGroupName\",\n            \"collections_hero_destination_url\": \"http://www.pinterest.com\",\n            \"tracking_url\": \"https://www.pinterest.com\",\n            \"slideshow_collections_title\": \"Title\",\n            \"status\": \"ACTIVE\"\n          }\n        ],\n        \"ad_group_id\": \"26823439592705\"\n      }\n    ],\n    \"keywords\": [\n      {\n        \"id\": \"2886364308355\",\n        \"archived\": false,\n        \"bid\": 200000\n      },\n      {\n        \"id\": \"2886364308355\",\n        \"archived\": false,\n        \"bid\": 200000\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_id\": \"549763856477-1660864560-1407e16a-c586-4add-94df-d0b160bec0ff, 549763856477-1660864560-d0b160bec0ff\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f5e02177-05c9-43c9-b93e-54d77def8177",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "bulk",
+                    "upsert"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"create\": {\n    \"campaigns\": [\n      {\n        \"name\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"objective_type\": \"<string>\",\n        \"ad_account_id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"status\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"lifetime_spend_cap\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"daily_spend_cap\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"order_line_id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"tracking_urls\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"start_time\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"end_time\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"summary_status\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"is_flexible_daily_budgets\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"default_ad_group_budget_in_micro_currency\": 0,\n        \"is_automated_campaign\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      {\n        \"name\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"objective_type\": \"<string>\",\n        \"ad_account_id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"status\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"lifetime_spend_cap\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"daily_spend_cap\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"order_line_id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"tracking_urls\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"start_time\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"end_time\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"summary_status\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"is_flexible_daily_budgets\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"default_ad_group_budget_in_micro_currency\": 0,\n        \"is_automated_campaign\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    ],\n    \"ad_groups\": [\n      {\n        \"billable_event\": \"CLICKTHROUGH\",\n        \"campaign_id\": \"626736533506\",\n        \"name\": \"Ad Group For Pin: 687195905986\",\n        \"status\": \"string\",\n        \"budget_in_micro_currency\": 5000000,\n        \"bid_in_micro_currency\": 5000000,\n        \"optimization_goal_metadata\": {},\n        \"budget_type\": \"DAILY\",\n        \"start_time\": 5686848000,\n        \"end_time\": 5705424000,\n        \"targeting_spec\": {\n          \"AGE_BUCKET\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"APPTYPE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"AUDIENCE_EXCLUDE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"AUDIENCE_INCLUDE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"GENDER\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"GEO\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"INTEREST\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"LOCALE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"LOCATION\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"SHOPPING_RETARGETING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"TARGETING_STRATEGY\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"lifetime_frequency_cap\": 100,\n        \"tracking_urls\": {},\n        \"auto_targeting_enabled\": true,\n        \"placement_group\": \"string\",\n        \"pacing_delivery_type\": \"STANDARD\",\n        \"bid_strategy_type\": \"MAX_BID\",\n        \"targeting_template_ids\": [\n          \"643\"\n        ]\n      },\n      {\n        \"billable_event\": \"CLICKTHROUGH\",\n        \"campaign_id\": \"626736533506\",\n        \"name\": \"Ad Group For Pin: 687195905986\",\n        \"status\": \"string\",\n        \"budget_in_micro_currency\": 5000000,\n        \"bid_in_micro_currency\": 5000000,\n        \"optimization_goal_metadata\": {},\n        \"budget_type\": \"DAILY\",\n        \"start_time\": 5686848000,\n        \"end_time\": 5705424000,\n        \"targeting_spec\": {\n          \"AGE_BUCKET\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"APPTYPE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"AUDIENCE_EXCLUDE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"AUDIENCE_INCLUDE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"GENDER\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"GEO\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"INTEREST\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"LOCALE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"LOCATION\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"SHOPPING_RETARGETING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"TARGETING_STRATEGY\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"lifetime_frequency_cap\": 100,\n        \"tracking_urls\": {},\n        \"auto_targeting_enabled\": true,\n        \"placement_group\": \"string\",\n        \"pacing_delivery_type\": \"STANDARD\",\n        \"bid_strategy_type\": \"MAX_BID\",\n        \"targeting_template_ids\": [\n          \"643\"\n        ]\n      }\n    ],\n    \"ads\": [\n      \"<object>\",\n      \"<object>\"\n    ],\n    \"product_groups\": [\n      {\n        \"product_group_promotion\": [\n          {\n            \"slideshow_collections_description\": \"Description\",\n            \"collections_hero_pin_id\": \"123123\",\n            \"catalog_product_group_name\": \"catalogProductGroupName\",\n            \"collections_hero_destination_url\": \"http://www.pinterest.com\",\n            \"tracking_url\": \"https://www.pinterest.com\",\n            \"slideshow_collections_title\": \"Title\",\n            \"is_mdl\": true,\n            \"status\": \"ACTIVE\",\n            \"creative_type\": \"REGULAR\"\n          },\n          {\n            \"slideshow_collections_description\": \"Description\",\n            \"collections_hero_pin_id\": \"123123\",\n            \"catalog_product_group_name\": \"catalogProductGroupName\",\n            \"collections_hero_destination_url\": \"http://www.pinterest.com\",\n            \"tracking_url\": \"https://www.pinterest.com\",\n            \"slideshow_collections_title\": \"Title\",\n            \"is_mdl\": true,\n            \"status\": \"ACTIVE\",\n            \"creative_type\": \"REGULAR\"\n          }\n        ],\n        \"ad_group_id\": \"2680059592705\"\n      },\n      {\n        \"product_group_promotion\": [\n          {\n            \"slideshow_collections_description\": \"Description\",\n            \"collections_hero_pin_id\": \"123123\",\n            \"catalog_product_group_name\": \"catalogProductGroupName\",\n            \"collections_hero_destination_url\": \"http://www.pinterest.com\",\n            \"tracking_url\": \"https://www.pinterest.com\",\n            \"slideshow_collections_title\": \"Title\",\n            \"is_mdl\": true,\n            \"status\": \"ACTIVE\",\n            \"creative_type\": \"REGULAR\"\n          },\n          {\n            \"slideshow_collections_description\": \"Description\",\n            \"collections_hero_pin_id\": \"123123\",\n            \"catalog_product_group_name\": \"catalogProductGroupName\",\n            \"collections_hero_destination_url\": \"http://www.pinterest.com\",\n            \"tracking_url\": \"https://www.pinterest.com\",\n            \"slideshow_collections_title\": \"Title\",\n            \"is_mdl\": true,\n            \"status\": \"ACTIVE\",\n            \"creative_type\": \"REGULAR\"\n          }\n        ],\n        \"ad_group_id\": \"2680059592705\"\n      }\n    ],\n    \"keywords\": [\n      {\n        \"keywords\": [\n          {\n            \"match_type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": \"<string>\",\n            \"bid\": 200000\n          },\n          {\n            \"match_type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": \"<string>\",\n            \"bid\": 200000\n          }\n        ],\n        \"parent_id\": \"383791336903426391\"\n      },\n      {\n        \"keywords\": [\n          {\n            \"match_type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": \"<string>\",\n            \"bid\": 200000\n          },\n          {\n            \"match_type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": \"<string>\",\n            \"bid\": 200000\n          }\n        ],\n        \"parent_id\": \"383791336903426391\"\n      }\n    ]\n  },\n  \"update\": {\n    \"campaigns\": [\n      {\n        \"id\": \"549755885175\",\n        \"ad_account_id\": \"549755885175\",\n        \"name\": \"ACME Tools\",\n        \"status\": \"ACTIVE\",\n        \"lifetime_spend_cap\": 1432744744,\n        \"daily_spend_cap\": 1432744744,\n        \"order_line_id\": \"549755885175\",\n        \"tracking_urls\": {},\n        \"start_time\": 1580865126,\n        \"end_time\": 1644023526,\n        \"summary_status\": \"string\",\n        \"is_flexible_daily_budgets\": true,\n        \"default_ad_group_budget_in_micro_currency\": 0,\n        \"is_automated_campaign\": true,\n        \"is_campaign_budget_optimization\": true,\n        \"objective_type\": \"<string>\"\n      },\n      {\n        \"id\": \"549755885175\",\n        \"ad_account_id\": \"549755885175\",\n        \"name\": \"ACME Tools\",\n        \"status\": \"ACTIVE\",\n        \"lifetime_spend_cap\": 1432744744,\n        \"daily_spend_cap\": 1432744744,\n        \"order_line_id\": \"549755885175\",\n        \"tracking_urls\": {},\n        \"start_time\": 1580865126,\n        \"end_time\": 1644023526,\n        \"summary_status\": \"string\",\n        \"is_flexible_daily_budgets\": true,\n        \"default_ad_group_budget_in_micro_currency\": 0,\n        \"is_automated_campaign\": true,\n        \"is_campaign_budget_optimization\": true,\n        \"objective_type\": \"<string>\"\n      }\n    ],\n    \"ad_groups\": [\n      {\n        \"id\": \"2680060704746\",\n        \"name\": \"Ad Group For Pin: 687195905986\",\n        \"status\": \"string\",\n        \"budget_in_micro_currency\": 5000000,\n        \"bid_in_micro_currency\": 5000000,\n        \"optimization_goal_metadata\": {},\n        \"budget_type\": \"string\",\n        \"start_time\": 5686848000,\n        \"end_time\": 5705424000,\n        \"targeting_spec\": {\n          \"AGE_BUCKET\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"APPTYPE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"AUDIENCE_EXCLUDE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"AUDIENCE_INCLUDE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"GENDER\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"GEO\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"INTEREST\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"LOCALE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"LOCATION\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"SHOPPING_RETARGETING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"TARGETING_STRATEGY\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"lifetime_frequency_cap\": 100,\n        \"tracking_urls\": {},\n        \"auto_targeting_enabled\": true,\n        \"placement_group\": \"string\",\n        \"pacing_delivery_type\": \"string\",\n        \"campaign_id\": \"626736533506\",\n        \"billable_event\": \"CLICKTHROUGH\",\n        \"bid_strategy_type\": \"MAX_BID\",\n        \"targeting_template_ids\": [\n          \"643\"\n        ]\n      },\n      {\n        \"id\": \"2680060704746\",\n        \"name\": \"Ad Group For Pin: 687195905986\",\n        \"status\": \"string\",\n        \"budget_in_micro_currency\": 5000000,\n        \"bid_in_micro_currency\": 5000000,\n        \"optimization_goal_metadata\": {},\n        \"budget_type\": \"string\",\n        \"start_time\": 5686848000,\n        \"end_time\": 5705424000,\n        \"targeting_spec\": {\n          \"AGE_BUCKET\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"APPTYPE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"AUDIENCE_EXCLUDE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"AUDIENCE_INCLUDE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"GENDER\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"GEO\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"INTEREST\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"LOCALE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"LOCATION\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"SHOPPING_RETARGETING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"TARGETING_STRATEGY\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"lifetime_frequency_cap\": 100,\n        \"tracking_urls\": {},\n        \"auto_targeting_enabled\": true,\n        \"placement_group\": \"string\",\n        \"pacing_delivery_type\": \"string\",\n        \"campaign_id\": \"626736533506\",\n        \"billable_event\": \"CLICKTHROUGH\",\n        \"bid_strategy_type\": \"MAX_BID\",\n        \"targeting_template_ids\": [\n          \"643\"\n        ]\n      }\n    ],\n    \"ads\": [\n      {\n        \"id\": \"687195134316\",\n        \"ad_group_id\": \"2680059592705\",\n        \"android_deep_link\": \"<string>\",\n        \"carousel_android_deep_links\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"carousel_destination_urls\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"carousel_ios_deep_links\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"click_tracking_url\": \"<string>\",\n        \"creative_type\": \"REGULAR\",\n        \"destination_url\": \"<string>\",\n        \"ios_deep_link\": \"<string>\",\n        \"is_pin_deleted\": false,\n        \"is_removable\": false,\n        \"name\": \"<string>\",\n        \"status\": \"ACTIVE\",\n        \"tracking_urls\": {},\n        \"view_tracking_url\": \"<string>\",\n        \"lead_form_id\": \"<string>\",\n        \"grid_click_type\": \"CLOSEUP\",\n        \"customizable_cta_type\": \"LEARN_MORE\",\n        \"quiz_pin_data\": {},\n        \"pin_id\": \"394205773611545468\"\n      },\n      {\n        \"id\": \"687195134316\",\n        \"ad_group_id\": \"2680059592705\",\n        \"android_deep_link\": \"<string>\",\n        \"carousel_android_deep_links\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"carousel_destination_urls\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"carousel_ios_deep_links\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"click_tracking_url\": \"<string>\",\n        \"creative_type\": \"REGULAR\",\n        \"destination_url\": \"<string>\",\n        \"ios_deep_link\": \"<string>\",\n        \"is_pin_deleted\": false,\n        \"is_removable\": false,\n        \"name\": \"<string>\",\n        \"status\": \"ACTIVE\",\n        \"tracking_urls\": {},\n        \"view_tracking_url\": \"<string>\",\n        \"lead_form_id\": \"<string>\",\n        \"grid_click_type\": \"CLOSEUP\",\n        \"customizable_cta_type\": \"LEARN_MORE\",\n        \"quiz_pin_data\": {},\n        \"pin_id\": \"394205773611545468\"\n      }\n    ],\n    \"product_groups\": [\n      {\n        \"product_group_promotion\": [\n          {\n            \"catalog_product_group_id\": \"1234123\",\n            \"slideshow_collections_description\": \"Description\",\n            \"collections_hero_pin_id\": \"123123\",\n            \"catalog_product_group_name\": \"ProductGroupName\",\n            \"collections_hero_destination_url\": \"http://www.pinterest.com\",\n            \"tracking_url\": \"https://www.pinterest.com\",\n            \"slideshow_collections_title\": \"Title\",\n            \"status\": \"ACTIVE\"\n          },\n          {\n            \"catalog_product_group_id\": \"1231231\",\n            \"slideshow_collections_description\": \"Other description\",\n            \"collections_hero_pin_id\": \"123124\",\n            \"catalog_product_group_name\": \"ProductGroupName\",\n            \"collections_hero_destination_url\": \"http://www.pinterest.com\",\n            \"tracking_url\": \"https://www.pinterest.com\",\n            \"slideshow_collections_title\": \"Title\",\n            \"status\": \"ACTIVE\"\n          }\n        ],\n        \"ad_group_id\": \"26823439592705\"\n      },\n      {\n        \"product_group_promotion\": [\n          {\n            \"catalog_product_group_id\": \"1234123\",\n            \"slideshow_collections_description\": \"Description\",\n            \"collections_hero_pin_id\": \"123123\",\n            \"catalog_product_group_name\": \"ProductGroupName\",\n            \"collections_hero_destination_url\": \"http://www.pinterest.com\",\n            \"tracking_url\": \"https://www.pinterest.com\",\n            \"slideshow_collections_title\": \"Title\",\n            \"status\": \"ACTIVE\"\n          },\n          {\n            \"catalog_product_group_id\": \"1231231\",\n            \"slideshow_collections_description\": \"Other description\",\n            \"collections_hero_pin_id\": \"123124\",\n            \"catalog_product_group_name\": \"ProductGroupName\",\n            \"collections_hero_destination_url\": \"http://www.pinterest.com\",\n            \"tracking_url\": \"https://www.pinterest.com\",\n            \"slideshow_collections_title\": \"Title\",\n            \"status\": \"ACTIVE\"\n          }\n        ],\n        \"ad_group_id\": \"26823439592705\"\n      }\n    ],\n    \"keywords\": [\n      {\n        \"id\": \"2886364308355\",\n        \"archived\": false,\n        \"bid\": 200000\n      },\n      {\n        \"id\": \"2886364308355\",\n        \"archived\": false,\n        \"bid\": 200000\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4459,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5963ff98-585d-4fdf-8c5b-6f628af7d4b5",
+          "name": "Download advertiser entities in bulk",
+          "request": {
+            "name": "Download advertiser entities in bulk",
+            "description": {
+              "content": "Get the status of a bulk request by <code>request_id</code>, along with a download URL that will allow you to download the\nnew or updated entity data (campaigns, ad groups, product groups, ads, or keywords).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "bulk",
+                ":bulk_request_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include_details",
+                  "value": "false",
+                  "description": "if set to True then attach the errors/details to all the requests"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "bulk_request_id",
+                  "description": "(Required) Unique identifier of a bulk upsert request."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6808716c-d794-455b-a1fd-03dffe4166f7",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "bulk",
+                    ":bulk_request_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_details",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bulk_request_id",
+                      "description": "(Required) Unique identifier of a bulk upsert request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"SUCCEEDED\",\n  \"result_url\": \"https://pinterest-waterloo.s3.us-east-1.amazonaws.com/bulk_framework/AD_ENTITY_UPSERT/549763856637-1659122537-0b4d77d3-f620-48ce-bec9-616106afb8d4/(...)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5ccfff2d-d599-45e9-8923-f999b8df05b3",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "bulk",
+                    ":bulk_request_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_details",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bulk_request_id",
+                      "description": "(Required) Unique identifier of a bulk upsert request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4459,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.pinterest.com/v5",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "35aaedd7-18d6-4758-973a-244613aaf4a0",
+    "name": "Pinterest Bulk API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is the description of your API.\n\nContact Support:\n Name: Pinterest, Inc.",
+      "type": "text/plain"
+    }
+  }
+}

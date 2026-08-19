@@ -1,0 +1,92 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pinterest Id API",
+    "version": "5.13.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Id",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get customer list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/ad_accounts/:ad_account_id/customer_lists/:customer_list_id",
+            "params": [
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of an ad account."
+              },
+              {
+                "name": "customer_list_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of a customer list"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Gets a specific customer list given the customer list ID."
+        },
+        {
+          "info": {
+            "name": "Update customer list",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.pinterest.com/v5/ad_accounts/:ad_account_id/customer_lists/:customer_list_id",
+            "params": [
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of an ad account."
+              },
+              {
+                "name": "customer_list_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of a customer list"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "<p>Append or remove records to/from an existing customer list. (A customer list is one of the four types of Pinterest audiences.)</p>\n<p>When you add records to an existing customer list, the system scans the additions for existing Pinterest\naccounts; those are the records that will be added to your CUSTOMER_LIST audience. Your original list of records\n to add will be deleted when the matching process is complete.</p>\n<p>For more information, see <a href=\"https://help.pinterest.com/en/business/a"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

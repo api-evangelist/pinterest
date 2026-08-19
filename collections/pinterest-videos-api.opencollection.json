@@ -1,0 +1,113 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pinterest Videos API",
+    "version": "5.13.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Videos",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get user account top video pins analytics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/user_account/analytics/top_video_pins",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Metric report start date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days back from today."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "Metric report end date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days past start_date."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Specify sorting order for video metrics"
+              },
+              {
+                "name": "from_claimed_content",
+                "value": "",
+                "type": "query",
+                "description": "Filter on Pins that match your claimed domain."
+              },
+              {
+                "name": "pin_format",
+                "value": "",
+                "type": "query",
+                "description": "Pin formats to get data for, default is all."
+              },
+              {
+                "name": "app_types",
+                "value": "",
+                "type": "query",
+                "description": "Apps or devices to get data for, default is all."
+              },
+              {
+                "name": "content_type",
+                "value": "",
+                "type": "query",
+                "description": "Filter to paid or organic data. Default is all."
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Filter to activity from Pins created and saved by your, or activity created and saved by others from your claimed accounts"
+              },
+              {
+                "name": "metric_types",
+                "value": "",
+                "type": "query",
+                "description": "Metric types to get video data for, default is all. "
+              },
+              {
+                "name": "num_of_pins",
+                "value": "25",
+                "type": "query",
+                "description": "Number of pins to include, default is 10. Max is 50."
+              },
+              {
+                "name": "created_in_last_n_days",
+                "value": "30",
+                "type": "query",
+                "description": "Get metrics for pins created in the last \"n\" days."
+              },
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier of an ad account."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Gets analytics data about a user's top video pins (limited to the top 50).\n- By default, the \"operation user_account\" is the token user_account.\n\nOptional: Business Access: Specify an ad_account_id to use the owner of that ad_account as the \"operation user_account\"."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

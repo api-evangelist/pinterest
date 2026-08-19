@@ -1,0 +1,645 @@
+{
+  "item": [
+    {
+      "id": "2763d7ec-e270-429a-82e9-cb0ac217ca70",
+      "name": "Events",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fc9fbb9d-e72f-4467-84ef-2acf0f7246ec",
+          "name": "Send conversions",
+          "request": {
+            "name": "Send conversions",
+            "description": {
+              "content": "The Pinterest API offers advertisers a way to send Pinterest their conversion information (including web conversions, in-app conversions, or even offline conversions) based on their <code>ad_account_id</code>. The request body should be a JSON object.\n- This endpoint requires an <code>access_token</code> be generated through Ads Manager. Review the <a href=\"/docs/conversions/conversions/\">Conversions Guide</a> for more details.\n- The token's <code>user_account</code> must either be the Owner of the specified ad account, or have one of the necessary roles granted to them via <a href=\"https://help.pinterest.com/en/business/article/share-and-manage-access-to-your-ad-accounts\">Business Access</a>: Admin, Analyst, Audience, Campaign. (Note that the token can be used across multiple ad accounts under an user ID.)\n- This endpoint has a rate limit of 5,000 calls per minute per ad account.\n- If the merchant is submitting this information using both Pinterest conversion tags and the Pinterest API, Pinterest will remove duplicate information before reporting. (Note that events that took place offline cannot be deduplicated.)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "test",
+                  "value": "<boolean>",
+                  "description": "Include query param ?test=true to mark the request as a test request. The events will not be recorded but the API will still return the same response messages. Use this mode to verify your requests are working and your events are constructed correctly.\nWarning: If you use this query parameter, be certain that it is off (set to false or deleted) before sending a legitimate (non-testing) request."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": [\n    {\n      \"event_name\": \"<string>\",\n      \"action_source\": \"<string>\",\n      \"event_time\": \"<long>\",\n      \"user_data\": {\n        \"em\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"hashed_maids\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"client_ip_address\": \"<string>\",\n        \"client_user_agent\": \"<string>\"\n      },\n      \"event_id\": \"<string>\",\n      \"event_source_url\": \"<string>\",\n      \"opt_out\": \"<boolean>\",\n      \"partner_name\": \"<string>\",\n      \"custom_data\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\",\n        \"content_ids\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"content_name\": \"<string>\",\n        \"content_category\": \"<string>\",\n        \"content_brand\": \"<string>\",\n        \"contents\": [\n          {\n            \"id\": \"<string>\",\n            \"item_price\": \"<string>\",\n            \"quantity\": \"<long>\",\n            \"item_name\": \"<string>\",\n            \"item_category\": \"<string>\",\n            \"item_brand\": \"<string>\"\n          },\n          {\n            \"id\": \"<string>\",\n            \"item_price\": \"<string>\",\n            \"quantity\": \"<long>\",\n            \"item_name\": \"<string>\",\n            \"item_category\": \"<string>\",\n            \"item_brand\": \"<string>\"\n          }\n        ],\n        \"num_items\": \"<long>\",\n        \"order_id\": \"<string>\",\n        \"search_string\": \"<string>\",\n        \"opt_out_type\": \"<string>\",\n        \"np\": \"<string>\"\n      },\n      \"app_id\": \"<string>\",\n      \"app_name\": \"<string>\",\n      \"app_version\": \"<string>\",\n      \"device_brand\": \"<string>\",\n      \"device_carrier\": \"<string>\",\n      \"device_model\": \"<string>\",\n      \"device_type\": \"<string>\",\n      \"os_version\": \"<string>\",\n      \"wifi\": \"<boolean>\",\n      \"language\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8fb26b7b-379e-4d87-831c-c0a457ec528c",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "test",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"event_name\": \"checkout\",\n      \"action_source\": \"app_ios\",\n      \"event_time\": 1451431341,\n      \"user_data\": {\n        \"em\": [\n          \"411e44ce1261728ffd2c0686e44e3fffe413c0e2c5adc498bc7da883d476b9c8\",\n          \"09831ea51bd1b7b32a836683a00a9ccaf3d05f59499f42d9883412ed79289969\"\n        ],\n        \"hashed_maids\": [\n          \"0192518eb84137ccfe82c8b6322d29631dae7e28ed9d0f6dd5f245d73a58c5f1\",\n          \"837b850ac46d62b2272a71de73c27801ff011ac1e36c5432620c8755cf90db46\"\n        ],\n        \"client_ip_address\": \"216.3.128.12\",\n        \"client_user_agent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36\"\n      },\n      \"event_id\": \"eventId0001\",\n      \"event_source_url\": \"https://www.my-clothing-shop.org/\",\n      \"opt_out\": false,\n      \"partner_name\": \"ss-partnername\",\n      \"custom_data\": {\n        \"currency\": \"USD\",\n        \"value\": \"72.39\",\n        \"content_ids\": [\n          \"red-pinterest-shirt-logo-1\",\n          \"purple-pinterest-shirt-logo-3\"\n        ],\n        \"content_name\": \"pinterest-themed-clothing\",\n        \"content_category\": \"shirts\",\n        \"content_brand\": \"pinterest-brand\",\n        \"contents\": [\n          {\n            \"id\": \"red-pinterest-shirt-logo-1\",\n            \"item_price\": \"1325.12\",\n            \"quantity\": 5,\n            \"item_name\": \"pinterest-clothing-shirt\",\n            \"item_category\": \"pinterest-entertainment\",\n            \"item_brand\": \"pinterest\"\n          },\n          {\n            \"id\": \"red-pinterest-shirt-logo-1\",\n            \"item_price\": \"1325.12\",\n            \"quantity\": 5,\n            \"item_name\": \"pinterest-clothing-shirt\",\n            \"item_category\": \"pinterest-entertainment\",\n            \"item_brand\": \"pinterest\"\n          }\n        ],\n        \"num_items\": 2,\n        \"order_id\": \"my_order_id\",\n        \"search_string\": \"sample string\",\n        \"opt_out_type\": \"LDP\",\n        \"np\": \"ss-company\"\n      },\n      \"app_id\": \"429047995\",\n      \"app_name\": \"Pinterest\",\n      \"app_version\": \"7.9\",\n      \"device_brand\": \"Apple\",\n      \"device_carrier\": \"T-Mobile\",\n      \"device_model\": \"iPhone X\",\n      \"device_type\": \"iPhone\",\n      \"os_version\": \"12.1.4\",\n      \"wifi\": false,\n      \"language\": \"en\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"num_events_received\": 1526,\n  \"num_events_processed\": 8553,\n  \"events\": [\n    {\n      \"status\": \"processed\",\n      \"error_message\": \"string\",\n      \"warning_message\": \"string\"\n    },\n    {\n      \"status\": \"processed\",\n      \"error_message\": \"string\",\n      \"warning_message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "531a99ee-b965-4dd2-a6da-c253a2e1c6c7",
+              "name": "The request was invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "test",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"event_name\": \"checkout\",\n      \"action_source\": \"app_ios\",\n      \"event_time\": 1451431341,\n      \"user_data\": {\n        \"em\": [\n          \"411e44ce1261728ffd2c0686e44e3fffe413c0e2c5adc498bc7da883d476b9c8\",\n          \"09831ea51bd1b7b32a836683a00a9ccaf3d05f59499f42d9883412ed79289969\"\n        ],\n        \"hashed_maids\": [\n          \"0192518eb84137ccfe82c8b6322d29631dae7e28ed9d0f6dd5f245d73a58c5f1\",\n          \"837b850ac46d62b2272a71de73c27801ff011ac1e36c5432620c8755cf90db46\"\n        ],\n        \"client_ip_address\": \"216.3.128.12\",\n        \"client_user_agent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36\"\n      },\n      \"event_id\": \"eventId0001\",\n      \"event_source_url\": \"https://www.my-clothing-shop.org/\",\n      \"opt_out\": false,\n      \"partner_name\": \"ss-partnername\",\n      \"custom_data\": {\n        \"currency\": \"USD\",\n        \"value\": \"72.39\",\n        \"content_ids\": [\n          \"red-pinterest-shirt-logo-1\",\n          \"purple-pinterest-shirt-logo-3\"\n        ],\n        \"content_name\": \"pinterest-themed-clothing\",\n        \"content_category\": \"shirts\",\n        \"content_brand\": \"pinterest-brand\",\n        \"contents\": [\n          {\n            \"id\": \"red-pinterest-shirt-logo-1\",\n            \"item_price\": \"1325.12\",\n            \"quantity\": 5,\n            \"item_name\": \"pinterest-clothing-shirt\",\n            \"item_category\": \"pinterest-entertainment\",\n            \"item_brand\": \"pinterest\"\n          },\n          {\n            \"id\": \"red-pinterest-shirt-logo-1\",\n            \"item_price\": \"1325.12\",\n            \"quantity\": 5,\n            \"item_name\": \"pinterest-clothing-shirt\",\n            \"item_category\": \"pinterest-entertainment\",\n            \"item_brand\": \"pinterest\"\n          }\n        ],\n        \"num_items\": 2,\n        \"order_id\": \"my_order_id\",\n        \"search_string\": \"sample string\",\n        \"opt_out_type\": \"LDP\",\n        \"np\": \"ss-company\"\n      },\n      \"app_id\": \"429047995\",\n      \"app_name\": \"Pinterest\",\n      \"app_version\": \"7.9\",\n      \"device_brand\": \"Apple\",\n      \"device_carrier\": \"T-Mobile\",\n      \"device_model\": \"iPhone X\",\n      \"device_type\": \"iPhone\",\n      \"os_version\": \"12.1.4\",\n      \"wifi\": false,\n      \"language\": \"en\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4196,\n  \"message\": \"The request was invalid.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "04ff2077-6035-46f2-951e-5d7ed7a36f87",
+              "name": "Not authorized to send conversion events",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "test",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"event_name\": \"checkout\",\n      \"action_source\": \"app_ios\",\n      \"event_time\": 1451431341,\n      \"user_data\": {\n        \"em\": [\n          \"411e44ce1261728ffd2c0686e44e3fffe413c0e2c5adc498bc7da883d476b9c8\",\n          \"09831ea51bd1b7b32a836683a00a9ccaf3d05f59499f42d9883412ed79289969\"\n        ],\n        \"hashed_maids\": [\n          \"0192518eb84137ccfe82c8b6322d29631dae7e28ed9d0f6dd5f245d73a58c5f1\",\n          \"837b850ac46d62b2272a71de73c27801ff011ac1e36c5432620c8755cf90db46\"\n        ],\n        \"client_ip_address\": \"216.3.128.12\",\n        \"client_user_agent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36\"\n      },\n      \"event_id\": \"eventId0001\",\n      \"event_source_url\": \"https://www.my-clothing-shop.org/\",\n      \"opt_out\": false,\n      \"partner_name\": \"ss-partnername\",\n      \"custom_data\": {\n        \"currency\": \"USD\",\n        \"value\": \"72.39\",\n        \"content_ids\": [\n          \"red-pinterest-shirt-logo-1\",\n          \"purple-pinterest-shirt-logo-3\"\n        ],\n        \"content_name\": \"pinterest-themed-clothing\",\n        \"content_category\": \"shirts\",\n        \"content_brand\": \"pinterest-brand\",\n        \"contents\": [\n          {\n            \"id\": \"red-pinterest-shirt-logo-1\",\n            \"item_price\": \"1325.12\",\n            \"quantity\": 5,\n            \"item_name\": \"pinterest-clothing-shirt\",\n            \"item_category\": \"pinterest-entertainment\",\n            \"item_brand\": \"pinterest\"\n          },\n          {\n            \"id\": \"red-pinterest-shirt-logo-1\",\n            \"item_price\": \"1325.12\",\n            \"quantity\": 5,\n            \"item_name\": \"pinterest-clothing-shirt\",\n            \"item_category\": \"pinterest-entertainment\",\n            \"item_brand\": \"pinterest\"\n          }\n        ],\n        \"num_items\": 2,\n        \"order_id\": \"my_order_id\",\n        \"search_string\": \"sample string\",\n        \"opt_out_type\": \"LDP\",\n        \"np\": \"ss-company\"\n      },\n      \"app_id\": \"429047995\",\n      \"app_name\": \"Pinterest\",\n      \"app_version\": \"7.9\",\n      \"device_brand\": \"Apple\",\n      \"device_carrier\": \"T-Mobile\",\n      \"device_model\": \"iPhone X\",\n      \"device_type\": \"iPhone\",\n      \"os_version\": \"12.1.4\",\n      \"wifi\": false,\n      \"language\": \"en\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 2,\n  \"message\": \"Authentication failed.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a8b6ab99-9435-41fd-98cb-65d72dbf7780",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "test",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"event_name\": \"checkout\",\n      \"action_source\": \"app_ios\",\n      \"event_time\": 1451431341,\n      \"user_data\": {\n        \"em\": [\n          \"411e44ce1261728ffd2c0686e44e3fffe413c0e2c5adc498bc7da883d476b9c8\",\n          \"09831ea51bd1b7b32a836683a00a9ccaf3d05f59499f42d9883412ed79289969\"\n        ],\n        \"hashed_maids\": [\n          \"0192518eb84137ccfe82c8b6322d29631dae7e28ed9d0f6dd5f245d73a58c5f1\",\n          \"837b850ac46d62b2272a71de73c27801ff011ac1e36c5432620c8755cf90db46\"\n        ],\n        \"client_ip_address\": \"216.3.128.12\",\n        \"client_user_agent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36\"\n      },\n      \"event_id\": \"eventId0001\",\n      \"event_source_url\": \"https://www.my-clothing-shop.org/\",\n      \"opt_out\": false,\n      \"partner_name\": \"ss-partnername\",\n      \"custom_data\": {\n        \"currency\": \"USD\",\n        \"value\": \"72.39\",\n        \"content_ids\": [\n          \"red-pinterest-shirt-logo-1\",\n          \"purple-pinterest-shirt-logo-3\"\n        ],\n        \"content_name\": \"pinterest-themed-clothing\",\n        \"content_category\": \"shirts\",\n        \"content_brand\": \"pinterest-brand\",\n        \"contents\": [\n          {\n            \"id\": \"red-pinterest-shirt-logo-1\",\n            \"item_price\": \"1325.12\",\n            \"quantity\": 5,\n            \"item_name\": \"pinterest-clothing-shirt\",\n            \"item_category\": \"pinterest-entertainment\",\n            \"item_brand\": \"pinterest\"\n          },\n          {\n            \"id\": \"red-pinterest-shirt-logo-1\",\n            \"item_price\": \"1325.12\",\n            \"quantity\": 5,\n            \"item_name\": \"pinterest-clothing-shirt\",\n            \"item_category\": \"pinterest-entertainment\",\n            \"item_brand\": \"pinterest\"\n          }\n        ],\n        \"num_items\": 2,\n        \"order_id\": \"my_order_id\",\n        \"search_string\": \"sample string\",\n        \"opt_out_type\": \"LDP\",\n        \"np\": \"ss-company\"\n      },\n      \"app_id\": \"429047995\",\n      \"app_name\": \"Pinterest\",\n      \"app_version\": \"7.9\",\n      \"device_brand\": \"Apple\",\n      \"device_carrier\": \"T-Mobile\",\n      \"device_model\": \"iPhone X\",\n      \"device_type\": \"iPhone\",\n      \"os_version\": \"12.1.4\",\n      \"wifi\": false,\n      \"language\": \"en\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 29,\n  \"message\": \"You are not permitted to access that resource.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1704223a-5393-4ad9-b353-00ef7d3ca32c",
+              "name": "Not all events were successfully processed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "test",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"event_name\": \"checkout\",\n      \"action_source\": \"app_ios\",\n      \"event_time\": 1451431341,\n      \"user_data\": {\n        \"em\": [\n          \"411e44ce1261728ffd2c0686e44e3fffe413c0e2c5adc498bc7da883d476b9c8\",\n          \"09831ea51bd1b7b32a836683a00a9ccaf3d05f59499f42d9883412ed79289969\"\n        ],\n        \"hashed_maids\": [\n          \"0192518eb84137ccfe82c8b6322d29631dae7e28ed9d0f6dd5f245d73a58c5f1\",\n          \"837b850ac46d62b2272a71de73c27801ff011ac1e36c5432620c8755cf90db46\"\n        ],\n        \"client_ip_address\": \"216.3.128.12\",\n        \"client_user_agent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36\"\n      },\n      \"event_id\": \"eventId0001\",\n      \"event_source_url\": \"https://www.my-clothing-shop.org/\",\n      \"opt_out\": false,\n      \"partner_name\": \"ss-partnername\",\n      \"custom_data\": {\n        \"currency\": \"USD\",\n        \"value\": \"72.39\",\n        \"content_ids\": [\n          \"red-pinterest-shirt-logo-1\",\n          \"purple-pinterest-shirt-logo-3\"\n        ],\n        \"content_name\": \"pinterest-themed-clothing\",\n        \"content_category\": \"shirts\",\n        \"content_brand\": \"pinterest-brand\",\n        \"contents\": [\n          {\n            \"id\": \"red-pinterest-shirt-logo-1\",\n            \"item_price\": \"1325.12\",\n            \"quantity\": 5,\n            \"item_name\": \"pinterest-clothing-shirt\",\n            \"item_category\": \"pinterest-entertainment\",\n            \"item_brand\": \"pinterest\"\n          },\n          {\n            \"id\": \"red-pinterest-shirt-logo-1\",\n            \"item_price\": \"1325.12\",\n            \"quantity\": 5,\n            \"item_name\": \"pinterest-clothing-shirt\",\n            \"item_category\": \"pinterest-entertainment\",\n            \"item_brand\": \"pinterest\"\n          }\n        ],\n        \"num_items\": 2,\n        \"order_id\": \"my_order_id\",\n        \"search_string\": \"sample string\",\n        \"opt_out_type\": \"LDP\",\n        \"np\": \"ss-company\"\n      },\n      \"app_id\": \"429047995\",\n      \"app_name\": \"Pinterest\",\n      \"app_version\": \"7.9\",\n      \"device_brand\": \"Apple\",\n      \"device_carrier\": \"T-Mobile\",\n      \"device_model\": \"iPhone X\",\n      \"device_type\": \"iPhone\",\n      \"os_version\": \"12.1.4\",\n      \"wifi\": false,\n      \"language\": \"en\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 997,\n  \"message\": \"string\",\n  \"details\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f712072e-1f96-4ee2-9493-c0a8782bcd59",
+              "name": "This request exceeded a rate limit. This can happen if the client exceeds one\nof the published rate limits within a short time window.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "test",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"event_name\": \"checkout\",\n      \"action_source\": \"app_ios\",\n      \"event_time\": 1451431341,\n      \"user_data\": {\n        \"em\": [\n          \"411e44ce1261728ffd2c0686e44e3fffe413c0e2c5adc498bc7da883d476b9c8\",\n          \"09831ea51bd1b7b32a836683a00a9ccaf3d05f59499f42d9883412ed79289969\"\n        ],\n        \"hashed_maids\": [\n          \"0192518eb84137ccfe82c8b6322d29631dae7e28ed9d0f6dd5f245d73a58c5f1\",\n          \"837b850ac46d62b2272a71de73c27801ff011ac1e36c5432620c8755cf90db46\"\n        ],\n        \"client_ip_address\": \"216.3.128.12\",\n        \"client_user_agent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36\"\n      },\n      \"event_id\": \"eventId0001\",\n      \"event_source_url\": \"https://www.my-clothing-shop.org/\",\n      \"opt_out\": false,\n      \"partner_name\": \"ss-partnername\",\n      \"custom_data\": {\n        \"currency\": \"USD\",\n        \"value\": \"72.39\",\n        \"content_ids\": [\n          \"red-pinterest-shirt-logo-1\",\n          \"purple-pinterest-shirt-logo-3\"\n        ],\n        \"content_name\": \"pinterest-themed-clothing\",\n        \"content_category\": \"shirts\",\n        \"content_brand\": \"pinterest-brand\",\n        \"contents\": [\n          {\n            \"id\": \"red-pinterest-shirt-logo-1\",\n            \"item_price\": \"1325.12\",\n            \"quantity\": 5,\n            \"item_name\": \"pinterest-clothing-shirt\",\n            \"item_category\": \"pinterest-entertainment\",\n            \"item_brand\": \"pinterest\"\n          },\n          {\n            \"id\": \"red-pinterest-shirt-logo-1\",\n            \"item_price\": \"1325.12\",\n            \"quantity\": 5,\n            \"item_name\": \"pinterest-clothing-shirt\",\n            \"item_category\": \"pinterest-entertainment\",\n            \"item_brand\": \"pinterest\"\n          }\n        ],\n        \"num_items\": 2,\n        \"order_id\": \"my_order_id\",\n        \"search_string\": \"sample string\",\n        \"opt_out_type\": \"LDP\",\n        \"np\": \"ss-company\"\n      },\n      \"app_id\": \"429047995\",\n      \"app_name\": \"Pinterest\",\n      \"app_version\": \"7.9\",\n      \"device_brand\": \"Apple\",\n      \"device_carrier\": \"T-Mobile\",\n      \"device_model\": \"iPhone X\",\n      \"device_type\": \"iPhone\",\n      \"os_version\": \"12.1.4\",\n      \"wifi\": false,\n      \"language\": \"en\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8,\n  \"message\": \"This request exceeded a rate limit. This can happen if the client exceeds one\\nof the published rate limits within a short time window.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa505c14-8a2c-4b3d-8fbc-a4fddb817709",
+              "name": "The endpoint has been ramped down and is currently not accepting any traffic.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "test",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"event_name\": \"checkout\",\n      \"action_source\": \"app_ios\",\n      \"event_time\": 1451431341,\n      \"user_data\": {\n        \"em\": [\n          \"411e44ce1261728ffd2c0686e44e3fffe413c0e2c5adc498bc7da883d476b9c8\",\n          \"09831ea51bd1b7b32a836683a00a9ccaf3d05f59499f42d9883412ed79289969\"\n        ],\n        \"hashed_maids\": [\n          \"0192518eb84137ccfe82c8b6322d29631dae7e28ed9d0f6dd5f245d73a58c5f1\",\n          \"837b850ac46d62b2272a71de73c27801ff011ac1e36c5432620c8755cf90db46\"\n        ],\n        \"client_ip_address\": \"216.3.128.12\",\n        \"client_user_agent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36\"\n      },\n      \"event_id\": \"eventId0001\",\n      \"event_source_url\": \"https://www.my-clothing-shop.org/\",\n      \"opt_out\": false,\n      \"partner_name\": \"ss-partnername\",\n      \"custom_data\": {\n        \"currency\": \"USD\",\n        \"value\": \"72.39\",\n        \"content_ids\": [\n          \"red-pinterest-shirt-logo-1\",\n          \"purple-pinterest-shirt-logo-3\"\n        ],\n        \"content_name\": \"pinterest-themed-clothing\",\n        \"content_category\": \"shirts\",\n        \"content_brand\": \"pinterest-brand\",\n        \"contents\": [\n          {\n            \"id\": \"red-pinterest-shirt-logo-1\",\n            \"item_price\": \"1325.12\",\n            \"quantity\": 5,\n            \"item_name\": \"pinterest-clothing-shirt\",\n            \"item_category\": \"pinterest-entertainment\",\n            \"item_brand\": \"pinterest\"\n          },\n          {\n            \"id\": \"red-pinterest-shirt-logo-1\",\n            \"item_price\": \"1325.12\",\n            \"quantity\": 5,\n            \"item_name\": \"pinterest-clothing-shirt\",\n            \"item_category\": \"pinterest-entertainment\",\n            \"item_brand\": \"pinterest\"\n          }\n        ],\n        \"num_items\": 2,\n        \"order_id\": \"my_order_id\",\n        \"search_string\": \"sample string\",\n        \"opt_out_type\": \"LDP\",\n        \"np\": \"ss-company\"\n      },\n      \"app_id\": \"429047995\",\n      \"app_name\": \"Pinterest\",\n      \"app_version\": \"7.9\",\n      \"device_brand\": \"Apple\",\n      \"device_carrier\": \"T-Mobile\",\n      \"device_model\": \"iPhone X\",\n      \"device_type\": \"iPhone\",\n      \"os_version\": \"12.1.4\",\n      \"wifi\": false,\n      \"language\": \"en\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4197,\n  \"message\": \"The endpoint has been ramped down and is currently not accepting any traffic.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "366bf71c-46a4-45b4-be35-11aef000a604",
+              "name": "Unexpected errors",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "test",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"event_name\": \"checkout\",\n      \"action_source\": \"app_ios\",\n      \"event_time\": 1451431341,\n      \"user_data\": {\n        \"em\": [\n          \"411e44ce1261728ffd2c0686e44e3fffe413c0e2c5adc498bc7da883d476b9c8\",\n          \"09831ea51bd1b7b32a836683a00a9ccaf3d05f59499f42d9883412ed79289969\"\n        ],\n        \"hashed_maids\": [\n          \"0192518eb84137ccfe82c8b6322d29631dae7e28ed9d0f6dd5f245d73a58c5f1\",\n          \"837b850ac46d62b2272a71de73c27801ff011ac1e36c5432620c8755cf90db46\"\n        ],\n        \"client_ip_address\": \"216.3.128.12\",\n        \"client_user_agent\": \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36\"\n      },\n      \"event_id\": \"eventId0001\",\n      \"event_source_url\": \"https://www.my-clothing-shop.org/\",\n      \"opt_out\": false,\n      \"partner_name\": \"ss-partnername\",\n      \"custom_data\": {\n        \"currency\": \"USD\",\n        \"value\": \"72.39\",\n        \"content_ids\": [\n          \"red-pinterest-shirt-logo-1\",\n          \"purple-pinterest-shirt-logo-3\"\n        ],\n        \"content_name\": \"pinterest-themed-clothing\",\n        \"content_category\": \"shirts\",\n        \"content_brand\": \"pinterest-brand\",\n        \"contents\": [\n          {\n            \"id\": \"red-pinterest-shirt-logo-1\",\n            \"item_price\": \"1325.12\",\n            \"quantity\": 5,\n            \"item_name\": \"pinterest-clothing-shirt\",\n            \"item_category\": \"pinterest-entertainment\",\n            \"item_brand\": \"pinterest\"\n          },\n          {\n            \"id\": \"red-pinterest-shirt-logo-1\",\n            \"item_price\": \"1325.12\",\n            \"quantity\": 5,\n            \"item_name\": \"pinterest-clothing-shirt\",\n            \"item_category\": \"pinterest-entertainment\",\n            \"item_brand\": \"pinterest\"\n          }\n        ],\n        \"num_items\": 2,\n        \"order_id\": \"my_order_id\",\n        \"search_string\": \"sample string\",\n        \"opt_out_type\": \"LDP\",\n        \"np\": \"ss-company\"\n      },\n      \"app_id\": \"429047995\",\n      \"app_name\": \"Pinterest\",\n      \"app_version\": \"7.9\",\n      \"device_brand\": \"Apple\",\n      \"device_carrier\": \"T-Mobile\",\n      \"device_model\": \"iPhone X\",\n      \"device_type\": \"iPhone\",\n      \"os_version\": \"12.1.4\",\n      \"wifi\": false,\n      \"language\": \"en\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 6416,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.pinterest.com/v5",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "248d624a-1bec-4529-b917-1cdb21d562ff",
+    "name": "Pinterest Events API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is the description of your API.\n\nContact Support:\n Name: Pinterest, Inc.",
+      "type": "text/plain"
+    }
+  }
+}

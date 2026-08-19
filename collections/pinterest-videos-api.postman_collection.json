@@ -1,0 +1,444 @@
+{
+  "item": [
+    {
+      "id": "c0a0a486-6c91-4d4d-9abe-f5d87f3df4db",
+      "name": "Videos",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f720ac44-9d4d-407a-a33c-564c4edd0574",
+          "name": "Get user account top video pins analytics",
+          "request": {
+            "name": "Get user account top video pins analytics",
+            "description": {
+              "content": "Gets analytics data about a user's top video pins (limited to the top 50).\n- By default, the \"operation user_account\" is the token user_account.\n\nOptional: Business Access: Specify an ad_account_id to use the owner of that ad_account as the \"operation user_account\".",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user_account",
+                "analytics",
+                "top_video_pins"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>",
+                  "description": "(Required) Metric report start date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days back from today."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>",
+                  "description": "(Required) Metric report end date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days past start_date."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "<string>",
+                  "description": "(Required) Specify sorting order for video metrics"
+                },
+                {
+                  "disabled": false,
+                  "key": "from_claimed_content",
+                  "value": "BOTH",
+                  "description": "Filter on Pins that match your claimed domain."
+                },
+                {
+                  "disabled": false,
+                  "key": "pin_format",
+                  "value": "ALL",
+                  "description": "Pin formats to get data for, default is all."
+                },
+                {
+                  "disabled": false,
+                  "key": "app_types",
+                  "value": "ALL",
+                  "description": "Apps or devices to get data for, default is all."
+                },
+                {
+                  "disabled": false,
+                  "key": "content_type",
+                  "value": "ALL",
+                  "description": "Filter to paid or organic data. Default is all."
+                },
+                {
+                  "disabled": false,
+                  "key": "source",
+                  "value": "ALL",
+                  "description": "Filter to activity from Pins created and saved by your, or activity created and saved by others from your claimed accounts"
+                },
+                {
+                  "disabled": false,
+                  "key": "metric_types",
+                  "value": "<string>,<string>",
+                  "description": "Metric types to get video data for, default is all. "
+                },
+                {
+                  "disabled": false,
+                  "key": "num_of_pins",
+                  "value": "10",
+                  "description": "Number of pins to include, default is 10. Max is 50."
+                },
+                {
+                  "disabled": false,
+                  "key": "created_in_last_n_days",
+                  "value": "<integer>",
+                  "description": "Get metrics for pins created in the last \"n\" days."
+                },
+                {
+                  "disabled": false,
+                  "key": "ad_account_id",
+                  "value": "<string>",
+                  "description": "Unique identifier of an ad account."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9af06f84-347f-45df-9faf-e1ab10762e02",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "analytics",
+                    "top_video_pins"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "from_claimed_content",
+                      "value": "BOTH"
+                    },
+                    {
+                      "key": "pin_format",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "app_types",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "content_type",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "source",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "metric_types",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "num_of_pins",
+                      "value": "25"
+                    },
+                    {
+                      "key": "created_in_last_n_days",
+                      "value": "30"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"date_availability\": {\n    \"latest_available_timestamp\": 1649116799000,\n    \"is_realtime\": false\n  },\n  \"pins\": [\n    {\n      \"metrics\": {\n        \"IMPRESSION\": 7,\n        \"QUARTILE_95_PERCENT_VIEW\": 2,\n        \"SAVE\": 1,\n        \"VIDEO_10S_VIEW\": 5,\n        \"VIDEO_AVG_WATCH_TIME\": 86989,\n        \"VIDEO_MRC_VIEW\": 2,\n        \"VIDEO_START\": 2,\n        \"VIDEO_V50_WATCH_TIME\": 173979,\n        \"OUTBOUND_CLICK\": 2\n      },\n      \"data_status\": {\n        \"key_0\": \"READY\",\n        \"key_1\": \"READY\"\n      },\n      \"pin_id\": \"642396334344813594\"\n    },\n    {\n      \"metrics\": {\n        \"IMPRESSION\": 7,\n        \"QUARTILE_95_PERCENT_VIEW\": 2,\n        \"SAVE\": 1,\n        \"VIDEO_10S_VIEW\": 5,\n        \"VIDEO_AVG_WATCH_TIME\": 86989,\n        \"VIDEO_MRC_VIEW\": 2,\n        \"VIDEO_START\": 2,\n        \"VIDEO_V50_WATCH_TIME\": 173979,\n        \"OUTBOUND_CLICK\": 2\n      },\n      \"data_status\": {\n        \"key_0\": \"READY\"\n      },\n      \"pin_id\": \"642396334344813594\"\n    }\n  ],\n  \"sort_by\": \"IMPRESSION\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ca65366c-1356-4ef3-9d81-3c781bd90aca",
+              "name": "Not authorized to access the user account analytics.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "analytics",
+                    "top_video_pins"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "from_claimed_content",
+                      "value": "BOTH"
+                    },
+                    {
+                      "key": "pin_format",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "app_types",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "content_type",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "source",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "metric_types",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "num_of_pins",
+                      "value": "25"
+                    },
+                    {
+                      "key": "created_in_last_n_days",
+                      "value": "30"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"Not authorized to access the user account analytics.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dc6e95be-e5b8-4d4a-85d8-f24870d9f470",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user_account",
+                    "analytics",
+                    "top_video_pins"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "from_claimed_content",
+                      "value": "BOTH"
+                    },
+                    {
+                      "key": "pin_format",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "app_types",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "content_type",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "source",
+                      "value": "ALL"
+                    },
+                    {
+                      "key": "metric_types",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "num_of_pins",
+                      "value": "25"
+                    },
+                    {
+                      "key": "created_in_last_n_days",
+                      "value": "30"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1832,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.pinterest.com/v5",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a3285235-67bb-4a63-bb9b-046718954bf8",
+    "name": "Pinterest Videos API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is the description of your API.\n\nContact Support:\n Name: Pinterest, Inc.",
+      "type": "text/plain"
+    }
+  }
+}

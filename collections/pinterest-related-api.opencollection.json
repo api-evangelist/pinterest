@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pinterest Related API",
+    "version": "5.13.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Related",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List related terms",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/terms/related",
+            "params": [
+              {
+                "name": "terms",
+                "value": "",
+                "type": "query",
+                "description": "List of input terms."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get a list of terms logically related to each input term. <p/>\nExample: the term 'workout' would list related terms like 'one song workout', 'yoga workout', 'workout motivation', etc."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

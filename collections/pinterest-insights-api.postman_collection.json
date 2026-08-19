@@ -1,0 +1,394 @@
+{
+  "item": [
+    {
+      "id": "8acf115b-d0a7-46fc-84bd-ea24e56974af",
+      "name": "Insights",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4fdda66a-f7c7-427c-9b24-3125ba236884",
+          "name": "Get audience insights",
+          "request": {
+            "name": "Get audience insights",
+            "description": {
+              "content": "Get Audience Insights for an ad account. The response will return insights for 3 types of audiences: the\nad account's engaged audience on Pinterest, the ad account's total audience on Pinterest and Pinterest's\ntotal audience.<p/>\n<a href=\"https://help.pinterest.com/en/business/article/audience-insights\" target=\"_blank\">Learn more about Audience Insights</a>.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "audience_insights"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "audience_insight_type",
+                  "value": "YOUR_TOTAL_AUDIENCE",
+                  "description": "(Required) Type of audience insights."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "606fcfb5-2388-48f4-8161-7ce91935f9d4",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "audience_insights"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "audience_insight_type",
+                      "value": "YOUR_TOTAL_AUDIENCE"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"categories\": [\n    {\n      \"key\": \"1234567\",\n      \"name\": \"travel\",\n      \"ratio\": 0.551,\n      \"index\": 1.2,\n      \"id\": \"1234567\",\n      \"subcategories\": [\n        {\n          \"key\": \"958862518888\",\n          \"name\": \"travel destinations\",\n          \"ratio\": 0.482,\n          \"index\": 1.2,\n          \"id\": \"958862518888\"\n        },\n        {\n          \"key\": \"958862518888\",\n          \"name\": \"travel destinations\",\n          \"ratio\": 0.482,\n          \"index\": 1.2,\n          \"id\": \"958862518888\"\n        }\n      ]\n    },\n    {\n      \"key\": \"1234567\",\n      \"name\": \"travel\",\n      \"ratio\": 0.551,\n      \"index\": 1.2,\n      \"id\": \"1234567\",\n      \"subcategories\": [\n        {\n          \"key\": \"958862518888\",\n          \"name\": \"travel destinations\",\n          \"ratio\": 0.482,\n          \"index\": 1.2,\n          \"id\": \"958862518888\"\n        },\n        {\n          \"key\": \"958862518888\",\n          \"name\": \"travel destinations\",\n          \"ratio\": 0.482,\n          \"index\": 1.2,\n          \"id\": \"958862518888\"\n        }\n      ]\n    }\n  ],\n  \"demographics\": {\n    \"ages\": [\n      {\n        \"name\": \"United States\",\n        \"key\": \"us\",\n        \"ratio\": 0.551\n      },\n      {\n        \"name\": \"United States\",\n        \"key\": \"us\",\n        \"ratio\": 0.551\n      }\n    ],\n    \"genders\": [\n      {\n        \"name\": \"United States\",\n        \"key\": \"us\",\n        \"ratio\": 0.551\n      },\n      {\n        \"name\": \"United States\",\n        \"key\": \"us\",\n        \"ratio\": 0.551\n      }\n    ],\n    \"devices\": [\n      {\n        \"name\": \"United States\",\n        \"key\": \"us\",\n        \"ratio\": 0.551\n      },\n      {\n        \"name\": \"United States\",\n        \"key\": \"us\",\n        \"ratio\": 0.551\n      }\n    ],\n    \"metros\": [\n      {\n        \"name\": \"United States\",\n        \"key\": \"us\",\n        \"ratio\": 0.551\n      },\n      {\n        \"name\": \"United States\",\n        \"key\": \"us\",\n        \"ratio\": 0.551\n      }\n    ],\n    \"countries\": [\n      {\n        \"name\": \"United States\",\n        \"key\": \"us\",\n        \"ratio\": 0.551\n      },\n      {\n        \"name\": \"United States\",\n        \"key\": \"us\",\n        \"ratio\": 0.551\n      }\n    ]\n  },\n  \"type\": \"YOUR_TOTAL_AUDIENCE\",\n  \"date\": \"2022-10-09\",\n  \"size\": 10000,\n  \"size_is_upper_bound\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b4be4524-2e56-433b-a4ff-8019d4852170",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "audience_insights"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "audience_insight_type",
+                      "value": "YOUR_TOTAL_AUDIENCE"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7387,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8788cddd-112b-4f2e-8ce7-e6107110d120",
+          "name": "Get audience insights scope and type",
+          "request": {
+            "name": "Get audience insights scope and type",
+            "description": {
+              "content": "Get the scope and type of available audiences, which along with a date, is an audience that has recently had an interaction (referred to here as a type) on pins. Interacted pins can belong to at least the most common **partner** or **Pinterest** scopes. This means that user interactions made on advertiser or partner pins will have the **partner** scope. You can also have user interactions performed in general on Pinterest with the **Pinterest** scope. In that case, you can then use the returned type and scope values together on requests to other endpoints to retrieve insight metrics for a desired audience.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "insights",
+                "audiences"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "83e4a7ab-08fb-4d43-91b6-13d1667a88ab",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "insights",
+                    "audiences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"date\": \"2022-10-09\",\n      \"type\": {\n        \"scope\": \"string\"\n      },\n      \"scope\": {\n        \"scope\": \"string\"\n      }\n    },\n    {\n      \"date\": \"2022-10-09\",\n      \"type\": {\n        \"scope\": \"string\"\n      },\n      \"scope\": {\n        \"scope\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7d8d11a7-d8bc-4044-bce7-841eccc80ab9",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "insights",
+                    "audiences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7387,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.pinterest.com/v5",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "d8b29a53-0cff-4292-ab5e-f042612d243b",
+    "name": "Pinterest Insights API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is the description of your API.\n\nContact Support:\n Name: Pinterest, Inc.",
+      "type": "text/plain"
+    }
+  }
+}

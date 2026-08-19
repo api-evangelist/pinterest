@@ -1,0 +1,1027 @@
+{
+  "item": [
+    {
+      "id": "f048ae17-2446-40fe-9d13-227a62084c3f",
+      "name": "Audience",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "396cdc7c-314e-48ec-8ccc-180ecd240ea7",
+          "name": "Get audience sizing",
+          "request": {
+            "name": "Get audience sizing",
+            "description": {
+              "content": "Get potential audience size for an ad group with given targeting criteria. \nPotential audience size estimates the number of people you may be able to reach per month with your campaign. \nIt is based on historical advertising data and the targeting criteria you select.\nIt does not guarantee results or take into account factors such as bid, budget, schedule, seasonality or product experiments.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "ad_groups",
+                "audience_sizing"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"auto_targeting_enabled\": true,\n  \"placement_group\": \"ALL\",\n  \"creative_types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"targeting_spec\": {\n    \"AGE_BUCKET\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"APPTYPE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"AUDIENCE_EXCLUDE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"AUDIENCE_INCLUDE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"GENDER\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"GEO\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"INTEREST\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"LOCALE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"LOCATION\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"SHOPPING_RETARGETING\": [\n      {\n        \"lookback_window\": \"<integer>\",\n        \"tag_types\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"exclusion_window\": \"<integer>\"\n      },\n      {\n        \"lookback_window\": \"<integer>\",\n        \"tag_types\": [\n          \"<integer>\",\n          \"<integer>\"\n        ],\n        \"exclusion_window\": \"<integer>\"\n      }\n    ],\n    \"TARGETING_STRATEGY\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"product_group_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"keywords\": [\n    {\n      \"match_type\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"match_type\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "075ebfeb-67ac-4b05-b80a-07fd23137c2a",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ad_groups",
+                    "audience_sizing"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"auto_targeting_enabled\": true,\n  \"placement_group\": \"ALL\",\n  \"creative_types\": [\n    \"REGULAR\",\n    \"REGULAR\"\n  ],\n  \"targeting_spec\": {\n    \"AGE_BUCKET\": [\n      \"35-44\",\n      \"50-54\"\n    ],\n    \"APPTYPE\": [\n      \"ipad\",\n      \"iphone\"\n    ],\n    \"AUDIENCE_EXCLUDE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"AUDIENCE_INCLUDE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"GENDER\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"GEO\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"INTEREST\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"LOCALE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"LOCATION\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"SHOPPING_RETARGETING\": [\n      {\n        \"lookback_window\": 30,\n        \"exclusion_window\": 14,\n        \"tag_types\": [\n          0,\n          6\n        ]\n      },\n      {\n        \"lookback_window\": 30,\n        \"exclusion_window\": 14,\n        \"tag_types\": [\n          0,\n          6\n        ]\n      }\n    ],\n    \"TARGETING_STRATEGY\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"product_group_ids\": [\n    \"23423422123\",\n    \"23423422123\"\n  ],\n  \"keywords\": [\n    {\n      \"match_type\": \"BROAD\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"match_type\": \"BROAD\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"audience_size_lower_bound\": 100000,\n  \"audience_size_upper_bound\": 150000\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "861154bd-f2b7-4068-8059-66867ad0625c",
+              "name": "Invalid ad group audience sizing parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ad_groups",
+                    "audience_sizing"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"auto_targeting_enabled\": true,\n  \"placement_group\": \"ALL\",\n  \"creative_types\": [\n    \"REGULAR\",\n    \"REGULAR\"\n  ],\n  \"targeting_spec\": {\n    \"AGE_BUCKET\": [\n      \"35-44\",\n      \"50-54\"\n    ],\n    \"APPTYPE\": [\n      \"ipad\",\n      \"iphone\"\n    ],\n    \"AUDIENCE_EXCLUDE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"AUDIENCE_INCLUDE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"GENDER\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"GEO\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"INTEREST\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"LOCALE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"LOCATION\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"SHOPPING_RETARGETING\": [\n      {\n        \"lookback_window\": 30,\n        \"exclusion_window\": 14,\n        \"tag_types\": [\n          0,\n          6\n        ]\n      },\n      {\n        \"lookback_window\": 30,\n        \"exclusion_window\": 14,\n        \"tag_types\": [\n          0,\n          6\n        ]\n      }\n    ],\n    \"TARGETING_STRATEGY\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"product_group_ids\": [\n    \"23423422123\",\n    \"23423422123\"\n  ],\n  \"keywords\": [\n    {\n      \"match_type\": \"BROAD\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"match_type\": \"BROAD\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"Invalid ad group audience sizing parameters.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0f5e5dfd-aa54-4d43-941b-0483a4bd9696",
+              "name": "No access to requested audience list or product group.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ad_groups",
+                    "audience_sizing"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"auto_targeting_enabled\": true,\n  \"placement_group\": \"ALL\",\n  \"creative_types\": [\n    \"REGULAR\",\n    \"REGULAR\"\n  ],\n  \"targeting_spec\": {\n    \"AGE_BUCKET\": [\n      \"35-44\",\n      \"50-54\"\n    ],\n    \"APPTYPE\": [\n      \"ipad\",\n      \"iphone\"\n    ],\n    \"AUDIENCE_EXCLUDE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"AUDIENCE_INCLUDE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"GENDER\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"GEO\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"INTEREST\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"LOCALE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"LOCATION\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"SHOPPING_RETARGETING\": [\n      {\n        \"lookback_window\": 30,\n        \"exclusion_window\": 14,\n        \"tag_types\": [\n          0,\n          6\n        ]\n      },\n      {\n        \"lookback_window\": 30,\n        \"exclusion_window\": 14,\n        \"tag_types\": [\n          0,\n          6\n        ]\n      }\n    ],\n    \"TARGETING_STRATEGY\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"product_group_ids\": [\n    \"23423422123\",\n    \"23423422123\"\n  ],\n  \"keywords\": [\n    {\n      \"match_type\": \"BROAD\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"match_type\": \"BROAD\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 403,\n  \"message\": \"You don't have access to the requested audience list or product group.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "986225a2-d711-4191-89b7-4fe210f56d77",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "ad_groups",
+                    "audience_sizing"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"auto_targeting_enabled\": true,\n  \"placement_group\": \"ALL\",\n  \"creative_types\": [\n    \"REGULAR\",\n    \"REGULAR\"\n  ],\n  \"targeting_spec\": {\n    \"AGE_BUCKET\": [\n      \"35-44\",\n      \"50-54\"\n    ],\n    \"APPTYPE\": [\n      \"ipad\",\n      \"iphone\"\n    ],\n    \"AUDIENCE_EXCLUDE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"AUDIENCE_INCLUDE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"GENDER\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"GEO\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"INTEREST\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"LOCALE\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"LOCATION\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"SHOPPING_RETARGETING\": [\n      {\n        \"lookback_window\": 30,\n        \"exclusion_window\": 14,\n        \"tag_types\": [\n          0,\n          6\n        ]\n      },\n      {\n        \"lookback_window\": 30,\n        \"exclusion_window\": 14,\n        \"tag_types\": [\n          0,\n          6\n        ]\n      }\n    ],\n    \"TARGETING_STRATEGY\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"product_group_ids\": [\n    \"23423422123\",\n    \"23423422123\"\n  ],\n  \"keywords\": [\n    {\n      \"match_type\": \"BROAD\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"match_type\": \"BROAD\",\n      \"value\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1933,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "32d2267d-ab88-4f68-acc8-6e52019ce5d3",
+          "name": "Get audience insights",
+          "request": {
+            "name": "Get audience insights",
+            "description": {
+              "content": "Get Audience Insights for an ad account. The response will return insights for 3 types of audiences: the\nad account's engaged audience on Pinterest, the ad account's total audience on Pinterest and Pinterest's\ntotal audience.<p/>\n<a href=\"https://help.pinterest.com/en/business/article/audience-insights\" target=\"_blank\">Learn more about Audience Insights</a>.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "audience_insights"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "audience_insight_type",
+                  "value": "YOUR_TOTAL_AUDIENCE",
+                  "description": "(Required) Type of audience insights."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8fbd9114-2c63-4e7f-80d7-2d380b022421",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "audience_insights"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "audience_insight_type",
+                      "value": "YOUR_TOTAL_AUDIENCE"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"categories\": [\n    {\n      \"key\": \"1234567\",\n      \"name\": \"travel\",\n      \"ratio\": 0.551,\n      \"index\": 1.2,\n      \"id\": \"1234567\",\n      \"subcategories\": [\n        {\n          \"key\": \"958862518888\",\n          \"name\": \"travel destinations\",\n          \"ratio\": 0.482,\n          \"index\": 1.2,\n          \"id\": \"958862518888\"\n        },\n        {\n          \"key\": \"958862518888\",\n          \"name\": \"travel destinations\",\n          \"ratio\": 0.482,\n          \"index\": 1.2,\n          \"id\": \"958862518888\"\n        }\n      ]\n    },\n    {\n      \"key\": \"1234567\",\n      \"name\": \"travel\",\n      \"ratio\": 0.551,\n      \"index\": 1.2,\n      \"id\": \"1234567\",\n      \"subcategories\": [\n        {\n          \"key\": \"958862518888\",\n          \"name\": \"travel destinations\",\n          \"ratio\": 0.482,\n          \"index\": 1.2,\n          \"id\": \"958862518888\"\n        },\n        {\n          \"key\": \"958862518888\",\n          \"name\": \"travel destinations\",\n          \"ratio\": 0.482,\n          \"index\": 1.2,\n          \"id\": \"958862518888\"\n        }\n      ]\n    }\n  ],\n  \"demographics\": {\n    \"ages\": [\n      {\n        \"name\": \"United States\",\n        \"key\": \"us\",\n        \"ratio\": 0.551\n      },\n      {\n        \"name\": \"United States\",\n        \"key\": \"us\",\n        \"ratio\": 0.551\n      }\n    ],\n    \"genders\": [\n      {\n        \"name\": \"United States\",\n        \"key\": \"us\",\n        \"ratio\": 0.551\n      },\n      {\n        \"name\": \"United States\",\n        \"key\": \"us\",\n        \"ratio\": 0.551\n      }\n    ],\n    \"devices\": [\n      {\n        \"name\": \"United States\",\n        \"key\": \"us\",\n        \"ratio\": 0.551\n      },\n      {\n        \"name\": \"United States\",\n        \"key\": \"us\",\n        \"ratio\": 0.551\n      }\n    ],\n    \"metros\": [\n      {\n        \"name\": \"United States\",\n        \"key\": \"us\",\n        \"ratio\": 0.551\n      },\n      {\n        \"name\": \"United States\",\n        \"key\": \"us\",\n        \"ratio\": 0.551\n      }\n    ],\n    \"countries\": [\n      {\n        \"name\": \"United States\",\n        \"key\": \"us\",\n        \"ratio\": 0.551\n      },\n      {\n        \"name\": \"United States\",\n        \"key\": \"us\",\n        \"ratio\": 0.551\n      }\n    ]\n  },\n  \"type\": \"YOUR_TOTAL_AUDIENCE\",\n  \"date\": \"2022-10-09\",\n  \"size\": 10000,\n  \"size_is_upper_bound\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "94fbd43a-2fc8-4f5d-a65a-75597db11503",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "audience_insights"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "audience_insight_type",
+                      "value": "YOUR_TOTAL_AUDIENCE"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1933,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "13a25970-9e15-498b-abd7-0d52db87287f",
+          "name": "Get audience",
+          "request": {
+            "name": "Get audience",
+            "description": {
+              "content": "Get a specific audience given the audience ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "audiences",
+                ":audience_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "audience_id",
+                  "description": "(Required) Unique identifier of an audience"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "55576f0a-f8b9-496d-ae64-5016d914897c",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "audiences",
+                    ":audience_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "audience_id",
+                      "description": "(Required) Unique identifier of an audience"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ad_account_id\": \"549755885175\",\n  \"id\": \"1234\",\n  \"name\": \"ACME Tools\",\n  \"audience_type\": \"string\",\n  \"description\": \"People who love making quilts.\",\n  \"rule\": {\n    \"country\": \"US\",\n    \"customer_list_id\": \"5497558859876\",\n    \"engagement_domain\": [\n      \"www.somedomain.com\"\n    ],\n    \"engagement_type\": \"click\",\n    \"event\": \"checkout\",\n    \"event_data\": {\n      \"currency\": \"USD\",\n      \"lead_type\": \"Newsletter\",\n      \"line_items\": {\n        \"product_brand\": \"Parker\",\n        \"product_category\": \"Shoes\",\n        \"product_id\": 1414,\n        \"product_name\": \"Parker Boots\",\n        \"product_price\": \"99.99\",\n        \"product_quantity\": 2,\n        \"product_variant\": \"Red\",\n        \"product_variant_id\": \"1414-34832\"\n      },\n      \"order_id\": \"X-151481\",\n      \"order_quantity\": 1,\n      \"page_name\": \"Our Favorite Pins on Pinterest.\",\n      \"promo_code\": \"WINTER10\",\n      \"property\": \"Athleta\",\n      \"search_query\": \"boots\",\n      \"value\": \"199.98\",\n      \"video_title\": \"How to style your Parker Boots\"\n    },\n    \"percentage\": 3,\n    \"pin_id\": [\n      \"34567\"\n    ],\n    \"prefill\": true,\n    \"retention_days\": 30,\n    \"seed_id\": [\n      \"2542620639259\",\n      \"2542620639261\"\n    ],\n    \"url\": [\n      \"string\",\n      \"string\"\n    ],\n    \"visitor_source_id\": \"549755885175\",\n    \"event_source\": {\n      \"=\": [\n        \"web\",\n        \"mobile\"\n      ]\n    },\n    \"ingestion_source\": {\n      \"=\": [\n        \"tag\"\n      ]\n    },\n    \"engager_type\": 1,\n    \"campaign_id\": [\n      \"626744528398\"\n    ],\n    \"ad_id\": [\n      \"687201361754\"\n    ],\n    \"objective_type\": [\n      \"AWARENESS\"\n    ],\n    \"ad_account_id\": \"549755885175\"\n  },\n  \"size\": 1000,\n  \"status\": \"string\",\n  \"type\": \"audience\",\n  \"created_timestamp\": 1451431341,\n  \"updated_timestamp\": 1451431341\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "661052ec-1054-4d53-9148-c8d60f44d231",
+              "name": "Audience not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "audiences",
+                    ":audience_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "audience_id",
+                      "description": "(Required) Unique identifier of an audience"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1933,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8428a165-e69d-468a-b8c0-253669498bd5",
+              "name": "Unexpected error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "audiences",
+                    ":audience_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "audience_id",
+                      "description": "(Required) Unique identifier of an audience"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1933,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3e5d908f-3391-4cf6-ab0a-88e7e7340293",
+          "name": "Update audience",
+          "request": {
+            "name": "Update audience",
+            "description": {
+              "content": "Update (edit or remove) an existing targeting audience.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "audiences",
+                ":audience_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "audience_id",
+                  "description": "(Required) Unique identifier of an audience"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "679ec275-6cfa-40e3-8cc5-718970f4d916",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "audiences",
+                    ":audience_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "audience_id",
+                      "description": "(Required) Unique identifier of an audience"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ad_account_id\": \"549755885175\",\n  \"name\": \"string\",\n  \"rule\": {\n    \"country\": \"US\",\n    \"customer_list_id\": \"5497558859876\",\n    \"engagement_domain\": [\n      \"www.somedomain.com\"\n    ],\n    \"engagement_type\": \"click\",\n    \"event\": \"checkout\",\n    \"event_data\": {\n      \"currency\": \"USD\",\n      \"lead_type\": \"Newsletter\",\n      \"line_items\": {\n        \"product_brand\": \"Parker\",\n        \"product_category\": \"Shoes\",\n        \"product_id\": 1414,\n        \"product_name\": \"Parker Boots\",\n        \"product_price\": \"99.99\",\n        \"product_quantity\": 2,\n        \"product_variant\": \"Red\",\n        \"product_variant_id\": \"1414-34832\"\n      },\n      \"order_id\": \"X-151481\",\n      \"order_quantity\": 1,\n      \"page_name\": \"Our Favorite Pins on Pinterest.\",\n      \"promo_code\": \"WINTER10\",\n      \"property\": \"Athleta\",\n      \"search_query\": \"boots\",\n      \"value\": \"199.98\",\n      \"video_title\": \"How to style your Parker Boots\"\n    },\n    \"percentage\": 3,\n    \"pin_id\": [\n      \"34567\"\n    ],\n    \"prefill\": true,\n    \"retention_days\": 30,\n    \"seed_id\": [\n      \"2542620639259\",\n      \"2542620639261\"\n    ],\n    \"url\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"visitor_source_id\": \"549755885175\",\n    \"event_source\": {\n      \"=\": [\n        \"web\",\n        \"mobile\"\n      ]\n    },\n    \"ingestion_source\": {\n      \"=\": [\n        \"tag\"\n      ]\n    },\n    \"engager_type\": 1,\n    \"campaign_id\": [\n      \"626744528398\"\n    ],\n    \"ad_id\": [\n      \"687201361754\"\n    ],\n    \"objective_type\": [\n      \"AWARENESS\"\n    ],\n    \"ad_account_id\": \"549755885175\"\n  },\n  \"description\": \"string\",\n  \"operation_type\": \"UPDATE\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ad_account_id\": \"549755885175\",\n  \"id\": \"1234\",\n  \"name\": \"ACME Tools\",\n  \"audience_type\": \"string\",\n  \"description\": \"People who love making quilts.\",\n  \"rule\": {\n    \"country\": \"US\",\n    \"customer_list_id\": \"5497558859876\",\n    \"engagement_domain\": [\n      \"www.somedomain.com\"\n    ],\n    \"engagement_type\": \"click\",\n    \"event\": \"checkout\",\n    \"event_data\": {\n      \"currency\": \"USD\",\n      \"lead_type\": \"Newsletter\",\n      \"line_items\": {\n        \"product_brand\": \"Parker\",\n        \"product_category\": \"Shoes\",\n        \"product_id\": 1414,\n        \"product_name\": \"Parker Boots\",\n        \"product_price\": \"99.99\",\n        \"product_quantity\": 2,\n        \"product_variant\": \"Red\",\n        \"product_variant_id\": \"1414-34832\"\n      },\n      \"order_id\": \"X-151481\",\n      \"order_quantity\": 1,\n      \"page_name\": \"Our Favorite Pins on Pinterest.\",\n      \"promo_code\": \"WINTER10\",\n      \"property\": \"Athleta\",\n      \"search_query\": \"boots\",\n      \"value\": \"199.98\",\n      \"video_title\": \"How to style your Parker Boots\"\n    },\n    \"percentage\": 3,\n    \"pin_id\": [\n      \"34567\"\n    ],\n    \"prefill\": true,\n    \"retention_days\": 30,\n    \"seed_id\": [\n      \"2542620639259\",\n      \"2542620639261\"\n    ],\n    \"url\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"visitor_source_id\": \"549755885175\",\n    \"event_source\": {\n      \"=\": [\n        \"web\",\n        \"mobile\"\n      ]\n    },\n    \"ingestion_source\": {\n      \"=\": [\n        \"tag\"\n      ]\n    },\n    \"engager_type\": 1,\n    \"campaign_id\": [\n      \"626744528398\"\n    ],\n    \"ad_id\": [\n      \"687201361754\"\n    ],\n    \"objective_type\": [\n      \"AWARENESS\"\n    ],\n    \"ad_account_id\": \"549755885175\"\n  },\n  \"size\": 1000,\n  \"status\": \"string\",\n  \"type\": \"audience\",\n  \"created_timestamp\": 1451431341,\n  \"updated_timestamp\": 1451431341\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c376496b-4ea6-4694-92f3-a4a52d50d1c1",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "audiences",
+                    ":audience_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "audience_id",
+                      "description": "(Required) Unique identifier of an audience"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ad_account_id\": \"549755885175\",\n  \"name\": \"string\",\n  \"rule\": {\n    \"country\": \"US\",\n    \"customer_list_id\": \"5497558859876\",\n    \"engagement_domain\": [\n      \"www.somedomain.com\"\n    ],\n    \"engagement_type\": \"click\",\n    \"event\": \"checkout\",\n    \"event_data\": {\n      \"currency\": \"USD\",\n      \"lead_type\": \"Newsletter\",\n      \"line_items\": {\n        \"product_brand\": \"Parker\",\n        \"product_category\": \"Shoes\",\n        \"product_id\": 1414,\n        \"product_name\": \"Parker Boots\",\n        \"product_price\": \"99.99\",\n        \"product_quantity\": 2,\n        \"product_variant\": \"Red\",\n        \"product_variant_id\": \"1414-34832\"\n      },\n      \"order_id\": \"X-151481\",\n      \"order_quantity\": 1,\n      \"page_name\": \"Our Favorite Pins on Pinterest.\",\n      \"promo_code\": \"WINTER10\",\n      \"property\": \"Athleta\",\n      \"search_query\": \"boots\",\n      \"value\": \"199.98\",\n      \"video_title\": \"How to style your Parker Boots\"\n    },\n    \"percentage\": 3,\n    \"pin_id\": [\n      \"34567\"\n    ],\n    \"prefill\": true,\n    \"retention_days\": 30,\n    \"seed_id\": [\n      \"2542620639259\",\n      \"2542620639261\"\n    ],\n    \"url\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"visitor_source_id\": \"549755885175\",\n    \"event_source\": {\n      \"=\": [\n        \"web\",\n        \"mobile\"\n      ]\n    },\n    \"ingestion_source\": {\n      \"=\": [\n        \"tag\"\n      ]\n    },\n    \"engager_type\": 1,\n    \"campaign_id\": [\n      \"626744528398\"\n    ],\n    \"ad_id\": [\n      \"687201361754\"\n    ],\n    \"objective_type\": [\n      \"AWARENESS\"\n    ],\n    \"ad_account_id\": \"549755885175\"\n  },\n  \"description\": \"string\",\n  \"operation_type\": \"UPDATE\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1933,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.pinterest.com/v5",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b6bbf8bb-51d4-4375-84d7-a94f3101cb2f",
+    "name": "Pinterest Audience API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is the description of your API.\n\nContact Support:\n Name: Pinterest, Inc.",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pinterest Suggested API",
+    "version": "5.13.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Suggested",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List suggested terms",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/terms/suggested",
+            "params": [
+              {
+                "name": "term",
+                "value": "sports",
+                "type": "query",
+                "description": "Input term."
+              },
+              {
+                "name": "limit",
+                "value": "4",
+                "type": "query",
+                "description": "Max suggested terms to return."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get popular search terms that begin with your input term. <p/>\nExample: 'sport' would return popular terms like 'sports bar' and 'sportswear', but not 'motor sports' since the phrase does not begin with the given term."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

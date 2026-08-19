@@ -1,0 +1,619 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pinterest User API",
+    "version": "5.13.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get user account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/user_account",
+            "params": [
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier of an ad account."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get account information for the \"operation user_account\"\n- By default, the \"operation user_account\" is the token user_account.\n\nIf using Business Access: Specify an ad_account_id to use the owner of that ad_account as the \"operation user_account\". See <a href='/docs/reference/business-access/'>Understanding Business Access</a> for more information."
+        },
+        {
+          "info": {
+            "name": "Get user account analytics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/user_account/analytics",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Metric report start date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days back from today."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "Metric report end date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days past start_date."
+              },
+              {
+                "name": "from_claimed_content",
+                "value": "",
+                "type": "query",
+                "description": "Filter on Pins that match your claimed domain."
+              },
+              {
+                "name": "pin_format",
+                "value": "",
+                "type": "query",
+                "description": "Pin formats to get data for, default is all."
+              },
+              {
+                "name": "app_types",
+                "value": "",
+                "type": "query",
+                "description": "Apps or devices to get data for, default is all."
+              },
+              {
+                "name": "content_type",
+                "value": "",
+                "type": "query",
+                "description": "Filter to paid or organic data. Default is all."
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Filter to activity from Pins created and saved by your, or activity created and saved by others from your claimed accounts"
+              },
+              {
+                "name": "metric_types",
+                "value": "",
+                "type": "query",
+                "description": "Metric types to get data for, default is all. "
+              },
+              {
+                "name": "split_field",
+                "value": "",
+                "type": "query",
+                "description": "How to split the data into groups. Not including this param means data won't be split."
+              },
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier of an ad account."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get analytics for the \"operation user_account\"\n- By default, the \"operation user_account\" is the token user_account.\n\nOptional: Business Access: Specify an ad_account_id to use the owner of that ad_account as the \"operation user_account\"."
+        },
+        {
+          "info": {
+            "name": "Get user account top pins analytics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/user_account/analytics/top_pins",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Metric report start date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days back from today."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "Metric report end date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days past start_date."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Specify sorting order for metrics"
+              },
+              {
+                "name": "from_claimed_content",
+                "value": "",
+                "type": "query",
+                "description": "Filter on Pins that match your claimed domain."
+              },
+              {
+                "name": "pin_format",
+                "value": "",
+                "type": "query",
+                "description": "Pin formats to get data for, default is all."
+              },
+              {
+                "name": "app_types",
+                "value": "",
+                "type": "query",
+                "description": "Apps or devices to get data for, default is all."
+              },
+              {
+                "name": "content_type",
+                "value": "",
+                "type": "query",
+                "description": "Filter to paid or organic data. Default is all."
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Filter to activity from Pins created and saved by your, or activity created and saved by others from your claimed accounts"
+              },
+              {
+                "name": "metric_types",
+                "value": "",
+                "type": "query",
+                "description": "Metric types to get data for, default is all. "
+              },
+              {
+                "name": "num_of_pins",
+                "value": "25",
+                "type": "query",
+                "description": "Number of pins to include, default is 10. Max is 50."
+              },
+              {
+                "name": "created_in_last_n_days",
+                "value": "30",
+                "type": "query",
+                "description": "Get metrics for pins created in the last \"n\" days."
+              },
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier of an ad account."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Gets analytics data about a user's top pins (limited to the top 50).\n- By default, the \"operation user_account\" is the token user_account.\n\nOptional: Business Access: Specify an ad_account_id to use the owner of that ad_account as the \"operation user_account\"."
+        },
+        {
+          "info": {
+            "name": "Get user account top video pins analytics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/user_account/analytics/top_video_pins",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Metric report start date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days back from today."
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "Metric report end date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days past start_date."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Specify sorting order for video metrics"
+              },
+              {
+                "name": "from_claimed_content",
+                "value": "",
+                "type": "query",
+                "description": "Filter on Pins that match your claimed domain."
+              },
+              {
+                "name": "pin_format",
+                "value": "",
+                "type": "query",
+                "description": "Pin formats to get data for, default is all."
+              },
+              {
+                "name": "app_types",
+                "value": "",
+                "type": "query",
+                "description": "Apps or devices to get data for, default is all."
+              },
+              {
+                "name": "content_type",
+                "value": "",
+                "type": "query",
+                "description": "Filter to paid or organic data. Default is all."
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query",
+                "description": "Filter to activity from Pins created and saved by your, or activity created and saved by others from your claimed accounts"
+              },
+              {
+                "name": "metric_types",
+                "value": "",
+                "type": "query",
+                "description": "Metric types to get video data for, default is all. "
+              },
+              {
+                "name": "num_of_pins",
+                "value": "25",
+                "type": "query",
+                "description": "Number of pins to include, default is 10. Max is 50."
+              },
+              {
+                "name": "created_in_last_n_days",
+                "value": "30",
+                "type": "query",
+                "description": "Get metrics for pins created in the last \"n\" days."
+              },
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier of an ad account."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Gets analytics data about a user's top video pins (limited to the top 50).\n- By default, the \"operation user_account\" is the token user_account.\n\nOptional: Business Access: Specify an ad_account_id to use the owner of that ad_account as the \"operation user_account\"."
+        },
+        {
+          "info": {
+            "name": "List linked businesses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/user_account/businesses",
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get a list of your linked business accounts."
+        },
+        {
+          "info": {
+            "name": "List followers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/user_account/followers",
+            "params": [
+              {
+                "name": "bookmark",
+                "value": "",
+                "type": "query",
+                "description": "Cursor used to fetch the next page of items"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get a list of your followers."
+        },
+        {
+          "info": {
+            "name": "List following",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/user_account/following",
+            "params": [
+              {
+                "name": "bookmark",
+                "value": "",
+                "type": "query",
+                "description": "Cursor used to fetch the next page of items"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+              },
+              {
+                "name": "feed_type",
+                "value": "",
+                "type": "query",
+                "description": "Thrift param specifying what type of followees will be kept. Default to include all followees."
+              },
+              {
+                "name": "explicit_following",
+                "value": "",
+                "type": "query",
+                "description": "Whether or not to include implicit user follows, which means followees with board follows. When explicit_following is True, it means we only want explicit user follows."
+              },
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier of an ad account."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get a list of who a certain user follows."
+        },
+        {
+          "info": {
+            "name": "List following boards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/user_account/following/boards",
+            "params": [
+              {
+                "name": "bookmark",
+                "value": "",
+                "type": "query",
+                "description": "Cursor used to fetch the next page of items"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+              },
+              {
+                "name": "explicit_following",
+                "value": "",
+                "type": "query",
+                "description": "Whether or not to include implicit user follows, which means followees with board follows. When explicit_following is True, it means we only want explicit user follows."
+              },
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier of an ad account."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get a list of the boards a user follows. The request returns a board summary object array."
+        },
+        {
+          "info": {
+            "name": "Follow user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pinterest.com/v5/user_account/following/:username",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "A valid username"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "<strong>This endpoint is currently in beta and not available to all apps. <a href='/docs/new/about-beta-access/'>Learn more</a>.</strong>\n\nUse this request, as a signed-in user, to follow another user."
+        },
+        {
+          "info": {
+            "name": "Get user websites",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/user_account/websites",
+            "params": [
+              {
+                "name": "bookmark",
+                "value": "",
+                "type": "query",
+                "description": "Cursor used to fetch the next page of items"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get user websites, claimed or not"
+        },
+        {
+          "info": {
+            "name": "Verify website",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pinterest.com/v5/user_account/websites",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Verify a website as a signed-in user."
+        },
+        {
+          "info": {
+            "name": "Unverify website",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.pinterest.com/v5/user_account/websites",
+            "params": [
+              {
+                "name": "website",
+                "value": "",
+                "type": "query",
+                "description": "Website with path or domain only"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Unverifu a website verified by the signed-in user."
+        },
+        {
+          "info": {
+            "name": "Get user verification code for website claiming",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/user_account/websites/verification",
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get verification code for user to install on the website to claim it."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

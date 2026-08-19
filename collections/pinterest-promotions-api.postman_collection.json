@@ -1,0 +1,899 @@
+{
+  "item": [
+    {
+      "id": "bc8a8a41-0bf5-4c6d-bae5-d0c1bd344e11",
+      "name": "Promotions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "68f7437b-c534-4f40-8271-f960793f3764",
+          "name": "Create product group promotions",
+          "request": {
+            "name": "Create product group promotions",
+            "description": {
+              "content": "Add one or more product groups from your catalog to an existing ad group. (Product groups added to an ad group are a 'product group promotion.')",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "product_group_promotions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ad_group_id\": \"<string>\",\n  \"product_group_promotion\": [\n    \"<object>\",\n    \"<object>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "faeaa90b-11b4-4ead-994f-b8e083c2a502",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "product_group_promotions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"product_group_promotion\": [\n    {\n      \"slideshow_collections_description\": \"Description\",\n      \"collections_hero_pin_id\": \"123123\",\n      \"catalog_product_group_name\": \"catalogProductGroupName\",\n      \"collections_hero_destination_url\": \"http://www.pinterest.com\",\n      \"tracking_url\": \"https://www.pinterest.com\",\n      \"slideshow_collections_title\": \"Title\",\n      \"is_mdl\": true,\n      \"status\": \"ACTIVE\",\n      \"creative_type\": \"REGULAR\"\n    },\n    {\n      \"slideshow_collections_description\": \"Description\",\n      \"collections_hero_pin_id\": \"123123\",\n      \"catalog_product_group_name\": \"catalogProductGroupName\",\n      \"collections_hero_destination_url\": \"http://www.pinterest.com\",\n      \"tracking_url\": \"https://www.pinterest.com\",\n      \"slideshow_collections_title\": \"Title\",\n      \"is_mdl\": true,\n      \"status\": \"ACTIVE\",\n      \"creative_type\": \"REGULAR\"\n    }\n  ],\n  \"ad_group_id\": \"2680059592705\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"data\": {\n        \"id\": \"2680059592705\",\n        \"ad_group_id\": \"2680059592705\",\n        \"bid_in_micro_currency\": 14000000,\n        \"included\": true,\n        \"definition\": \"*/product_type_0='kitchen'/product_type_1='beverage appliances'\",\n        \"relative_definition\": \"product_type_1='beverage appliances'\",\n        \"parent_id\": \"1231234\",\n        \"slideshow_collections_title\": \"slideshow title\",\n        \"slideshow_collections_description\": \"slideshow description\",\n        \"is_mdl\": true,\n        \"status\": \"ACTIVE\",\n        \"tracking_url\": \"https://www.pinterest.com\",\n        \"catalog_product_group_id\": \"1231235\",\n        \"catalog_product_group_name\": \"catalogProductGroupName\",\n        \"collections_hero_pin_id\": \"123123\",\n        \"collections_hero_destination_url\": \"http://www.pinterest.com\",\n        \"grid_click_type\": \"CLOSEUP\",\n        \"creative_type\": \"REGULAR\"\n      },\n      \"exceptions\": {}\n    },\n    {\n      \"data\": {\n        \"id\": \"2680059592705\",\n        \"ad_group_id\": \"2680059592705\",\n        \"bid_in_micro_currency\": 14000000,\n        \"included\": true,\n        \"definition\": \"*/product_type_0='kitchen'/product_type_1='beverage appliances'\",\n        \"relative_definition\": \"product_type_1='beverage appliances'\",\n        \"parent_id\": \"1231234\",\n        \"slideshow_collections_title\": \"slideshow title\",\n        \"slideshow_collections_description\": \"slideshow description\",\n        \"is_mdl\": true,\n        \"status\": \"ACTIVE\",\n        \"tracking_url\": \"https://www.pinterest.com\",\n        \"catalog_product_group_id\": \"1231235\",\n        \"catalog_product_group_name\": \"catalogProductGroupName\",\n        \"collections_hero_pin_id\": \"123123\",\n        \"collections_hero_destination_url\": \"http://www.pinterest.com\",\n        \"grid_click_type\": \"CLOSEUP\",\n        \"creative_type\": \"REGULAR\"\n      },\n      \"exceptions\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "40fcb2d3-a620-4c32-ac08-cf1ddb9fa3db",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "product_group_promotions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"product_group_promotion\": [\n    {\n      \"slideshow_collections_description\": \"Description\",\n      \"collections_hero_pin_id\": \"123123\",\n      \"catalog_product_group_name\": \"catalogProductGroupName\",\n      \"collections_hero_destination_url\": \"http://www.pinterest.com\",\n      \"tracking_url\": \"https://www.pinterest.com\",\n      \"slideshow_collections_title\": \"Title\",\n      \"is_mdl\": true,\n      \"status\": \"ACTIVE\",\n      \"creative_type\": \"REGULAR\"\n    },\n    {\n      \"slideshow_collections_description\": \"Description\",\n      \"collections_hero_pin_id\": \"123123\",\n      \"catalog_product_group_name\": \"catalogProductGroupName\",\n      \"collections_hero_destination_url\": \"http://www.pinterest.com\",\n      \"tracking_url\": \"https://www.pinterest.com\",\n      \"slideshow_collections_title\": \"Title\",\n      \"is_mdl\": true,\n      \"status\": \"ACTIVE\",\n      \"creative_type\": \"REGULAR\"\n    }\n  ],\n  \"ad_group_id\": \"2680059592705\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 6222,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "27943098-e7f4-40f4-9c49-3a8b86dca677",
+          "name": "Update product group promotions",
+          "request": {
+            "name": "Update product group promotions",
+            "description": {
+              "content": "Update multiple existing Product Group Promotions (by product_group_id)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "product_group_promotions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ad_group_id\": \"<string>\",\n  \"product_group_promotion\": [\n    {\n      \"id\": \"<string>\",\n      \"ad_group_id\": \"<string>\",\n      \"bid_in_micro_currency\": \"<integer>\",\n      \"included\": \"<boolean>\",\n      \"definition\": \"<string>\",\n      \"relative_definition\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"slideshow_collections_title\": \"<string>\",\n      \"slideshow_collections_description\": \"<string>\",\n      \"is_mdl\": \"<boolean>\",\n      \"status\": \"<string>\",\n      \"tracking_url\": \"<string>\",\n      \"catalog_product_group_id\": \"<string>\",\n      \"catalog_product_group_name\": \"<string>\",\n      \"collections_hero_pin_id\": \"<string>\",\n      \"collections_hero_destination_url\": \"<string>\",\n      \"grid_click_type\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"ad_group_id\": \"<string>\",\n      \"bid_in_micro_currency\": \"<integer>\",\n      \"included\": \"<boolean>\",\n      \"definition\": \"<string>\",\n      \"relative_definition\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"slideshow_collections_title\": \"<string>\",\n      \"slideshow_collections_description\": \"<string>\",\n      \"is_mdl\": \"<boolean>\",\n      \"status\": \"<string>\",\n      \"tracking_url\": \"<string>\",\n      \"catalog_product_group_id\": \"<string>\",\n      \"catalog_product_group_name\": \"<string>\",\n      \"collections_hero_pin_id\": \"<string>\",\n      \"collections_hero_destination_url\": \"<string>\",\n      \"grid_click_type\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "22b31d68-79e5-4669-a0ef-416b4a9e1753",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "product_group_promotions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"product_group_promotion\": [\n    {\n      \"catalog_product_group_id\": \"1234123\",\n      \"slideshow_collections_description\": \"Description\",\n      \"collections_hero_pin_id\": \"123123\",\n      \"catalog_product_group_name\": \"ProductGroupName\",\n      \"collections_hero_destination_url\": \"http://www.pinterest.com\",\n      \"tracking_url\": \"https://www.pinterest.com\",\n      \"slideshow_collections_title\": \"Title\",\n      \"status\": \"ACTIVE\"\n    },\n    {\n      \"catalog_product_group_id\": \"1231231\",\n      \"slideshow_collections_description\": \"Other description\",\n      \"collections_hero_pin_id\": \"123124\",\n      \"catalog_product_group_name\": \"ProductGroupName\",\n      \"collections_hero_destination_url\": \"http://www.pinterest.com\",\n      \"tracking_url\": \"https://www.pinterest.com\",\n      \"slideshow_collections_title\": \"Title\",\n      \"status\": \"ACTIVE\"\n    }\n  ],\n  \"ad_group_id\": \"26823439592705\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"data\": {\n        \"id\": \"2680059592705\",\n        \"ad_group_id\": \"2680059592705\",\n        \"bid_in_micro_currency\": 14000000,\n        \"included\": true,\n        \"definition\": \"*/product_type_0='kitchen'/product_type_1='beverage appliances'\",\n        \"relative_definition\": \"product_type_1='beverage appliances'\",\n        \"parent_id\": \"1231234\",\n        \"slideshow_collections_title\": \"slideshow title\",\n        \"slideshow_collections_description\": \"slideshow description\",\n        \"is_mdl\": true,\n        \"status\": \"ACTIVE\",\n        \"tracking_url\": \"https://www.pinterest.com\",\n        \"catalog_product_group_id\": \"1231235\",\n        \"catalog_product_group_name\": \"catalogProductGroupName\",\n        \"collections_hero_pin_id\": \"123123\",\n        \"collections_hero_destination_url\": \"http://www.pinterest.com\",\n        \"grid_click_type\": \"CLOSEUP\",\n        \"creative_type\": \"REGULAR\"\n      },\n      \"exceptions\": {}\n    },\n    {\n      \"data\": {\n        \"id\": \"2680059592705\",\n        \"ad_group_id\": \"2680059592705\",\n        \"bid_in_micro_currency\": 14000000,\n        \"included\": true,\n        \"definition\": \"*/product_type_0='kitchen'/product_type_1='beverage appliances'\",\n        \"relative_definition\": \"product_type_1='beverage appliances'\",\n        \"parent_id\": \"1231234\",\n        \"slideshow_collections_title\": \"slideshow title\",\n        \"slideshow_collections_description\": \"slideshow description\",\n        \"is_mdl\": true,\n        \"status\": \"ACTIVE\",\n        \"tracking_url\": \"https://www.pinterest.com\",\n        \"catalog_product_group_id\": \"1231235\",\n        \"catalog_product_group_name\": \"catalogProductGroupName\",\n        \"collections_hero_pin_id\": \"123123\",\n        \"collections_hero_destination_url\": \"http://www.pinterest.com\",\n        \"grid_click_type\": \"CLOSEUP\",\n        \"creative_type\": \"REGULAR\"\n      },\n      \"exceptions\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d6156dc3-a62a-4b19-89fd-7bc7352b40a6",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "product_group_promotions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"product_group_promotion\": [\n    {\n      \"catalog_product_group_id\": \"1234123\",\n      \"slideshow_collections_description\": \"Description\",\n      \"collections_hero_pin_id\": \"123123\",\n      \"catalog_product_group_name\": \"ProductGroupName\",\n      \"collections_hero_destination_url\": \"http://www.pinterest.com\",\n      \"tracking_url\": \"https://www.pinterest.com\",\n      \"slideshow_collections_title\": \"Title\",\n      \"status\": \"ACTIVE\"\n    },\n    {\n      \"catalog_product_group_id\": \"1231231\",\n      \"slideshow_collections_description\": \"Other description\",\n      \"collections_hero_pin_id\": \"123124\",\n      \"catalog_product_group_name\": \"ProductGroupName\",\n      \"collections_hero_destination_url\": \"http://www.pinterest.com\",\n      \"tracking_url\": \"https://www.pinterest.com\",\n      \"slideshow_collections_title\": \"Title\",\n      \"status\": \"ACTIVE\"\n    }\n  ],\n  \"ad_group_id\": \"26823439592705\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 6222,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a7f33d62-fb4d-4c57-94e6-7350fbd29421",
+          "name": "Get product group promotions",
+          "request": {
+            "name": "Get product group promotions",
+            "description": {
+              "content": "List existing product group promotions associated with an ad account.\n\nInclude either ad_group_id or product_group_promotion_ids in your request.\n\n<b>Note:</b> ad_group_ids and product_group_promotion_ids are mutually exclusive parameters.\nOnly provide one. If multiple options are provided, product_group_promotion_ids takes precedence over ad_group_ids. If none are provided, the endpoint returns an error.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "product_group_promotions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "product_group_promotion_ids",
+                  "value": "<string>",
+                  "description": "List of Product group promotion Ids."
+                },
+                {
+                  "disabled": false,
+                  "key": "entity_statuses",
+                  "value": "ACTIVE",
+                  "description": "Entity status"
+                },
+                {
+                  "disabled": false,
+                  "key": "entity_statuses",
+                  "value": "PAUSED",
+                  "description": "Entity status"
+                },
+                {
+                  "disabled": false,
+                  "key": "ad_group_id",
+                  "value": "<string>",
+                  "description": "Ad group Id."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "25",
+                  "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>",
+                  "description": "The order in which to sort the items returned: ASCENDING or DESCENDING\nby ID. Note that higher-value IDs are associated with more-recently added\nitems."
+                },
+                {
+                  "disabled": false,
+                  "key": "bookmark",
+                  "value": "<string>",
+                  "description": "Cursor used to fetch the next page of items"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a6f8bd8b-0684-426e-8d84-6c631dcb32ce",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "product_group_promotions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "product_group_promotion_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "entity_statuses",
+                      "value": "ACTIVE"
+                    },
+                    {
+                      "key": "entity_statuses",
+                      "value": "PAUSED"
+                    },
+                    {
+                      "key": "ad_group_id",
+                      "value": "123123123"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "order",
+                      "value": "ASCENDING"
+                    },
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"data\": {\n        \"id\": \"2680059592705\",\n        \"ad_group_id\": \"2680059592705\",\n        \"bid_in_micro_currency\": 14000000,\n        \"included\": true,\n        \"definition\": \"*/product_type_0='kitchen'/product_type_1='beverage appliances'\",\n        \"relative_definition\": \"product_type_1='beverage appliances'\",\n        \"parent_id\": \"1231234\",\n        \"slideshow_collections_title\": \"slideshow title\",\n        \"slideshow_collections_description\": \"slideshow description\",\n        \"is_mdl\": true,\n        \"status\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"tracking_url\": \"https://www.pinterest.com\",\n        \"catalog_product_group_id\": \"1231235\",\n        \"catalog_product_group_name\": \"catalogProductGroupName\",\n        \"collections_hero_pin_id\": \"123123\",\n        \"collections_hero_destination_url\": \"http://www.pinterest.com\",\n        \"grid_click_type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"creative_type\": \"REGULAR\"\n      },\n      \"exceptions\": {}\n    },\n    {\n      \"data\": {\n        \"id\": \"2680059592705\",\n        \"ad_group_id\": \"2680059592705\",\n        \"bid_in_micro_currency\": 14000000,\n        \"included\": true,\n        \"definition\": \"*/product_type_0='kitchen'/product_type_1='beverage appliances'\",\n        \"relative_definition\": \"product_type_1='beverage appliances'\",\n        \"parent_id\": \"1231234\",\n        \"slideshow_collections_title\": \"slideshow title\",\n        \"slideshow_collections_description\": \"slideshow description\",\n        \"is_mdl\": true,\n        \"status\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"tracking_url\": \"https://www.pinterest.com\",\n        \"catalog_product_group_id\": \"1231235\",\n        \"catalog_product_group_name\": \"catalogProductGroupName\",\n        \"collections_hero_pin_id\": \"123123\",\n        \"collections_hero_destination_url\": \"http://www.pinterest.com\",\n        \"grid_click_type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"creative_type\": \"REGULAR\"\n      },\n      \"exceptions\": {}\n    }\n  ],\n  \"bookmark\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c234ce50-8ff9-4a2b-889e-3a0e5053f28a",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "product_group_promotions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "product_group_promotion_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "entity_statuses",
+                      "value": "ACTIVE"
+                    },
+                    {
+                      "key": "entity_statuses",
+                      "value": "PAUSED"
+                    },
+                    {
+                      "key": "ad_group_id",
+                      "value": "123123123"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "order",
+                      "value": "ASCENDING"
+                    },
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 6222,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "89769c4b-0df1-4bd8-ae46-cb53f3d8f591",
+          "name": "Get a product group promotion by id",
+          "request": {
+            "name": "Get a product group promotion by id",
+            "description": {
+              "content": "Get a product group promotion by id",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "product_group_promotions",
+                ":product_group_promotion_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "product_group_promotion_id",
+                  "description": "(Required) Unique identifier of a product group promotion"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cbbc0ff9-1f1c-4a78-b5c1-264f0355d30e",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "product_group_promotions",
+                    ":product_group_promotion_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product_group_promotion_id",
+                      "description": "(Required) Unique identifier of a product group promotion"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"data\": {\n        \"id\": \"2680059592705\",\n        \"ad_group_id\": \"2680059592705\",\n        \"bid_in_micro_currency\": 14000000,\n        \"included\": true,\n        \"definition\": \"*/product_type_0='kitchen'/product_type_1='beverage appliances'\",\n        \"relative_definition\": \"product_type_1='beverage appliances'\",\n        \"parent_id\": \"1231234\",\n        \"slideshow_collections_title\": \"slideshow title\",\n        \"slideshow_collections_description\": \"slideshow description\",\n        \"is_mdl\": true,\n        \"status\": \"ACTIVE\",\n        \"tracking_url\": \"https://www.pinterest.com\",\n        \"catalog_product_group_id\": \"1231235\",\n        \"catalog_product_group_name\": \"catalogProductGroupName\",\n        \"collections_hero_pin_id\": \"123123\",\n        \"collections_hero_destination_url\": \"http://www.pinterest.com\",\n        \"grid_click_type\": \"CLOSEUP\",\n        \"creative_type\": \"REGULAR\"\n      },\n      \"exceptions\": {}\n    },\n    {\n      \"data\": {\n        \"id\": \"2680059592705\",\n        \"ad_group_id\": \"2680059592705\",\n        \"bid_in_micro_currency\": 14000000,\n        \"included\": true,\n        \"definition\": \"*/product_type_0='kitchen'/product_type_1='beverage appliances'\",\n        \"relative_definition\": \"product_type_1='beverage appliances'\",\n        \"parent_id\": \"1231234\",\n        \"slideshow_collections_title\": \"slideshow title\",\n        \"slideshow_collections_description\": \"slideshow description\",\n        \"is_mdl\": true,\n        \"status\": \"ACTIVE\",\n        \"tracking_url\": \"https://www.pinterest.com\",\n        \"catalog_product_group_id\": \"1231235\",\n        \"catalog_product_group_name\": \"catalogProductGroupName\",\n        \"collections_hero_pin_id\": \"123123\",\n        \"collections_hero_destination_url\": \"http://www.pinterest.com\",\n        \"grid_click_type\": \"CLOSEUP\",\n        \"creative_type\": \"REGULAR\"\n      },\n      \"exceptions\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "118db285-a4af-40d2-a91d-703e6c8a877a",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "product_group_promotions",
+                    ":product_group_promotion_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product_group_promotion_id",
+                      "description": "(Required) Unique identifier of a product group promotion"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 6222,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.pinterest.com/v5",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ad67974c-16f5-4ed8-9111-a98a83538352",
+    "name": "Pinterest Promotions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is the description of your API.\n\nContact Support:\n Name: Pinterest, Inc.",
+      "type": "text/plain"
+    }
+  }
+}

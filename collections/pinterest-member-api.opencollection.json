@@ -1,0 +1,77 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pinterest Member API",
+    "version": "5.13.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Member",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get assets assigned to a member",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/businesses/:business_id/members/:member_id/assets",
+            "params": [
+              {
+                "name": "business_id",
+                "value": "729090764583391194",
+                "type": "path",
+                "description": "Unique identifier of the requesting business."
+              },
+              {
+                "name": "member_id",
+                "value": "729090764583391194",
+                "type": "path",
+                "description": "The member id to fetch assets for."
+              },
+              {
+                "name": "asset_type",
+                "value": "",
+                "type": "query",
+                "description": "A resource type to filter the assets by. Only assets of the specified type will be returned."
+              },
+              {
+                "name": "start_index",
+                "value": "0",
+                "type": "query",
+                "description": "An index to start fetching the results from. Only the results starting from this index will be returned."
+              },
+              {
+                "name": "bookmark",
+                "value": "",
+                "type": "query",
+                "description": "Cursor used to fetch the next page of items"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get assets on which you assigned asset permissions to the given member. Can be used to:\n- get all assets, regardless of asset type or\n- get assets of one asset type by using the asset_type query.\nThe return response will include the permissions the member has to that asset and the asset type."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

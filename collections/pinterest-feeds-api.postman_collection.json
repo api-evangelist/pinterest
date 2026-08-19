@@ -1,0 +1,2866 @@
+{
+  "item": [
+    {
+      "id": "36fff856-198e-43c0-84d6-47bf7497e769",
+      "name": "Feeds",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "50e6564f-8005-40f8-b0f4-5256d96e2ae7",
+          "name": "List feeds",
+          "request": {
+            "name": "List feeds",
+            "description": {
+              "content": "Fetch feeds owned by the \"operation user_account\".\n- By default, the \"operation user_account\" is the token user_account.\n\nOptional: Business Access: Specify an <code>ad_account_id</code> (obtained via <a href='/docs/api/v5/#operation/ad_accounts/list'>List ad accounts</a>) to use the owner of that ad_account as the \"operation user_account\". In order to do this, the token user_account must have one of the following <a href=\"https://help.pinterest.com/en/business/article/share-and-manage-access-to-your-ad-accounts\">Business Access</a> roles on the ad_account: Owner, Admin, Catalogs Manager.\n\nFor Retail partners, refer to <a href='https://help.pinterest.com/en/business/article/before-you-get-started-with-catalogs'>Before you get started with Catalogs</a>. For Hotel parterns, refer to <a href='/docs/shopping/catalog/'>Pinterest API for shopping</a>.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catalogs",
+                "feeds"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "bookmark",
+                  "value": "<string>",
+                  "description": "Cursor used to fetch the next page of items"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "25",
+                  "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+                },
+                {
+                  "disabled": false,
+                  "key": "catalog_id",
+                  "value": "<string>",
+                  "description": "Filter entities for a given catalog_id. If not given, all catalogs are considered."
+                },
+                {
+                  "disabled": false,
+                  "key": "ad_account_id",
+                  "value": "<string>",
+                  "description": "Unique identifier of an ad account."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "76852898-58bb-44c3-a561-218da048c54d",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "catalog_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"credentials\": {\n        \"username\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"password\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"default_availability\": \"OUT_OF_STOCK\",\n      \"default_country\": \"US\",\n      \"default_currency\": \"USD\",\n      \"default_locale\": \"en-US\",\n      \"format\": \"XML\",\n      \"location\": \"string\",\n      \"name\": \"string\",\n      \"preferred_processing_schedule\": {\n        \"time\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"timezone\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"status\": \"ACTIVE\",\n      \"catalog_type\": \"HOTEL\",\n      \"created_at\": \"2022-03-14T15:15:22Z\",\n      \"id\": \"string\",\n      \"updated_at\": \"2022-03-14T15:16:34Z\"\n    },\n    {\n      \"credentials\": {\n        \"username\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"password\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"default_availability\": \"PREORDER\",\n      \"default_country\": \"US\",\n      \"default_currency\": \"USD\",\n      \"default_locale\": \"en-US\",\n      \"format\": \"TSV\",\n      \"location\": \"string\",\n      \"name\": \"string\",\n      \"preferred_processing_schedule\": {\n        \"time\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"timezone\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"status\": \"ACTIVE\",\n      \"catalog_type\": \"HOTEL\",\n      \"created_at\": \"2022-03-14T15:15:22Z\",\n      \"id\": \"string\",\n      \"updated_at\": \"2022-03-14T15:16:34Z\"\n    }\n  ],\n  \"bookmark\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e5269982-82e9-4ad5-9d94-d658c47c6bfa",
+              "name": "Invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "catalog_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1,\n  \"message\": \"Parameter 'page_size' was not numeric (was 3e)\\\"\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "08933a62-27b8-4c75-bc27-30313a2404ba",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "catalog_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 29,\n  \"message\": \"You are not permitted to access that resource.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ed3b2ecb-b0e8-406e-a90f-849218b3fbea",
+              "name": "Unexpected error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "catalog_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7072,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2d2c8087-c99f-421b-95c3-d6e09a002afb",
+          "name": "Create feed",
+          "request": {
+            "name": "Create feed",
+            "description": {
+              "content": "Create a new feed owned by the \"operation user_account\".\n- By default, the \"operation user_account\" is the token user_account.\n\nPlease, be aware that \"default_country\"\nand \"default_locale\" are not required in the spec for forward compatibility\nbut for now the API will not accept requests without those fields.\n\nOptional: Business Access: Specify an <code>ad_account_id</code> (obtained via <a href='/docs/api/v5/#operation/ad_accounts/list'>List ad accounts</a>) to use the owner of that ad_account as the \"operation user_account\". In order to do this, the token user_account must have one of the following <a href=\"https://help.pinterest.com/en/business/article/share-and-manage-access-to-your-ad-accounts\">Business Access</a> roles on the ad_account: Owner, Admin, Catalogs Manager.\n\nFor Retail partners, refer to <a href='https://help.pinterest.com/en/business/article/before-you-get-started-with-catalogs'>Before you get started with Catalogs</a>. For Hotel parterns, refer to <a href='/docs/shopping/catalog/'>Pinterest API for shopping</a>.\n\nNote: The catalog type of Creative Assets is only allowed in the <a href='https://api-sandbox.pinterest.com/v5'>Pinterest API Sandbox</a>.\nIf access is required, please contact your partner manager.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catalogs",
+                "feeds"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ad_account_id",
+                  "value": "<string>",
+                  "description": "Unique identifier of an ad account."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"format\": \"<string>\",\n  \"location\": \"<string>\",\n  \"name\": \"<string>\",\n  \"catalog_type\": \"<string>\",\n  \"default_country\": \"<string>\",\n  \"default_locale\": \"<string>\",\n  \"default_currency\": \"<string>\",\n  \"credentials\": {\n    \"username\": \"<string>\",\n    \"password\": \"<password>\"\n  },\n  \"preferred_processing_schedule\": {\n    \"time\": \"<string>\",\n    \"timezone\": \"<string>\"\n  },\n  \"default_availability\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2e81c6f9-33a9-452b-930e-f450ae11cc6a",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"format\": \"<string>\",\n  \"location\": \"<string>\",\n  \"name\": \"<string>\",\n  \"catalog_type\": \"<string>\",\n  \"default_country\": \"US\",\n  \"default_locale\": \"<string>\",\n  \"default_currency\": \"USD\",\n  \"credentials\": {\n    \"username\": \"<string>\",\n    \"password\": \"<password>\"\n  },\n  \"preferred_processing_schedule\": {\n    \"time\": \"02:59\",\n    \"timezone\": \"<string>\"\n  },\n  \"default_availability\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"credentials\": {\n    \"username\": \"<string>\",\n    \"password\": \"<password>\"\n  },\n  \"default_availability\": \"<string>\",\n  \"default_country\": \"US\",\n  \"default_currency\": \"USD\",\n  \"default_locale\": \"en-US\",\n  \"format\": \"<string>\",\n  \"location\": \"string\",\n  \"name\": \"string\",\n  \"preferred_processing_schedule\": {\n    \"time\": \"02:59\",\n    \"timezone\": \"<string>\"\n  },\n  \"status\": \"INACTIVE\",\n  \"catalog_type\": \"<string>\",\n  \"created_at\": \"2022-03-14T15:15:22Z\",\n  \"id\": \"string\",\n  \"updated_at\": \"2022-03-14T15:16:34Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "323cd9ca-cb50-4b36-a057-7f276ed5f2f2",
+              "name": "Invalid feed parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"format\": \"<string>\",\n  \"location\": \"<string>\",\n  \"name\": \"<string>\",\n  \"catalog_type\": \"<string>\",\n  \"default_country\": \"US\",\n  \"default_locale\": \"<string>\",\n  \"default_currency\": \"USD\",\n  \"credentials\": {\n    \"username\": \"<string>\",\n    \"password\": \"<password>\"\n  },\n  \"preferred_processing_schedule\": {\n    \"time\": \"02:59\",\n    \"timezone\": \"<string>\"\n  },\n  \"default_availability\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1,\n  \"message\": \"Invalid request: ...\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a7dc789b-508f-4cf3-864d-c5da2ee3f623",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"format\": \"<string>\",\n  \"location\": \"<string>\",\n  \"name\": \"<string>\",\n  \"catalog_type\": \"<string>\",\n  \"default_country\": \"US\",\n  \"default_locale\": \"<string>\",\n  \"default_currency\": \"USD\",\n  \"credentials\": {\n    \"username\": \"<string>\",\n    \"password\": \"<password>\"\n  },\n  \"preferred_processing_schedule\": {\n    \"time\": \"02:59\",\n    \"timezone\": \"<string>\"\n  },\n  \"default_availability\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 29,\n  \"message\": \"You are not permitted to access that resource.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "24b648e0-6944-4493-a923-7916f6c34cc9",
+              "name": "Business account required.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"format\": \"<string>\",\n  \"location\": \"<string>\",\n  \"name\": \"<string>\",\n  \"catalog_type\": \"<string>\",\n  \"default_country\": \"US\",\n  \"default_locale\": \"<string>\",\n  \"default_currency\": \"USD\",\n  \"credentials\": {\n    \"username\": \"<string>\",\n    \"password\": \"<password>\"\n  },\n  \"preferred_processing_schedule\": {\n    \"time\": \"02:59\",\n    \"timezone\": \"<string>\"\n  },\n  \"default_availability\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 654,\n  \"message\": \"You must have a business account to operate as merchant.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ffef1fa5-bd31-4567-bc88-8f014c43b44d",
+              "name": "User website required.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"format\": \"<string>\",\n  \"location\": \"<string>\",\n  \"name\": \"<string>\",\n  \"catalog_type\": \"<string>\",\n  \"default_country\": \"US\",\n  \"default_locale\": \"<string>\",\n  \"default_currency\": \"USD\",\n  \"credentials\": {\n    \"username\": \"<string>\",\n    \"password\": \"<password>\"\n  },\n  \"preferred_processing_schedule\": {\n    \"time\": \"02:59\",\n    \"timezone\": \"<string>\"\n  },\n  \"default_availability\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4168,\n  \"message\": \"User does not have a website.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "949d941b-4378-4c1d-b38d-64af0c5ea8f1",
+              "name": "Unique feed name is required.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"format\": \"<string>\",\n  \"location\": \"<string>\",\n  \"name\": \"<string>\",\n  \"catalog_type\": \"<string>\",\n  \"default_country\": \"US\",\n  \"default_locale\": \"<string>\",\n  \"default_currency\": \"USD\",\n  \"credentials\": {\n    \"username\": \"<string>\",\n    \"password\": \"<password>\"\n  },\n  \"preferred_processing_schedule\": {\n    \"time\": \"02:59\",\n    \"timezone\": \"<string>\"\n  },\n  \"default_availability\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4170,\n  \"message\": \"The feed name already exists.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "611c7863-bfe0-479d-9499-3dd67e4334de",
+              "name": "Not implemented (absent \"default_country\" or \"default_locale\").",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"format\": \"<string>\",\n  \"location\": \"<string>\",\n  \"name\": \"<string>\",\n  \"catalog_type\": \"<string>\",\n  \"default_country\": \"US\",\n  \"default_locale\": \"<string>\",\n  \"default_currency\": \"USD\",\n  \"credentials\": {\n    \"username\": \"<string>\",\n    \"password\": \"<password>\"\n  },\n  \"preferred_processing_schedule\": {\n    \"time\": \"02:59\",\n    \"timezone\": \"<string>\"\n  },\n  \"default_availability\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Implemented",
+              "code": 501,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4181,\n  \"message\": \"Not implemented at the moment. Please, see documentation\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5dd78207-a2cc-4b1a-807e-48f8a1dd595d",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"format\": \"<string>\",\n  \"location\": \"<string>\",\n  \"name\": \"<string>\",\n  \"catalog_type\": \"<string>\",\n  \"default_country\": \"US\",\n  \"default_locale\": \"<string>\",\n  \"default_currency\": \"USD\",\n  \"credentials\": {\n    \"username\": \"<string>\",\n    \"password\": \"<password>\"\n  },\n  \"preferred_processing_schedule\": {\n    \"time\": \"02:59\",\n    \"timezone\": \"<string>\"\n  },\n  \"default_availability\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7072,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8a588e48-83b0-460c-a336-45e242a01ce8",
+          "name": "Get feed",
+          "request": {
+            "name": "Get feed",
+            "description": {
+              "content": "Get a single feed owned by the \"operation user_account\".\n- By default, the \"operation user_account\" is the token user_account.\n\nOptional: Business Access: Specify an <code>ad_account_id</code> (obtained via <a href='/docs/api/v5/#operation/ad_accounts/list'>List ad accounts</a>) to use the owner of that ad_account as the \"operation user_account\". In order to do this, the token user_account must have one of the following <a href=\"https://help.pinterest.com/en/business/article/share-and-manage-access-to-your-ad-accounts\">Business Access</a> roles on the ad_account: Owner, Admin, Catalogs Manager.\n\nFor Retail partners, refer to <a href='https://help.pinterest.com/en/business/article/before-you-get-started-with-catalogs'>Before you get started with Catalogs</a>. For Hotel parterns, refer to <a href='/docs/shopping/catalog/'>Pinterest API for shopping</a>.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catalogs",
+                "feeds",
+                ":feed_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ad_account_id",
+                  "value": "<string>",
+                  "description": "Unique identifier of an ad account."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "feed_id",
+                  "description": "(Required) Unique identifier of a feed"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f976dcae-ba68-446b-b087-b40613bd5918",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds",
+                    ":feed_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "feed_id",
+                      "description": "(Required) Unique identifier of a feed"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"credentials\": {\n    \"username\": \"<string>\",\n    \"password\": \"<password>\"\n  },\n  \"default_availability\": \"<string>\",\n  \"default_country\": \"US\",\n  \"default_currency\": \"USD\",\n  \"default_locale\": \"en-US\",\n  \"format\": \"<string>\",\n  \"location\": \"string\",\n  \"name\": \"string\",\n  \"preferred_processing_schedule\": {\n    \"time\": \"02:59\",\n    \"timezone\": \"<string>\"\n  },\n  \"status\": \"INACTIVE\",\n  \"catalog_type\": \"<string>\",\n  \"created_at\": \"2022-03-14T15:15:22Z\",\n  \"id\": \"string\",\n  \"updated_at\": \"2022-03-14T15:16:34Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "137d7f18-2fd2-49b1-baff-beda3d76c627",
+              "name": "Invalid feed parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds",
+                    ":feed_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "feed_id",
+                      "description": "(Required) Unique identifier of a feed"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1,\n  \"message\": \"'feed_id' value '1511851494501_' must match the pattern: ^\\\\d+$\\\"}\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "82d3347c-0bb2-460b-8dd4-13102f1c8ae7",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds",
+                    ":feed_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "feed_id",
+                      "description": "(Required) Unique identifier of a feed"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 29,\n  \"message\": \"You are not permitted to access that resource.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f59c33f7-3a75-469e-8fcc-35eb356449ad",
+              "name": "Data feed not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds",
+                    ":feed_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "feed_id",
+                      "description": "(Required) Unique identifier of a feed"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4161,\n  \"message\": \"Sorry! We could not find your catalogs feed.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f4bdebd7-c292-4a74-bc63-3797068e76aa",
+              "name": "Unexpected error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds",
+                    ":feed_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "feed_id",
+                      "description": "(Required) Unique identifier of a feed"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7072,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2ebfd317-c8e4-4d4a-bac6-24dbefb36a76",
+          "name": "Update feed",
+          "request": {
+            "name": "Update feed",
+            "description": {
+              "content": "Update a feed owned by the \"operation user_account\".\n- By default, the \"operation user_account\" is the token user_account.\n\nOptional: Business Access: Specify an <code>ad_account_id</code> (obtained via <a href='/docs/api/v5/#operation/ad_accounts/list'>List ad accounts</a>) to use the owner of that ad_account as the \"operation user_account\". In order to do this, the token user_account must have one of the following <a href=\"https://help.pinterest.com/en/business/article/share-and-manage-access-to-your-ad-accounts\">Business Access</a> roles on the ad_account: Owner, Admin, Catalogs Manager.\n\nFor Retail partners, refer to <a href='https://help.pinterest.com/en/business/article/before-you-get-started-with-catalogs'>Before you get started with Catalogs</a>. For Hotel parterns, refer to <a href='/docs/shopping/catalog/'>Pinterest API for shopping</a>.\n\nNote: The catalog type of Creative Assets is only allowed in the <a href='https://api-sandbox.pinterest.com/v5'>Pinterest API Sandbox</a>.\nIf access is required, please contact your partner manager.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catalogs",
+                "feeds",
+                ":feed_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ad_account_id",
+                  "value": "<string>",
+                  "description": "Unique identifier of an ad account."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "feed_id",
+                  "description": "(Required) Unique identifier of a feed"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"catalog_type\": \"<string>\",\n  \"default_currency\": \"<string>\",\n  \"name\": \"<string>\",\n  \"format\": \"<string>\",\n  \"credentials\": {\n    \"username\": \"<string>\",\n    \"password\": \"<password>\"\n  },\n  \"location\": \"<string>\",\n  \"preferred_processing_schedule\": {\n    \"time\": \"<string>\",\n    \"timezone\": \"<string>\"\n  },\n  \"status\": \"<string>\",\n  \"default_availability\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9f29381c-567f-421f-9479-2af4a4c414b2",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds",
+                    ":feed_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "feed_id",
+                      "description": "(Required) Unique identifier of a feed"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"catalog_type\": \"<string>\",\n  \"default_currency\": \"USD\",\n  \"name\": \"<string>\",\n  \"format\": \"<string>\",\n  \"credentials\": {\n    \"username\": \"<string>\",\n    \"password\": \"<password>\"\n  },\n  \"location\": \"<string>\",\n  \"preferred_processing_schedule\": {\n    \"time\": \"02:59\",\n    \"timezone\": \"<string>\"\n  },\n  \"status\": \"<string>\",\n  \"default_availability\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"credentials\": {\n    \"username\": \"<string>\",\n    \"password\": \"<password>\"\n  },\n  \"default_availability\": \"<string>\",\n  \"default_country\": \"US\",\n  \"default_currency\": \"USD\",\n  \"default_locale\": \"en-US\",\n  \"format\": \"<string>\",\n  \"location\": \"string\",\n  \"name\": \"string\",\n  \"preferred_processing_schedule\": {\n    \"time\": \"02:59\",\n    \"timezone\": \"<string>\"\n  },\n  \"status\": \"<string>\",\n  \"catalog_type\": \"<string>\",\n  \"created_at\": \"2022-03-14T15:15:22Z\",\n  \"id\": \"string\",\n  \"updated_at\": \"2022-03-14T15:16:34Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ecb6c5ee-326a-4bc5-9fe0-7185f96cb2f2",
+              "name": "Invalid feed parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds",
+                    ":feed_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "feed_id",
+                      "description": "(Required) Unique identifier of a feed"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"catalog_type\": \"<string>\",\n  \"default_currency\": \"USD\",\n  \"name\": \"<string>\",\n  \"format\": \"<string>\",\n  \"credentials\": {\n    \"username\": \"<string>\",\n    \"password\": \"<password>\"\n  },\n  \"location\": \"<string>\",\n  \"preferred_processing_schedule\": {\n    \"time\": \"02:59\",\n    \"timezone\": \"<string>\"\n  },\n  \"status\": \"<string>\",\n  \"default_availability\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1,\n  \"message\": \"Invalid request: ...\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "95272ecc-671a-4632-aaea-2a4d0cb5c941",
+              "name": "Forbidden. Account not approved for feed mutations yet.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds",
+                    ":feed_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "feed_id",
+                      "description": "(Required) Unique identifier of a feed"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"catalog_type\": \"<string>\",\n  \"default_currency\": \"USD\",\n  \"name\": \"<string>\",\n  \"format\": \"<string>\",\n  \"credentials\": {\n    \"username\": \"<string>\",\n    \"password\": \"<password>\"\n  },\n  \"location\": \"<string>\",\n  \"preferred_processing_schedule\": {\n    \"time\": \"02:59\",\n    \"timezone\": \"<string>\"\n  },\n  \"status\": \"<string>\",\n  \"default_availability\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 2625,\n  \"message\": \"Sorry, you cannot perform this action. Account is disapproved.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8a027855-744e-411a-9962-6618a6f34a6c",
+              "name": "Data feed not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds",
+                    ":feed_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "feed_id",
+                      "description": "(Required) Unique identifier of a feed"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"catalog_type\": \"<string>\",\n  \"default_currency\": \"USD\",\n  \"name\": \"<string>\",\n  \"format\": \"<string>\",\n  \"credentials\": {\n    \"username\": \"<string>\",\n    \"password\": \"<password>\"\n  },\n  \"location\": \"<string>\",\n  \"preferred_processing_schedule\": {\n    \"time\": \"02:59\",\n    \"timezone\": \"<string>\"\n  },\n  \"status\": \"<string>\",\n  \"default_availability\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4161,\n  \"message\": \"Sorry! We could not find your catalogs feed.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "50a8b6d9-dafd-4d72-9966-3c7eadf124c6",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds",
+                    ":feed_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "feed_id",
+                      "description": "(Required) Unique identifier of a feed"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"catalog_type\": \"<string>\",\n  \"default_currency\": \"USD\",\n  \"name\": \"<string>\",\n  \"format\": \"<string>\",\n  \"credentials\": {\n    \"username\": \"<string>\",\n    \"password\": \"<password>\"\n  },\n  \"location\": \"<string>\",\n  \"preferred_processing_schedule\": {\n    \"time\": \"02:59\",\n    \"timezone\": \"<string>\"\n  },\n  \"status\": \"<string>\",\n  \"default_availability\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7072,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1c561780-d665-4c21-b921-1e3b6d0d8994",
+          "name": "Delete feed",
+          "request": {
+            "name": "Delete feed",
+            "description": {
+              "content": "Delete a feed owned by the \"operating user_account\".\n- By default, the \"operation user_account\" is the token user_account.\n\nOptional: Business Access: Specify an <code>ad_account_id</code> (obtained via <a href='/docs/api/v5/#operation/ad_accounts/list'>List ad accounts</a>) to use the owner of that ad_account as the \"operation user_account\". In order to do this, the token user_account must have one of the following <a href=\"https://help.pinterest.com/en/business/article/share-and-manage-access-to-your-ad-accounts\">Business Access</a> roles on the ad_account: Owner, Admin, Catalogs Manager.\n\nFor Retail partners, refer to <a href='https://help.pinterest.com/en/business/article/before-you-get-started-with-catalogs'>Before you get started with Catalogs</a>. For Hotel parterns, refer to <a href='/docs/shopping/catalog/'>Pinterest API for shopping</a>.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catalogs",
+                "feeds",
+                ":feed_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ad_account_id",
+                  "value": "<string>",
+                  "description": "Unique identifier of an ad account."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "feed_id",
+                  "description": "(Required) Unique identifier of a feed"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fc86437a-e4e5-4b75-ab02-c7439d95b7c4",
+              "name": "Feed deleted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds",
+                    ":feed_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "feed_id",
+                      "description": "(Required) Unique identifier of a feed"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "92977011-e6d2-41d3-bbcc-274fdb211d98",
+              "name": "Invalid feed parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds",
+                    ":feed_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "feed_id",
+                      "description": "(Required) Unique identifier of a feed"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1,\n  \"message\": \"'feed_id' value '1511851494501_' must match the pattern: ^\\\\d+$\\\"}\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "da965b66-bb5c-46db-a037-be9b75b9581e",
+              "name": "Forbidden. Account not approved for feed mutations yet.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds",
+                    ":feed_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "feed_id",
+                      "description": "(Required) Unique identifier of a feed"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 2625,\n  \"message\": \"Sorry, you cannot perform this action. Account is disapproved.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "102f67d4-9856-42da-9279-9263629132b7",
+              "name": "Data feed not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds",
+                    ":feed_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "feed_id",
+                      "description": "(Required) Unique identifier of a feed"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4161,\n  \"message\": \"Sorry! We could not find your catalogs feed.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bc5b77af-ce49-4005-9f83-cde4eb7c603d",
+              "name": "Conflict. Can't delete a feed with active promotions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds",
+                    ":feed_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "feed_id",
+                      "description": "(Required) Unique identifier of a feed"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4162,\n  \"message\": \"We can't disable a Product Group with active promotions.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "041268ea-1ad8-4c29-ba96-a808996aacfe",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds",
+                    ":feed_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "feed_id",
+                      "description": "(Required) Unique identifier of a feed"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7072,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "04548385-5b94-4e2c-8309-179245bf1ff2",
+          "name": "Ingest items for a given feed",
+          "request": {
+            "name": "Ingest items for a given feed",
+            "description": {
+              "content": "Ingest items for a given feed owned by the \"operation user_account\".\n\nOptional: Business Access: Specify an <code>ad_account_id</code> (obtained via <a href='/docs/api/v5/#operation/ad_accounts/list'>List ad accounts</a>) to use the owner of that ad_account as the \"operation user_account\". In order to do this, the token user_account must have one of the following <a href=\"https://help.pinterest.com/en/business/article/share-and-manage-access-to-your-ad-accounts\">Business Access</a> roles on the ad_account: Owner, Admin, Catalogs Manager.\n\n<a href='/docs/shopping/catalog/'>Learn more</a>\n\nNote: This endpoint is only allowed in the Pinterest API Sandbox (https://api-sandbox.pinterest.com/v5).\nGo to https://developers.pinterest.com/docs/dev-tools/sandbox/ for more information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catalogs",
+                "feeds",
+                ":feed_id",
+                "ingest"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ad_account_id",
+                  "value": "<string>",
+                  "description": "Unique identifier of an ad account."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "feed_id",
+                  "description": "(Required) Unique identifier of a feed"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "94764012-32b4-452b-87cc-565d4821fe27",
+              "name": "The ingestion process was successfully started.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds",
+                    ":feed_id",
+                    "ingest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "feed_id",
+                      "description": "(Required) Unique identifier of a feed"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ace2f28a-51c9-4581-be6a-7faf61a2040a",
+              "name": "Invalid feed parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds",
+                    ":feed_id",
+                    "ingest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "feed_id",
+                      "description": "(Required) Unique identifier of a feed"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1,\n  \"message\": \"'feed_id' value '1511851494501_' must match the pattern: ^\\\\d+$\\\"}\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "324664d4-3143-4597-917f-242c171a1e32",
+              "name": "Forbidden. Account not approved for feed mutations yet.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds",
+                    ":feed_id",
+                    "ingest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "feed_id",
+                      "description": "(Required) Unique identifier of a feed"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 2625,\n  \"message\": \"Sorry, you cannot perform this action. Account is disapproved.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fac9a70a-4958-4b54-b261-714f878ae280",
+              "name": "Data feed not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds",
+                    ":feed_id",
+                    "ingest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "feed_id",
+                      "description": "(Required) Unique identifier of a feed"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4161,\n  \"message\": \"Sorry! We could not find your catalogs feed.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "af16d5d8-81c1-4b76-8485-bfee1b4befb0",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds",
+                    ":feed_id",
+                    "ingest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "feed_id",
+                      "description": "(Required) Unique identifier of a feed"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7072,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f6e0d57a-c9a8-4c4a-ad34-2c9942563355",
+          "name": "List processing results for a given feed",
+          "request": {
+            "name": "List processing results for a given feed",
+            "description": {
+              "content": "Fetch a feed processing results owned by the \"operation user_account\". Please note that for now the bookmark parameter is not functional and only the first page will be available until it is implemented in some release in the near future.\n- By default, the \"operation user_account\" is the token user_account.\n\nOptional: Business Access: Specify an <code>ad_account_id</code> (obtained via <a href='/docs/api/v5/#operation/ad_accounts/list'>List ad accounts</a>) to use the owner of that ad_account as the \"operation user_account\". In order to do this, the token user_account must have one of the following <a href=\"https://help.pinterest.com/en/business/article/share-and-manage-access-to-your-ad-accounts\">Business Access</a> roles on the ad_account: Owner, Admin, Catalogs Manager.\n\n<a href='/docs/shopping/catalog/'>Learn more</a>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catalogs",
+                "feeds",
+                ":feed_id",
+                "processing_results"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "bookmark",
+                  "value": "<string>",
+                  "description": "Cursor used to fetch the next page of items"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "25",
+                  "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+                },
+                {
+                  "disabled": false,
+                  "key": "ad_account_id",
+                  "value": "<string>",
+                  "description": "Unique identifier of an ad account."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "feed_id",
+                  "description": "(Required) Unique identifier of a feed"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6057a928-4a33-4728-b725-e7fc10ff4764",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds",
+                    ":feed_id",
+                    "processing_results"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "feed_id",
+                      "description": "(Required) Unique identifier of a feed"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"ingestion_details\": {\n        \"errors\": {\n          \"LINE_LEVEL_INTERNAL_ERROR\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"LARGE_PRODUCT_COUNT_DECREASE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ACCOUNT_FLAGGED\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"IMAGE_LEVEL_INTERNAL_ERROR\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"IMAGE_FILE_NOT_ACCESSIBLE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"IMAGE_MALFORMED_URL\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"IMAGE_FILE_NOT_FOUND\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"IMAGE_INVALID_FILE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"info\": {\n          \"IN_STOCK\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"OUT_OF_STOCK\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"PREORDER\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"warnings\": {\n          \"ADDITIONAL_IMAGE_LEVEL_INTERNAL_ERROR\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ADDITIONAL_IMAGE_FILE_NOT_ACCESSIBLE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ADDITIONAL_IMAGE_MALFORMED_URL\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ADDITIONAL_IMAGE_FILE_NOT_FOUND\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ADDITIONAL_IMAGE_INVALID_FILE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"HOTEL_PRICE_HEADER_IS_PRESENT\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"status\": \"FAILED\",\n      \"product_counts\": {\n        \"original\": 3156,\n        \"ingested\": 2298\n      },\n      \"validation_details\": {\n        \"errors\": {\n          \"FETCH_ERROR\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"FETCH_INACTIVE_FEED_ERROR\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ENCODING_ERROR\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"DELIMITER_ERROR\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"REQUIRED_COLUMNS_MISSING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"DUPLICATE_PRODUCTS\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"IMAGE_LINK_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ITEMID_MISSING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"TITLE_MISSING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"DESCRIPTION_MISSING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"PRODUCT_LINK_MISSING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"IMAGE_LINK_MISSING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"AVAILABILITY_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"PRODUCT_PRICE_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"LINK_FORMAT_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"PARSE_LINE_ERROR\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ADWORDS_FORMAT_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"INTERNAL_SERVICE_ERROR\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"NO_VERIFIED_DOMAIN\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ADULT_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"IMAGE_LINK_LENGTH_TOO_LONG\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"INVALID_DOMAIN\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"FEED_LENGTH_TOO_LONG\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"LINK_LENGTH_TOO_LONG\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"MALFORMED_XML\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"PRICE_MISSING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"FEED_TOO_SMALL\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"MAX_ITEMS_PER_ITEM_GROUP_EXCEEDED\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ITEM_MAIN_IMAGE_DOWNLOAD_FAILURE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"PINJOIN_CONTENT_UNSAFE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"BLOCKLISTED_IMAGE_SIGNATURE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"LIST_PRICE_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"PRICE_CANNOT_BE_DETERMINED\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"warnings\": {\n          \"AD_LINK_FORMAT_WARNING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"AD_LINK_SAME_AS_LINK\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"TITLE_LENGTH_TOO_LONG\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"DESCRIPTION_LENGTH_TOO_LONG\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"GENDER_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"AGE_GROUP_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"SIZE_TYPE_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"SIZE_SYSTEM_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"LINK_FORMAT_WARNING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"SALES_PRICE_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"PRODUCT_CATEGORY_DEPTH_WARNING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ADWORDS_FORMAT_WARNING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ADWORDS_SAME_AS_LINK\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"DUPLICATE_HEADERS\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"FETCH_SAME_SIGNATURE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ADDITIONAL_IMAGE_LINK_LENGTH_TOO_LONG\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ADDITIONAL_IMAGE_LINK_WARNING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"IMAGE_LINK_WARNING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"SHIPPING_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"TAX_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"SHIPPING_WEIGHT_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"EXPIRATION_DATE_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"AVAILABILITY_DATE_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"SALE_DATE_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"WEIGHT_UNIT_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"IS_BUNDLE_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"UPDATED_TIME_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"CUSTOM_LABEL_LENGTH_TOO_LONG\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"PRODUCT_TYPE_LENGTH_TOO_LONG\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"TOO_MANY_ADDITIONAL_IMAGE_LINKS\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"MULTIPACK_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"INDEXED_PRODUCT_COUNT_LARGE_DELTA\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ITEM_ADDITIONAL_IMAGE_DOWNLOAD_FAILURE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"OPTIONAL_PRODUCT_CATEGORY_MISSING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"OPTIONAL_PRODUCT_CATEGORY_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"OPTIONAL_CONDITION_MISSING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"OPTIONAL_CONDITION_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"IOS_DEEP_LINK_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ANDROID_DEEP_LINK_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"UTM_SOURCE_AUTO_CORRECTED\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"COUNTRY_DOES_NOT_MAP_TO_CURRENCY\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"MIN_AD_PRICE_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"GTIN_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"INCONSISTENT_CURRENCY_VALUES\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"SALES_PRICE_TOO_LOW\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"SHIPPING_WIDTH_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"SHIPPING_HEIGHT_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"SALES_PRICE_TOO_HIGH\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"MPN_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"created_at\": \"2022-03-14T15:15:22Z\",\n      \"id\": \"string\",\n      \"updated_at\": \"2022-03-14T15:16:34Z\"\n    },\n    {\n      \"ingestion_details\": {\n        \"errors\": {\n          \"LINE_LEVEL_INTERNAL_ERROR\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"LARGE_PRODUCT_COUNT_DECREASE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ACCOUNT_FLAGGED\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"IMAGE_LEVEL_INTERNAL_ERROR\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"IMAGE_FILE_NOT_ACCESSIBLE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"IMAGE_MALFORMED_URL\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"IMAGE_FILE_NOT_FOUND\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"IMAGE_INVALID_FILE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"info\": {\n          \"IN_STOCK\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"OUT_OF_STOCK\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"PREORDER\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"warnings\": {\n          \"ADDITIONAL_IMAGE_LEVEL_INTERNAL_ERROR\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ADDITIONAL_IMAGE_FILE_NOT_ACCESSIBLE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ADDITIONAL_IMAGE_MALFORMED_URL\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ADDITIONAL_IMAGE_FILE_NOT_FOUND\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ADDITIONAL_IMAGE_INVALID_FILE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"HOTEL_PRICE_HEADER_IS_PRESENT\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"status\": \"QUEUED_FOR_PROCESSING\",\n      \"product_counts\": {\n        \"original\": 9507,\n        \"ingested\": 449\n      },\n      \"validation_details\": {\n        \"errors\": {\n          \"FETCH_ERROR\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"FETCH_INACTIVE_FEED_ERROR\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ENCODING_ERROR\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"DELIMITER_ERROR\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"REQUIRED_COLUMNS_MISSING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"DUPLICATE_PRODUCTS\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"IMAGE_LINK_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ITEMID_MISSING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"TITLE_MISSING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"DESCRIPTION_MISSING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"PRODUCT_LINK_MISSING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"IMAGE_LINK_MISSING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"AVAILABILITY_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"PRODUCT_PRICE_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"LINK_FORMAT_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"PARSE_LINE_ERROR\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ADWORDS_FORMAT_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"INTERNAL_SERVICE_ERROR\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"NO_VERIFIED_DOMAIN\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ADULT_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"IMAGE_LINK_LENGTH_TOO_LONG\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"INVALID_DOMAIN\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"FEED_LENGTH_TOO_LONG\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"LINK_LENGTH_TOO_LONG\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"MALFORMED_XML\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"PRICE_MISSING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"FEED_TOO_SMALL\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"MAX_ITEMS_PER_ITEM_GROUP_EXCEEDED\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ITEM_MAIN_IMAGE_DOWNLOAD_FAILURE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"PINJOIN_CONTENT_UNSAFE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"BLOCKLISTED_IMAGE_SIGNATURE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"LIST_PRICE_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"PRICE_CANNOT_BE_DETERMINED\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"warnings\": {\n          \"AD_LINK_FORMAT_WARNING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"AD_LINK_SAME_AS_LINK\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"TITLE_LENGTH_TOO_LONG\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"DESCRIPTION_LENGTH_TOO_LONG\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"GENDER_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"AGE_GROUP_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"SIZE_TYPE_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"SIZE_SYSTEM_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"LINK_FORMAT_WARNING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"SALES_PRICE_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"PRODUCT_CATEGORY_DEPTH_WARNING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ADWORDS_FORMAT_WARNING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ADWORDS_SAME_AS_LINK\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"DUPLICATE_HEADERS\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"FETCH_SAME_SIGNATURE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ADDITIONAL_IMAGE_LINK_LENGTH_TOO_LONG\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ADDITIONAL_IMAGE_LINK_WARNING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"IMAGE_LINK_WARNING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"SHIPPING_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"TAX_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"SHIPPING_WEIGHT_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"EXPIRATION_DATE_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"AVAILABILITY_DATE_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"SALE_DATE_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"WEIGHT_UNIT_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"IS_BUNDLE_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"UPDATED_TIME_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"CUSTOM_LABEL_LENGTH_TOO_LONG\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"PRODUCT_TYPE_LENGTH_TOO_LONG\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"TOO_MANY_ADDITIONAL_IMAGE_LINKS\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"MULTIPACK_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"INDEXED_PRODUCT_COUNT_LARGE_DELTA\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ITEM_ADDITIONAL_IMAGE_DOWNLOAD_FAILURE\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"OPTIONAL_PRODUCT_CATEGORY_MISSING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"OPTIONAL_PRODUCT_CATEGORY_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"OPTIONAL_CONDITION_MISSING\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"OPTIONAL_CONDITION_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"IOS_DEEP_LINK_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"ANDROID_DEEP_LINK_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"UTM_SOURCE_AUTO_CORRECTED\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"COUNTRY_DOES_NOT_MAP_TO_CURRENCY\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"MIN_AD_PRICE_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"GTIN_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"INCONSISTENT_CURRENCY_VALUES\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"SALES_PRICE_TOO_LOW\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"SHIPPING_WIDTH_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"SHIPPING_HEIGHT_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"SALES_PRICE_TOO_HIGH\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"MPN_INVALID\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"created_at\": \"2022-03-14T15:15:22Z\",\n      \"id\": \"string\",\n      \"updated_at\": \"2022-03-14T15:16:34Z\"\n    }\n  ],\n  \"bookmark\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "58d8cc72-7df7-45f1-bde7-8ec821c76973",
+              "name": "Invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds",
+                    ":feed_id",
+                    "processing_results"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "feed_id",
+                      "description": "(Required) Unique identifier of a feed"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1,\n  \"message\": \"Parameter 'page_size' was not numeric (was 3e)\\\"\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "642b983b-9995-4c46-98a7-f9f25e49893a",
+              "name": "Unauthorized access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds",
+                    ":feed_id",
+                    "processing_results"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "feed_id",
+                      "description": "(Required) Unique identifier of a feed"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 29,\n  \"message\": \"You are not permitted to access that resource.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5e1bc0f8-275a-4ef4-85e8-dc2f03064484",
+              "name": "Feed not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds",
+                    ":feed_id",
+                    "processing_results"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "feed_id",
+                      "description": "(Required) Unique identifier of a feed"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4161,\n  \"message\": \"Sorry! We could not find your catalogs feed.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77d66dee-7604-4ee5-aee0-7db26e6316e1",
+              "name": "Unexpected error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    "feeds",
+                    ":feed_id",
+                    "processing_results"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "ad_account_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "feed_id",
+                      "description": "(Required) Unique identifier of a feed"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 7072,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.pinterest.com/v5",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "31df6eef-ea0f-4643-86d5-37a19132c132",
+    "name": "Pinterest Feeds API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is the description of your API.\n\nContact Support:\n Name: Pinterest, Inc.",
+      "type": "text/plain"
+    }
+  }
+}

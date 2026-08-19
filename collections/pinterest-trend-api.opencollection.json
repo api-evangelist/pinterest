@@ -1,0 +1,89 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pinterest Trend API",
+    "version": "5.13.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Trend",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List trending keywords",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pinterest.com/v5/trends/keywords/:region/top/:trend_type",
+            "params": [
+              {
+                "name": "region",
+                "value": "",
+                "type": "path",
+                "description": "The geographic region of interest. Only top trends within the specified region will be returned.<br />\nThe `region` parameter is formatted as ISO 3166-2 country codes delimited by `+`, corresponding to the following geographic areas:\n- `US` - United States\n- `CA` - Canada\n- `DE` - Germany\n- `FR` - France\n- `ES` - Spain\n- `IT` - Italy\n- `DE+AT+CH` - Germanic countries\n- `GB+IE` - Great Britain & Ireland\n- `IT+ES+PT+GR+MT` - Southern Europe\n- `PL+RO+HU+SK+CZ` - Eastern Europe\n- `SE+DK+FI+NO` - Nordic countries\n- `NL+BE+LU` - Benelux\n- `AR` - Argentina\n- `BR` - Brazil\n- `CO` - Colombia\n- `MX` - Mexico\n- `MX+AR+CO+CL` - Hispanic LatAm\n- `AU+NZ` - Australasia"
+              },
+              {
+                "name": "trend_type",
+                "value": "",
+                "type": "path",
+                "description": "The methodology used to rank how trendy a keyword is.\n- `growing` trends have high upward growth in search volume over the last quarter\n- `monthly` trends have high search volume in the last month\n- `yearly` trends have high search volume in the last year\n- `seasonal` trends have high upward growth in search volume over the last month and exhibit a seasonal recurring pattern (typically annual)"
+              },
+              {
+                "name": "interests",
+                "value": "beauty,womens_fashion",
+                "type": "query",
+                "description": "If set, filters the results to trends associated with the specified interests.<br />\nIf unset, trends for all interests will be returned.<br />\nThe list of supported interests is:\n- `animals` - Animals\n- `architecture` - Architecture\n- `art` - Art\n- `beauty` - Beauty\n- `childrens_fashion` - Children's Fashion\n- `design` - Design\n- `diy_and_crafts` - DIY & Crafts\n- `education` - Education\n- `electronics` - Electronics\n- `entertainment` - Entertainment\n- `event_planning` - Event Planning\n- `finance` - Finance\n- `food_and_drinks` - Food & Drink\n- `gardening` - Gardening\n- `health` - Health\n- `home_decor` - Home Decor\n- `mens_fashion` - Men's Fashion\n- `parenting` - Parenting\n- `quotes` - Quotes\n- `sport` - Sports\n- `travel` - Travel\n- `vehicles` - Vehicles\n- `wedding` - Wedding\n- `womens_fashion` - Women's Fashion"
+              },
+              {
+                "name": "genders",
+                "value": "female,unknown",
+                "type": "query",
+                "description": "If set, filters the results to trends among users who identify with the specified gender(s).<br />\nIf unset, trends among all genders will be returned.<br />\nThe `unknown` group includes users with unspecified or customized gender profile settings."
+              },
+              {
+                "name": "ages",
+                "value": "35-44,50-54",
+                "type": "query",
+                "description": "If set, filters the results to trends among users in the specified age range(s).<br />\nIf unset, trends among all age groups will be returned."
+              },
+              {
+                "name": "include_keywords",
+                "value": "recipes,dessert",
+                "type": "query",
+                "description": "If set, filters the results to top trends which include at least one of the specified keywords.<br />\nIf unset, no keyword filtering logic is applied."
+              },
+              {
+                "name": "normalize_against_group",
+                "value": "",
+                "type": "query",
+                "description": "Governs how the resulting time series data will be normalized to a [0-100] scale.<br />\nBy default (`false`), the data will be normalized independently for each keyword.  The peak search volume observation in *each* keyword's time series will be represented by the value 100.  This is ideal for analyzing when an individual keyword is expected to peak in interest.<br />\nIf set to `true`, the data will be normalized as a group.  The peak search volume observation across *all* keywords in the response will be represented by the value 100, and all other values scaled accordingly.  Use this option when you wish to compare relative search volume between multiple keywords."
+              },
+              {
+                "name": "limit",
+                "value": "25",
+                "type": "query",
+                "description": "The maximum number of trending keywords that will be returned. Keywords are returned in trend-ranked order, so a `limit` of 50 will return the top 50 trends."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "<p>Get the top trending search keywords among the Pinterest user audience.</p>\n<p>Trending keywords can be used to inform ad targeting, budget strategy, and creative decisions about which products and Pins will resonate with your audience.</p>\n<p>Geographic, demographic and interest-based filters are available to narrow down to the top trends among a specific audience. Multiple trend types are supported that can be used to identify newly-popular, evergreen or seasonal keywords.</p>\n<p>For an int"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

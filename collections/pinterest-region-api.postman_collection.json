@@ -1,0 +1,470 @@
+{
+  "item": [
+    {
+      "id": "ac2fc46f-ce0f-459d-8ba8-a118dcdac3eb",
+      "name": "Region",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f98fc3fd-2727-43cb-8c47-d7be236183f6",
+          "name": "List trending keywords",
+          "request": {
+            "name": "List trending keywords",
+            "description": {
+              "content": "<p>Get the top trending search keywords among the Pinterest user audience.</p>\n<p>Trending keywords can be used to inform ad targeting, budget strategy, and creative decisions about which products and Pins will resonate with your audience.</p>\n<p>Geographic, demographic and interest-based filters are available to narrow down to the top trends among a specific audience. Multiple trend types are supported that can be used to identify newly-popular, evergreen or seasonal keywords.</p>\n<p>For an interactive way to explore this data, please visit <a href=\"https://trends.pinterest.com\">trends.pinterest.com</a>.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "trends",
+                "keywords",
+                ":region",
+                "top",
+                ":trend_type"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "interests",
+                  "value": "<string>",
+                  "description": "If set, filters the results to trends associated with the specified interests.<br />\nIf unset, trends for all interests will be returned.<br />\nThe list of supported interests is:\n- `animals` - Animals\n- `architecture` - Architecture\n- `art` - Art\n- `beauty` - Beauty\n- `childrens_fashion` - Children's Fashion\n- `design` - Design\n- `diy_and_crafts` - DIY & Crafts\n- `education` - Education\n- `electronics` - Electronics\n- `entertainment` - Entertainment\n- `event_planning` - Event Planning\n- `finance` - Finance\n- `food_and_drinks` - Food & Drink\n- `gardening` - Gardening\n- `health` - Health\n- `home_decor` - Home Decor\n- `mens_fashion` - Men's Fashion\n- `parenting` - Parenting\n- `quotes` - Quotes\n- `sport` - Sports\n- `travel` - Travel\n- `vehicles` - Vehicles\n- `wedding` - Wedding\n- `womens_fashion` - Women's Fashion"
+                },
+                {
+                  "disabled": false,
+                  "key": "interests",
+                  "value": "<string>",
+                  "description": "If set, filters the results to trends associated with the specified interests.<br />\nIf unset, trends for all interests will be returned.<br />\nThe list of supported interests is:\n- `animals` - Animals\n- `architecture` - Architecture\n- `art` - Art\n- `beauty` - Beauty\n- `childrens_fashion` - Children's Fashion\n- `design` - Design\n- `diy_and_crafts` - DIY & Crafts\n- `education` - Education\n- `electronics` - Electronics\n- `entertainment` - Entertainment\n- `event_planning` - Event Planning\n- `finance` - Finance\n- `food_and_drinks` - Food & Drink\n- `gardening` - Gardening\n- `health` - Health\n- `home_decor` - Home Decor\n- `mens_fashion` - Men's Fashion\n- `parenting` - Parenting\n- `quotes` - Quotes\n- `sport` - Sports\n- `travel` - Travel\n- `vehicles` - Vehicles\n- `wedding` - Wedding\n- `womens_fashion` - Women's Fashion"
+                },
+                {
+                  "disabled": false,
+                  "key": "genders",
+                  "value": "<string>",
+                  "description": "If set, filters the results to trends among users who identify with the specified gender(s).<br />\nIf unset, trends among all genders will be returned.<br />\nThe `unknown` group includes users with unspecified or customized gender profile settings."
+                },
+                {
+                  "disabled": false,
+                  "key": "genders",
+                  "value": "<string>",
+                  "description": "If set, filters the results to trends among users who identify with the specified gender(s).<br />\nIf unset, trends among all genders will be returned.<br />\nThe `unknown` group includes users with unspecified or customized gender profile settings."
+                },
+                {
+                  "disabled": false,
+                  "key": "ages",
+                  "value": "<string>",
+                  "description": "If set, filters the results to trends among users in the specified age range(s).<br />\nIf unset, trends among all age groups will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "ages",
+                  "value": "<string>",
+                  "description": "If set, filters the results to trends among users in the specified age range(s).<br />\nIf unset, trends among all age groups will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "include_keywords",
+                  "value": "<string>",
+                  "description": "If set, filters the results to top trends which include at least one of the specified keywords.<br />\nIf unset, no keyword filtering logic is applied."
+                },
+                {
+                  "disabled": false,
+                  "key": "normalize_against_group",
+                  "value": "false",
+                  "description": "Governs how the resulting time series data will be normalized to a [0-100] scale.<br />\nBy default (`false`), the data will be normalized independently for each keyword.  The peak search volume observation in *each* keyword's time series will be represented by the value 100.  This is ideal for analyzing when an individual keyword is expected to peak in interest.<br />\nIf set to `true`, the data will be normalized as a group.  The peak search volume observation across *all* keywords in the response will be represented by the value 100, and all other values scaled accordingly.  Use this option when you wish to compare relative search volume between multiple keywords."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "The maximum number of trending keywords that will be returned. Keywords are returned in trend-ranked order, so a `limit` of 50 will return the top 50 trends."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The geographic region of interest. Only top trends within the specified region will be returned.<br />\nThe `region` parameter is formatted as ISO 3166-2 country codes delimited by `+`, corresponding to the following geographic areas:\n- `US` - United States\n- `CA` - Canada\n- `DE` - Germany\n- `FR` - France\n- `ES` - Spain\n- `IT` - Italy\n- `DE+AT+CH` - Germanic countries\n- `GB+IE` - Great Britain & Ireland\n- `IT+ES+PT+GR+MT` - Southern Europe\n- `PL+RO+HU+SK+CZ` - Eastern Europe\n- `SE+DK+FI+NO` - Nordic countries\n- `NL+BE+LU` - Benelux\n- `AR` - Argentina\n- `BR` - Brazil\n- `CO` - Colombia\n- `MX` - Mexico\n- `MX+AR+CO+CL` - Hispanic LatAm\n- `AU+NZ` - Australasia"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "trend_type",
+                  "description": "(Required) The methodology used to rank how trendy a keyword is.\n- `growing` trends have high upward growth in search volume over the last quarter\n- `monthly` trends have high search volume in the last month\n- `yearly` trends have high search volume in the last year\n- `seasonal` trends have high upward growth in search volume over the last month and exhibit a seasonal recurring pattern (typically annual)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8b0b4319-c187-4542-b203-21eea013d121",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "trends",
+                    "keywords",
+                    ":region",
+                    "top",
+                    ":trend_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "interests",
+                      "value": "beauty"
+                    },
+                    {
+                      "key": "interests",
+                      "value": "womens_fashion"
+                    },
+                    {
+                      "key": "genders",
+                      "value": "female"
+                    },
+                    {
+                      "key": "genders",
+                      "value": "unknown"
+                    },
+                    {
+                      "key": "ages",
+                      "value": "35-44"
+                    },
+                    {
+                      "key": "ages",
+                      "value": "50-54"
+                    },
+                    {
+                      "key": "include_keywords",
+                      "value": "recipes"
+                    },
+                    {
+                      "key": "include_keywords",
+                      "value": "dessert"
+                    },
+                    {
+                      "key": "normalize_against_group",
+                      "value": "true"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The geographic region of interest. Only top trends within the specified region will be returned.<br />\nThe `region` parameter is formatted as ISO 3166-2 country codes delimited by `+`, corresponding to the following geographic areas:\n- `US` - United States\n- `CA` - Canada\n- `DE` - Germany\n- `FR` - France\n- `ES` - Spain\n- `IT` - Italy\n- `DE+AT+CH` - Germanic countries\n- `GB+IE` - Great Britain & Ireland\n- `IT+ES+PT+GR+MT` - Southern Europe\n- `PL+RO+HU+SK+CZ` - Eastern Europe\n- `SE+DK+FI+NO` - Nordic countries\n- `NL+BE+LU` - Benelux\n- `AR` - Argentina\n- `BR` - Brazil\n- `CO` - Colombia\n- `MX` - Mexico\n- `MX+AR+CO+CL` - Hispanic LatAm\n- `AU+NZ` - Australasia"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "trend_type",
+                      "description": "(Required) The methodology used to rank how trendy a keyword is.\n- `growing` trends have high upward growth in search volume over the last quarter\n- `monthly` trends have high search volume in the last month\n- `yearly` trends have high search volume in the last year\n- `seasonal` trends have high upward growth in search volume over the last month and exhibit a seasonal recurring pattern (typically annual)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"trends\": [\n    {\n      \"keyword\": \"couples halloween costumes\",\n      \"pct_growth_wow\": 50,\n      \"pct_growth_mom\": 400,\n      \"pct_growth_yoy\": -5,\n      \"time_series\": {\n        \"2023-10-10\": 31,\n        \"2023-10-17\": 54,\n        \"2023-10-24\": 77,\n        \"2023-10-31\": 100\n      }\n    },\n    {\n      \"keyword\": \"couples halloween costumes\",\n      \"pct_growth_wow\": 50,\n      \"pct_growth_mom\": 400,\n      \"pct_growth_yoy\": -5,\n      \"time_series\": {\n        \"2023-10-10\": 31,\n        \"2023-10-17\": 54,\n        \"2023-10-24\": 77,\n        \"2023-10-31\": 100\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dc792a34-dcec-496b-a037-d5d9060a767e",
+              "name": "Invalid trending keywords request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "trends",
+                    "keywords",
+                    ":region",
+                    "top",
+                    ":trend_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "interests",
+                      "value": "beauty"
+                    },
+                    {
+                      "key": "interests",
+                      "value": "womens_fashion"
+                    },
+                    {
+                      "key": "genders",
+                      "value": "female"
+                    },
+                    {
+                      "key": "genders",
+                      "value": "unknown"
+                    },
+                    {
+                      "key": "ages",
+                      "value": "35-44"
+                    },
+                    {
+                      "key": "ages",
+                      "value": "50-54"
+                    },
+                    {
+                      "key": "include_keywords",
+                      "value": "recipes"
+                    },
+                    {
+                      "key": "include_keywords",
+                      "value": "dessert"
+                    },
+                    {
+                      "key": "normalize_against_group",
+                      "value": "true"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The geographic region of interest. Only top trends within the specified region will be returned.<br />\nThe `region` parameter is formatted as ISO 3166-2 country codes delimited by `+`, corresponding to the following geographic areas:\n- `US` - United States\n- `CA` - Canada\n- `DE` - Germany\n- `FR` - France\n- `ES` - Spain\n- `IT` - Italy\n- `DE+AT+CH` - Germanic countries\n- `GB+IE` - Great Britain & Ireland\n- `IT+ES+PT+GR+MT` - Southern Europe\n- `PL+RO+HU+SK+CZ` - Eastern Europe\n- `SE+DK+FI+NO` - Nordic countries\n- `NL+BE+LU` - Benelux\n- `AR` - Argentina\n- `BR` - Brazil\n- `CO` - Colombia\n- `MX` - Mexico\n- `MX+AR+CO+CL` - Hispanic LatAm\n- `AU+NZ` - Australasia"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "trend_type",
+                      "description": "(Required) The methodology used to rank how trendy a keyword is.\n- `growing` trends have high upward growth in search volume over the last quarter\n- `monthly` trends have high search volume in the last month\n- `yearly` trends have high search volume in the last year\n- `seasonal` trends have high upward growth in search volume over the last month and exhibit a seasonal recurring pattern (typically annual)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"Invalid trending keywords request parameters\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "88a33f7b-4f8c-420b-a4ad-1cd47437037e",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "trends",
+                    "keywords",
+                    ":region",
+                    "top",
+                    ":trend_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "interests",
+                      "value": "beauty"
+                    },
+                    {
+                      "key": "interests",
+                      "value": "womens_fashion"
+                    },
+                    {
+                      "key": "genders",
+                      "value": "female"
+                    },
+                    {
+                      "key": "genders",
+                      "value": "unknown"
+                    },
+                    {
+                      "key": "ages",
+                      "value": "35-44"
+                    },
+                    {
+                      "key": "ages",
+                      "value": "50-54"
+                    },
+                    {
+                      "key": "include_keywords",
+                      "value": "recipes"
+                    },
+                    {
+                      "key": "include_keywords",
+                      "value": "dessert"
+                    },
+                    {
+                      "key": "normalize_against_group",
+                      "value": "true"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The geographic region of interest. Only top trends within the specified region will be returned.<br />\nThe `region` parameter is formatted as ISO 3166-2 country codes delimited by `+`, corresponding to the following geographic areas:\n- `US` - United States\n- `CA` - Canada\n- `DE` - Germany\n- `FR` - France\n- `ES` - Spain\n- `IT` - Italy\n- `DE+AT+CH` - Germanic countries\n- `GB+IE` - Great Britain & Ireland\n- `IT+ES+PT+GR+MT` - Southern Europe\n- `PL+RO+HU+SK+CZ` - Eastern Europe\n- `SE+DK+FI+NO` - Nordic countries\n- `NL+BE+LU` - Benelux\n- `AR` - Argentina\n- `BR` - Brazil\n- `CO` - Colombia\n- `MX` - Mexico\n- `MX+AR+CO+CL` - Hispanic LatAm\n- `AU+NZ` - Australasia"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "trend_type",
+                      "description": "(Required) The methodology used to rank how trendy a keyword is.\n- `growing` trends have high upward growth in search volume over the last quarter\n- `monthly` trends have high search volume in the last month\n- `yearly` trends have high search volume in the last year\n- `seasonal` trends have high upward growth in search volume over the last month and exhibit a seasonal recurring pattern (typically annual)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 8225,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.pinterest.com/v5",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "3afde87f-92d7-467f-9b4c-18b9967a4d84",
+    "name": "Pinterest Region API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is the description of your API.\n\nContact Support:\n Name: Pinterest, Inc.",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Pinterest Bid API",
+    "version": "5.13.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bid",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get bid floors",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pinterest.com/v5/ad_accounts/:ad_account_id/bid_floor",
+            "params": [
+              {
+                "name": "ad_account_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of an ad account."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://www.pinterest.com/oauth/",
+              "accessTokenUrl": "https://api.pinterest.com/v5/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List bid floors for your campaign configuration. Bid floors are given in microcurrency values based on the currency in the bid floor specification. <p/>\n<p>Microcurrency is used to track very small transactions, based on the currency set in the advertisers profile.</p>\n<p>A microcurrency unit is 10^(-6) of the standard unit of currency selected in the advertiser s profile.</p>\n<p><strong>Equivalency equations</strong>, using dollars as an example currency:</p>\n<ul>\n  <li>$1 = 1,000,000 microdoll"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

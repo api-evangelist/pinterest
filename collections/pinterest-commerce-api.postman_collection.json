@@ -1,0 +1,1075 @@
+{
+  "item": [
+    {
+      "id": "0a8d63c6-1111-41a2-901c-957bc15e940a",
+      "name": "Commerce",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "50a2db7a-d123-44fd-8b97-36df8e4dfb01",
+          "name": "Create commerce integration",
+          "request": {
+            "name": "Create commerce integration",
+            "description": {
+              "content": "Create commerce integration metadata to link an external business ID with a Pinterest merchant & ad account.\nNote: If you're interested in joining the beta, please reach out to your Pinterest account manager.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integrations",
+                "commerce"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"external_business_id\": \"<string>\",\n  \"connected_merchant_id\": \"<string>\",\n  \"connected_advertiser_id\": \"<string>\",\n  \"connected_lba_id\": \"<string>\",\n  \"connected_tag_id\": \"<string>\",\n  \"partner_access_token\": \"<string>\",\n  \"partner_refresh_token\": \"<string>\",\n  \"partner_primary_email\": \"<string>\",\n  \"partner_access_token_expiry\": \"<integer>\",\n  \"partner_refresh_token_expiry\": \"<integer>\",\n  \"scopes\": \"<string>\",\n  \"additional_id_1\": \"<string>\",\n  \"partner_metadata\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bf706142-4bb8-4eb0-8e74-5388650bc553",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "commerce"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"external_business_id\": \"<string>\",\n  \"connected_merchant_id\": \"<string>\",\n  \"connected_advertiser_id\": \"<string>\",\n  \"connected_lba_id\": \"<string>\",\n  \"connected_tag_id\": \"<string>\",\n  \"partner_access_token\": \"<string>\",\n  \"partner_refresh_token\": \"<string>\",\n  \"partner_primary_email\": \"<string>\",\n  \"partner_access_token_expiry\": \"<integer>\",\n  \"partner_refresh_token_expiry\": \"<integer>\",\n  \"scopes\": \"<string>\",\n  \"additional_id_1\": \"<string>\",\n  \"partner_metadata\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"external_business_id\": \"1238401984\",\n  \"connected_merchant_id\": \"1445572885401\",\n  \"connected_user_id\": \"871939315263957401\",\n  \"connected_advertiser_id\": \"549764738871\",\n  \"connected_lba_id\": \"871939315263957402\",\n  \"connected_tag_id\": \"2412141155151\",\n  \"partner_access_token_expiry\": 1621350033000,\n  \"partner_refresh_token_expiry\": 1621350033000,\n  \"scopes\": \"accounts:read\",\n  \"created_timestamp\": 1621350033000,\n  \"updated_timestamp\": 1621350033000,\n  \"additional_id_1\": \"128464\",\n  \"partner_metadata\": \"\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "296f7c92-b2e4-4609-a21e-c15390c0225d",
+              "name": "Integration not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "commerce"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"external_business_id\": \"<string>\",\n  \"connected_merchant_id\": \"<string>\",\n  \"connected_advertiser_id\": \"<string>\",\n  \"connected_lba_id\": \"<string>\",\n  \"connected_tag_id\": \"<string>\",\n  \"partner_access_token\": \"<string>\",\n  \"partner_refresh_token\": \"<string>\",\n  \"partner_primary_email\": \"<string>\",\n  \"partner_access_token_expiry\": \"<integer>\",\n  \"partner_refresh_token_expiry\": \"<integer>\",\n  \"scopes\": \"<string>\",\n  \"additional_id_1\": \"<string>\",\n  \"partner_metadata\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4180,\n  \"message\": \"Sorry! We could not find your integration.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2a605bfa-581a-439a-87d0-029530252742",
+              "name": "Can't access this integration metadata.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "commerce"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"external_business_id\": \"<string>\",\n  \"connected_merchant_id\": \"<string>\",\n  \"connected_advertiser_id\": \"<string>\",\n  \"connected_lba_id\": \"<string>\",\n  \"connected_tag_id\": \"<string>\",\n  \"partner_access_token\": \"<string>\",\n  \"partner_refresh_token\": \"<string>\",\n  \"partner_primary_email\": \"<string>\",\n  \"partner_access_token_expiry\": \"<integer>\",\n  \"partner_refresh_token_expiry\": \"<integer>\",\n  \"scopes\": \"<string>\",\n  \"additional_id_1\": \"<string>\",\n  \"partner_metadata\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4182,\n  \"message\": \"Can't access this integration metadata.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e0298a6f-d59b-4a95-9e02-1c09983a2966",
+              "name": "Unexpected error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "commerce"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"external_business_id\": \"<string>\",\n  \"connected_merchant_id\": \"<string>\",\n  \"connected_advertiser_id\": \"<string>\",\n  \"connected_lba_id\": \"<string>\",\n  \"connected_tag_id\": \"<string>\",\n  \"partner_access_token\": \"<string>\",\n  \"partner_refresh_token\": \"<string>\",\n  \"partner_primary_email\": \"<string>\",\n  \"partner_access_token_expiry\": \"<integer>\",\n  \"partner_refresh_token_expiry\": \"<integer>\",\n  \"scopes\": \"<string>\",\n  \"additional_id_1\": \"<string>\",\n  \"partner_metadata\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 207,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8ff1a0fc-53f0-4e22-9c1b-609db881f155",
+          "name": "Get commerce integration",
+          "request": {
+            "name": "Get commerce integration",
+            "description": {
+              "content": "Get commerce integration metadata associated with the given external business ID.\nNote: If you're interested in joining the beta, please reach out to your Pinterest account manager.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integrations",
+                "commerce",
+                ":external_business_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "external_business_id",
+                  "description": "(Required) External business ID for the integration."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1a17bccb-8ae7-4aee-80e9-fc02d6c721c6",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "commerce",
+                    ":external_business_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_business_id",
+                      "description": "(Required) External business ID for the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"external_business_id\": \"1238401984\",\n  \"connected_merchant_id\": \"1445572885401\",\n  \"connected_user_id\": \"871939315263957401\",\n  \"connected_advertiser_id\": \"549764738871\",\n  \"connected_lba_id\": \"871939315263957402\",\n  \"connected_tag_id\": \"2412141155151\",\n  \"partner_access_token_expiry\": 1621350033000,\n  \"partner_refresh_token_expiry\": 1621350033000,\n  \"scopes\": \"accounts:read\",\n  \"created_timestamp\": 1621350033000,\n  \"updated_timestamp\": 1621350033000,\n  \"additional_id_1\": \"128464\",\n  \"partner_metadata\": \"\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c946fc07-4715-4c0b-89cf-065d1d4e0c4e",
+              "name": "Integration not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "commerce",
+                    ":external_business_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_business_id",
+                      "description": "(Required) External business ID for the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4180,\n  \"message\": \"Sorry! We could not find your integration.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "93478635-7ad0-47e5-84aa-fdc791bd8218",
+              "name": "Can't access this integration metadata.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "commerce",
+                    ":external_business_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_business_id",
+                      "description": "(Required) External business ID for the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4182,\n  \"message\": \"Can't access this integration metadata.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1b8dc25f-1466-44b1-aafc-f868ae3be580",
+              "name": "Unexpected error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "commerce",
+                    ":external_business_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_business_id",
+                      "description": "(Required) External business ID for the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 207,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "651780e2-294b-437b-92a8-965258539909",
+          "name": "Update commerce integration",
+          "request": {
+            "name": "Update commerce integration",
+            "description": {
+              "content": "Update commerce integration metadata for the given external business ID.\nNote: If you're interested in joining the beta, please reach out to your Pinterest account manager.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integrations",
+                "commerce",
+                ":external_business_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "external_business_id",
+                  "description": "(Required) External business ID for the integration."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"connected_merchant_id\": \"<string>\",\n  \"connected_advertiser_id\": \"<string>\",\n  \"connected_lba_id\": \"<string>\",\n  \"connected_tag_id\": \"<string>\",\n  \"partner_access_token\": \"<string>\",\n  \"partner_refresh_token\": \"<string>\",\n  \"partner_primary_email\": \"<string>\",\n  \"partner_access_token_expiry\": \"<number>\",\n  \"partner_refresh_token_expiry\": \"<number>\",\n  \"scopes\": \"<string>\",\n  \"additional_id_1\": \"<string>\",\n  \"partner_metadata\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "85b695f8-ec3b-45dd-81c6-d4f42ec73412",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "commerce",
+                    ":external_business_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_business_id",
+                      "description": "(Required) External business ID for the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"connected_merchant_id\": \"<string>\",\n  \"connected_advertiser_id\": \"<string>\",\n  \"connected_lba_id\": \"<string>\",\n  \"connected_tag_id\": \"<string>\",\n  \"partner_access_token\": \"<string>\",\n  \"partner_refresh_token\": \"<string>\",\n  \"partner_primary_email\": \"<string>\",\n  \"partner_access_token_expiry\": \"<number>\",\n  \"partner_refresh_token_expiry\": \"<number>\",\n  \"scopes\": \"<string>\",\n  \"additional_id_1\": \"<string>\",\n  \"partner_metadata\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"external_business_id\": \"1238401984\",\n  \"connected_merchant_id\": \"1445572885401\",\n  \"connected_user_id\": \"871939315263957401\",\n  \"connected_advertiser_id\": \"549764738871\",\n  \"connected_lba_id\": \"871939315263957402\",\n  \"connected_tag_id\": \"2412141155151\",\n  \"partner_access_token_expiry\": 1621350033000,\n  \"partner_refresh_token_expiry\": 1621350033000,\n  \"scopes\": \"accounts:read\",\n  \"created_timestamp\": 1621350033000,\n  \"updated_timestamp\": 1621350033000,\n  \"additional_id_1\": \"128464\",\n  \"partner_metadata\": \"\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a4032ab8-8df2-4e73-952b-ef4cf8d0fcb4",
+              "name": "Integration not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "commerce",
+                    ":external_business_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_business_id",
+                      "description": "(Required) External business ID for the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"connected_merchant_id\": \"<string>\",\n  \"connected_advertiser_id\": \"<string>\",\n  \"connected_lba_id\": \"<string>\",\n  \"connected_tag_id\": \"<string>\",\n  \"partner_access_token\": \"<string>\",\n  \"partner_refresh_token\": \"<string>\",\n  \"partner_primary_email\": \"<string>\",\n  \"partner_access_token_expiry\": \"<number>\",\n  \"partner_refresh_token_expiry\": \"<number>\",\n  \"scopes\": \"<string>\",\n  \"additional_id_1\": \"<string>\",\n  \"partner_metadata\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4180,\n  \"message\": \"Sorry! We could not find your integration.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f3f2b9b9-c457-4cea-a973-445debc16803",
+              "name": "Can't access this integration metadata.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "commerce",
+                    ":external_business_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_business_id",
+                      "description": "(Required) External business ID for the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"connected_merchant_id\": \"<string>\",\n  \"connected_advertiser_id\": \"<string>\",\n  \"connected_lba_id\": \"<string>\",\n  \"connected_tag_id\": \"<string>\",\n  \"partner_access_token\": \"<string>\",\n  \"partner_refresh_token\": \"<string>\",\n  \"partner_primary_email\": \"<string>\",\n  \"partner_access_token_expiry\": \"<number>\",\n  \"partner_refresh_token_expiry\": \"<number>\",\n  \"scopes\": \"<string>\",\n  \"additional_id_1\": \"<string>\",\n  \"partner_metadata\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4182,\n  \"message\": \"Can't access this integration metadata.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c30c623-04f4-4c24-ba58-bfd750441217",
+              "name": "Unexpected error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "commerce",
+                    ":external_business_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_business_id",
+                      "description": "(Required) External business ID for the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"connected_merchant_id\": \"<string>\",\n  \"connected_advertiser_id\": \"<string>\",\n  \"connected_lba_id\": \"<string>\",\n  \"connected_tag_id\": \"<string>\",\n  \"partner_access_token\": \"<string>\",\n  \"partner_refresh_token\": \"<string>\",\n  \"partner_primary_email\": \"<string>\",\n  \"partner_access_token_expiry\": \"<number>\",\n  \"partner_refresh_token_expiry\": \"<number>\",\n  \"scopes\": \"<string>\",\n  \"additional_id_1\": \"<string>\",\n  \"partner_metadata\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 207,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fbece8ec-5d9c-4a4b-adf7-7299813ad28b",
+          "name": "Delete commerce integration",
+          "request": {
+            "name": "Delete commerce integration",
+            "description": {
+              "content": "Delete commerce integration metadata for the given external business ID.\nNote: If you're interested in joining the beta, please reach out to your Pinterest account manager.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integrations",
+                "commerce",
+                ":external_business_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "external_business_id",
+                  "description": "(Required) External business ID for the integration."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "65a414d1-e88c-4bc9-bd3d-e65348ca0a94",
+              "name": "Commerce Integration deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "commerce",
+                    ":external_business_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_business_id",
+                      "description": "(Required) External business ID for the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ff2ce82d-7cfc-4e84-8e3a-15e04ba13dd1",
+              "name": "Unexpected error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "commerce",
+                    ":external_business_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "external_business_id",
+                      "description": "(Required) External business ID for the integration."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 207,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.pinterest.com/v5",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "3fefa72b-7d3d-4e04-819b-a57f76c4dffe",
+    "name": "Pinterest Commerce API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is the description of your API.\n\nContact Support:\n Name: Pinterest, Inc.",
+      "type": "text/plain"
+    }
+  }
+}

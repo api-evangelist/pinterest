@@ -1,0 +1,1319 @@
+{
+  "item": [
+    {
+      "id": "eb96bc3e-7f1d-4ed6-8e5c-f783095b35ce",
+      "name": "Keywords",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "be80cc8b-b92e-4e5d-a8c1-7b3129c0793f",
+          "name": "Get keywords",
+          "request": {
+            "name": "Get keywords",
+            "description": {
+              "content": "<p>Get a list of keywords based on the filters provided. If no filter is provided, it will default to the ad_account_id filter, which means it will only return keywords that specifically have parent_id set to the ad_account_id. Note: Keywords can have ad_account_ids, campaign_ids, and ad_group_ids set as their parent_ids. Keywords created through Ads Manager will have their parent_id set to an ad_group_id, not ad_account_id.</p>\n<p>For more information, see <a target=\"_blank\" href=\"https://help.pinterest.com/en/business/article/keyword-targeting\">Keyword targeting</a>.</p>\n<p><b>Notes:</b></p> <ul style=\"list-style-type: square;\"> <li>Advertisers and campaigns can only be assigned keywords with excluding ('_NEGATIVE').</li> <li>All keyword match types are available for ad groups.</li> </ul> <p>For more information on match types, see <a target=\"_blank\" href=\"/docs/ads/targeting/#Match%20type%20and%20targeting%20level\">match type enums</a>.</p>\n<p><b>Returns:</b></p> <ul style=\"list-style-type: square;\"> <li><p>A successful call returns an object containing an array of new keyword objects and an empty &quot;errors&quot; object array.</p></li> <li><p>An unsuccessful call returns an empty keywords array, and, instead, inserts the entire object with nulled/negated properties into the &quot;errors&quot; object array:</p> <pre class=\"last literal-block\"> { \"keywords\": [], \"errors\": [ { \"data\": { \"archived\": null, \"match_type\": \"EXACT\", \"parent_type\": null, \"value\": \"foobar\", \"parent_id\": null, \"type\": \"keyword\", \"id\": null }, \"error_messages\": [ \"Advertisers and Campaigns only accept excluded targeting attributes.\" ] } } </pre></li> </ul>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "keywords"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "campaign_id",
+                  "value": "<string>",
+                  "description": "Campaign Id to use to filter the results."
+                },
+                {
+                  "disabled": false,
+                  "key": "ad_group_id",
+                  "value": "<string>",
+                  "description": "Ad group Id."
+                },
+                {
+                  "disabled": false,
+                  "key": "match_types",
+                  "value": "<string>",
+                  "description": "Keyword <a target=\"_blank\" href=\"/docs/ads/targeting/#Match%20type%20and%20targeting%20level\">match type</a>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "25",
+                  "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+                },
+                {
+                  "disabled": false,
+                  "key": "bookmark",
+                  "value": "<string>",
+                  "description": "Cursor used to fetch the next page of items"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "17cfec35-5424-4d6e-b9e3-b907b059e1cf",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "keywords"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "campaign_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ad_group_id",
+                      "value": "123123123"
+                    },
+                    {
+                      "key": "match_types",
+                      "value": "BROAD"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"match_type\": \"BROAD\",\n      \"value\": \"string\",\n      \"bid\": 200000,\n      \"archived\": false,\n      \"id\": \"383791336903426391\",\n      \"parent_id\": \"383791336903426391\",\n      \"parent_type\": \"campaign\",\n      \"type\": \"keyword\"\n    },\n    {\n      \"match_type\": \"BROAD\",\n      \"value\": \"string\",\n      \"bid\": 200000,\n      \"archived\": false,\n      \"id\": \"383791336903426391\",\n      \"parent_id\": \"383791336903426391\",\n      \"parent_type\": \"campaign\",\n      \"type\": \"keyword\"\n    }\n  ],\n  \"bookmark\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "644b49f8-8f3d-4c7f-9e30-b692937c6389",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "keywords"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "campaign_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ad_group_id",
+                      "value": "123123123"
+                    },
+                    {
+                      "key": "match_types",
+                      "value": "BROAD"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4389,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8b51cafe-7387-4bd9-bafa-a425a57f8fd1",
+          "name": "Create keywords",
+          "request": {
+            "name": "Create keywords",
+            "description": {
+              "content": "<p>Create keywords for following entity types(advertiser, campaign, ad group or ad).</p> <p>For more information, see <a target=\"_blank\" href=\"https://help.pinterest.com/en/business/article/keyword-targeting\">Keyword targeting</a>.</p>\n<p><b>Notes:</b></p> <ul style=\"list-style-type: square;\"> <li>Advertisers and campaigns can only be assigned keywords with excluding ('_NEGATIVE').</li> <li>All keyword match types are available for ad groups.</li> </ul> <p>For more information on match types, see <a  target=\"_blank\" href=\"/docs/ads/targeting/#Match%20type%20and%20targeting%20level\">match type enums</a>.</p>\n<p><b>Returns:</b></p> <ul style=\"list-style-type: square;\"> <li><p>A successful call returns an object containing an array of new keyword objects and an empty &quot;errors&quot; object array.</p></li> <li><p>An unsuccessful call returns an empty keywords array, and, instead, inserts the entire object with nulled/negated properties into the &quot;errors&quot; object array:</p> <pre class=\"last literal-block\"> { \"keywords\": [], \"errors\": [ { \"data\": { \"archived\": null, \"match_type\": \"EXACT\", \"parent_type\": null, \"value\": \"foobar\", \"parent_id\": null, \"type\": \"keyword\", \"id\": null }, \"error_messages\": [ \"Advertisers and Campaigns only accept excluded targeting attributes.\" ] } } </pre></li> </ul>\n<p><b>Rate limit</b>: <a href=\"/docs/redoc/#tag/Rate-Limits\">WRITE</a>.</p>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "keywords"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"keywords\": [\n    {\n      \"match_type\": \"<string>\",\n      \"value\": \"<string>\",\n      \"bid\": \"<integer>\"\n    },\n    {\n      \"match_type\": \"<string>\",\n      \"value\": \"<string>\",\n      \"bid\": \"<integer>\"\n    }\n  ],\n  \"parent_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f442f043-feb0-4193-b403-e6e9924cda26",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "keywords"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"keywords\": [\n    {\n      \"match_type\": \"BROAD\",\n      \"value\": \"<string>\",\n      \"bid\": 200000\n    },\n    {\n      \"match_type\": \"BROAD\",\n      \"value\": \"<string>\",\n      \"bid\": 200000\n    }\n  ],\n  \"parent_id\": \"383791336903426391\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"data\": {\n        \"match_type\": \"BROAD\",\n        \"value\": \"<string>\",\n        \"bid\": 200000,\n        \"archived\": false,\n        \"id\": \"383791336903426391\",\n        \"parent_id\": \"383791336903426391\",\n        \"parent_type\": \"campaign\",\n        \"type\": \"keyword\"\n      },\n      \"error_messages\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"data\": {\n        \"match_type\": \"BROAD\",\n        \"value\": \"<string>\",\n        \"bid\": 200000,\n        \"archived\": false,\n        \"id\": \"383791336903426391\",\n        \"parent_id\": \"383791336903426391\",\n        \"parent_type\": \"campaign\",\n        \"type\": \"keyword\"\n      },\n      \"error_messages\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ],\n  \"keywords\": [\n    {\n      \"match_type\": \"BROAD\",\n      \"value\": \"<string>\",\n      \"bid\": 200000,\n      \"archived\": false,\n      \"id\": \"383791336903426391\",\n      \"parent_id\": \"383791336903426391\",\n      \"parent_type\": \"campaign\",\n      \"type\": \"keyword\"\n    },\n    {\n      \"match_type\": \"BROAD\",\n      \"value\": \"<string>\",\n      \"bid\": 200000,\n      \"archived\": false,\n      \"id\": \"383791336903426391\",\n      \"parent_id\": \"383791336903426391\",\n      \"parent_type\": \"campaign\",\n      \"type\": \"keyword\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c83a5752-a0b6-416d-9184-42bdfeb91ea3",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "keywords"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"keywords\": [\n    {\n      \"match_type\": \"BROAD\",\n      \"value\": \"<string>\",\n      \"bid\": 200000\n    },\n    {\n      \"match_type\": \"BROAD\",\n      \"value\": \"<string>\",\n      \"bid\": 200000\n    }\n  ],\n  \"parent_id\": \"383791336903426391\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4389,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "84a21e85-2f18-4711-b312-520b5d4d6250",
+          "name": "Update keywords",
+          "request": {
+            "name": "Update keywords",
+            "description": {
+              "content": "<p>Update one or more keywords' bid and archived fields.</p> <p>Archiving a keyword effectively deletes it - keywords no longer receive metrics and no longer visible within the parent entity's keywords list.</p>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "keywords"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"keywords\": [\n    {\n      \"id\": \"<string>\",\n      \"archived\": \"<boolean>\",\n      \"bid\": \"<integer>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"archived\": \"<boolean>\",\n      \"bid\": \"<integer>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "596a1398-3de0-4df5-a1aa-b50f2e95700e",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "keywords"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"keywords\": [\n    {\n      \"id\": \"2886364308355\",\n      \"archived\": false,\n      \"bid\": 200000\n    },\n    {\n      \"id\": \"2886364308355\",\n      \"archived\": false,\n      \"bid\": 200000\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"data\": {\n        \"match_type\": \"BROAD\",\n        \"value\": \"<string>\",\n        \"bid\": 200000,\n        \"archived\": false,\n        \"id\": \"383791336903426391\",\n        \"parent_id\": \"383791336903426391\",\n        \"parent_type\": \"campaign\",\n        \"type\": \"keyword\"\n      },\n      \"error_messages\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"data\": {\n        \"match_type\": \"BROAD\",\n        \"value\": \"<string>\",\n        \"bid\": 200000,\n        \"archived\": false,\n        \"id\": \"383791336903426391\",\n        \"parent_id\": \"383791336903426391\",\n        \"parent_type\": \"campaign\",\n        \"type\": \"keyword\"\n      },\n      \"error_messages\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ],\n  \"keywords\": [\n    {\n      \"match_type\": \"BROAD\",\n      \"value\": \"<string>\",\n      \"bid\": 200000,\n      \"archived\": false,\n      \"id\": \"383791336903426391\",\n      \"parent_id\": \"383791336903426391\",\n      \"parent_type\": \"campaign\",\n      \"type\": \"keyword\"\n    },\n    {\n      \"match_type\": \"BROAD\",\n      \"value\": \"<string>\",\n      \"bid\": 200000,\n      \"archived\": false,\n      \"id\": \"383791336903426391\",\n      \"parent_id\": \"383791336903426391\",\n      \"parent_type\": \"campaign\",\n      \"type\": \"keyword\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "499f1916-8fb1-4ece-8ee1-8948de0a6577",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "keywords"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"keywords\": [\n    {\n      \"id\": \"2886364308355\",\n      \"archived\": false,\n      \"bid\": 200000\n    },\n    {\n      \"id\": \"2886364308355\",\n      \"archived\": false,\n      \"bid\": 200000\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4389,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1557547a-d950-4016-8ad1-66c2177ba3cb",
+          "name": "Get country's keyword metrics",
+          "request": {
+            "name": "Get country's keyword metrics",
+            "description": {
+              "content": "See keyword metrics for a specified country, aggregated across all of Pinterest.\n(Definitions are available from the \"Get delivery metrics definitions\"\n<a href=\"/docs/api/v5/#operation/delivery_metrics/get\">API endpoint</a>).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "keywords",
+                "metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "country_code",
+                  "value": "<string>",
+                  "description": "(Required) Two letter country code (ISO 3166-1 alpha-2)"
+                },
+                {
+                  "disabled": false,
+                  "key": "keywords",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated keywords"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ff3510f9-5b2e-49d4-a31f-8449d213d530",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "keywords",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "country_code",
+                      "value": "US"
+                    },
+                    {
+                      "key": "keywords",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"keyword\": \"animals\",\n      \"metrics\": {\n        \"avg_cpc_in_micro_currency\": 100000,\n        \"keyword_query_volume\": \"5M+\"\n      }\n    },\n    {\n      \"keyword\": \"animals\",\n      \"metrics\": {\n        \"avg_cpc_in_micro_currency\": 100000,\n        \"keyword_query_volume\": \"5M+\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2b349a0-c403-4630-b727-023fa7fbacc4",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "keywords",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "country_code",
+                      "value": "US"
+                    },
+                    {
+                      "key": "keywords",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4389,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "02cbca52-c3a1-4acb-be88-f0bc71847b73",
+          "name": "List trending keywords",
+          "request": {
+            "name": "List trending keywords",
+            "description": {
+              "content": "<p>Get the top trending search keywords among the Pinterest user audience.</p>\n<p>Trending keywords can be used to inform ad targeting, budget strategy, and creative decisions about which products and Pins will resonate with your audience.</p>\n<p>Geographic, demographic and interest-based filters are available to narrow down to the top trends among a specific audience. Multiple trend types are supported that can be used to identify newly-popular, evergreen or seasonal keywords.</p>\n<p>For an interactive way to explore this data, please visit <a href=\"https://trends.pinterest.com\">trends.pinterest.com</a>.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "trends",
+                "keywords",
+                ":region",
+                "top",
+                ":trend_type"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "interests",
+                  "value": "<string>",
+                  "description": "If set, filters the results to trends associated with the specified interests.<br />\nIf unset, trends for all interests will be returned.<br />\nThe list of supported interests is:\n- `animals` - Animals\n- `architecture` - Architecture\n- `art` - Art\n- `beauty` - Beauty\n- `childrens_fashion` - Children's Fashion\n- `design` - Design\n- `diy_and_crafts` - DIY & Crafts\n- `education` - Education\n- `electronics` - Electronics\n- `entertainment` - Entertainment\n- `event_planning` - Event Planning\n- `finance` - Finance\n- `food_and_drinks` - Food & Drink\n- `gardening` - Gardening\n- `health` - Health\n- `home_decor` - Home Decor\n- `mens_fashion` - Men's Fashion\n- `parenting` - Parenting\n- `quotes` - Quotes\n- `sport` - Sports\n- `travel` - Travel\n- `vehicles` - Vehicles\n- `wedding` - Wedding\n- `womens_fashion` - Women's Fashion"
+                },
+                {
+                  "disabled": false,
+                  "key": "interests",
+                  "value": "<string>",
+                  "description": "If set, filters the results to trends associated with the specified interests.<br />\nIf unset, trends for all interests will be returned.<br />\nThe list of supported interests is:\n- `animals` - Animals\n- `architecture` - Architecture\n- `art` - Art\n- `beauty` - Beauty\n- `childrens_fashion` - Children's Fashion\n- `design` - Design\n- `diy_and_crafts` - DIY & Crafts\n- `education` - Education\n- `electronics` - Electronics\n- `entertainment` - Entertainment\n- `event_planning` - Event Planning\n- `finance` - Finance\n- `food_and_drinks` - Food & Drink\n- `gardening` - Gardening\n- `health` - Health\n- `home_decor` - Home Decor\n- `mens_fashion` - Men's Fashion\n- `parenting` - Parenting\n- `quotes` - Quotes\n- `sport` - Sports\n- `travel` - Travel\n- `vehicles` - Vehicles\n- `wedding` - Wedding\n- `womens_fashion` - Women's Fashion"
+                },
+                {
+                  "disabled": false,
+                  "key": "genders",
+                  "value": "<string>",
+                  "description": "If set, filters the results to trends among users who identify with the specified gender(s).<br />\nIf unset, trends among all genders will be returned.<br />\nThe `unknown` group includes users with unspecified or customized gender profile settings."
+                },
+                {
+                  "disabled": false,
+                  "key": "genders",
+                  "value": "<string>",
+                  "description": "If set, filters the results to trends among users who identify with the specified gender(s).<br />\nIf unset, trends among all genders will be returned.<br />\nThe `unknown` group includes users with unspecified or customized gender profile settings."
+                },
+                {
+                  "disabled": false,
+                  "key": "ages",
+                  "value": "<string>",
+                  "description": "If set, filters the results to trends among users in the specified age range(s).<br />\nIf unset, trends among all age groups will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "ages",
+                  "value": "<string>",
+                  "description": "If set, filters the results to trends among users in the specified age range(s).<br />\nIf unset, trends among all age groups will be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "include_keywords",
+                  "value": "<string>",
+                  "description": "If set, filters the results to top trends which include at least one of the specified keywords.<br />\nIf unset, no keyword filtering logic is applied."
+                },
+                {
+                  "disabled": false,
+                  "key": "normalize_against_group",
+                  "value": "false",
+                  "description": "Governs how the resulting time series data will be normalized to a [0-100] scale.<br />\nBy default (`false`), the data will be normalized independently for each keyword.  The peak search volume observation in *each* keyword's time series will be represented by the value 100.  This is ideal for analyzing when an individual keyword is expected to peak in interest.<br />\nIf set to `true`, the data will be normalized as a group.  The peak search volume observation across *all* keywords in the response will be represented by the value 100, and all other values scaled accordingly.  Use this option when you wish to compare relative search volume between multiple keywords."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "The maximum number of trending keywords that will be returned. Keywords are returned in trend-ranked order, so a `limit` of 50 will return the top 50 trends."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "region",
+                  "description": "(Required) The geographic region of interest. Only top trends within the specified region will be returned.<br />\nThe `region` parameter is formatted as ISO 3166-2 country codes delimited by `+`, corresponding to the following geographic areas:\n- `US` - United States\n- `CA` - Canada\n- `DE` - Germany\n- `FR` - France\n- `ES` - Spain\n- `IT` - Italy\n- `DE+AT+CH` - Germanic countries\n- `GB+IE` - Great Britain & Ireland\n- `IT+ES+PT+GR+MT` - Southern Europe\n- `PL+RO+HU+SK+CZ` - Eastern Europe\n- `SE+DK+FI+NO` - Nordic countries\n- `NL+BE+LU` - Benelux\n- `AR` - Argentina\n- `BR` - Brazil\n- `CO` - Colombia\n- `MX` - Mexico\n- `MX+AR+CO+CL` - Hispanic LatAm\n- `AU+NZ` - Australasia"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "trend_type",
+                  "description": "(Required) The methodology used to rank how trendy a keyword is.\n- `growing` trends have high upward growth in search volume over the last quarter\n- `monthly` trends have high search volume in the last month\n- `yearly` trends have high search volume in the last year\n- `seasonal` trends have high upward growth in search volume over the last month and exhibit a seasonal recurring pattern (typically annual)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "dbdb33c5-79ef-44f7-a881-78e311651377",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "trends",
+                    "keywords",
+                    ":region",
+                    "top",
+                    ":trend_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "interests",
+                      "value": "beauty"
+                    },
+                    {
+                      "key": "interests",
+                      "value": "womens_fashion"
+                    },
+                    {
+                      "key": "genders",
+                      "value": "female"
+                    },
+                    {
+                      "key": "genders",
+                      "value": "unknown"
+                    },
+                    {
+                      "key": "ages",
+                      "value": "35-44"
+                    },
+                    {
+                      "key": "ages",
+                      "value": "50-54"
+                    },
+                    {
+                      "key": "include_keywords",
+                      "value": "recipes"
+                    },
+                    {
+                      "key": "include_keywords",
+                      "value": "dessert"
+                    },
+                    {
+                      "key": "normalize_against_group",
+                      "value": "true"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The geographic region of interest. Only top trends within the specified region will be returned.<br />\nThe `region` parameter is formatted as ISO 3166-2 country codes delimited by `+`, corresponding to the following geographic areas:\n- `US` - United States\n- `CA` - Canada\n- `DE` - Germany\n- `FR` - France\n- `ES` - Spain\n- `IT` - Italy\n- `DE+AT+CH` - Germanic countries\n- `GB+IE` - Great Britain & Ireland\n- `IT+ES+PT+GR+MT` - Southern Europe\n- `PL+RO+HU+SK+CZ` - Eastern Europe\n- `SE+DK+FI+NO` - Nordic countries\n- `NL+BE+LU` - Benelux\n- `AR` - Argentina\n- `BR` - Brazil\n- `CO` - Colombia\n- `MX` - Mexico\n- `MX+AR+CO+CL` - Hispanic LatAm\n- `AU+NZ` - Australasia"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "trend_type",
+                      "description": "(Required) The methodology used to rank how trendy a keyword is.\n- `growing` trends have high upward growth in search volume over the last quarter\n- `monthly` trends have high search volume in the last month\n- `yearly` trends have high search volume in the last year\n- `seasonal` trends have high upward growth in search volume over the last month and exhibit a seasonal recurring pattern (typically annual)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"trends\": [\n    {\n      \"keyword\": \"couples halloween costumes\",\n      \"pct_growth_wow\": 50,\n      \"pct_growth_mom\": 400,\n      \"pct_growth_yoy\": -5,\n      \"time_series\": {\n        \"2023-10-10\": 31,\n        \"2023-10-17\": 54,\n        \"2023-10-24\": 77,\n        \"2023-10-31\": 100\n      }\n    },\n    {\n      \"keyword\": \"couples halloween costumes\",\n      \"pct_growth_wow\": 50,\n      \"pct_growth_mom\": 400,\n      \"pct_growth_yoy\": -5,\n      \"time_series\": {\n        \"2023-10-10\": 31,\n        \"2023-10-17\": 54,\n        \"2023-10-24\": 77,\n        \"2023-10-31\": 100\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "31456827-ee47-4b67-b7aa-49528b8b3827",
+              "name": "Invalid trending keywords request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "trends",
+                    "keywords",
+                    ":region",
+                    "top",
+                    ":trend_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "interests",
+                      "value": "beauty"
+                    },
+                    {
+                      "key": "interests",
+                      "value": "womens_fashion"
+                    },
+                    {
+                      "key": "genders",
+                      "value": "female"
+                    },
+                    {
+                      "key": "genders",
+                      "value": "unknown"
+                    },
+                    {
+                      "key": "ages",
+                      "value": "35-44"
+                    },
+                    {
+                      "key": "ages",
+                      "value": "50-54"
+                    },
+                    {
+                      "key": "include_keywords",
+                      "value": "recipes"
+                    },
+                    {
+                      "key": "include_keywords",
+                      "value": "dessert"
+                    },
+                    {
+                      "key": "normalize_against_group",
+                      "value": "true"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The geographic region of interest. Only top trends within the specified region will be returned.<br />\nThe `region` parameter is formatted as ISO 3166-2 country codes delimited by `+`, corresponding to the following geographic areas:\n- `US` - United States\n- `CA` - Canada\n- `DE` - Germany\n- `FR` - France\n- `ES` - Spain\n- `IT` - Italy\n- `DE+AT+CH` - Germanic countries\n- `GB+IE` - Great Britain & Ireland\n- `IT+ES+PT+GR+MT` - Southern Europe\n- `PL+RO+HU+SK+CZ` - Eastern Europe\n- `SE+DK+FI+NO` - Nordic countries\n- `NL+BE+LU` - Benelux\n- `AR` - Argentina\n- `BR` - Brazil\n- `CO` - Colombia\n- `MX` - Mexico\n- `MX+AR+CO+CL` - Hispanic LatAm\n- `AU+NZ` - Australasia"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "trend_type",
+                      "description": "(Required) The methodology used to rank how trendy a keyword is.\n- `growing` trends have high upward growth in search volume over the last quarter\n- `monthly` trends have high search volume in the last month\n- `yearly` trends have high search volume in the last year\n- `seasonal` trends have high upward growth in search volume over the last month and exhibit a seasonal recurring pattern (typically annual)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"Invalid trending keywords request parameters\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "98c16d4f-becc-422c-9e4b-75f8f27713f8",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "trends",
+                    "keywords",
+                    ":region",
+                    "top",
+                    ":trend_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "interests",
+                      "value": "beauty"
+                    },
+                    {
+                      "key": "interests",
+                      "value": "womens_fashion"
+                    },
+                    {
+                      "key": "genders",
+                      "value": "female"
+                    },
+                    {
+                      "key": "genders",
+                      "value": "unknown"
+                    },
+                    {
+                      "key": "ages",
+                      "value": "35-44"
+                    },
+                    {
+                      "key": "ages",
+                      "value": "50-54"
+                    },
+                    {
+                      "key": "include_keywords",
+                      "value": "recipes"
+                    },
+                    {
+                      "key": "include_keywords",
+                      "value": "dessert"
+                    },
+                    {
+                      "key": "normalize_against_group",
+                      "value": "true"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "region",
+                      "description": "(Required) The geographic region of interest. Only top trends within the specified region will be returned.<br />\nThe `region` parameter is formatted as ISO 3166-2 country codes delimited by `+`, corresponding to the following geographic areas:\n- `US` - United States\n- `CA` - Canada\n- `DE` - Germany\n- `FR` - France\n- `ES` - Spain\n- `IT` - Italy\n- `DE+AT+CH` - Germanic countries\n- `GB+IE` - Great Britain & Ireland\n- `IT+ES+PT+GR+MT` - Southern Europe\n- `PL+RO+HU+SK+CZ` - Eastern Europe\n- `SE+DK+FI+NO` - Nordic countries\n- `NL+BE+LU` - Benelux\n- `AR` - Argentina\n- `BR` - Brazil\n- `CO` - Colombia\n- `MX` - Mexico\n- `MX+AR+CO+CL` - Hispanic LatAm\n- `AU+NZ` - Australasia"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "trend_type",
+                      "description": "(Required) The methodology used to rank how trendy a keyword is.\n- `growing` trends have high upward growth in search volume over the last quarter\n- `monthly` trends have high search volume in the last month\n- `yearly` trends have high search volume in the last year\n- `seasonal` trends have high upward growth in search volume over the last month and exhibit a seasonal recurring pattern (typically annual)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4389,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.pinterest.com/v5",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "9be12c50-ab19-4b0d-b5b6-02c2040cf6be",
+    "name": "Pinterest Keywords API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is the description of your API.\n\nContact Support:\n Name: Pinterest, Inc.",
+      "type": "text/plain"
+    }
+  }
+}

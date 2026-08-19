@@ -1,0 +1,1688 @@
+{
+  "item": [
+    {
+      "id": "2e07704a-42da-41dd-8f0d-d67b1e372f10",
+      "name": "Campaigns",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "58b9f5ad-1829-4957-af22-881d2d5b6abf",
+          "name": "List campaigns",
+          "request": {
+            "name": "List campaigns",
+            "description": {
+              "content": "Get a list of the campaigns in the specified <code>ad_account_id</code>, filtered by the specified options.\n- The token's user_account must either be the Owner of the specified ad account, or have one of the necessary roles granted to them via <a href=\"https://help.pinterest.com/en/business/article/share-and-manage-access-to-your-ad-accounts\">Business Access</a>: Admin, Analyst, Campaign Manager.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "campaigns"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "campaign_ids",
+                  "value": "<string>",
+                  "description": "List of Campaign Ids to use to filter the results."
+                },
+                {
+                  "disabled": false,
+                  "key": "entity_statuses",
+                  "value": "ACTIVE",
+                  "description": "Entity status"
+                },
+                {
+                  "disabled": false,
+                  "key": "entity_statuses",
+                  "value": "PAUSED",
+                  "description": "Entity status"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "25",
+                  "description": "Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information."
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>",
+                  "description": "The order in which to sort the items returned: ASCENDING or DESCENDING\nby ID. Note that higher-value IDs are associated with more-recently added\nitems."
+                },
+                {
+                  "disabled": false,
+                  "key": "bookmark",
+                  "value": "<string>",
+                  "description": "Cursor used to fetch the next page of items"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "372a856b-a229-4a81-8bde-dcfb1ed70b41",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "campaigns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "campaign_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "entity_statuses",
+                      "value": "ACTIVE"
+                    },
+                    {
+                      "key": "entity_statuses",
+                      "value": "PAUSED"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "order",
+                      "value": "ASCENDING"
+                    },
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"549755885175\",\n      \"ad_account_id\": \"549755885175\",\n      \"name\": \"ACME Tools\",\n      \"status\": \"ACTIVE\",\n      \"lifetime_spend_cap\": 1432744744,\n      \"daily_spend_cap\": 1432744744,\n      \"order_line_id\": \"549755885175\",\n      \"tracking_urls\": {\n        \"impression\": [\n          \"URL1\",\n          \"URL2\"\n        ],\n        \"click\": [\n          \"URL1\",\n          \"URL2\"\n        ],\n        \"engagement\": [\n          \"URL1\",\n          \"URL2\"\n        ],\n        \"buyable_button\": [\n          \"URL1\",\n          \"URL2\"\n        ],\n        \"audience_verification\": [\n          \"URL1\",\n          \"URL2\"\n        ]\n      },\n      \"start_time\": 1580865126,\n      \"end_time\": 1644023526,\n      \"summary_status\": \"RUNNING\",\n      \"objective_type\": \"CATALOG_SALES\",\n      \"created_time\": 1432744744,\n      \"updated_time\": 1432744744,\n      \"type\": \"campaign\",\n      \"is_flexible_daily_budgets\": true,\n      \"is_campaign_budget_optimization\": true\n    },\n    {\n      \"id\": \"549755885175\",\n      \"ad_account_id\": \"549755885175\",\n      \"name\": \"ACME Tools\",\n      \"status\": \"ACTIVE\",\n      \"lifetime_spend_cap\": 1432744744,\n      \"daily_spend_cap\": 1432744744,\n      \"order_line_id\": \"549755885175\",\n      \"tracking_urls\": {\n        \"impression\": [\n          \"URL1\",\n          \"URL2\"\n        ],\n        \"click\": [\n          \"URL1\",\n          \"URL2\"\n        ],\n        \"engagement\": [\n          \"URL1\",\n          \"URL2\"\n        ],\n        \"buyable_button\": [\n          \"URL1\",\n          \"URL2\"\n        ],\n        \"audience_verification\": [\n          \"URL1\",\n          \"URL2\"\n        ]\n      },\n      \"start_time\": 1580865126,\n      \"end_time\": 1644023526,\n      \"summary_status\": \"RUNNING\",\n      \"objective_type\": \"AWARENESS\",\n      \"created_time\": 1432744744,\n      \"updated_time\": 1432744744,\n      \"type\": \"campaign\",\n      \"is_flexible_daily_budgets\": true,\n      \"is_campaign_budget_optimization\": true\n    }\n  ],\n  \"bookmark\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "07973ef5-2440-423c-b3e0-15a76ea6c6b6",
+              "name": "Invalid ad account campaign parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "campaigns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "campaign_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "entity_statuses",
+                      "value": "ACTIVE"
+                    },
+                    {
+                      "key": "entity_statuses",
+                      "value": "PAUSED"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "order",
+                      "value": "ASCENDING"
+                    },
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"Invalid ad account campaign parameters.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4a38dfaf-92f9-4742-9fe6-0e07c8cc2566",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "campaigns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "campaign_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "entity_statuses",
+                      "value": "ACTIVE"
+                    },
+                    {
+                      "key": "entity_statuses",
+                      "value": "PAUSED"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    },
+                    {
+                      "key": "order",
+                      "value": "ASCENDING"
+                    },
+                    {
+                      "key": "bookmark",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5484,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d8ab34d7-5fbe-423d-8cc7-4cd1a014c3b7",
+          "name": "Create campaigns",
+          "request": {
+            "name": "Create campaigns",
+            "description": {
+              "content": "Create multiple new campaigns. Every campaign has its own campaign_id and houses one or more ad groups, which contain one or more ads.\nFor more, see <a href=\"https://help.pinterest.com/en/business/article/set-up-your-campaign/\">Set up your campaign</a>. <p/>\n<strong>Note:</strong>\n- The values for 'lifetime_spend_cap' and 'daily_spend_cap' are microcurrency amounts based on the currency field set in the advertiser's profile. (e.g. USD) <p/>\n<p>Microcurrency is used to track very small transactions, based on the currency set in the advertisers profile.</p>\n<p>A microcurrency unit is 10^(-6) of the standard unit of currency selected in the advertisers profile.</p>\n <p><strong>Equivalency equations</strong>, using dollars as an example currency:</p>\n<ul>\n  <li>$1 = 1,000,000 microdollars</li>\n  <li>1 microdollar = $0.000001 </li>\n</ul>\n<p><strong>To convert between currency and microcurrency</strong>, using dollars as an example currency:</p>\n<ul>\n  <li>To convert dollars to microdollars, mutiply dollars by 1,000,000</li>\n  <li>To convert microdollars to dollars, divide microdollars by 1,000,000</li>\n</ul>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "campaigns"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  \"<object>\"\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1c59d3c6-1ff2-4ef5-9948-4d8d1f057ca4",
+              "name": "response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "campaigns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"name\": \"ACME Tools\",\n    \"objective_type\": \"<string>\",\n    \"ad_account_id\": \"549755885175\",\n    \"status\": \"ACTIVE\",\n    \"lifetime_spend_cap\": 1432744744,\n    \"daily_spend_cap\": 1432744744,\n    \"order_line_id\": \"549755885175\",\n    \"tracking_urls\": {\n      \"impression\": [\n        \"URL1\",\n        \"URL2\"\n      ],\n      \"click\": [\n        \"URL1\",\n        \"URL2\"\n      ],\n      \"engagement\": [\n        \"URL1\",\n        \"URL2\"\n      ],\n      \"buyable_button\": [\n        \"URL1\",\n        \"URL2\"\n      ],\n      \"audience_verification\": [\n        \"URL1\",\n        \"URL2\"\n      ]\n    },\n    \"start_time\": 1580865126,\n    \"end_time\": 1644023526,\n    \"summary_status\": \"RUNNING\",\n    \"is_flexible_daily_budgets\": true,\n    \"default_ad_group_budget_in_micro_currency\": 0,\n    \"is_automated_campaign\": true\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"data\": {\n        \"ad_account_id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"name\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"status\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"lifetime_spend_cap\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"daily_spend_cap\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"order_line_id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"tracking_urls\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"start_time\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"end_time\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"summary_status\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"is_flexible_daily_budgets\": true,\n        \"default_ad_group_budget_in_micro_currency\": 0,\n        \"is_automated_campaign\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"objective_type\": \"<string>\",\n        \"created_time\": 1432744744,\n        \"updated_time\": 1432744744,\n        \"type\": \"campaign\",\n        \"is_campaign_budget_optimization\": true\n      },\n      \"exceptions\": [\n        {\n          \"code\": 2,\n          \"message\": \"Advertiser not found.\"\n        },\n        {\n          \"code\": 2,\n          \"message\": \"Advertiser not found.\"\n        }\n      ]\n    },\n    {\n      \"data\": {\n        \"ad_account_id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"name\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"status\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"lifetime_spend_cap\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"daily_spend_cap\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"order_line_id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"tracking_urls\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"start_time\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"end_time\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"summary_status\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"is_flexible_daily_budgets\": true,\n        \"default_ad_group_budget_in_micro_currency\": 0,\n        \"is_automated_campaign\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"id\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"objective_type\": \"<string>\",\n        \"created_time\": 1432744744,\n        \"updated_time\": 1432744744,\n        \"type\": \"campaign\",\n        \"is_campaign_budget_optimization\": true\n      },\n      \"exceptions\": [\n        {\n          \"code\": 2,\n          \"message\": \"Advertiser not found.\"\n        },\n        {\n          \"code\": 2,\n          \"message\": \"Advertiser not found.\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5885c4c1-c5e9-4677-a1a3-fd6b6f4b8f44",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "campaigns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"name\": \"ACME Tools\",\n    \"objective_type\": \"<string>\",\n    \"ad_account_id\": \"549755885175\",\n    \"status\": \"ACTIVE\",\n    \"lifetime_spend_cap\": 1432744744,\n    \"daily_spend_cap\": 1432744744,\n    \"order_line_id\": \"549755885175\",\n    \"tracking_urls\": {\n      \"impression\": [\n        \"URL1\",\n        \"URL2\"\n      ],\n      \"click\": [\n        \"URL1\",\n        \"URL2\"\n      ],\n      \"engagement\": [\n        \"URL1\",\n        \"URL2\"\n      ],\n      \"buyable_button\": [\n        \"URL1\",\n        \"URL2\"\n      ],\n      \"audience_verification\": [\n        \"URL1\",\n        \"URL2\"\n      ]\n    },\n    \"start_time\": 1580865126,\n    \"end_time\": 1644023526,\n    \"summary_status\": \"RUNNING\",\n    \"is_flexible_daily_budgets\": true,\n    \"default_ad_group_budget_in_micro_currency\": 0,\n    \"is_automated_campaign\": true\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5484,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dd1c610c-4432-469a-921e-37c52fae9b31",
+          "name": "Update campaigns",
+          "request": {
+            "name": "Update campaigns",
+            "description": {
+              "content": "Update multiple ad campaigns based on campaign_ids. <p/>\n<strong>Note:</strong><p/>\n - <p>The values for 'lifetime_spend_cap' and 'daily_spend_cap' are microcurrency amounts based on the currency field set in the advertiser's profile. (e.g. USD) <p/>\n<p>Microcurrency is used to track very small transactions, based on the currency set in the advertisers profile.</p>\n<p>A microcurrency unit is 10^(-6) of the standard unit of currency selected in the advertiser s profile.</p>\n<p><strong>Equivalency equations</strong>, using dollars as an example currency:</p>\n<ul>\n  <li>$1 = 1,000,000 microdollars</li>\n  <li>1 microdollar = $0.000001 </li>\n</ul>\n<p><strong>To convert between currency and microcurrency</strong>, using dollars as an example currency:</p>\n<ul>\n  <li>To convert dollars to microdollars, mutiply dollars by 1,000,000</li>\n  <li>To convert microdollars to dollars, divide microdollars by 1,000,000</li>\n</ul>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "campaigns"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  \"<object>\"\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c2f5198a-a366-476c-a77b-c41531d582bc",
+              "name": "response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "campaigns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"id\": \"549755885175\",\n    \"ad_account_id\": \"549755885175\",\n    \"name\": \"ACME Tools\",\n    \"status\": \"ACTIVE\",\n    \"lifetime_spend_cap\": 1432744744,\n    \"daily_spend_cap\": 1432744744,\n    \"order_line_id\": \"549755885175\",\n    \"tracking_urls\": {\n      \"impression\": [\n        \"URL1\",\n        \"URL2\"\n      ],\n      \"click\": [\n        \"URL1\",\n        \"URL2\"\n      ],\n      \"engagement\": [\n        \"URL1\",\n        \"URL2\"\n      ],\n      \"buyable_button\": [\n        \"URL1\",\n        \"URL2\"\n      ],\n      \"audience_verification\": [\n        \"URL1\",\n        \"URL2\"\n      ]\n    },\n    \"start_time\": 1580865126,\n    \"end_time\": 1644023526,\n    \"summary_status\": \"RUNNING\",\n    \"is_flexible_daily_budgets\": true,\n    \"default_ad_group_budget_in_micro_currency\": 0,\n    \"is_automated_campaign\": true,\n    \"is_campaign_budget_optimization\": true,\n    \"objective_type\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"data\": {\n        \"objective_type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"exceptions\": [\n        {\n          \"code\": 2,\n          \"message\": \"Advertiser not found.\"\n        },\n        {\n          \"code\": 2,\n          \"message\": \"Advertiser not found.\"\n        }\n      ]\n    },\n    {\n      \"data\": {\n        \"objective_type\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"exceptions\": [\n        {\n          \"code\": 2,\n          \"message\": \"Advertiser not found.\"\n        },\n        {\n          \"code\": 2,\n          \"message\": \"Advertiser not found.\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d1de52b4-b553-42bc-b7ca-6f36f6ed6581",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "campaigns"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"id\": \"549755885175\",\n    \"ad_account_id\": \"549755885175\",\n    \"name\": \"ACME Tools\",\n    \"status\": \"ACTIVE\",\n    \"lifetime_spend_cap\": 1432744744,\n    \"daily_spend_cap\": 1432744744,\n    \"order_line_id\": \"549755885175\",\n    \"tracking_urls\": {\n      \"impression\": [\n        \"URL1\",\n        \"URL2\"\n      ],\n      \"click\": [\n        \"URL1\",\n        \"URL2\"\n      ],\n      \"engagement\": [\n        \"URL1\",\n        \"URL2\"\n      ],\n      \"buyable_button\": [\n        \"URL1\",\n        \"URL2\"\n      ],\n      \"audience_verification\": [\n        \"URL1\",\n        \"URL2\"\n      ]\n    },\n    \"start_time\": 1580865126,\n    \"end_time\": 1644023526,\n    \"summary_status\": \"RUNNING\",\n    \"is_flexible_daily_budgets\": true,\n    \"default_ad_group_budget_in_micro_currency\": 0,\n    \"is_automated_campaign\": true,\n    \"is_campaign_budget_optimization\": true,\n    \"objective_type\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5484,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5e32ff98-a101-4eb2-9134-23b9928c74c7",
+          "name": "Get campaign analytics",
+          "request": {
+            "name": "Get campaign analytics",
+            "description": {
+              "content": "Get analytics for the specified campaigns in the specified <code>ad_account_id</code>, filtered by the specified options.\n- The token's user_account must either be the Owner of the specified ad account, or have one of the necessary roles granted to them via <a href=\"https://help.pinterest.com/en/business/article/share-and-manage-access-to-your-ad-accounts\">Business Access</a>: Admin, Analyst, Campaign Manager.\n- If granularity is not HOUR, the furthest back you can are allowed to pull data is 90 days before the current date in UTC time and the max time range supported is 90 days.\n- If granularity is HOUR, the furthest back you can are allowed to pull data is 8 days before the current date in UTC time and the max time range supported is 3 days.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "campaigns",
+                "analytics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>",
+                  "description": "(Required) Metric report start date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days back from today."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>",
+                  "description": "(Required) Metric report end date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days past start_date."
+                },
+                {
+                  "disabled": false,
+                  "key": "campaign_ids",
+                  "value": "<string>",
+                  "description": "(Required) List of Campaign Ids to use to filter the results."
+                },
+                {
+                  "disabled": false,
+                  "key": "columns",
+                  "value": "<string>,<string>",
+                  "description": "(Required) Columns to retrieve, encoded as a comma-separated string. **NOTE**: Any metrics defined as MICRO_DOLLARS returns a value based on the advertiser profile's currency field. For USD,($1/1,000,000, or $0.000001 - one one-ten-thousandth of a cent). it's microdollars. Otherwise, it's in microunits of the advertiser's currency.<br/>For example, if the advertiser's currency is GBP (British pound sterling), all MICRO_DOLLARS fields will be in GBP microunits (1/1,000,000 British pound).<br/>If a column has no value, it may not be returned"
+                },
+                {
+                  "disabled": false,
+                  "key": "granularity",
+                  "value": "<string>",
+                  "description": "(Required) TOTAL - metrics are aggregated over the specified date range.<br> DAY - metrics are broken down daily.<br> HOUR - metrics are broken down hourly.<br>WEEKLY - metrics are broken down weekly.<br>MONTHLY - metrics are broken down monthly"
+                },
+                {
+                  "disabled": false,
+                  "key": "click_window_days",
+                  "value": "30",
+                  "description": "Number of days to use as the conversion attribution window for a pin click action. Applies to Pinterest Tag conversion metrics. Prior conversion tags use their defined attribution windows. If not specified, defaults to `30` days."
+                },
+                {
+                  "disabled": false,
+                  "key": "engagement_window_days",
+                  "value": "30",
+                  "description": "Number of days to use as the conversion attribution window for an engagement action. Engagements include saves, closeups, link clicks, and carousel card swipes. Applies to Pinterest Tag conversion metrics. Prior conversion tags use their defined attribution windows. If not specified, defaults to `30` days."
+                },
+                {
+                  "disabled": false,
+                  "key": "view_window_days",
+                  "value": "1",
+                  "description": "Number of days to use as the conversion attribution window for a view action. Applies to Pinterest Tag conversion metrics. Prior conversion tags use their defined attribution windows. If not specified, defaults to `1` day."
+                },
+                {
+                  "disabled": false,
+                  "key": "conversion_report_time",
+                  "value": "TIME_OF_AD_ACTION",
+                  "description": "The date by which the conversion metrics returned from this endpoint will be reported. There are two dates associated with a conversion event: the date that the user interacted with the ad, and the date that the user completed a conversion event."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7c465b98-8448-41bf-974f-4c2910ee708e",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "campaigns",
+                    "analytics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "campaign_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "columns",
+                      "value": "TOTAL_CONVERSIONS,TOTAL_CONVERSIONS"
+                    },
+                    {
+                      "key": "granularity",
+                      "value": "DAY"
+                    },
+                    {
+                      "key": "click_window_days",
+                      "value": "1"
+                    },
+                    {
+                      "key": "engagement_window_days",
+                      "value": "30"
+                    },
+                    {
+                      "key": "view_window_days",
+                      "value": "1"
+                    },
+                    {
+                      "key": "conversion_report_time",
+                      "value": "TIME_OF_AD_ACTION"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"DATE\": \"2021-04-01\",\n    \"CAMPAIGN_ID\": \"547602124502\",\n    \"SPEND_IN_DOLLAR\": 30,\n    \"TOTAL_CLICKTHROUGH\": 216\n  },\n  {\n    \"DATE\": \"2021-04-01\",\n    \"CAMPAIGN_ID\": \"547602124502\",\n    \"SPEND_IN_DOLLAR\": 30,\n    \"TOTAL_CLICKTHROUGH\": 216\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "96ff2214-02c8-4567-af2d-ee65b163ae19",
+              "name": "Invalid ad account campaign analytics parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "campaigns",
+                    "analytics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "campaign_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "columns",
+                      "value": "TOTAL_CONVERSIONS,TOTAL_CONVERSIONS"
+                    },
+                    {
+                      "key": "granularity",
+                      "value": "DAY"
+                    },
+                    {
+                      "key": "click_window_days",
+                      "value": "1"
+                    },
+                    {
+                      "key": "engagement_window_days",
+                      "value": "30"
+                    },
+                    {
+                      "key": "view_window_days",
+                      "value": "1"
+                    },
+                    {
+                      "key": "conversion_report_time",
+                      "value": "TIME_OF_AD_ACTION"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"Invalid ad account campaign analytics parameters.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "56f2d5bb-6956-4f49-9f09-67e8ad6ca779",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "campaigns",
+                    "analytics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "campaign_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "columns",
+                      "value": "TOTAL_CONVERSIONS,TOTAL_CONVERSIONS"
+                    },
+                    {
+                      "key": "granularity",
+                      "value": "DAY"
+                    },
+                    {
+                      "key": "click_window_days",
+                      "value": "1"
+                    },
+                    {
+                      "key": "engagement_window_days",
+                      "value": "30"
+                    },
+                    {
+                      "key": "view_window_days",
+                      "value": "1"
+                    },
+                    {
+                      "key": "conversion_report_time",
+                      "value": "TIME_OF_AD_ACTION"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5484,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "522848f8-51b6-4bcd-a1f9-a1034b58c050",
+          "name": "Get targeting analytics for campaigns",
+          "request": {
+            "name": "Get targeting analytics for campaigns",
+            "description": {
+              "content": "Get targeting analytics for one or more campaigns.\nFor the requested account and metrics, the response will include the requested metric information\n(e.g. SPEND_IN_DOLLAR) for the requested target type (e.g. \"age_bucket\") for applicable values (e.g. \"45-49\"). <p/>\n- The token's user_account must either be the Owner of the specified ad account, or have one\nof the necessary roles granted to them via\n<a href=\"https://help.pinterest.com/en/business/article/share-and-manage-access-to-your-ad-accounts\">Business Access</a>: Admin, Analyst, Campaign Manager.\n- If granularity is not HOUR, the furthest back you can are allowed to pull data is 90 days before the current date in UTC time and the max time range supported is 90 days.\n- If granularity is HOUR, the furthest back you can are allowed to pull data is 8 days before the current date in UTC time and the max time range supported is 3 days.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "campaigns",
+                "targeting_analytics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "campaign_ids",
+                  "value": "<string>",
+                  "description": "(Required) List of Campaign Ids to use to filter the results."
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>",
+                  "description": "(Required) Metric report start date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days back from today."
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>",
+                  "description": "(Required) Metric report end date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days past start_date."
+                },
+                {
+                  "disabled": false,
+                  "key": "targeting_types",
+                  "value": "<string>",
+                  "description": "(Required) Targeting type breakdowns for the report. The reporting per targeting type <br> is independent from each other. [\"AGE_BUCKET_AND_GENDER\"] is in BETA and not yet available to all users."
+                },
+                {
+                  "disabled": false,
+                  "key": "columns",
+                  "value": "<string>,<string>",
+                  "description": "(Required) Columns to retrieve, encoded as a comma-separated string. **NOTE**: Any metrics defined as MICRO_DOLLARS returns a value based on the advertiser profile's currency field. For USD,($1/1,000,000, or $0.000001 - one one-ten-thousandth of a cent). it's microdollars. Otherwise, it's in microunits of the advertiser's currency.<br/>For example, if the advertiser's currency is GBP (British pound sterling), all MICRO_DOLLARS fields will be in GBP microunits (1/1,000,000 British pound).<br/>If a column has no value, it may not be returned"
+                },
+                {
+                  "disabled": false,
+                  "key": "granularity",
+                  "value": "<string>",
+                  "description": "(Required) TOTAL - metrics are aggregated over the specified date range.<br> DAY - metrics are broken down daily.<br> HOUR - metrics are broken down hourly.<br>WEEKLY - metrics are broken down weekly.<br>MONTHLY - metrics are broken down monthly"
+                },
+                {
+                  "disabled": false,
+                  "key": "click_window_days",
+                  "value": "30",
+                  "description": "Number of days to use as the conversion attribution window for a pin click action. Applies to Pinterest Tag conversion metrics. Prior conversion tags use their defined attribution windows. If not specified, defaults to `30` days."
+                },
+                {
+                  "disabled": false,
+                  "key": "engagement_window_days",
+                  "value": "30",
+                  "description": "Number of days to use as the conversion attribution window for an engagement action. Engagements include saves, closeups, link clicks, and carousel card swipes. Applies to Pinterest Tag conversion metrics. Prior conversion tags use their defined attribution windows. If not specified, defaults to `30` days."
+                },
+                {
+                  "disabled": false,
+                  "key": "view_window_days",
+                  "value": "1",
+                  "description": "Number of days to use as the conversion attribution window for a view action. Applies to Pinterest Tag conversion metrics. Prior conversion tags use their defined attribution windows. If not specified, defaults to `1` day."
+                },
+                {
+                  "disabled": false,
+                  "key": "conversion_report_time",
+                  "value": "TIME_OF_AD_ACTION",
+                  "description": "The date by which the conversion metrics returned from this endpoint will be reported. There are two dates associated with a conversion event: the date that the user interacted with the ad, and the date that the user completed a conversion event."
+                },
+                {
+                  "disabled": false,
+                  "key": "attribution_types",
+                  "value": "<string>",
+                  "description": "List of types of attribution for the conversion report"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a4cb27bf-4820-4064-a06b-e3d29928762e",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "campaigns",
+                    "targeting_analytics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "campaign_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "targeting_types",
+                      "value": "APPTYPE"
+                    },
+                    {
+                      "key": "columns",
+                      "value": "TOTAL_CONVERSIONS,TOTAL_CONVERSIONS"
+                    },
+                    {
+                      "key": "granularity",
+                      "value": "DAY"
+                    },
+                    {
+                      "key": "click_window_days",
+                      "value": "1"
+                    },
+                    {
+                      "key": "engagement_window_days",
+                      "value": "30"
+                    },
+                    {
+                      "key": "view_window_days",
+                      "value": "1"
+                    },
+                    {
+                      "key": "conversion_report_time",
+                      "value": "TIME_OF_AD_ACTION"
+                    },
+                    {
+                      "key": "attribution_types",
+                      "value": "INDIVIDUAL"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"targeting_type\": \"KEYWORD\",\n      \"targeting_value\": \"christmas decor ideas\",\n      \"metrics\": {\n        \"AD_GROUP_ID\": 2680067996745,\n        \"DATE\": \"2022-04-26\",\n        \"SPEND_IN_DOLLAR\": 240\n      }\n    },\n    {\n      \"targeting_type\": \"APPTYPE\",\n      \"targeting_value\": \"iphone\",\n      \"metrics\": {\n        \"AD_GROUP_ID\": 2680067996745,\n        \"DATE\": \"2022-04-26\",\n        \"SPEND_IN_DOLLAR\": 240\n      }\n    },\n    {\n      \"targeting_type\": \"APPTYPE\",\n      \"targeting_value\": \"ipad\",\n      \"metrics\": {\n        \"AD_GROUP_ID\": 2680067996745,\n        \"DATE\": \"2022-04-26\",\n        \"SPEND_IN_DOLLAR\": 240\n      }\n    },\n    {\n      \"targeting_type\": \"APPTYPE\",\n      \"targeting_value\": \"web\",\n      \"metrics\": {\n        \"AD_GROUP_ID\": 2680067996745,\n        \"DATE\": \"2022-04-26\",\n        \"SPEND_IN_DOLLAR\": 240\n      }\n    },\n    {\n      \"targeting_type\": \"APPTYPE\",\n      \"targeting_value\": \"web_mobile\",\n      \"metrics\": {\n        \"AD_GROUP_ID\": 2680067996745,\n        \"DATE\": \"2022-04-26\",\n        \"SPEND_IN_DOLLAR\": 240\n      }\n    },\n    {\n      \"targeting_type\": \"APPTYPE\",\n      \"targeting_value\": \"android_mobile\",\n      \"metrics\": {\n        \"AD_GROUP_ID\": 2680067996745,\n        \"DATE\": \"2022-04-26\",\n        \"SPEND_IN_DOLLAR\": 240\n      }\n    },\n    {\n      \"targeting_type\": \"APPTYPE\",\n      \"targeting_value\": \"android_tablet\",\n      \"metrics\": {\n        \"AD_GROUP_ID\": 2680067996745,\n        \"DATE\": \"2022-04-26\",\n        \"SPEND_IN_DOLLAR\": 240\n      }\n    },\n    {\n      \"targeting_type\": \"GENDER\",\n      \"targeting_value\": \"female\",\n      \"metrics\": {\n        \"AD_GROUP_ID\": 2680067996745,\n        \"DATE\": \"2022-04-26\",\n        \"SPEND_IN_DOLLAR\": 240\n      }\n    },\n    {\n      \"targeting_type\": \"LOCATION\",\n      \"targeting_value\": 500,\n      \"metrics\": {\n        \"AD_GROUP_ID\": 2680067996745,\n        \"DATE\": \"2022-04-26\",\n        \"SPEND_IN_DOLLAR\": 240\n      }\n    },\n    {\n      \"targeting_type\": \"PLACEMENT\",\n      \"targeting_value\": \"SEARCH\",\n      \"metrics\": {\n        \"AD_GROUP_ID\": 2680067996745,\n        \"DATE\": \"2022-04-26\",\n        \"SPEND_IN_DOLLAR\": 240\n      }\n    },\n    {\n      \"targeting_type\": \"COUNTRY\",\n      \"targeting_value\": \"US\",\n      \"metrics\": {\n        \"AD_GROUP_ID\": 2680067996745,\n        \"DATE\": \"2022-04-26\",\n        \"SPEND_IN_DOLLAR\": 240\n      }\n    },\n    {\n      \"targeting_type\": \"TARGETED_INTEREST\",\n      \"targeting_value\": \"Food and Drinks\",\n      \"metrics\": {\n        \"AD_GROUP_ID\": 2680067996745,\n        \"DATE\": \"2022-04-26\",\n        \"SPEND_IN_DOLLAR\": 240\n      }\n    },\n    {\n      \"targeting_type\": \"PINNER_INTEREST\",\n      \"targeting_value\": \"Chocolate Cookies\",\n      \"metrics\": {\n        \"AD_GROUP_ID\": 2680067996745,\n        \"DATE\": \"2022-04-26\",\n        \"SPEND_IN_DOLLAR\": 240\n      }\n    },\n    {\n      \"targeting_type\": \"AUDIENCE_INCLUDE\",\n      \"targeting_value\": 254261234567,\n      \"metrics\": {\n        \"AD_GROUP_ID\": 2680067996745,\n        \"DATE\": \"2022-04-26\",\n        \"SPEND_IN_DOLLAR\": 240\n      }\n    },\n    {\n      \"targeting_type\": \"GEO\",\n      \"targeting_value\": \"US:94102\",\n      \"metrics\": {\n        \"AD_GROUP_ID\": 2680067996745,\n        \"DATE\": \"2022-04-26\",\n        \"SPEND_IN_DOLLAR\": 240\n      }\n    },\n    {\n      \"targeting_type\": \"AGE_BUCKET\",\n      \"targeting_value\": \"45-49\",\n      \"metrics\": {\n        \"AD_GROUP_ID\": 2680067996745,\n        \"DATE\": \"2022-04-26\",\n        \"SPEND_IN_DOLLAR\": 240\n      }\n    },\n    {\n      \"targeting_type\": \"REGION\",\n      \"targeting_value\": \"US-CA\",\n      \"metrics\": {\n        \"AD_GROUP_ID\": 2680067996745,\n        \"DATE\": \"2022-04-26\",\n        \"SPEND_IN_DOLLAR\": 240\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c82b6607-fc48-40e9-9df3-4e8c617e1dfd",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "campaigns",
+                    "targeting_analytics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "campaign_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "targeting_types",
+                      "value": "APPTYPE"
+                    },
+                    {
+                      "key": "columns",
+                      "value": "TOTAL_CONVERSIONS,TOTAL_CONVERSIONS"
+                    },
+                    {
+                      "key": "granularity",
+                      "value": "DAY"
+                    },
+                    {
+                      "key": "click_window_days",
+                      "value": "1"
+                    },
+                    {
+                      "key": "engagement_window_days",
+                      "value": "30"
+                    },
+                    {
+                      "key": "view_window_days",
+                      "value": "1"
+                    },
+                    {
+                      "key": "conversion_report_time",
+                      "value": "TIME_OF_AD_ACTION"
+                    },
+                    {
+                      "key": "attribution_types",
+                      "value": "INDIVIDUAL"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5484,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c01185ee-043d-4c37-ab51-b67c36c00f39",
+          "name": "Get campaign",
+          "request": {
+            "name": "Get campaign",
+            "description": {
+              "content": "Get a specific campaign given the campaign ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ad_accounts",
+                ":ad_account_id",
+                "campaigns",
+                ":campaign_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ad_account_id",
+                  "description": "(Required) Unique identifier of an ad account."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "campaign_id",
+                  "description": "(Required) Campaign ID, must be associated with the ad account ID provided in the path."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "ads:read ads:write billing:read billing:write biz_access:read biz_access:write boards:read boards:read_secret boards:write boards:write_secret catalogs:read catalogs:write pins:read pins:read_secret pins:write pins:write_secret user_accounts:read user_accounts:write"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.pinterest.com/v5/oauth/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://www.pinterest.com/oauth/"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4411dd0e-3698-4390-8ac2-f05919ce1b36",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "campaigns",
+                    ":campaign_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "campaign_id",
+                      "description": "(Required) Campaign ID, must be associated with the ad account ID provided in the path."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"549755885175\",\n  \"ad_account_id\": \"549755885175\",\n  \"name\": \"ACME Tools\",\n  \"status\": \"ACTIVE\",\n  \"lifetime_spend_cap\": 1432744744,\n  \"daily_spend_cap\": 1432744744,\n  \"order_line_id\": \"549755885175\",\n  \"tracking_urls\": {\n    \"impression\": [\n      \"URL1\",\n      \"URL2\"\n    ],\n    \"click\": [\n      \"URL1\",\n      \"URL2\"\n    ],\n    \"engagement\": [\n      \"URL1\",\n      \"URL2\"\n    ],\n    \"buyable_button\": [\n      \"URL1\",\n      \"URL2\"\n    ],\n    \"audience_verification\": [\n      \"URL1\",\n      \"URL2\"\n    ]\n  },\n  \"start_time\": 1580865126,\n  \"end_time\": 1644023526,\n  \"summary_status\": \"RUNNING\",\n  \"objective_type\": \"<string>\",\n  \"created_time\": 1432744744,\n  \"updated_time\": 1432744744,\n  \"type\": \"campaign\",\n  \"is_flexible_daily_budgets\": true,\n  \"is_campaign_budget_optimization\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "60968a2f-2e6a-467d-8180-b9dd58fa08e5",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ad_accounts",
+                    ":ad_account_id",
+                    "campaigns",
+                    ":campaign_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ad_account_id",
+                      "description": "(Required) Unique identifier of an ad account."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "campaign_id",
+                      "description": "(Required) Campaign ID, must be associated with the ad account ID provided in the path."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5484,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.pinterest.com/v5",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b977c320-bdaa-47d1-bada-567d6ae0e6d4",
+    "name": "Pinterest Campaigns API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is the description of your API.\n\nContact Support:\n Name: Pinterest, Inc.",
+      "type": "text/plain"
+    }
+  }
+}
