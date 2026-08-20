@@ -23,6 +23,8 @@ apis:
   humanURL: https://developers.pinterest.com/
   baseURL: https://api.pinterest.com/v5
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -39,6 +41,8 @@ apis:
   humanURL: https://developers.pinterest.com/
   baseURL: https://api.pinterest.com/v5
   tags:
+  - ad
+  tags_raw:
   - Ad
   properties:
   - type: OpenAPI
@@ -55,6 +59,8 @@ apis:
   humanURL: https://developers.pinterest.com/
   baseURL: https://api.pinterest.com/v5
   tags:
+  - Ad Groups
+  tags_raw:
   - Ad_groups
   properties:
   - type: OpenAPI
@@ -135,6 +141,8 @@ apis:
   humanURL: https://developers.pinterest.com/
   baseURL: https://api.pinterest.com/v5
   tags:
+  - Audience Insights
+  tags_raw:
   - Audience_insights
   properties:
   - type: OpenAPI
@@ -215,6 +223,8 @@ apis:
   humanURL: https://developers.pinterest.com/
   baseURL: https://api.pinterest.com/v5
   tags:
+  - Boards
+  tags_raw:
   - Board
   properties:
   - type: OpenAPI
@@ -423,6 +433,8 @@ apis:
   humanURL: https://developers.pinterest.com/
   baseURL: https://api.pinterest.com/v5
   tags:
+  - Customers
+  tags_raw:
   - Customer
   properties:
   - type: OpenAPI
@@ -551,6 +563,8 @@ apis:
   humanURL: https://developers.pinterest.com/
   baseURL: https://api.pinterest.com/v5
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
@@ -711,6 +725,8 @@ apis:
   humanURL: https://developers.pinterest.com/
   baseURL: https://api.pinterest.com/v5
   tags:
+  - Group
+  tags_raw:
   - Groups
   properties:
   - type: OpenAPI
@@ -791,6 +807,8 @@ apis:
   humanURL: https://developers.pinterest.com/
   baseURL: https://api.pinterest.com/v5
   tags:
+  - Integration
+  tags_raw:
   - Integrations
   properties:
   - type: OpenAPI
@@ -887,6 +905,8 @@ apis:
   humanURL: https://developers.pinterest.com/
   baseURL: https://api.pinterest.com/v5
   tags:
+  - Item
+  tags_raw:
   - Items
   properties:
   - type: OpenAPI
@@ -1079,6 +1099,8 @@ apis:
   humanURL: https://developers.pinterest.com/
   baseURL: https://api.pinterest.com/v5
   tags:
+  - Order
+  tags_raw:
   - Orders
   properties:
   - type: OpenAPI
@@ -1127,6 +1149,8 @@ apis:
   humanURL: https://developers.pinterest.com/
   baseURL: https://api.pinterest.com/v5
   tags:
+  - PIN
+  tags_raw:
   - Pin
   properties:
   - type: OpenAPI
@@ -1207,6 +1231,8 @@ apis:
   humanURL: https://developers.pinterest.com/
   baseURL: https://api.pinterest.com/v5
   tags:
+  - Product Groups
+  tags_raw:
   - Product_groups
   properties:
   - type: OpenAPI
@@ -1223,6 +1249,8 @@ apis:
   humanURL: https://developers.pinterest.com/
   baseURL: https://api.pinterest.com/v5
   tags:
+  - Product
+  tags_raw:
   - Products
   properties:
   - type: OpenAPI
@@ -1527,6 +1555,8 @@ apis:
   humanURL: https://developers.pinterest.com/
   baseURL: https://api.pinterest.com/v5
   tags:
+  - States
+  tags_raw:
   - State
   properties:
   - type: OpenAPI
@@ -1575,6 +1605,8 @@ apis:
   humanURL: https://developers.pinterest.com/
   baseURL: https://api.pinterest.com/v5
   tags:
+  - Subscription
+  tags_raw:
   - Subscriptions
   properties:
   - type: OpenAPI
@@ -1686,7 +1718,8 @@ apis:
   description: The Test API from Pinterest — 1 operation(s) for test.
   humanURL: https://developers.pinterest.com/
   baseURL: https://api.pinterest.com/v5
-  tags:
+  tags: []
+  tags_raw:
   - Test
   properties:
   - type: OpenAPI
@@ -1767,6 +1800,8 @@ apis:
   humanURL: https://developers.pinterest.com/
   baseURL: https://api.pinterest.com/v5
   tags:
+  - User Account
+  tags_raw:
   - User_account
   properties:
   - type: OpenAPI
@@ -1815,6 +1850,8 @@ apis:
   humanURL: https://developers.pinterest.com/
   baseURL: https://api.pinterest.com/v5
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
@@ -1831,6 +1868,8 @@ apis:
   humanURL: https://developers.pinterest.com/
   baseURL: https://api.pinterest.com/v5
   tags:
+  - Verification
+  tags_raw:
   - Verifications
   properties:
   - type: OpenAPI
@@ -1875,6 +1914,10 @@ apis:
     url: graphql/pinterest-graphql.md
 name: Pinterest
 tags:
+- Image
+- Social-Media
+- Videos
+tags_raw:
 - Images
 - Social Media
 - Videos
