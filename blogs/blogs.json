@@ -10,12 +10,9 @@
     },
     {
       "source": "https://medium.com/pinterest-engineering",
-      "feed_url": "https://medium.com/feed/pinterest-engineering",
-      "title": "",
-      "saved": 0,
-      "method": "discovered"
+      "error": "HTTPError"
     }
   ],
   "post_count": 12,
-  "fetched": "2026-08-15T12:11:08Z"
+  "fetched": "2026-08-22T20:20:02Z"
 }
