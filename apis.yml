@@ -41,7 +41,7 @@ apis:
   humanURL: https://developers.pinterest.com/
   baseURL: https://api.pinterest.com/v5
   tags:
-  - ad
+  - Ad
   tags_raw:
   - Ad
   properties:
@@ -59,7 +59,7 @@ apis:
   humanURL: https://developers.pinterest.com/
   baseURL: https://api.pinterest.com/v5
   tags:
-  - Ad Groups
+  - Ad_groups
   tags_raw:
   - Ad_groups
   properties:
@@ -141,7 +141,7 @@ apis:
   humanURL: https://developers.pinterest.com/
   baseURL: https://api.pinterest.com/v5
   tags:
-  - Audience Insights
+  - Audience_insights
   tags_raw:
   - Audience_insights
   properties:
@@ -451,6 +451,8 @@ apis:
   humanURL: https://developers.pinterest.com/
   baseURL: https://api.pinterest.com/v5
   tags:
+  - Customer lists
+  tags_raw:
   - Customer_lists
   properties:
   - type: OpenAPI
@@ -1149,7 +1151,7 @@ apis:
   humanURL: https://developers.pinterest.com/
   baseURL: https://api.pinterest.com/v5
   tags:
-  - PIN
+  - Pin
   tags_raw:
   - Pin
   properties:
@@ -1231,7 +1233,7 @@ apis:
   humanURL: https://developers.pinterest.com/
   baseURL: https://api.pinterest.com/v5
   tags:
-  - Product Groups
+  - Product_groups
   tags_raw:
   - Product_groups
   properties:
@@ -1800,7 +1802,7 @@ apis:
   humanURL: https://developers.pinterest.com/
   baseURL: https://api.pinterest.com/v5
   tags:
-  - User Account
+  - User_account
   tags_raw:
   - User_account
   properties:
@@ -1868,7 +1870,7 @@ apis:
   humanURL: https://developers.pinterest.com/
   baseURL: https://api.pinterest.com/v5
   tags:
-  - Verification
+  - Verifications
   tags_raw:
   - Verifications
   properties:
