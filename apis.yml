@@ -59,7 +59,7 @@ apis:
   humanURL: https://developers.pinterest.com/
   baseURL: https://api.pinterest.com/v5
   tags:
-  - Ad_groups
+  - Ad Groups
   tags_raw:
   - Ad_groups
   properties:
@@ -141,7 +141,7 @@ apis:
   humanURL: https://developers.pinterest.com/
   baseURL: https://api.pinterest.com/v5
   tags:
-  - Audience_insights
+  - Audience Insights
   tags_raw:
   - Audience_insights
   properties:
@@ -1151,7 +1151,7 @@ apis:
   humanURL: https://developers.pinterest.com/
   baseURL: https://api.pinterest.com/v5
   tags:
-  - Pin
+  - PIN
   tags_raw:
   - Pin
   properties:
@@ -1233,7 +1233,7 @@ apis:
   humanURL: https://developers.pinterest.com/
   baseURL: https://api.pinterest.com/v5
   tags:
-  - Product_groups
+  - Product Groups
   tags_raw:
   - Product_groups
   properties:
@@ -1802,7 +1802,7 @@ apis:
   humanURL: https://developers.pinterest.com/
   baseURL: https://api.pinterest.com/v5
   tags:
-  - User_account
+  - User Account
   tags_raw:
   - User_account
   properties:
@@ -1870,7 +1870,7 @@ apis:
   humanURL: https://developers.pinterest.com/
   baseURL: https://api.pinterest.com/v5
   tags:
-  - Verifications
+  - Verification
   tags_raw:
   - Verifications
   properties:
