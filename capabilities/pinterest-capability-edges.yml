@@ -1,0 +1,213 @@
+slug: pinterest
+provider: Pinterest
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Media, Entertainment & Telecom Content
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 18
+edges:
+- tag: Ad
+  spec_file: pinterest-ad-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.8
+  evidence: POST /ad_accounts/{ad_account_id}/ad_groups  ad_groups/create  Create ad groups; GET /ad_accounts/{ad_account_id}/ad_groups/analytics  Get
+    ad group analytics
+  reason: 'The surface is paid-social campaign management: ad accounts, campaigns, ad groups, ads, targeting
+    and campaign analytics. Whoever uses it, the work performed is paid media / social advertising campaign
+    execution and measurement, i.e. Digital Marketing Management. Not mapped to the media-frame advertising-sales
+    capabilities because the operations are advertiser-side campaign build and reporting rather than inventory
+    sell-side management.'
+- tag: Campaigns
+  spec_file: pinterest-campaigns-api-openapi.yml
+  capability_id: BC-3760.20
+  capability_id_l1: BC-3760
+  capability_name: Direct Ad Sales Management
+  confidence: 0.8
+  evidence: 'POST /ad_accounts/{ad_account_id}/campaigns campaigns/create Create campaigns; GET /ad_accounts/{ad_account_id}/campaigns/analytics
+    Get campaign analytics; schemas: ObjectiveType, CampaignsAnalyticsResponse'
+  reason: Creation, update and analytics of advertising campaigns inside an ad account is advertising
+    sales and operations. Sub-capability between direct sales, trafficking and revenue reporting is ambiguous,
+    so scored 0.8 at the buy/sell campaign management level.
+- tag: Forms
+  spec_file: pinterest-forms-api-openapi.yml
+  capability_id: BC-400.40
+  capability_id_l1: BC-400
+  capability_name: Demand Generation Management
+  confidence: 0.8
+  evidence: GET /ad_accounts/{ad_account_id}/lead_forms — 'Get lead forms'; schemas LeadFormQuestion,
+    LeadFormStatus, LeadFormResponse
+  reason: The operations manage lead-generation forms attached to advertising accounts, including questions
+    and test submissions — the classic lead capture mechanism of demand generation campaigns.
+- tag: Orders
+  spec_file: pinterest-orders-api-openapi.yml
+  capability_id: BC-3760.20
+  capability_id_l1: BC-3760
+  capability_name: Direct Ad Sales Management
+  confidence: 0.8
+  evidence: POST /ad_accounts/{ad_account_id}/ssio/insertion_orders "Create insertion order through SSIO.";
+    "Edit insertion order through SSIO."
+  reason: Creation, editing and status tracking of advertising insertion orders on an ad account is squarely
+    direct advertising sales management, which the capability defines as sponsorship/upfront/insertion-order
+    channels.
+- tag: Status
+  spec_file: pinterest-status-api-openapi.yml
+  capability_id: BC-3760.20
+  capability_id_l1: BC-3760
+  capability_name: Direct Ad Sales Management
+  confidence: 0.8
+  evidence: '"Get insertion order status by ad account id.", "Get insertion order status by pin order
+    id.", schema SSIOInsertionOrderStatus'
+  reason: Operations expose the status of advertising insertion orders (SSIO) against an ad account, which
+    is squarely the insertion-order channel of direct ad sales. Slight ambiguity only over whether it
+    belongs with revenue reporting/billing rather than direct sales.
+- tag: Ads
+  spec_file: pinterest-ads-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.78
+  evidence: POST /ad_accounts/{ad_account_id}/ads  ads/create  Create ads; GET /ad_accounts/{ad_account_id}/ads/analytics  Get
+    ad analytics
+  reason: Create/update ads, generate ad previews from pins or images, pull ad and targeting analytics,
+    redeem ad credits — execution and measurement of paid social advertising, i.e. Digital Marketing Management.
+- tag: Business
+  spec_file: pinterest-business-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.78
+  evidence: 'PATCH /businesses/{business_id}/members/assets/access business_members_asset_access/update
+    Assign/Update member asset permissions; DELETE ... Delete member access to asset; schemas: Permissions,
+    UserSingleAssetBinding'
+  reason: Operations manage members, partners, invitations and per-asset permission grants within a business
+    account — access administration and entitlement to assets, i.e. identity and access management, not
+    an HR or partner-commercial capability.
+- tag: Accounts
+  spec_file: pinterest-accounts-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.72
+  evidence: GET /ad_accounts ad_accounts/list List ad accounts; POST /ad_accounts/{ad_account_id}/ad_groups
+    Create ad groups; GET /ad_accounts/{ad_account_id}/ad_groups/analytics Get ad group analytics; POST
+    .../ad_groups/audience_sizing Get audience sizing
+  reason: Despite the generic tag, the operations manage advertiser ad accounts, campaigns, ad groups,
+    ads, audiences and campaign analytics on a social platform — the buy-side paid-social workflow, which
+    is Digital Marketing Management (paid media, social). Not mapped to the media frame's Advertising
+    Sales & Operations because that is the publisher sell-side (inventory, trafficking, billing) whereas
+    this surface is the advertiser's campaign management; that ambiguity is why confidence is ~0.7.
+- tag: Bulk
+  spec_file: pinterest-bulk-api-openapi.yml
+  capability_id: BC-3760.40
+  capability_id_l1: BC-3760
+  capability_name: Ad Trafficking & Operations
+  confidence: 0.7
+  evidence: 'POST /ad_accounts/{ad_account_id}/bulk/upsert bulk_upsert/create Create/update ad entities
+    in bulk; schemas: CampaignCreateCommon, ProductGroupPromotionCreateRequest, TargetingSpec'
+  reason: Despite the generic 'Bulk' tag, the operations create and update advertising entities (campaigns,
+    ad groups, promotions, targeting) at scale within an ad account — advertising operations/trafficking.
+    Rated 0.7 because it is a batch-mechanism surface over ad objects rather than a distinct capability.
+- tag: Events
+  spec_file: pinterest-events-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.7
+  evidence: POST /ad_accounts/{ad_account_id}/events  events/create  Send conversions; schemas ConversionApiResponse,
+    ConversionEvents, ConversionEventsUserData
+  reason: 'This is a conversions API: advertisers send conversion events server-side for attribution and
+    optimisation of paid social campaigns, which is digital marketing measurement/automation rather than
+    a generic event bus.'
+- tag: Insertion
+  spec_file: pinterest-insertion-api-openapi.yml
+  capability_id: BC-3760.20
+  capability_id_l1: BC-3760
+  capability_name: Direct Ad Sales Management
+  confidence: 0.7
+  evidence: POST /ad_accounts/{ad_account_id}/ssio/insertion_orders — 'Create insertion order through
+    SSIO'; schema SSIOInsertionOrderStatus
+  reason: Operations create, edit and track the status of advertising insertion orders, which is exactly
+    the insertion-order channel described under direct ad sales management.
+- tag: Invites
+  spec_file: pinterest-invites-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: create_membership_or_partnership_invites  Create invites or requests; create_asset_invites  Update
+    invite/request with an asset permission; schemas Permissions, InviteBusinessRoleBinding, BusinessRoleResponse
+  reason: Operations grant/revoke business account membership and asset permissions via role bindings
+    — access administration for accounts, i.e. identity & access management, not a media or advertising
+    business capability.
+- tag: Lines
+  spec_file: pinterest-lines-api-openapi.yml
+  capability_id: BC-3760.20
+  capability_id_l1: BC-3760
+  capability_name: Direct Ad Sales Management
+  confidence: 0.7
+  evidence: GET /ad_accounts/{ad_account_id}/ssio/order_lines  ssio_order_lines/get_by_ad_account  Get
+    Salesforce order lines by ad account id.
+  reason: Advertising order lines, including Salesforce insertion-order (SSIO) lines, are the artefacts
+    of directly sold advertising — direct ad sales management.
+- tag: Members
+  spec_file: pinterest-members-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: '"Update member''s business role", "Terminate business memberships", "Assign/Update member
+    asset permissions", "Delete member access to asset"'
+  reason: Operations create, change and revoke business-account membership roles and per-asset permissions
+    — role and entitlement administration over accounts, which is Identity & Access Management. Not HR
+    employee lifecycle (these are platform accounts, not employees).
+- tag: Order
+  spec_file: pinterest-order-api-openapi.yml
+  capability_id: BC-3760.20
+  capability_id_l1: BC-3760
+  capability_name: Direct Ad Sales Management
+  confidence: 0.7
+  evidence: '"Get insertion order status by pin order id.", "Get Salesforce order lines by ad account
+    id.", schemas SSIOInsertionOrderStatus, OrderLine'
+  reason: Operations expose advertising insertion orders and their order lines per ad account, which is
+    the direct ad sales motion (BC-3760.20 explicitly covers insertion-order channels). Read-only surface,
+    hence 0.7 rather than higher.
+- tag: Promotions
+  spec_file: pinterest-promotions-api-openapi.yml
+  capability_id: BC-3760.40
+  capability_id_l1: BC-3760
+  capability_name: Ad Trafficking & Operations
+  confidence: 0.7
+  evidence: '''Create product group promotions'', ''Update product group promotions''; ProductGroupPromotionCreateRequest,
+    CreativeType'
+  reason: Full CRUD over product-group promotions within an ad account with creative type and status —
+    onboarding and managing ad units on the advertising platform.
+- tag: Reports
+  spec_file: pinterest-reports-api-openapi.yml
+  capability_id: BC-3760.60
+  capability_id_l1: BC-3760
+  capability_name: Advertising Revenue Reporting
+  confidence: 0.7
+  evidence: '''Create async request for an account analytics report''; ''Get advertiser Marketing Mix
+    Modeling (MMM) report.''; schemas CampaignSummaryStatus, PinPromotionSummaryStatus'
+  reason: Generates advertiser account and campaign analytics reports (including MMM and catalog feed
+    stats) — campaign delivery and advertising performance reporting for the ads business.
+- tag: Tags
+  spec_file: pinterest-tags-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.7
+  evidence: POST /ad_accounts/{ad_account_id}/conversion_tags — "Create conversion tag"; schemas ConversionTagCreate,
+    ConversionEventResponse, EnhancedMatchStatusType
+  reason: '''Tags'' here means advertising conversion tracking tags (pixels) on an ad account — creation
+    and retrieval of conversion tags and page-visit tags. That is paid-media tracking/measurement configuration,
+    i.e. digital marketing management, not content metadata tagging.'
