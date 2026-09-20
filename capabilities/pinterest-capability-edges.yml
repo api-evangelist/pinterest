@@ -11,7 +11,7 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 18
+edge_count: 21
 edges:
 - tag: Ad
   spec_file: pinterest-ad-api-openapi.yml
@@ -47,6 +47,17 @@ edges:
     LeadFormStatus, LeadFormResponse
   reason: The operations manage lead-generation forms attached to advertising accounts, including questions
     and test submissions — the classic lead capture mechanism of demand generation campaigns.
+- tag: Keywords
+  spec_file: pinterest-keywords-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.8
+  evidence: POST /ad_accounts/{ad_account_id}/keywords 'Create keywords', GET '/ad_accounts/{ad_account_id}/keywords/metrics'
+    Get country's keyword metrics, GET /trends/keywords/{region}/top/{trend_type} 'List trending keywords'
+  reason: Operations manage advertising keywords per ad account with match types and keyword performance
+    metrics plus trend research — squarely paid media / digital marketing management.
+  recovered_from: sweep-20260828T235257Z-edges.json
 - tag: Orders
   spec_file: pinterest-orders-api-openapi.yml
   capability_id: BC-3760.20
@@ -105,6 +116,17 @@ edges:
     is Digital Marketing Management (paid media, social). Not mapped to the media frame's Advertising
     Sales & Operations because that is the publisher sell-side (inventory, trafficking, billing) whereas
     this surface is the advertiser's campaign management; that ambiguity is why confidence is ~0.7.
+- tag: Board
+  spec_file: pinterest-board-api-openapi.yml
+  capability_id: BC-400
+  capability_id_l1: BC-400
+  capability_name: Marketing Management
+  confidence: 0.7
+  evidence: GET /boards/{board_id}/pins  boards/list_pins  List Pins on board; POST /boards/{board_id}/sections  board_sections/create  Create
+    board section
+  reason: CRUD over Pinterest boards, sections and their pins — organising and publishing owned social
+    content; ambiguous between digital/social and content marketing sub-capabilities so only L1 asserted.
+  recovered_from: sweep-20260828T235257Z-edges.json
 - tag: Bulk
   spec_file: pinterest-bulk-api-openapi.yml
   capability_id: BC-3760.40
@@ -200,6 +222,18 @@ edges:
     Modeling (MMM) report.''; schemas CampaignSummaryStatus, PinPromotionSummaryStatus'
   reason: Generates advertiser account and campaign analytics reports (including MMM and catalog feed
     stats) — campaign delivery and advertising performance reporting for the ads business.
+- tag: Resources
+  spec_file: pinterest-resources-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.7
+  evidence: '"Get targeting options", "Get interest details", "Get available metrics'' definitions", "Get
+    lead form questions"'
+  reason: Reference-data endpoints for ad targeting options, interests and delivery metrics definitions
+    — supporting configuration of paid social/digital advertising campaigns rather than any generic technical
+    function.
+  recovered_from: sweep-20260828T235257Z-edges.json
 - tag: Tags
   spec_file: pinterest-tags-api-openapi.yml
   capability_id: BC-400.60
