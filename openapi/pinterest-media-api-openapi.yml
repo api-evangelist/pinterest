@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   version: 5.13.0
   title: Pinterest Media API
@@ -21,7 +21,7 @@ paths:
       description: 'List media uploads filtered by given parameters.
 
 
-        <strong><a href=''/docs/content/content-creation/#Creating%20video%20Pins''>Learn more</a></strong> about video Pin creation.'
+        Learn more about video Pin creation.'
       tags:
       - Media
       operationId: media/list
@@ -63,18 +63,18 @@ paths:
         to Pinterest.
 
 
-        To upload the media, make an HTTP POST request (using <tt>curl</tt>, for
+        To upload the media, make an HTTP POST request (using curl, for
 
-        example) to <tt>upload_url</tt> using the <tt>Content-Type</tt> header
+        example) to upload_url using the Content-Type header
 
-        value. Send the media file''s contents as the request''s <tt>file</tt>
+        value. Send the media file''s contents as the request''s file
 
         parameter and also include all of the parameters from
 
-        <tt>upload_parameters</tt>.
+        upload_parameters.
 
 
-        <strong><a href=''/docs/content/content-creation/#Creating%20video%20Pins''>Learn more</a></strong> about video Pin creation.'
+        Learn more about video Pin creation.'
       tags:
       - Media
       operationId: media/create
@@ -110,7 +110,7 @@ paths:
       description: 'Get details for a registered media upload, including its current status.
 
 
-        <strong><a href=''/docs/content/content-creation/#Creating%20video%20Pins''>Learn more</a></strong> about video Pin creation.'
+        Learn more about video Pin creation.'
       tags:
       - Media
       operationId: media/get
@@ -145,14 +145,10 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    MediaUploadStatus:
-      description: Media upload status
+    MediaUploadType:
       type: string
       enum:
-      - registered
-      - processing
-      - succeeded
-      - failed
+      - video
     MediaUploadDetails:
       title: Media upload details
       description: Media upload details
@@ -230,10 +226,6 @@ components:
           x-amz-security-token: IQoJb3JpZ2luX2VjEJr...==
           x-amz-algorithm: AWS4-HMAC-SHA256
           Content-Type: multipart/form-data
-    MediaUploadType:
-      type: string
-      enum:
-      - video
     Error:
       title: Error
       type: object
@@ -245,18 +237,14 @@ components:
       required:
       - code
       - message
-    Paginated:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            type: object
-        bookmark:
-          type: string
-          nullable: true
-      required:
-      - items
+    MediaUploadStatus:
+      description: Media upload status
+      type: string
+      enum:
+      - registered
+      - processing
+      - succeeded
+      - failed
     MediaUploadRequest:
       title: Media upload request
       description: Media upload request
@@ -271,7 +259,27 @@ components:
       - media_type
       example:
         media_type: video
+    Paginated:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+        bookmark:
+          type:
+          - string
+          - 'null'
+      required:
+      - items
   parameters:
+    query_bookmark:
+      name: bookmark
+      description: Cursor used to fetch the next page of items
+      in: query
+      required: false
+      schema:
+        type: string
     query_page_size:
       name: page_size
       description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
@@ -282,13 +290,6 @@ components:
         minimum: 1
         maximum: 250
         default: 25
-    query_bookmark:
-      name: bookmark
-      description: Cursor used to fetch the next page of items
-      in: query
-      required: false
-      schema:
-        type: string
     path_media_id:
       name: media_id
       description: Media identifier

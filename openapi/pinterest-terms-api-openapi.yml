@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   version: 5.13.0
   title: Pinterest Terms API
@@ -15,39 +15,11 @@ servers:
 tags:
 - name: Terms
 paths:
-  /ad_accounts/{ad_account_id}/terms_of_service:
-    get:
-      description: Get the text of the terms of service and see whether the advertiser has accepted the terms of service.
-      operationId: terms_of_service/get
-      x-sandbox: enabled
-      parameters:
-      - $ref: '#/components/parameters/path_ad_account_id'
-      - $ref: '#/components/parameters/query_include_html'
-      - $ref: '#/components/parameters/query_tos_type'
-      security:
-      - pinterest_oauth2:
-        - ads:read
-      x-ratelimit-category: ads_read
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TermsOfService'
-          description: Success
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Unexpected error
-      summary: Get terms of service
-      tags:
-      - Terms
   /terms/related:
     get:
       summary: List related terms
-      description: 'Get a list of terms logically related to each input term. <p/>
+      description: 'Get a list of terms logically related to each input term.
+
 
         Example: the term ''workout'' would list related terms like ''one song workout'', ''yoga workout'', ''workout motivation'', etc.'
       tags:
@@ -85,7 +57,8 @@ paths:
   /terms/suggested:
     get:
       summary: List suggested terms
-      description: 'Get popular search terms that begin with your input term. <p/>
+      description: 'Get popular search terms that begin with your input term.
+
 
         Example: ''sport'' would return popular terms like ''sports bar'' and ''sportswear'', but not ''motor sports'' since the phrase does not begin with the given term.'
       tags:
@@ -123,52 +96,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   parameters:
-    query_tos_type:
-      description: Request type.
-      explode: true
-      in: query
-      name: tos_type
-      required: false
-      schema:
-        type: string
-      style: form
-    query_input_term:
-      description: Input term.
-      in: query
-      name: term
-      example: sports
-      required: true
-      schema:
-        type: string
-    query_include_html:
-      description: Return HTML in TOS text.
-      explode: true
-      in: query
-      name: include_html
-      required: false
-      schema:
-        default: false
-        type: boolean
-      style: form
-    path_ad_account_id:
-      name: ad_account_id
-      description: Unique identifier of an ad account.
-      in: path
-      required: true
-      schema:
-        type: string
-        pattern: ^\d+$
-        maxLength: 18
-    query_list_input_terms:
-      description: List of input terms.
-      in: query
-      name: terms
-      required: true
-      schema:
-        type: array
-        items:
-          type: string
-          example: workout
     query_term_limit:
       description: Max suggested terms to return.
       in: query
@@ -180,37 +107,25 @@ components:
         minimum: 1
         maximum: 10
         default: 4
+    query_input_term:
+      description: Input term.
+      in: query
+      name: term
+      example: sports
+      required: true
+      schema:
+        type: string
+    query_list_input_terms:
+      description: List of input terms.
+      in: query
+      name: terms
+      required: true
+      schema:
+        type: array
+        items:
+          type: string
+          example: workout
   schemas:
-    TermsOfService:
-      example:
-        has_accepted: true
-        html: example test
-        id: '2650449554526'
-        ad_account_id: '549755885175'
-      properties:
-        id:
-          description: The ID of the terms of service
-          example: '2650449554526'
-          title: id
-          type: string
-        html:
-          description: The terms of service content
-          example: example test
-          nullable: true
-          title: html
-          type: string
-        has_accepted:
-          description: Whether the ad account has accepted terms of service.
-          example: true
-          title: hasAccepted
-          type: boolean
-        ad_account_id:
-          description: The ID of the ad account.
-          example: '549755885175'
-          title: adAccountId
-          type: string
-      title: TermsOfService
-      type: object
     RelatedTerms:
       type: object
       properties:

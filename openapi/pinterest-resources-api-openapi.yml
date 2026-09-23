@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   version: 5.13.0
   title: Pinterest Resources API
@@ -47,7 +47,7 @@ paths:
 
         The `display_name` attribute will match how the metric is named in our native tools like Ads Manager.
 
-        See <a href=''/docs/content/analytics/''>Organic Analytics</a> and <a href=''/docs/ads/ad-analytics-reporting/''>Ads Analytics</a> for more information.'
+        See Organic Analytics and Ads Analytics for more information.'
       operationId: delivery_metrics/get
       security:
       - pinterest_oauth2:
@@ -79,7 +79,7 @@ paths:
       description: 'Get a list of all lead form question type names. Some questions might not be used.
 
 
-        <strong>This endpoint is currently in beta and not available to all apps. <a href=''/docs/new/about-beta-access/''>Learn more</a>.</strong>'
+        This endpoint is currently in beta and not available to all apps. Learn more.'
       operationId: lead_form_questions/get
       security:
       - pinterest_oauth2:
@@ -135,7 +135,10 @@ paths:
   /resources/targeting/interests/{interest_id}:
     get:
       summary: Get interest details
-      description: <p>Get details of a specific interest given interest ID.</p> <p>Click <a href="https://docs.google.com/spreadsheets/d/1HxL-0Z3p2fgxis9YBP2HWC3tvPrs1hAuHDRtH-NJTIM/edit#gid=118370875" target="_blank">here</a> for a spreadsheet listing interests and their IDs.</p>
+      description: 'Get details of a specific interest given interest ID.
+
+
+        Click here for a spreadsheet listing interests and their IDs.'
       operationId: interest_targeting_options/get
       security:
       - pinterest_oauth2:
@@ -162,9 +165,19 @@ paths:
   /resources/targeting/{targeting_type}:
     get:
       summary: Get targeting options
-      description: '<p>You can use targeting values in ads placement to define your intended audience. </p> <p>Targeting metrics are organized around targeting specifications.</p> <p>For more information on ads targeting, see <a class="reference external" href="https://help.pinterest.com/en/business/article/audience-targeting" target="_blank">Audience targeting</a>.</p>
+      description: 'You can use targeting values in ads placement to define your intended audience.
 
-        <p><b>Sample return:</b></p> <pre class="literal-block"> [{&quot;36313&quot;: &quot;Australia: Moreton Bay - North&quot;, &quot;124735&quot;: &quot;Canada: North Battleford&quot;, &quot;36109&quot;: &quot;Australia: Murray&quot;, &quot;36108&quot;: &quot;Australia: Mid North Coast&quot;, &quot;36101&quot;: &quot;Australia: Capital Region&quot;, &quot;811&quot;: &quot;U.S.: Reno&quot;, &quot;36103&quot;: &quot;Australia: Central West&quot;, &quot;36102&quot;: &quot;Australia: Central Coast&quot;, &quot;36105&quot;: &quot;Australia: Far West and Orana&quot;, &quot;36104&quot;: &quot;Australia: Coffs Harbour - Grafton&quot;, &quot;36107&quot;: &quot;Australia: Illawarra&quot;, &quot;36106&quot;: &quot;Australia: Hunter Valley Exc Newcastle&quot;, &quot;554017&quot;: &quot;New Zealand: Wanganui&quot;, &quot;554016&quot;: &quot;New Zealand: Marlborough&quot;, &quot;554015&quot;: &quot;New Zealand: Gisborne&quot;, &quot;554014&quot;: &quot;New Zealand: Tararua&quot;, &quot;554013&quot;: &quot;New Zealand: Invercargill&quot;, &quot;GR&quot;: &quot;Greece&quot;, &quot;554011&quot;: &quot;New Zealand: Whangarei&quot;, &quot;554010&quot;: &quot;New Zealand: Far North&quot;, &quot;717&quot;: &quot;U.S.: Quincy-Hannibal-Keokuk&quot;, &quot;716&quot;: &quot;U.S.: Baton Rouge&quot;,...}] </pre>'
+
+        Targeting metrics are organized around targeting specifications.
+
+
+        For more information on ads targeting, see Audience targeting.
+
+
+        Sample return:
+
+
+        [{"36313": "Australia: Moreton Bay - North", "124735": "Canada: North Battleford", "36109": "Australia: Murray", "36108": "Australia: Mid North Coast", "36101": "Australia: Capital Region", "811": "U.S.: Reno", "36103": "Australia: Central West", "36102": "Australia: Central Coast", "36105": "Australia: Far West and Orana", "36104": "Australia: Coffs Harbour - Grafton", "36107": "Australia: Illawarra", "36106": "Australia: Hunter Valley Exc Newcastle", "554017": "New Zealand: Wanganui", "554016": "New Zealand: Marlborough", "554015": "New Zealand: Gisborne", "554014": "New Zealand: Tararua", "554013": "New Zealand: Invercargill", "GR": "Greece", "554011": "New Zealand: Whangarei", "554010": "New Zealand: Far North", "717": "U.S.: Quincy-Hannibal-Keokuk", "716": "U.S.: Baton Rouge",...}]'
       operationId: targeting_options/get
       security:
       - pinterest_oauth2:
@@ -192,11 +205,84 @@ paths:
       tags:
       - Resources
 components:
+  parameters:
+    query_oauth_signature:
+      name: oauth_signature
+      description: Oauth signature
+      in: query
+      required: false
+      schema:
+        type: string
+        example: 8209f
+      style: form
+    path_interest_id:
+      name: interest_id
+      description: Unique identifier of an interest.
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
+    query_report_type:
+      name: report_type
+      description: Report type.
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+        - SYNC
+        - ASYNC
+    query_client_id:
+      name: client_id
+      description: Client ID.
+      in: query
+      required: false
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
+        example: '1094834'
+      style: form
+    query_timestamp:
+      name: timestamp
+      description: Timestamp
+      in: query
+      required: false
+      schema:
+        type: string
+        example: '1618338184277'
+        pattern: \d+
+      style: form
+    path_targeting_type:
+      name: targeting_type
+      description: Public targeting type.
+      in: path
+      required: true
+      style: simple
+      schema:
+        title: PublicTargetingType
+        description: Public ad targeting type with external names
+        type: string
+        example: APPTYPE
+        enum:
+        - APPTYPE
+        - GENDER
+        - LOCALE
+        - AGE_BUCKET
+        - LOCATION
+        - GEO
+        - INTEREST
+        - KEYWORD
+        - AUDIENCE_INCLUDE
+        - AUDIENCE_EXCLUDE
   schemas:
     TargetingOptionResponse:
       title: TargetingOptionResponse
-      type: array
-      nullable: true
+      type:
+      - array
+      - 'null'
       items:
         type: object
         example:
@@ -217,72 +303,6 @@ components:
           description: Are non-conversion metrics ready?
           type: boolean
           example: false
-    AdAccountsCountryResponse:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdAccountsCountryResponseData'
-    SingleInterestTargetingOptionResponse:
-      title: SingleInterestTargetingOptionData
-      type: object
-      properties:
-        id:
-          type: string
-          title: id
-          pattern: \d+
-          example: '945391946569'
-        name:
-          type: string
-          title: name
-          example: Dress
-        child_interests:
-          type: array
-          title: child_interests
-          items:
-            type: string
-        level:
-          type: integer
-          title: level
-          example: 2
-    Error:
-      title: Error
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
-    DeliveryMetricsResponse:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-                description: Metric's name.
-                example: AD_GROUP_ID
-              category:
-                enum:
-                - ADS
-                - ORGANIC
-                description: Category name
-                example: ADS
-              definition:
-                type: string
-                description: How the metric is defined.
-                example: Unique ID for your ad group
-              display_name:
-                type: string
-                description: Display name, when available. If unavaible it will not be returned. Matches how the metric is named in our native tools like Pinterest Ads Manager.
-                example: Ad group ID
     AdCountry:
       type: string
       description: Country ID from ISO 3166-1 alpha-2.
@@ -536,6 +556,39 @@ components:
       - ZA
       - ZM
       - ZW
+    SingleInterestTargetingOptionResponse:
+      title: SingleInterestTargetingOptionData
+      type: object
+      properties:
+        id:
+          type: string
+          title: id
+          pattern: \d+
+          example: '945391946569'
+        name:
+          type: string
+          title: name
+          example: Dress
+        child_interests:
+          type: array
+          title: child_interests
+          items:
+            type: string
+        level:
+          type: integer
+          title: level
+          example: 2
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
     AdAccountsCountryResponseData:
       type: object
       properties:
@@ -554,78 +607,39 @@ components:
           type: string
           description: Country name
           example: United States of America
-  parameters:
-    query_timestamp:
-      name: timestamp
-      description: Timestamp
-      in: query
-      required: false
-      schema:
-        type: string
-        example: '1618338184277'
-        pattern: \d+
-      style: form
-    path_interest_id:
-      name: interest_id
-      description: Unique identifier of an interest.
-      in: path
-      required: true
-      schema:
-        type: string
-        pattern: ^\d+$
-        maxLength: 18
-    query_client_id:
-      name: client_id
-      description: Client ID.
-      in: query
-      required: false
-      schema:
-        type: string
-        pattern: ^\d+$
-        maxLength: 18
-        example: '1094834'
-      style: form
-    query_oauth_signature:
-      name: oauth_signature
-      description: Oauth signature
-      in: query
-      required: false
-      schema:
-        type: string
-        example: 8209f
-      style: form
-    path_targeting_type:
-      name: targeting_type
-      description: Public targeting type.
-      in: path
-      required: true
-      style: simple
-      schema:
-        title: PublicTargetingType
-        description: Public ad targeting type with external names
-        type: string
-        example: APPTYPE
-        enum:
-        - APPTYPE
-        - GENDER
-        - LOCALE
-        - AGE_BUCKET
-        - LOCATION
-        - GEO
-        - INTEREST
-        - KEYWORD
-        - AUDIENCE_INCLUDE
-        - AUDIENCE_EXCLUDE
-    query_report_type:
-      name: report_type
-      description: Report type.
-      in: query
-      required: false
-      schema:
-        type: string
-        enum:
-        - SYNC
-        - ASYNC
+    DeliveryMetricsResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Metric's name.
+                example: AD_GROUP_ID
+              category:
+                enum:
+                - ADS
+                - ORGANIC
+                description: Category name
+                example: ADS
+              definition:
+                type: string
+                description: How the metric is defined.
+                example: Unique ID for your ad group
+              display_name:
+                type: string
+                description: Display name, when available. If unavaible it will not be returned. Matches how the metric is named in our native tools like Pinterest Ads Manager.
+                example: Ad group ID
+    AdAccountsCountryResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdAccountsCountryResponseData'
   securitySchemes:
     pinterest_oauth2:
       type: oauth2

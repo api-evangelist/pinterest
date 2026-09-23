@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   version: 5.13.0
   title: Pinterest Token API
@@ -24,10 +24,10 @@ paths:
         IMPORTANT: You need to start the OAuth flow via www.pinterest.com/oauth before calling this endpoint (or have an existing refresh token).
 
 
-        See <a href=''/docs/getting-started/authentication/''>Authentication</a> for more.
+        See Authentication for more.
 
 
-        <strong>Parameter <i>refresh_on</i> and its corresponding response type <i>everlasting_refresh</i> are now available to all apps! Later this year, continuous refresh will become the default behavior (ie you will no longer need to send this parameter). <a href=''/docs/new/about-beta-access/''>Learn more</a>.</strong>'
+        Parameter refresh_on and its corresponding response type everlasting_refresh are now available to all apps! Later this year, continuous refresh will become the default behavior (ie you will no longer need to send this parameter). Learn more.'
       tags:
       - Token
       operationId: oauth/token
@@ -57,6 +57,17 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
     OauthAccessTokenRequest:
       title: OAuth access token request
       description: Describes the valid schema for possible OAuth access token requests.
@@ -74,17 +85,6 @@ components:
           - refresh_token
       required:
       - grant_type
-    Error:
-      title: Error
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
     OauthAccessTokenResponse:
       title: OAuth access token response
       description: A successful OAuth access token response.

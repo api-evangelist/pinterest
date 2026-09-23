@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   version: 5.13.0
   title: Pinterest Boards API
@@ -190,8 +190,9 @@ components:
           type: string
           example: Summer Recipes
         description:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: My favorite summer recipes
         collaborator_count:
           type: integer
@@ -217,8 +218,9 @@ components:
           description: Board media.
           properties:
             image_cover_url:
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
               description: Board cover image.
               example: https://i.pinimg.com/400x300/fd/cd/d5/fdcdd5a6d8a80824add0d054125cd957.jpg
             pin_thumbnail_urls:
@@ -254,11 +256,27 @@ components:
           items:
             type: object
         bookmark:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       required:
       - items
   parameters:
+    query_ad_account_id:
+      name: ad_account_id
+      description: Unique identifier of an ad account.
+      in: query
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
+    query_bookmark:
+      name: bookmark
+      description: Cursor used to fetch the next page of items
+      in: query
+      required: false
+      schema:
+        type: string
     query_page_size:
       name: page_size
       description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
@@ -269,21 +287,6 @@ components:
         minimum: 1
         maximum: 250
         default: 25
-    query_bookmark:
-      name: bookmark
-      description: Cursor used to fetch the next page of items
-      in: query
-      required: false
-      schema:
-        type: string
-    query_ad_account_id:
-      name: ad_account_id
-      description: Unique identifier of an ad account.
-      in: query
-      schema:
-        type: string
-        pattern: ^\d+$
-        maxLength: 18
   securitySchemes:
     pinterest_oauth2:
       type: oauth2

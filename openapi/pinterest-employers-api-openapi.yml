@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   version: 5.13.0
   title: Pinterest Employers API
@@ -53,22 +53,11 @@ paths:
       - Employers
 components:
   schemas:
-    BusinessRoleResponse:
-      type: string
-      description: 'The access level a member/partner has to the business. Values are case-sensitive.
-
-        <br> - EMPLOYEE: Can only view and access assets you assign to them.
-
-        They cannot see details about other employees, partners, or other assets.
-
-        <br> - BIZ_ADMIN: Have full control of roles and can add employees or external partners as well as grant asset access.
-
-        <br> - PARTNER: Can only view and access assets you assign them to/or they assign to you.'
-      example: BIZ_ADMIN
     BusinessMemberAssetsSummary:
-      type: object
+      type:
+      - object
+      - 'null'
       description: Ad accounts and profiles the business member/partner has access to.
-      nullable: true
       properties:
         ad_accounts:
           type: array
@@ -100,21 +89,48 @@ components:
                 maxLength: 20
               permissions:
                 $ref: '#/components/schemas/PermissionsResponse'
-    PermissionsResponse:
-      type: array
-      description: Permission levels member or partner has on an asset.
-      example:
-      - FINANCE_MANAGER
-      - CATALOGS_MANAGER
-      - AUDIENCE_MANAGER
-      items:
-        type: string
+    BusinessAccessUserSummary:
+      type: object
+      description: Metadata of the member/partner that has access to the asset.
+      properties:
+        email:
+          description: Email of the business member/partner.
+          example: business0101@business.com
+          type:
+          - string
+          - 'null'
+        id:
+          description: Unique identifier of the business member/partner.
+          example: '383791336903426391'
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          maxLength: 20
+        username:
+          description: Username of the business member/partner.
+          example: business0101
+          type:
+          - string
+          - 'null'
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
     UserBusinessRoleBinding:
       type: object
       properties:
         assets_summary:
-          type: object
-          nullable: true
+          type:
+          - object
+          - 'null'
           allOf:
           - $ref: '#/components/schemas/BusinessMemberAssetsSummary'
         business_roles:
@@ -125,20 +141,23 @@ components:
           items:
             $ref: '#/components/schemas/BusinessRoleResponse'
         created_by_business:
-          type: object
-          nullable: true
+          type:
+          - object
+          - 'null'
           description: Metadata for the business that created the business relationship.
           allOf:
           - $ref: '#/components/schemas/BusinessAccessUserSummary'
         created_by_user:
-          type: object
-          nullable: true
+          type:
+          - object
+          - 'null'
           description: Metadata for the user that created the business relationship.
           allOf:
           - $ref: '#/components/schemas/BusinessAccessUserSummary'
         created_time:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
           description: The time the business relationship was created. Returned in milliseconds.
           example: 1646767577816
         id:
@@ -159,43 +178,33 @@ components:
             is not empty, the assets listed are the partner''s business assets you have access to.'
           example: false
         user:
-          type: object
-          nullable: true
+          type:
+          - object
+          - 'null'
           description: Metadata for the business member/business partner/employer.
           allOf:
           - $ref: '#/components/schemas/BusinessAccessUserSummary'
-    Error:
-      title: Error
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
-    BusinessAccessUserSummary:
-      type: object
-      description: Metadata of the member/partner that has access to the asset.
-      properties:
-        email:
-          description: Email of the business member/partner.
-          example: business0101@business.com
-          type: string
-          nullable: true
-        id:
-          description: Unique identifier of the business member/partner.
-          example: '383791336903426391'
-          type: string
-          nullable: true
-          minLength: 1
-          maxLength: 20
-        username:
-          description: Username of the business member/partner.
-          example: business0101
-          nullable: true
-          type: string
+    PermissionsResponse:
+      type: array
+      description: Permission levels member or partner has on an asset.
+      example:
+      - FINANCE_MANAGER
+      - CATALOGS_MANAGER
+      - AUDIENCE_MANAGER
+      items:
+        type: string
+    BusinessRoleResponse:
+      type: string
+      description: 'The access level a member/partner has to the business. Values are case-sensitive.
+
+        <br> - EMPLOYEE: Can only view and access assets you assign to them.
+
+        They cannot see details about other employees, partners, or other assets.
+
+        <br> - BIZ_ADMIN: Have full control of roles and can add employees or external partners as well as grant asset access.
+
+        <br> - PARTNER: Can only view and access assets you assign them to/or they assign to you.'
+      example: BIZ_ADMIN
     Paginated:
       type: object
       properties:
@@ -204,11 +213,19 @@ components:
           items:
             type: object
         bookmark:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       required:
       - items
   parameters:
+    query_bookmark:
+      name: bookmark
+      description: Cursor used to fetch the next page of items
+      in: query
+      required: false
+      schema:
+        type: string
     query_page_size:
       name: page_size
       description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
@@ -219,13 +236,6 @@ components:
         minimum: 1
         maximum: 250
         default: 25
-    query_bookmark:
-      name: bookmark
-      description: Cursor used to fetch the next page of items
-      in: query
-      required: false
-      schema:
-        type: string
   securitySchemes:
     pinterest_oauth2:
       type: oauth2
