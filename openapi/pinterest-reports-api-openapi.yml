@@ -193,20 +193,6 @@ paths:
       - Reports
 components:
   schemas:
-    CatalogsReportDistributionIssueFilter:
-      type: object
-      additionalProperties: false
-      properties:
-        report_type:
-          type: string
-          enum:
-          - DISTRIBUTION_ISSUES
-        catalog_id:
-          type: string
-          description: Unique identifier of a catalog. If not given, oldest catalog will be used
-          pattern: ^\d+$
-      required:
-      - report_type
     CatalogsReportStats:
       type: object
       description: Diagnostics aggregated numbers
@@ -226,22 +212,42 @@ components:
           - DISTRIBUTION_ISSUES
       required:
       - report_type
-    CatalogsReportParameters:
+    Error:
+      title: Error
       type: object
-      description: Report parameters
       properties:
-        catalog_type:
-          $ref: '#/components/schemas/CatalogsType'
+        code:
+          type: integer
+        message:
+          type: string
       required:
-      - catalog_type
-      oneOf:
-      - $ref: '#/components/schemas/CatalogsRetailReportParameters'
-      - $ref: '#/components/schemas/CatalogsHotelReportParameters'
-      discriminator:
-        propertyName: catalog_type
-        mapping:
-          RETAIL: '#/components/schemas/CatalogsRetailReportParameters'
-          HOTEL: '#/components/schemas/CatalogsHotelReportParameters'
+      - code
+      - message
+    CatalogsType:
+      description: Type of the catalog entity.
+      type: string
+      enum:
+      - RETAIL
+      - HOTEL
+      - CREATIVE_ASSETS
+    CatalogsReport:
+      type: object
+      properties:
+        report_status:
+          type: string
+          enum:
+          - FINISHED
+          - IN_PROGRESS
+        url:
+          type:
+          - string
+          - 'null'
+          description: URL to download the report
+        size:
+          type:
+          - number
+          - 'null'
+          description: Size of the report in bytes
     CatalogsReportDistributionStats:
       type: object
       properties:
@@ -275,6 +281,71 @@ components:
           description: Indicates if issue makes items ineligible for organic distribution
           example: true
           type: boolean
+    CatalogsCreateReportResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          description: Token to be used to get the report
+    Paginated:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+        bookmark:
+          type:
+          - string
+          - 'null'
+      required:
+      - items
+    CatalogsReportFeedIngestionFilter:
+      type: object
+      additionalProperties: false
+      properties:
+        report_type:
+          type: string
+          enum:
+          - FEED_INGESTION_ISSUES
+        feed_id:
+          type: string
+          pattern: ^\d+$
+          description: ID of the feed entity.
+        processing_result_id:
+          type: string
+          pattern: ^\d+$
+          description: Unique identifier of a feed processing result. It can be acquired from the "id" field of the "items" array within the response of the [List processing results for a given feed](https://developers.pinterest.com/docs/api/v5/#operation/feed_processing_results/list). If not provided, default to most recent completed processing result.
+      required:
+      - report_type
+      - feed_id
+    CatalogsRetailReportParameters:
+      type: object
+      description: Parameters for retail report
+      properties:
+        catalog_type:
+          type: string
+          enum:
+          - RETAIL
+        report:
+          type: object
+          oneOf:
+          - $ref: '#/components/schemas/CatalogsReportFeedIngestionFilter'
+          - $ref: '#/components/schemas/CatalogsReportDistributionIssueFilter'
+          discriminator:
+            propertyName: report_type
+            mapping:
+              FEED_INGESTION_ISSUES: '#/components/schemas/CatalogsReportFeedIngestionFilter'
+              DISTRIBUTION_ISSUES: '#/components/schemas/CatalogsReportDistributionIssueFilter'
+          properties:
+            report_type:
+              type: string
+              enum:
+              - FEED_INGESTION_ISSUES
+              - DISTRIBUTION_ISSUES
+      required:
+      - catalog_type
+      - report
     CatalogsReportFeedIngestionStats:
       type: object
       properties:
@@ -307,69 +378,20 @@ components:
           enum:
           - WARN
           - ERROR
-    CatalogsCreateReportResponse:
-      type: object
-      properties:
-        token:
-          type: string
-          description: Token to be used to get the report
-    CatalogsRetailReportParameters:
-      type: object
-      description: Parameters for retail report
-      properties:
-        catalog_type:
-          type: string
-          enum:
-          - RETAIL
-        report:
-          type: object
-          oneOf:
-          - $ref: '#/components/schemas/CatalogsReportFeedIngestionFilter'
-          - $ref: '#/components/schemas/CatalogsReportDistributionIssueFilter'
-          discriminator:
-            propertyName: report_type
-            mapping:
-              FEED_INGESTION_ISSUES: '#/components/schemas/CatalogsReportFeedIngestionFilter'
-              DISTRIBUTION_ISSUES: '#/components/schemas/CatalogsReportDistributionIssueFilter'
-          properties:
-            report_type:
-              type: string
-              enum:
-              - FEED_INGESTION_ISSUES
-              - DISTRIBUTION_ISSUES
-      required:
-      - catalog_type
-      - report
-    CatalogsReportFeedIngestionFilter:
+    CatalogsReportDistributionIssueFilter:
       type: object
       additionalProperties: false
       properties:
         report_type:
           type: string
           enum:
-          - FEED_INGESTION_ISSUES
-        feed_id:
+          - DISTRIBUTION_ISSUES
+        catalog_id:
           type: string
+          description: Unique identifier of a catalog. If not given, oldest catalog will be used
           pattern: ^\d+$
-          description: ID of the feed entity.
-        processing_result_id:
-          type: string
-          pattern: ^\d+$
-          description: Unique identifier of a feed processing result. It can be acquired from the "id" field of the "items" array within the response of the [List processing results for a given feed](https://developers.pinterest.com/docs/api/v5/#operation/feed_processing_results/list). If not provided, default to most recent completed processing result.
       required:
       - report_type
-      - feed_id
-    Error:
-      title: Error
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
     CatalogsHotelReportParameters:
       type: object
       description: Parameters for hotel report
@@ -397,60 +419,23 @@ components:
       required:
       - catalog_type
       - report
-    CatalogsType:
-      description: Type of the catalog entity.
-      type: string
-      enum:
-      - RETAIL
-      - HOTEL
-      - CREATIVE_ASSETS
-    CatalogsReport:
+    CatalogsReportParameters:
       type: object
+      description: Report parameters
       properties:
-        report_status:
-          type: string
-          enum:
-          - FINISHED
-          - IN_PROGRESS
-        url:
-          type:
-          - string
-          - 'null'
-          description: URL to download the report
-        size:
-          type:
-          - number
-          - 'null'
-          description: Size of the report in bytes
-    Paginated:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            type: object
-        bookmark:
-          type:
-          - string
-          - 'null'
+        catalog_type:
+          $ref: '#/components/schemas/CatalogsType'
       required:
-      - items
+      - catalog_type
+      oneOf:
+      - $ref: '#/components/schemas/CatalogsRetailReportParameters'
+      - $ref: '#/components/schemas/CatalogsHotelReportParameters'
+      discriminator:
+        propertyName: catalog_type
+        mapping:
+          RETAIL: '#/components/schemas/CatalogsRetailReportParameters'
+          HOTEL: '#/components/schemas/CatalogsHotelReportParameters'
   parameters:
-    query_ad_account_id:
-      name: ad_account_id
-      description: Unique identifier of an ad account.
-      in: query
-      schema:
-        type: string
-        pattern: ^\d+$
-        maxLength: 18
-    query_bookmark:
-      name: bookmark
-      description: Cursor used to fetch the next page of items
-      in: query
-      required: false
-      schema:
-        type: string
     query_catalogs_report_stats_parameters:
       name: parameters
       in: query
@@ -459,13 +444,6 @@ components:
       style: deepObject
       schema:
         $ref: '#/components/schemas/CatalogsReportParameters'
-    query_catalogs_report_token:
-      name: token
-      description: Token returned from async build report call
-      in: query
-      required: true
-      schema:
-        type: string
     query_page_size:
       name: page_size
       description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
@@ -476,6 +454,28 @@ components:
         minimum: 1
         maximum: 250
         default: 25
+    query_bookmark:
+      name: bookmark
+      description: Cursor used to fetch the next page of items
+      in: query
+      required: false
+      schema:
+        type: string
+    query_catalogs_report_token:
+      name: token
+      description: Token returned from async build report call
+      in: query
+      required: true
+      schema:
+        type: string
+    query_ad_account_id:
+      name: ad_account_id
+      description: Unique identifier of an ad account.
+      in: query
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
   securitySchemes:
     pinterest_oauth2:
       type: oauth2

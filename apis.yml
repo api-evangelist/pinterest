@@ -346,11 +346,13 @@ tags:
 - Image
 - Social Media
 - Video
+- Social
 tags_raw:
 - Images
 - Social Media
 - Videos
 - Social-Media
+- Social
 kind: contract
 deliveryModel:
   model: saas

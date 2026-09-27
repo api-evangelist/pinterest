@@ -600,16 +600,10 @@ paths:
       - Feeds
 components:
   schemas:
-    CatalogsStatus:
-      type: string
-      description: Status for catalogs entities. Present in catalogs_feed values. When a feed is deleted, the response will inform DELETED as status.
-      enum:
-      - ACTIVE
-      - INACTIVE
-    CatalogsHotelFeedsCreateRequest:
+    CatalogsCreativeAssetsFeedsUpdateRequest:
       type: object
-      title: feeds_hotel_create_request
-      description: Request object for creating a feed. Please, be aware that "default_country" and "default_locale" are not required in the spec for forward compatibility but for now the API will not accept requests without those fields.
+      title: catalogs_feeds_update_request
+      description: Request object for updating a feed.
       additionalProperties: false
       properties:
         default_currency:
@@ -619,37 +613,20 @@ components:
           type: string
         format:
           $ref: '#/components/schemas/CatalogsFormat'
-        default_locale:
-          description: The locale used within a feed for product descriptions.
-          example: en-US
-          anyOf:
-          - description: The locale used within a feed for product descriptions.
-            $ref: '#/components/schemas/CatalogsLocale'
-          - description: The locale used within a feed for product descriptions. This free text string version is deprecated in favor of official list of supported locales defined by CatalogsLocale.
-            type: string
-            deprecated: true
         credentials:
           $ref: '#/components/schemas/CatalogsFeedCredentials'
         location:
-          description: The URL where a feed is available for download. This URL is what Pinterest will use to download a feed for processing.
-          pattern: ^(http|https|ftp|sftp)://
           type: string
+          pattern: ^(http|https|ftp|sftp)://
+          description: The URL where a feed is available for download. This URL is what Pinterest will use to download a feed for processing.
         preferred_processing_schedule:
           $ref: '#/components/schemas/CatalogsFeedProcessingSchedule'
+        status:
+          $ref: '#/components/schemas/CatalogsStatus'
         catalog_type:
           $ref: '#/components/schemas/CatalogsType'
-        catalog_id:
-          description: Catalog id pertaining to the feed. If not provided, feed will use a default catalog based on type. At the moment a catalog can not have multiple hotel feeds but this will change in the future.
-          type:
-          - string
-          - 'null'
-          pattern: ^\d+$
       required:
-      - format
-      - location
-      - name
       - catalog_type
-      - default_locale
     CatalogsFeedValidationErrors:
       type: object
       properties:
@@ -752,31 +729,472 @@ components:
         PRICE_CANNOT_BE_DETERMINED:
           type: integer
           description: Some items were not published because price cannot be determined. The price, list price, and sale price are all different, so those items will not be published.
-    CatalogsVerticalFeedsUpdateRequest:
+    CatalogsFeedsCreateRequest:
       type: object
-      title: feeds_update_request
-      description: Request object for updating a feed.
-      oneOf:
-      - $ref: '#/components/schemas/CatalogsRetailFeedsUpdateRequest'
-      - $ref: '#/components/schemas/CatalogsHotelFeedsUpdateRequest'
-      - $ref: '#/components/schemas/CatalogsCreativeAssetsFeedsUpdateRequest'
-      discriminator:
-        propertyName: catalog_type
-        mapping:
-          RETAIL: '#/components/schemas/CatalogsRetailFeedsUpdateRequest'
-          HOTEL: '#/components/schemas/CatalogsHotelFeedsUpdateRequest'
-          CREATIVE_ASSETS: '#/components/schemas/CatalogsCreativeAssetsFeedsUpdateRequest'
-    CatalogsFeedProcessingStatus:
+      title: legacy_retail_only
+      description: Request object for creating a feed. Please, be aware that "default_country" and "default_locale" are not required in the spec for forward compatibility but for now the API will not accept requests without those fields.
+      additionalProperties: false
+      properties:
+        default_currency:
+          $ref: '#/components/schemas/NullableCurrency'
+        name:
+          description: A human-friendly name associated to a given feed.
+          type: string
+        format:
+          $ref: '#/components/schemas/CatalogsFormat'
+        default_locale:
+          description: The locale used within a feed for product descriptions.
+          example: en-US
+          anyOf:
+          - description: The locale used within a feed for product descriptions.
+            $ref: '#/components/schemas/CatalogsLocale'
+          - description: The locale used within a feed for product descriptions. This free text string version is deprecated in favor of official list of supported locales defined by CatalogsLocale.
+            type: string
+            deprecated: true
+        credentials:
+          $ref: '#/components/schemas/CatalogsFeedCredentials'
+        location:
+          description: The URL where a feed is available for download. This URL is what Pinterest will use to download a feed for processing.
+          pattern: ^(http|https|ftp|sftp)://
+          type: string
+        preferred_processing_schedule:
+          $ref: '#/components/schemas/CatalogsFeedProcessingSchedule'
+        default_country:
+          $ref: '#/components/schemas/Country'
+        default_availability:
+          $ref: '#/components/schemas/ProductAvailabilityType'
+      required:
+      - format
+      - location
+      - name
+    Paginated:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+        bookmark:
+          type:
+          - string
+          - 'null'
+      required:
+      - items
+    CatalogsFeedValidationWarnings:
+      type: object
+      properties:
+        AD_LINK_FORMAT_WARNING:
+          type: integer
+          description: Some items have ad links that are formatted incorrectly.
+        AD_LINK_SAME_AS_LINK:
+          type: integer
+          description: Some items have ad link URLs that are duplicates of the link URLs for those items.
+        TITLE_LENGTH_TOO_LONG:
+          type: integer
+          description: The title for some items were truncated because they contain too many characters.
+        DESCRIPTION_LENGTH_TOO_LONG:
+          type: integer
+          description: The description for some items were truncated because they contain too many characters.
+        GENDER_INVALID:
+          type: integer
+          description: Some items have gender values that are formatted incorrectly, which may limit visibility in recommendations, search results and shopping experiences.
+        AGE_GROUP_INVALID:
+          type: integer
+          description: Some items have age group values that are formatted incorrectly, which may limit visibility in recommendations, search results and shopping experiences.
+        SIZE_TYPE_INVALID:
+          type: integer
+          description: Some items have size type values that are formatted incorrectly, which may limit visibility in recommendations, search results and shopping experiences.
+        SIZE_SYSTEM_INVALID:
+          type: integer
+          description: Some items have size system values which are not one of the supported size systems.
+        LINK_FORMAT_WARNING:
+          type: integer
+          description: Some items have an invalid product link which contains invalid UTM tracking paramaters.
+        SALES_PRICE_INVALID:
+          type: integer
+          description: Some items have sale price values that are higher than the original price of the item.
+        PRODUCT_CATEGORY_DEPTH_WARNING:
+          type: integer
+          description: Some items only have 1 or 2 levels of google_product_category values, which may limit visibility in recommendations, search results and shopping experiences.
+        ADWORDS_FORMAT_WARNING:
+          type: integer
+          description: Some items have adwords_redirect links that are formatted incorrectly.
+        ADWORDS_SAME_AS_LINK:
+          type: integer
+          description: Some items have adwords_redirect URLs that are duplicates of the link URLs for those items.
+        DUPLICATE_HEADERS:
+          type: integer
+          description: Your feed contains duplicate headers.
+        FETCH_SAME_SIGNATURE:
+          type: integer
+          description: Ingestion completed early because there are no changes to your feed since the last successful update.
+          enum:
+          - 1
+        ADDITIONAL_IMAGE_LINK_LENGTH_TOO_LONG:
+          type: integer
+          description: Some items have additional_image_link URLs that contain too many characters, so those items will not be published.
+        ADDITIONAL_IMAGE_LINK_WARNING:
+          type: integer
+          description: Some items have additional_image_link URLs that are formatted incorrectly and will not be published with your items.
+        IMAGE_LINK_WARNING:
+          type: integer
+          description: Some items have image_link URLs that are formatted incorrectly and will not be published with those items.
+        SHIPPING_INVALID:
+          type: integer
+          description: Some items have shipping values that are formatted incorrectly.
+        TAX_INVALID:
+          type: integer
+          description: Some items have tax values that are formatted incorrectly.
+        SHIPPING_WEIGHT_INVALID:
+          type: integer
+          description: Some items have invalid shipping_weight values.
+        EXPIRATION_DATE_INVALID:
+          type: integer
+          description: Some items have expiration_date values that are formatted incorrectly, those items will be published without an expiration date.
+        AVAILABILITY_DATE_INVALID:
+          type: integer
+          description: Some items have availability_date values that are formatted incorrectly, those items will be published without an availability date.
+        SALE_DATE_INVALID:
+          type: integer
+          description: Some items have sale_price_effective_date values that are formatted incorrectly, those items will be published without a sale date.
+        WEIGHT_UNIT_INVALID:
+          type: integer
+          description: Some items have weight_unit values that are formatted incorrectly, those items will be published without a weight unit.
+        IS_BUNDLE_INVALID:
+          type: integer
+          description: Some items have is_bundle values that are formatted incorrectly, those items will be published without being bundled with other products.
+        UPDATED_TIME_INVALID:
+          type: integer
+          description: Some items have updated_time values thate are formatted incorrectly, those items will be published without an updated time.
+        CUSTOM_LABEL_LENGTH_TOO_LONG:
+          type: integer
+          description: Some items have custom_label values that are too long, those items will be published without that custom label.
+        PRODUCT_TYPE_LENGTH_TOO_LONG:
+          type: integer
+          description: Some items have product_type values that are too long, those items will be published without that product type.
+        TOO_MANY_ADDITIONAL_IMAGE_LINKS:
+          type: integer
+          description: Some items have additional_image_link values that exceed the limit for additional images, those items will be published without some of your images.
+        MULTIPACK_INVALID:
+          type: integer
+          description: Some items have invalid multipack values.
+        INDEXED_PRODUCT_COUNT_LARGE_DELTA:
+          type: integer
+          description: The product count has increased or decreased significantly compared to the last successful ingestion.
+        ITEM_ADDITIONAL_IMAGE_DOWNLOAD_FAILURE:
+          type: integer
+          description: Some items include additional_image_links that can't be found.
+        OPTIONAL_PRODUCT_CATEGORY_MISSING:
+          type: integer
+          description: Some items are missing a google_product_category.
+        OPTIONAL_PRODUCT_CATEGORY_INVALID:
+          type: integer
+          description: Some items include google_product_category values that are not formatted correctly according to the GPC taxonomy.
+        OPTIONAL_CONDITION_MISSING:
+          type: integer
+          description: Some items are missing a condition value, which may limit visibility in recommendations, search results and shopping experiences.
+        OPTIONAL_CONDITION_INVALID:
+          type: integer
+          description: Some items include condition values that are formatted incorrectly, which may limit visibility in recommendations, search results and shopping experiences.
+        IOS_DEEP_LINK_INVALID:
+          type: integer
+          description: Some items include invalid ios_deep_link values.
+        ANDROID_DEEP_LINK_INVALID:
+          type: integer
+          description: Some items include invalid android_deep_link.
+        UTM_SOURCE_AUTO_CORRECTED:
+          type: integer
+          description: Some items include utm_source values that are formatted incorrectly and have been automatically corrected.
+        COUNTRY_DOES_NOT_MAP_TO_CURRENCY:
+          type: integer
+          description: Some items include a currency that doesn't match the usual currency for the location where that product is sold or shipped.
+        MIN_AD_PRICE_INVALID:
+          type: integer
+          description: Some items include min_ad_price values that are formatted incorrectly.
+        GTIN_INVALID:
+          type: integer
+          description: Some items include incorrectly formatted GTINs.
+        INCONSISTENT_CURRENCY_VALUES:
+          type: integer
+          description: Some items include inconsistent currencies in price fields.
+        SALES_PRICE_TOO_LOW:
+          type: integer
+          description: Some items include sales price that is much lower than the list price.
+        SHIPPING_WIDTH_INVALID:
+          type: integer
+          description: Some items include incorrectly formatted shipping_width.
+        SHIPPING_HEIGHT_INVALID:
+          type: integer
+          description: Some items include incorrectly formatted shipping_height.
+        SALES_PRICE_TOO_HIGH:
+          type: integer
+          description: Some items include a sales price that is higher than the list price. The sales price has been defaulted to the list price.
+        MPN_INVALID:
+          type: integer
+          description: Some items include incorrectly formatted MPNs.
+    Country:
       type: string
+      description: Country ID from ISO 3166-1 alpha-2.
+      example: US
       enum:
-      - COMPLETED
-      - COMPLETED_EARLY
-      - DISAPPROVED
-      - FAILED
-      - PROCESSING
-      - QUEUED_FOR_PROCESSING
-      - UNDER_APPEAL
-      - UNDER_REVIEW
+      - AD
+      - AE
+      - AF
+      - AG
+      - AI
+      - AL
+      - AM
+      - AO
+      - AQ
+      - AR
+      - AS
+      - AT
+      - AU
+      - AW
+      - AX
+      - AZ
+      - BA
+      - BB
+      - BD
+      - BE
+      - BF
+      - BG
+      - BH
+      - BI
+      - BJ
+      - BL
+      - BM
+      - BN
+      - BO
+      - BQ
+      - BR
+      - BS
+      - BT
+      - BV
+      - BW
+      - BY
+      - BZ
+      - CA
+      - CC
+      - CD
+      - CF
+      - CG
+      - CH
+      - CI
+      - CK
+      - CL
+      - CM
+      - CN
+      - CO
+      - CR
+      - CU
+      - CV
+      - CW
+      - CX
+      - CY
+      - CZ
+      - DE
+      - DJ
+      - DK
+      - DM
+      - DO
+      - DZ
+      - EC
+      - EE
+      - EG
+      - EH
+      - ER
+      - ES
+      - ET
+      - FI
+      - FJ
+      - FK
+      - FM
+      - FO
+      - FR
+      - GA
+      - GB
+      - GD
+      - GE
+      - GF
+      - GG
+      - GH
+      - GI
+      - GL
+      - GM
+      - GN
+      - GP
+      - GQ
+      - GR
+      - GS
+      - GT
+      - GU
+      - GW
+      - GY
+      - HK
+      - HM
+      - HN
+      - HR
+      - HT
+      - HU
+      - ID
+      - IE
+      - IL
+      - IM
+      - IN
+      - IO
+      - IQ
+      - IR
+      - IS
+      - IT
+      - JE
+      - JM
+      - JO
+      - JP
+      - KE
+      - KG
+      - KH
+      - KI
+      - KM
+      - KN
+      - KR
+      - KW
+      - KY
+      - KZ
+      - LA
+      - LB
+      - LC
+      - LI
+      - LK
+      - LR
+      - LS
+      - LT
+      - LU
+      - LV
+      - LY
+      - MA
+      - MC
+      - MD
+      - ME
+      - MF
+      - MG
+      - MH
+      - MK
+      - ML
+      - MM
+      - MN
+      - MO
+      - MP
+      - MQ
+      - MR
+      - MS
+      - MT
+      - MU
+      - MV
+      - MW
+      - MX
+      - MY
+      - MZ
+      - NA
+      - NC
+      - NE
+      - NF
+      - NG
+      - NI
+      - NL
+      - 'NO'
+      - NP
+      - NR
+      - NU
+      - NZ
+      - OM
+      - PA
+      - PE
+      - PF
+      - PG
+      - PH
+      - PK
+      - PL
+      - PM
+      - PN
+      - PR
+      - PS
+      - PT
+      - PW
+      - PY
+      - QA
+      - RE
+      - RO
+      - RS
+      - RU
+      - RW
+      - SA
+      - SB
+      - SC
+      - SD
+      - SE
+      - SG
+      - SH
+      - SI
+      - SJ
+      - SK
+      - SL
+      - SM
+      - SN
+      - SO
+      - SR
+      - SS
+      - ST
+      - SV
+      - SX
+      - SY
+      - SZ
+      - TC
+      - TD
+      - TF
+      - TG
+      - TH
+      - TJ
+      - TK
+      - TL
+      - TM
+      - TN
+      - TO
+      - TR
+      - TT
+      - TV
+      - TW
+      - TZ
+      - UA
+      - UG
+      - UM
+      - US
+      - UY
+      - UZ
+      - VA
+      - VC
+      - VE
+      - VG
+      - VI
+      - VN
+      - VU
+      - WF
+      - WS
+      - YE
+      - YT
+      - ZA
+      - ZM
+      - ZW
+    ProductAvailabilityType:
+      description: Default availability for products in a feed.
+      type:
+      - string
+      - 'null'
+      enum:
+      - IN_STOCK
+      - OUT_OF_STOCK
+      - PREORDER
+      - null
     CatalogsFeedProcessingSchedule:
       type:
       - object
@@ -1186,598 +1604,6 @@ components:
       required:
       - time
       - timezone
-    CatalogsFeedsUpdateRequest:
-      type: object
-      title: legacy_retail_only
-      description: Request object for updating a feed.
-      additionalProperties: false
-      properties:
-        default_availability:
-          $ref: '#/components/schemas/ProductAvailabilityType'
-        default_currency:
-          $ref: '#/components/schemas/NullableCurrency'
-        name:
-          description: A human-friendly name associated to a given feed.
-          type: string
-        format:
-          $ref: '#/components/schemas/CatalogsFormat'
-        credentials:
-          $ref: '#/components/schemas/CatalogsFeedCredentials'
-        location:
-          type: string
-          pattern: ^(http|https|ftp|sftp)://
-          description: The URL where a feed is available for download. This URL is what Pinterest will use to download a feed for processing.
-        preferred_processing_schedule:
-          $ref: '#/components/schemas/CatalogsFeedProcessingSchedule'
-        status:
-          $ref: '#/components/schemas/CatalogsStatus'
-    CatalogsRetailFeedsCreateRequest:
-      type: object
-      title: feeds_retail_create_request
-      description: Request object for creating a retail feed.
-      additionalProperties: false
-      properties:
-        default_currency:
-          $ref: '#/components/schemas/NullableCurrency'
-        name:
-          description: A human-friendly name associated to a given feed.
-          type: string
-        format:
-          $ref: '#/components/schemas/CatalogsFormat'
-        default_locale:
-          description: The locale used within a feed for product descriptions.
-          example: en-US
-          anyOf:
-          - description: The locale used within a feed for product descriptions.
-            $ref: '#/components/schemas/CatalogsLocale'
-          - description: The locale used within a feed for product descriptions. This free text string version is deprecated in favor of official list of supported locales defined by CatalogsLocale.
-            type: string
-            deprecated: true
-        credentials:
-          $ref: '#/components/schemas/CatalogsFeedCredentials'
-        location:
-          description: The URL where a feed is available for download. This URL is what Pinterest will use to download a feed for processing.
-          pattern: ^(http|https|ftp|sftp)://
-          type: string
-        preferred_processing_schedule:
-          $ref: '#/components/schemas/CatalogsFeedProcessingSchedule'
-        catalog_type:
-          $ref: '#/components/schemas/CatalogsType'
-        default_country:
-          $ref: '#/components/schemas/Country'
-        default_availability:
-          $ref: '#/components/schemas/ProductAvailabilityType'
-      required:
-      - format
-      - location
-      - name
-      - catalog_type
-      - default_country
-      - default_locale
-    CatalogsFeed:
-      type: object
-      title: catalogs_feed
-      description: Catalogs Feed object
-      oneOf:
-      - $ref: '#/components/schemas/CatalogsRetailFeed'
-      - $ref: '#/components/schemas/CatalogsHotelFeed'
-      - $ref: '#/components/schemas/CatalogsCreativeAssetsFeed'
-      discriminator:
-        propertyName: catalog_type
-        mapping:
-          RETAIL: '#/components/schemas/CatalogsRetailFeed'
-          HOTEL: '#/components/schemas/CatalogsHotelFeed'
-          CREATIVE_ASSETS: '#/components/schemas/CatalogsCreativeAssetsFeed'
-    CatalogsRetailFeedsUpdateRequest:
-      type: object
-      title: catalogs_feeds_update_request
-      description: Request object for updating a feed.
-      additionalProperties: false
-      properties:
-        default_currency:
-          $ref: '#/components/schemas/NullableCurrency'
-        name:
-          description: A human-friendly name associated to a given feed.
-          type: string
-        format:
-          $ref: '#/components/schemas/CatalogsFormat'
-        credentials:
-          $ref: '#/components/schemas/CatalogsFeedCredentials'
-        location:
-          type: string
-          pattern: ^(http|https|ftp|sftp)://
-          description: The URL where a feed is available for download. This URL is what Pinterest will use to download a feed for processing.
-        preferred_processing_schedule:
-          $ref: '#/components/schemas/CatalogsFeedProcessingSchedule'
-        status:
-          $ref: '#/components/schemas/CatalogsStatus'
-        catalog_type:
-          $ref: '#/components/schemas/CatalogsType'
-        default_availability:
-          $ref: '#/components/schemas/ProductAvailabilityType'
-      required:
-      - catalog_type
-    CatalogsCreativeAssetsFeedsCreateRequest:
-      type: object
-      title: feeds_creative_assets_create_request
-      description: Request object for creating a feed.
-      additionalProperties: false
-      properties:
-        default_currency:
-          $ref: '#/components/schemas/NullableCurrency'
-        name:
-          description: A human-friendly name associated to a given feed.
-          type: string
-        format:
-          $ref: '#/components/schemas/CatalogsFormat'
-        default_locale:
-          description: The locale used within a feed for product descriptions.
-          example: en-US
-          anyOf:
-          - description: The locale used within a feed for product descriptions.
-            $ref: '#/components/schemas/CatalogsLocale'
-          - description: The locale used within a feed for product descriptions. This free text string version is deprecated in favor of official list of supported locales defined by CatalogsLocale.
-            type: string
-            deprecated: true
-        default_country:
-          $ref: '#/components/schemas/Country'
-        credentials:
-          $ref: '#/components/schemas/CatalogsFeedCredentials'
-        location:
-          description: The URL where a feed is available for download. This URL is what Pinterest will use to download a feed for processing.
-          pattern: ^(http|https|ftp|sftp)://
-          type: string
-        preferred_processing_schedule:
-          $ref: '#/components/schemas/CatalogsFeedProcessingSchedule'
-        catalog_type:
-          $ref: '#/components/schemas/CatalogsType'
-        catalog_id:
-          description: Catalog id pertaining to the feed. If not provided, feed will use a default catalog based on type. At the moment a catalog can not have multiple creative assets feeds but this will change in the future.
-          type:
-          - string
-          - 'null'
-          pattern: ^\d+$
-      required:
-      - format
-      - location
-      - name
-      - catalog_type
-      - default_country
-      - default_locale
-    CatalogsDbItem:
-      type: object
-      title: db_item
-      properties:
-        created_at:
-          type: string
-          format: date-time
-          example: '2022-03-14T15:15:22Z'
-        id:
-          type: string
-        updated_at:
-          type: string
-          format: date-time
-          example: '2022-03-14T15:16:34Z'
-    CatalogsFormat:
-      description: The file format of a feed.
-      type: string
-      enum:
-      - TSV
-      - CSV
-      - XML
-    CatalogsVerticalFeedsCreateRequest:
-      type: object
-      title: feeds_create_request
-      description: Request object for creating a feed.
-      oneOf:
-      - $ref: '#/components/schemas/CatalogsRetailFeedsCreateRequest'
-      - $ref: '#/components/schemas/CatalogsHotelFeedsCreateRequest'
-      - $ref: '#/components/schemas/CatalogsCreativeAssetsFeedsCreateRequest'
-      discriminator:
-        propertyName: catalog_type
-        mapping:
-          RETAIL: '#/components/schemas/CatalogsRetailFeedsCreateRequest'
-          HOTEL: '#/components/schemas/CatalogsHotelFeedsCreateRequest'
-          CREATIVE_ASSETS: '#/components/schemas/CatalogsCreativeAssetsFeedsCreateRequest'
-    CatalogsFeedProductCounts:
-      type:
-      - object
-      - 'null'
-      description: The counts can be null early in the process.
-      properties:
-        original:
-          description: The number of products in the feed file.
-          type: integer
-        ingested:
-          description: The number of products successfully ingested from the feed file.
-          type: integer
-    Country:
-      type: string
-      description: Country ID from ISO 3166-1 alpha-2.
-      example: US
-      enum:
-      - AD
-      - AE
-      - AF
-      - AG
-      - AI
-      - AL
-      - AM
-      - AO
-      - AQ
-      - AR
-      - AS
-      - AT
-      - AU
-      - AW
-      - AX
-      - AZ
-      - BA
-      - BB
-      - BD
-      - BE
-      - BF
-      - BG
-      - BH
-      - BI
-      - BJ
-      - BL
-      - BM
-      - BN
-      - BO
-      - BQ
-      - BR
-      - BS
-      - BT
-      - BV
-      - BW
-      - BY
-      - BZ
-      - CA
-      - CC
-      - CD
-      - CF
-      - CG
-      - CH
-      - CI
-      - CK
-      - CL
-      - CM
-      - CN
-      - CO
-      - CR
-      - CU
-      - CV
-      - CW
-      - CX
-      - CY
-      - CZ
-      - DE
-      - DJ
-      - DK
-      - DM
-      - DO
-      - DZ
-      - EC
-      - EE
-      - EG
-      - EH
-      - ER
-      - ES
-      - ET
-      - FI
-      - FJ
-      - FK
-      - FM
-      - FO
-      - FR
-      - GA
-      - GB
-      - GD
-      - GE
-      - GF
-      - GG
-      - GH
-      - GI
-      - GL
-      - GM
-      - GN
-      - GP
-      - GQ
-      - GR
-      - GS
-      - GT
-      - GU
-      - GW
-      - GY
-      - HK
-      - HM
-      - HN
-      - HR
-      - HT
-      - HU
-      - ID
-      - IE
-      - IL
-      - IM
-      - IN
-      - IO
-      - IQ
-      - IR
-      - IS
-      - IT
-      - JE
-      - JM
-      - JO
-      - JP
-      - KE
-      - KG
-      - KH
-      - KI
-      - KM
-      - KN
-      - KR
-      - KW
-      - KY
-      - KZ
-      - LA
-      - LB
-      - LC
-      - LI
-      - LK
-      - LR
-      - LS
-      - LT
-      - LU
-      - LV
-      - LY
-      - MA
-      - MC
-      - MD
-      - ME
-      - MF
-      - MG
-      - MH
-      - MK
-      - ML
-      - MM
-      - MN
-      - MO
-      - MP
-      - MQ
-      - MR
-      - MS
-      - MT
-      - MU
-      - MV
-      - MW
-      - MX
-      - MY
-      - MZ
-      - NA
-      - NC
-      - NE
-      - NF
-      - NG
-      - NI
-      - NL
-      - 'NO'
-      - NP
-      - NR
-      - NU
-      - NZ
-      - OM
-      - PA
-      - PE
-      - PF
-      - PG
-      - PH
-      - PK
-      - PL
-      - PM
-      - PN
-      - PR
-      - PS
-      - PT
-      - PW
-      - PY
-      - QA
-      - RE
-      - RO
-      - RS
-      - RU
-      - RW
-      - SA
-      - SB
-      - SC
-      - SD
-      - SE
-      - SG
-      - SH
-      - SI
-      - SJ
-      - SK
-      - SL
-      - SM
-      - SN
-      - SO
-      - SR
-      - SS
-      - ST
-      - SV
-      - SX
-      - SY
-      - SZ
-      - TC
-      - TD
-      - TF
-      - TG
-      - TH
-      - TJ
-      - TK
-      - TL
-      - TM
-      - TN
-      - TO
-      - TR
-      - TT
-      - TV
-      - TW
-      - TZ
-      - UA
-      - UG
-      - UM
-      - US
-      - UY
-      - UZ
-      - VA
-      - VC
-      - VE
-      - VG
-      - VI
-      - VN
-      - VU
-      - WF
-      - WS
-      - YE
-      - YT
-      - ZA
-      - ZM
-      - ZW
-    CatalogsFeedCredentials:
-      type:
-      - object
-      - 'null'
-      description: This field is **OPTIONAL**. Use this if your feed file requires username and password.
-      properties:
-        password:
-          description: The required password for downloading a feed.
-          type: string
-          format: password
-        username:
-          description: The required username for downloading a feed.
-          type: string
-      required:
-      - username
-      - password
-    Error:
-      title: Error
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
-    CatalogsLocale:
-      type: string
-      enum:
-      - af-ZA
-      - ar-SA
-      - bg-BG
-      - bn-IN
-      - cs-CZ
-      - da-DK
-      - de
-      - el-GR
-      - en-AU
-      - en-CA
-      - en-GB
-      - en-IN
-      - en-US
-      - es-419
-      - es-AR
-      - es-ES
-      - es-MX
-      - fi-FI
-      - fr
-      - fr-CA
-      - he-IL
-      - hi-IN
-      - hr-HR
-      - hu-HU
-      - id-ID
-      - it
-      - ja
-      - ko-KR
-      - ms-MY
-      - nb-NO
-      - nl
-      - pl-PL
-      - pt-BR
-      - pt-PT
-      - ro-RO
-      - ru-RU
-      - sk-SK
-      - sv-SE
-      - te-IN
-      - th-TH
-      - tl-PH
-      - tr
-      - uk-UA
-      - vi-VN
-      - zh-CN
-      - zh-TW
-    CatalogsFeedValidationDetails:
-      type: object
-      properties:
-        errors:
-          $ref: '#/components/schemas/CatalogsFeedValidationErrors'
-        warnings:
-          $ref: '#/components/schemas/CatalogsFeedValidationWarnings'
-      required:
-      - errors
-      - warnings
-    ProductAvailabilityType:
-      description: Default availability for products in a feed.
-      type:
-      - string
-      - 'null'
-      enum:
-      - IN_STOCK
-      - OUT_OF_STOCK
-      - PREORDER
-      - null
-    CatalogsFeedsCreateRequest:
-      type: object
-      title: legacy_retail_only
-      description: Request object for creating a feed. Please, be aware that "default_country" and "default_locale" are not required in the spec for forward compatibility but for now the API will not accept requests without those fields.
-      additionalProperties: false
-      properties:
-        default_currency:
-          $ref: '#/components/schemas/NullableCurrency'
-        name:
-          description: A human-friendly name associated to a given feed.
-          type: string
-        format:
-          $ref: '#/components/schemas/CatalogsFormat'
-        default_locale:
-          description: The locale used within a feed for product descriptions.
-          example: en-US
-          anyOf:
-          - description: The locale used within a feed for product descriptions.
-            $ref: '#/components/schemas/CatalogsLocale'
-          - description: The locale used within a feed for product descriptions. This free text string version is deprecated in favor of official list of supported locales defined by CatalogsLocale.
-            type: string
-            deprecated: true
-        credentials:
-          $ref: '#/components/schemas/CatalogsFeedCredentials'
-        location:
-          description: The URL where a feed is available for download. This URL is what Pinterest will use to download a feed for processing.
-          pattern: ^(http|https|ftp|sftp)://
-          type: string
-        preferred_processing_schedule:
-          $ref: '#/components/schemas/CatalogsFeedProcessingSchedule'
-        default_country:
-          $ref: '#/components/schemas/Country'
-        default_availability:
-          $ref: '#/components/schemas/ProductAvailabilityType'
-      required:
-      - format
-      - location
-      - name
     CatalogsCreativeAssetsFeed:
       type: object
       title: catalogs_creative_assets_feed
@@ -1831,19 +1657,6 @@ components:
         - default_currency
         - default_country
         - catalog_id
-    CatalogsFeedIngestionDetails:
-      type: object
-      properties:
-        errors:
-          $ref: '#/components/schemas/CatalogsFeedIngestionErrors'
-        info:
-          $ref: '#/components/schemas/CatalogsFeedIngestionInfo'
-        warnings:
-          $ref: '#/components/schemas/CatalogsFeedIngestionWarnings'
-      required:
-      - errors
-      - info
-      - warnings
     CatalogsFeedIngestionInfo:
       type: object
       properties:
@@ -1856,67 +1669,6 @@ components:
         PREORDER:
           type: integer
           description: The number of ingested products that are in preorder.
-    CatalogsFeedProcessingResult:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/CatalogsDbItem'
-      - type: object
-        title: catalogs_feed_processing_result_fields
-        properties:
-          ingestion_details:
-            $ref: '#/components/schemas/CatalogsFeedIngestionDetails'
-          status:
-            $ref: '#/components/schemas/CatalogsFeedProcessingStatus'
-          product_counts:
-            $ref: '#/components/schemas/CatalogsFeedProductCounts'
-          validation_details:
-            $ref: '#/components/schemas/CatalogsFeedValidationDetails'
-        required:
-        - ingestion_details
-        - status
-        - product_counts
-        - validation_details
-    CatalogsType:
-      description: Type of the catalog entity.
-      type: string
-      enum:
-      - RETAIL
-      - HOTEL
-      - CREATIVE_ASSETS
-    CatalogsFeedIngestionWarnings:
-      type: object
-      properties:
-        ADDITIONAL_IMAGE_LEVEL_INTERNAL_ERROR:
-          type: integer
-          description: We experienced a technical difficulty and were unable to download some additional images. The next download attempt will happen in 24 hours.
-        ADDITIONAL_IMAGE_FILE_NOT_ACCESSIBLE:
-          type: integer
-          description: Additional image files are unreadable. Please upload new files to continue.
-        ADDITIONAL_IMAGE_MALFORMED_URL:
-          type: integer
-          description: Additional image files are unreadable. Please check your link and upload new files to continue.
-        ADDITIONAL_IMAGE_FILE_NOT_FOUND:
-          type: integer
-          description: Additional image files are unreadable. Please upload new files to continue.
-        ADDITIONAL_IMAGE_INVALID_FILE:
-          type: integer
-          description: Additional image files are unreadable. Please upload new files to continue.
-        HOTEL_PRICE_HEADER_IS_PRESENT:
-          type: integer
-          description: price is not a supported column. Use base_price and sale_price instead.
-    Paginated:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            type: object
-        bookmark:
-          type:
-          - string
-          - 'null'
-      required:
-      - items
     CatalogsFeedIngestionErrors:
       type: object
       properties:
@@ -1946,211 +1698,10 @@ components:
         IMAGE_INVALID_FILE:
           type: integer
           description: Image files are unreadable. Please upload new files to continue.
-    CatalogsRetailFeed:
+    CatalogsRetailFeedsCreateRequest:
       type: object
-      title: catalogs_retail_feed
-      description: Catalogs Retail Feed object
-      allOf:
-      - $ref: '#/components/schemas/CatalogsDbItem'
-      - type: object
-        title: feed_fields
-        properties:
-          name:
-            description: A human-friendly name associated to a given feed. This value is currently nullable due to historical reasons. It is expected to become non-nullable in the future.
-            type:
-            - string
-            - 'null'
-          format:
-            $ref: '#/components/schemas/CatalogsFormat'
-          catalog_type:
-            $ref: '#/components/schemas/CatalogsType'
-          credentials:
-            $ref: '#/components/schemas/CatalogsFeedCredentials'
-          location:
-            description: The URL where a feed is available for download. This URL is what Pinterest will use to download a feed for processing.
-            type: string
-          preferred_processing_schedule:
-            $ref: '#/components/schemas/CatalogsFeedProcessingSchedule'
-          status:
-            $ref: '#/components/schemas/CatalogsStatus'
-          default_currency:
-            $ref: '#/components/schemas/NullableCurrency'
-          default_locale:
-            description: The locale used within a feed for product descriptions.
-            example: en-US
-            type: string
-          default_country:
-            $ref: '#/components/schemas/Country'
-          default_availability:
-            $ref: '#/components/schemas/ProductAvailabilityType'
-        required:
-        - credentials
-        - default_availability
-        - default_country
-        - default_currency
-        - default_locale
-        - format
-        - location
-        - name
-        - preferred_processing_schedule
-        - status
-        - catalog_type
-    CatalogsFeedValidationWarnings:
-      type: object
-      properties:
-        AD_LINK_FORMAT_WARNING:
-          type: integer
-          description: Some items have ad links that are formatted incorrectly.
-        AD_LINK_SAME_AS_LINK:
-          type: integer
-          description: Some items have ad link URLs that are duplicates of the link URLs for those items.
-        TITLE_LENGTH_TOO_LONG:
-          type: integer
-          description: The title for some items were truncated because they contain too many characters.
-        DESCRIPTION_LENGTH_TOO_LONG:
-          type: integer
-          description: The description for some items were truncated because they contain too many characters.
-        GENDER_INVALID:
-          type: integer
-          description: Some items have gender values that are formatted incorrectly, which may limit visibility in recommendations, search results and shopping experiences.
-        AGE_GROUP_INVALID:
-          type: integer
-          description: Some items have age group values that are formatted incorrectly, which may limit visibility in recommendations, search results and shopping experiences.
-        SIZE_TYPE_INVALID:
-          type: integer
-          description: Some items have size type values that are formatted incorrectly, which may limit visibility in recommendations, search results and shopping experiences.
-        SIZE_SYSTEM_INVALID:
-          type: integer
-          description: Some items have size system values which are not one of the supported size systems.
-        LINK_FORMAT_WARNING:
-          type: integer
-          description: Some items have an invalid product link which contains invalid UTM tracking paramaters.
-        SALES_PRICE_INVALID:
-          type: integer
-          description: Some items have sale price values that are higher than the original price of the item.
-        PRODUCT_CATEGORY_DEPTH_WARNING:
-          type: integer
-          description: Some items only have 1 or 2 levels of google_product_category values, which may limit visibility in recommendations, search results and shopping experiences.
-        ADWORDS_FORMAT_WARNING:
-          type: integer
-          description: Some items have adwords_redirect links that are formatted incorrectly.
-        ADWORDS_SAME_AS_LINK:
-          type: integer
-          description: Some items have adwords_redirect URLs that are duplicates of the link URLs for those items.
-        DUPLICATE_HEADERS:
-          type: integer
-          description: Your feed contains duplicate headers.
-        FETCH_SAME_SIGNATURE:
-          type: integer
-          description: Ingestion completed early because there are no changes to your feed since the last successful update.
-          enum:
-          - 1
-        ADDITIONAL_IMAGE_LINK_LENGTH_TOO_LONG:
-          type: integer
-          description: Some items have additional_image_link URLs that contain too many characters, so those items will not be published.
-        ADDITIONAL_IMAGE_LINK_WARNING:
-          type: integer
-          description: Some items have additional_image_link URLs that are formatted incorrectly and will not be published with your items.
-        IMAGE_LINK_WARNING:
-          type: integer
-          description: Some items have image_link URLs that are formatted incorrectly and will not be published with those items.
-        SHIPPING_INVALID:
-          type: integer
-          description: Some items have shipping values that are formatted incorrectly.
-        TAX_INVALID:
-          type: integer
-          description: Some items have tax values that are formatted incorrectly.
-        SHIPPING_WEIGHT_INVALID:
-          type: integer
-          description: Some items have invalid shipping_weight values.
-        EXPIRATION_DATE_INVALID:
-          type: integer
-          description: Some items have expiration_date values that are formatted incorrectly, those items will be published without an expiration date.
-        AVAILABILITY_DATE_INVALID:
-          type: integer
-          description: Some items have availability_date values that are formatted incorrectly, those items will be published without an availability date.
-        SALE_DATE_INVALID:
-          type: integer
-          description: Some items have sale_price_effective_date values that are formatted incorrectly, those items will be published without a sale date.
-        WEIGHT_UNIT_INVALID:
-          type: integer
-          description: Some items have weight_unit values that are formatted incorrectly, those items will be published without a weight unit.
-        IS_BUNDLE_INVALID:
-          type: integer
-          description: Some items have is_bundle values that are formatted incorrectly, those items will be published without being bundled with other products.
-        UPDATED_TIME_INVALID:
-          type: integer
-          description: Some items have updated_time values thate are formatted incorrectly, those items will be published without an updated time.
-        CUSTOM_LABEL_LENGTH_TOO_LONG:
-          type: integer
-          description: Some items have custom_label values that are too long, those items will be published without that custom label.
-        PRODUCT_TYPE_LENGTH_TOO_LONG:
-          type: integer
-          description: Some items have product_type values that are too long, those items will be published without that product type.
-        TOO_MANY_ADDITIONAL_IMAGE_LINKS:
-          type: integer
-          description: Some items have additional_image_link values that exceed the limit for additional images, those items will be published without some of your images.
-        MULTIPACK_INVALID:
-          type: integer
-          description: Some items have invalid multipack values.
-        INDEXED_PRODUCT_COUNT_LARGE_DELTA:
-          type: integer
-          description: The product count has increased or decreased significantly compared to the last successful ingestion.
-        ITEM_ADDITIONAL_IMAGE_DOWNLOAD_FAILURE:
-          type: integer
-          description: Some items include additional_image_links that can't be found.
-        OPTIONAL_PRODUCT_CATEGORY_MISSING:
-          type: integer
-          description: Some items are missing a google_product_category.
-        OPTIONAL_PRODUCT_CATEGORY_INVALID:
-          type: integer
-          description: Some items include google_product_category values that are not formatted correctly according to the GPC taxonomy.
-        OPTIONAL_CONDITION_MISSING:
-          type: integer
-          description: Some items are missing a condition value, which may limit visibility in recommendations, search results and shopping experiences.
-        OPTIONAL_CONDITION_INVALID:
-          type: integer
-          description: Some items include condition values that are formatted incorrectly, which may limit visibility in recommendations, search results and shopping experiences.
-        IOS_DEEP_LINK_INVALID:
-          type: integer
-          description: Some items include invalid ios_deep_link values.
-        ANDROID_DEEP_LINK_INVALID:
-          type: integer
-          description: Some items include invalid android_deep_link.
-        UTM_SOURCE_AUTO_CORRECTED:
-          type: integer
-          description: Some items include utm_source values that are formatted incorrectly and have been automatically corrected.
-        COUNTRY_DOES_NOT_MAP_TO_CURRENCY:
-          type: integer
-          description: Some items include a currency that doesn't match the usual currency for the location where that product is sold or shipped.
-        MIN_AD_PRICE_INVALID:
-          type: integer
-          description: Some items include min_ad_price values that are formatted incorrectly.
-        GTIN_INVALID:
-          type: integer
-          description: Some items include incorrectly formatted GTINs.
-        INCONSISTENT_CURRENCY_VALUES:
-          type: integer
-          description: Some items include inconsistent currencies in price fields.
-        SALES_PRICE_TOO_LOW:
-          type: integer
-          description: Some items include sales price that is much lower than the list price.
-        SHIPPING_WIDTH_INVALID:
-          type: integer
-          description: Some items include incorrectly formatted shipping_width.
-        SHIPPING_HEIGHT_INVALID:
-          type: integer
-          description: Some items include incorrectly formatted shipping_height.
-        SALES_PRICE_TOO_HIGH:
-          type: integer
-          description: Some items include a sales price that is higher than the list price. The sales price has been defaulted to the list price.
-        MPN_INVALID:
-          type: integer
-          description: Some items include incorrectly formatted MPNs.
-    CatalogsHotelFeedsUpdateRequest:
-      type: object
-      title: catalogs_feeds_update_request
-      description: Request object for updating a feed.
+      title: feeds_retail_create_request
+      description: Request object for creating a retail feed.
       additionalProperties: false
       properties:
         default_currency:
@@ -2160,97 +1711,36 @@ components:
           type: string
         format:
           $ref: '#/components/schemas/CatalogsFormat'
+        default_locale:
+          description: The locale used within a feed for product descriptions.
+          example: en-US
+          anyOf:
+          - description: The locale used within a feed for product descriptions.
+            $ref: '#/components/schemas/CatalogsLocale'
+          - description: The locale used within a feed for product descriptions. This free text string version is deprecated in favor of official list of supported locales defined by CatalogsLocale.
+            type: string
+            deprecated: true
         credentials:
           $ref: '#/components/schemas/CatalogsFeedCredentials'
         location:
-          type: string
-          pattern: ^(http|https|ftp|sftp)://
           description: The URL where a feed is available for download. This URL is what Pinterest will use to download a feed for processing.
+          pattern: ^(http|https|ftp|sftp)://
+          type: string
         preferred_processing_schedule:
           $ref: '#/components/schemas/CatalogsFeedProcessingSchedule'
-        status:
-          $ref: '#/components/schemas/CatalogsStatus'
         catalog_type:
           $ref: '#/components/schemas/CatalogsType'
+        default_country:
+          $ref: '#/components/schemas/Country'
+        default_availability:
+          $ref: '#/components/schemas/ProductAvailabilityType'
       required:
+      - format
+      - location
+      - name
       - catalog_type
-    CatalogsCreativeAssetsFeedsUpdateRequest:
-      type: object
-      title: catalogs_feeds_update_request
-      description: Request object for updating a feed.
-      additionalProperties: false
-      properties:
-        default_currency:
-          $ref: '#/components/schemas/NullableCurrency'
-        name:
-          description: A human-friendly name associated to a given feed.
-          type: string
-        format:
-          $ref: '#/components/schemas/CatalogsFormat'
-        credentials:
-          $ref: '#/components/schemas/CatalogsFeedCredentials'
-        location:
-          type: string
-          pattern: ^(http|https|ftp|sftp)://
-          description: The URL where a feed is available for download. This URL is what Pinterest will use to download a feed for processing.
-        preferred_processing_schedule:
-          $ref: '#/components/schemas/CatalogsFeedProcessingSchedule'
-        status:
-          $ref: '#/components/schemas/CatalogsStatus'
-        catalog_type:
-          $ref: '#/components/schemas/CatalogsType'
-      required:
-      - catalog_type
-    CatalogsHotelFeed:
-      type: object
-      title: catalogs_hotel_feed
-      description: Catalogs Hotel Feed object
-      allOf:
-      - $ref: '#/components/schemas/CatalogsDbItem'
-      - type: object
-        title: feed_fields
-        properties:
-          name:
-            description: A human-friendly name associated to a given feed. This value is currently nullable due to historical reasons. It is expected to become non-nullable in the future.
-            type:
-            - string
-            - 'null'
-          format:
-            $ref: '#/components/schemas/CatalogsFormat'
-          catalog_type:
-            $ref: '#/components/schemas/CatalogsType'
-          credentials:
-            $ref: '#/components/schemas/CatalogsFeedCredentials'
-          location:
-            description: The URL where a feed is available for download. This URL is what Pinterest will use to download a feed for processing.
-            type: string
-          preferred_processing_schedule:
-            $ref: '#/components/schemas/CatalogsFeedProcessingSchedule'
-          status:
-            $ref: '#/components/schemas/CatalogsStatus'
-          default_currency:
-            $ref: '#/components/schemas/NullableCurrency'
-          default_locale:
-            description: The locale used within a feed for product descriptions.
-            example: en-US
-            type: string
-          catalog_id:
-            description: Catalog id pertaining to the feed. If not provided, feed will use a default catalog based on type.
-            type:
-            - string
-            - 'null'
-            pattern: ^\d+$
-        required:
-        - credentials
-        - format
-        - location
-        - name
-        - preferred_processing_schedule
-        - status
-        - catalog_type
-        - default_locale
-        - default_currency
-        - catalog_id
+      - default_country
+      - default_locale
     NullableCurrency:
       type:
       - string
@@ -2422,14 +1912,517 @@ components:
       - ZMW
       - ZWD
       - null
+    CatalogsFeedCredentials:
+      type:
+      - object
+      - 'null'
+      description: This field is **OPTIONAL**. Use this if your feed file requires username and password.
+      properties:
+        password:
+          description: The required password for downloading a feed.
+          type: string
+          format: password
+        username:
+          description: The required username for downloading a feed.
+          type: string
+      required:
+      - username
+      - password
+    CatalogsLocale:
+      type: string
+      enum:
+      - af-ZA
+      - ar-SA
+      - bg-BG
+      - bn-IN
+      - cs-CZ
+      - da-DK
+      - de
+      - el-GR
+      - en-AU
+      - en-CA
+      - en-GB
+      - en-IN
+      - en-US
+      - es-419
+      - es-AR
+      - es-ES
+      - es-MX
+      - fi-FI
+      - fr
+      - fr-CA
+      - he-IL
+      - hi-IN
+      - hr-HR
+      - hu-HU
+      - id-ID
+      - it
+      - ja
+      - ko-KR
+      - ms-MY
+      - nb-NO
+      - nl
+      - pl-PL
+      - pt-BR
+      - pt-PT
+      - ro-RO
+      - ru-RU
+      - sk-SK
+      - sv-SE
+      - te-IN
+      - th-TH
+      - tl-PH
+      - tr
+      - uk-UA
+      - vi-VN
+      - zh-CN
+      - zh-TW
+    CatalogsCreativeAssetsFeedsCreateRequest:
+      type: object
+      title: feeds_creative_assets_create_request
+      description: Request object for creating a feed.
+      additionalProperties: false
+      properties:
+        default_currency:
+          $ref: '#/components/schemas/NullableCurrency'
+        name:
+          description: A human-friendly name associated to a given feed.
+          type: string
+        format:
+          $ref: '#/components/schemas/CatalogsFormat'
+        default_locale:
+          description: The locale used within a feed for product descriptions.
+          example: en-US
+          anyOf:
+          - description: The locale used within a feed for product descriptions.
+            $ref: '#/components/schemas/CatalogsLocale'
+          - description: The locale used within a feed for product descriptions. This free text string version is deprecated in favor of official list of supported locales defined by CatalogsLocale.
+            type: string
+            deprecated: true
+        default_country:
+          $ref: '#/components/schemas/Country'
+        credentials:
+          $ref: '#/components/schemas/CatalogsFeedCredentials'
+        location:
+          description: The URL where a feed is available for download. This URL is what Pinterest will use to download a feed for processing.
+          pattern: ^(http|https|ftp|sftp)://
+          type: string
+        preferred_processing_schedule:
+          $ref: '#/components/schemas/CatalogsFeedProcessingSchedule'
+        catalog_type:
+          $ref: '#/components/schemas/CatalogsType'
+        catalog_id:
+          description: Catalog id pertaining to the feed. If not provided, feed will use a default catalog based on type. At the moment a catalog can not have multiple creative assets feeds but this will change in the future.
+          type:
+          - string
+          - 'null'
+          pattern: ^\d+$
+      required:
+      - format
+      - location
+      - name
+      - catalog_type
+      - default_country
+      - default_locale
+    CatalogsVerticalFeedsUpdateRequest:
+      type: object
+      title: feeds_update_request
+      description: Request object for updating a feed.
+      oneOf:
+      - $ref: '#/components/schemas/CatalogsRetailFeedsUpdateRequest'
+      - $ref: '#/components/schemas/CatalogsHotelFeedsUpdateRequest'
+      - $ref: '#/components/schemas/CatalogsCreativeAssetsFeedsUpdateRequest'
+      discriminator:
+        propertyName: catalog_type
+        mapping:
+          RETAIL: '#/components/schemas/CatalogsRetailFeedsUpdateRequest'
+          HOTEL: '#/components/schemas/CatalogsHotelFeedsUpdateRequest'
+          CREATIVE_ASSETS: '#/components/schemas/CatalogsCreativeAssetsFeedsUpdateRequest'
+    CatalogsFeedsUpdateRequest:
+      type: object
+      title: legacy_retail_only
+      description: Request object for updating a feed.
+      additionalProperties: false
+      properties:
+        default_availability:
+          $ref: '#/components/schemas/ProductAvailabilityType'
+        default_currency:
+          $ref: '#/components/schemas/NullableCurrency'
+        name:
+          description: A human-friendly name associated to a given feed.
+          type: string
+        format:
+          $ref: '#/components/schemas/CatalogsFormat'
+        credentials:
+          $ref: '#/components/schemas/CatalogsFeedCredentials'
+        location:
+          type: string
+          pattern: ^(http|https|ftp|sftp)://
+          description: The URL where a feed is available for download. This URL is what Pinterest will use to download a feed for processing.
+        preferred_processing_schedule:
+          $ref: '#/components/schemas/CatalogsFeedProcessingSchedule'
+        status:
+          $ref: '#/components/schemas/CatalogsStatus'
+    CatalogsVerticalFeedsCreateRequest:
+      type: object
+      title: feeds_create_request
+      description: Request object for creating a feed.
+      oneOf:
+      - $ref: '#/components/schemas/CatalogsRetailFeedsCreateRequest'
+      - $ref: '#/components/schemas/CatalogsHotelFeedsCreateRequest'
+      - $ref: '#/components/schemas/CatalogsCreativeAssetsFeedsCreateRequest'
+      discriminator:
+        propertyName: catalog_type
+        mapping:
+          RETAIL: '#/components/schemas/CatalogsRetailFeedsCreateRequest'
+          HOTEL: '#/components/schemas/CatalogsHotelFeedsCreateRequest'
+          CREATIVE_ASSETS: '#/components/schemas/CatalogsCreativeAssetsFeedsCreateRequest'
+    CatalogsType:
+      description: Type of the catalog entity.
+      type: string
+      enum:
+      - RETAIL
+      - HOTEL
+      - CREATIVE_ASSETS
+    CatalogsFeed:
+      type: object
+      title: catalogs_feed
+      description: Catalogs Feed object
+      oneOf:
+      - $ref: '#/components/schemas/CatalogsRetailFeed'
+      - $ref: '#/components/schemas/CatalogsHotelFeed'
+      - $ref: '#/components/schemas/CatalogsCreativeAssetsFeed'
+      discriminator:
+        propertyName: catalog_type
+        mapping:
+          RETAIL: '#/components/schemas/CatalogsRetailFeed'
+          HOTEL: '#/components/schemas/CatalogsHotelFeed'
+          CREATIVE_ASSETS: '#/components/schemas/CatalogsCreativeAssetsFeed'
+    CatalogsFeedIngestionWarnings:
+      type: object
+      properties:
+        ADDITIONAL_IMAGE_LEVEL_INTERNAL_ERROR:
+          type: integer
+          description: We experienced a technical difficulty and were unable to download some additional images. The next download attempt will happen in 24 hours.
+        ADDITIONAL_IMAGE_FILE_NOT_ACCESSIBLE:
+          type: integer
+          description: Additional image files are unreadable. Please upload new files to continue.
+        ADDITIONAL_IMAGE_MALFORMED_URL:
+          type: integer
+          description: Additional image files are unreadable. Please check your link and upload new files to continue.
+        ADDITIONAL_IMAGE_FILE_NOT_FOUND:
+          type: integer
+          description: Additional image files are unreadable. Please upload new files to continue.
+        ADDITIONAL_IMAGE_INVALID_FILE:
+          type: integer
+          description: Additional image files are unreadable. Please upload new files to continue.
+        HOTEL_PRICE_HEADER_IS_PRESENT:
+          type: integer
+          description: price is not a supported column. Use base_price and sale_price instead.
+    CatalogsFormat:
+      description: The file format of a feed.
+      type: string
+      enum:
+      - TSV
+      - CSV
+      - XML
+    CatalogsHotelFeedsCreateRequest:
+      type: object
+      title: feeds_hotel_create_request
+      description: Request object for creating a feed. Please, be aware that "default_country" and "default_locale" are not required in the spec for forward compatibility but for now the API will not accept requests without those fields.
+      additionalProperties: false
+      properties:
+        default_currency:
+          $ref: '#/components/schemas/NullableCurrency'
+        name:
+          description: A human-friendly name associated to a given feed.
+          type: string
+        format:
+          $ref: '#/components/schemas/CatalogsFormat'
+        default_locale:
+          description: The locale used within a feed for product descriptions.
+          example: en-US
+          anyOf:
+          - description: The locale used within a feed for product descriptions.
+            $ref: '#/components/schemas/CatalogsLocale'
+          - description: The locale used within a feed for product descriptions. This free text string version is deprecated in favor of official list of supported locales defined by CatalogsLocale.
+            type: string
+            deprecated: true
+        credentials:
+          $ref: '#/components/schemas/CatalogsFeedCredentials'
+        location:
+          description: The URL where a feed is available for download. This URL is what Pinterest will use to download a feed for processing.
+          pattern: ^(http|https|ftp|sftp)://
+          type: string
+        preferred_processing_schedule:
+          $ref: '#/components/schemas/CatalogsFeedProcessingSchedule'
+        catalog_type:
+          $ref: '#/components/schemas/CatalogsType'
+        catalog_id:
+          description: Catalog id pertaining to the feed. If not provided, feed will use a default catalog based on type. At the moment a catalog can not have multiple hotel feeds but this will change in the future.
+          type:
+          - string
+          - 'null'
+          pattern: ^\d+$
+      required:
+      - format
+      - location
+      - name
+      - catalog_type
+      - default_locale
+    CatalogsStatus:
+      type: string
+      description: Status for catalogs entities. Present in catalogs_feed values. When a feed is deleted, the response will inform DELETED as status.
+      enum:
+      - ACTIVE
+      - INACTIVE
+    CatalogsFeedProductCounts:
+      type:
+      - object
+      - 'null'
+      description: The counts can be null early in the process.
+      properties:
+        original:
+          description: The number of products in the feed file.
+          type: integer
+        ingested:
+          description: The number of products successfully ingested from the feed file.
+          type: integer
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    CatalogsRetailFeedsUpdateRequest:
+      type: object
+      title: catalogs_feeds_update_request
+      description: Request object for updating a feed.
+      additionalProperties: false
+      properties:
+        default_currency:
+          $ref: '#/components/schemas/NullableCurrency'
+        name:
+          description: A human-friendly name associated to a given feed.
+          type: string
+        format:
+          $ref: '#/components/schemas/CatalogsFormat'
+        credentials:
+          $ref: '#/components/schemas/CatalogsFeedCredentials'
+        location:
+          type: string
+          pattern: ^(http|https|ftp|sftp)://
+          description: The URL where a feed is available for download. This URL is what Pinterest will use to download a feed for processing.
+        preferred_processing_schedule:
+          $ref: '#/components/schemas/CatalogsFeedProcessingSchedule'
+        status:
+          $ref: '#/components/schemas/CatalogsStatus'
+        catalog_type:
+          $ref: '#/components/schemas/CatalogsType'
+        default_availability:
+          $ref: '#/components/schemas/ProductAvailabilityType'
+      required:
+      - catalog_type
+    CatalogsHotelFeed:
+      type: object
+      title: catalogs_hotel_feed
+      description: Catalogs Hotel Feed object
+      allOf:
+      - $ref: '#/components/schemas/CatalogsDbItem'
+      - type: object
+        title: feed_fields
+        properties:
+          name:
+            description: A human-friendly name associated to a given feed. This value is currently nullable due to historical reasons. It is expected to become non-nullable in the future.
+            type:
+            - string
+            - 'null'
+          format:
+            $ref: '#/components/schemas/CatalogsFormat'
+          catalog_type:
+            $ref: '#/components/schemas/CatalogsType'
+          credentials:
+            $ref: '#/components/schemas/CatalogsFeedCredentials'
+          location:
+            description: The URL where a feed is available for download. This URL is what Pinterest will use to download a feed for processing.
+            type: string
+          preferred_processing_schedule:
+            $ref: '#/components/schemas/CatalogsFeedProcessingSchedule'
+          status:
+            $ref: '#/components/schemas/CatalogsStatus'
+          default_currency:
+            $ref: '#/components/schemas/NullableCurrency'
+          default_locale:
+            description: The locale used within a feed for product descriptions.
+            example: en-US
+            type: string
+          catalog_id:
+            description: Catalog id pertaining to the feed. If not provided, feed will use a default catalog based on type.
+            type:
+            - string
+            - 'null'
+            pattern: ^\d+$
+        required:
+        - credentials
+        - format
+        - location
+        - name
+        - preferred_processing_schedule
+        - status
+        - catalog_type
+        - default_locale
+        - default_currency
+        - catalog_id
+    CatalogsFeedValidationDetails:
+      type: object
+      properties:
+        errors:
+          $ref: '#/components/schemas/CatalogsFeedValidationErrors'
+        warnings:
+          $ref: '#/components/schemas/CatalogsFeedValidationWarnings'
+      required:
+      - errors
+      - warnings
+    CatalogsFeedIngestionDetails:
+      type: object
+      properties:
+        errors:
+          $ref: '#/components/schemas/CatalogsFeedIngestionErrors'
+        info:
+          $ref: '#/components/schemas/CatalogsFeedIngestionInfo'
+        warnings:
+          $ref: '#/components/schemas/CatalogsFeedIngestionWarnings'
+      required:
+      - errors
+      - info
+      - warnings
+    CatalogsDbItem:
+      type: object
+      title: db_item
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          example: '2022-03-14T15:15:22Z'
+        id:
+          type: string
+        updated_at:
+          type: string
+          format: date-time
+          example: '2022-03-14T15:16:34Z'
+    CatalogsRetailFeed:
+      type: object
+      title: catalogs_retail_feed
+      description: Catalogs Retail Feed object
+      allOf:
+      - $ref: '#/components/schemas/CatalogsDbItem'
+      - type: object
+        title: feed_fields
+        properties:
+          name:
+            description: A human-friendly name associated to a given feed. This value is currently nullable due to historical reasons. It is expected to become non-nullable in the future.
+            type:
+            - string
+            - 'null'
+          format:
+            $ref: '#/components/schemas/CatalogsFormat'
+          catalog_type:
+            $ref: '#/components/schemas/CatalogsType'
+          credentials:
+            $ref: '#/components/schemas/CatalogsFeedCredentials'
+          location:
+            description: The URL where a feed is available for download. This URL is what Pinterest will use to download a feed for processing.
+            type: string
+          preferred_processing_schedule:
+            $ref: '#/components/schemas/CatalogsFeedProcessingSchedule'
+          status:
+            $ref: '#/components/schemas/CatalogsStatus'
+          default_currency:
+            $ref: '#/components/schemas/NullableCurrency'
+          default_locale:
+            description: The locale used within a feed for product descriptions.
+            example: en-US
+            type: string
+          default_country:
+            $ref: '#/components/schemas/Country'
+          default_availability:
+            $ref: '#/components/schemas/ProductAvailabilityType'
+        required:
+        - credentials
+        - default_availability
+        - default_country
+        - default_currency
+        - default_locale
+        - format
+        - location
+        - name
+        - preferred_processing_schedule
+        - status
+        - catalog_type
+    CatalogsHotelFeedsUpdateRequest:
+      type: object
+      title: catalogs_feeds_update_request
+      description: Request object for updating a feed.
+      additionalProperties: false
+      properties:
+        default_currency:
+          $ref: '#/components/schemas/NullableCurrency'
+        name:
+          description: A human-friendly name associated to a given feed.
+          type: string
+        format:
+          $ref: '#/components/schemas/CatalogsFormat'
+        credentials:
+          $ref: '#/components/schemas/CatalogsFeedCredentials'
+        location:
+          type: string
+          pattern: ^(http|https|ftp|sftp)://
+          description: The URL where a feed is available for download. This URL is what Pinterest will use to download a feed for processing.
+        preferred_processing_schedule:
+          $ref: '#/components/schemas/CatalogsFeedProcessingSchedule'
+        status:
+          $ref: '#/components/schemas/CatalogsStatus'
+        catalog_type:
+          $ref: '#/components/schemas/CatalogsType'
+      required:
+      - catalog_type
+    CatalogsFeedProcessingResult:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/CatalogsDbItem'
+      - type: object
+        title: catalogs_feed_processing_result_fields
+        properties:
+          ingestion_details:
+            $ref: '#/components/schemas/CatalogsFeedIngestionDetails'
+          status:
+            $ref: '#/components/schemas/CatalogsFeedProcessingStatus'
+          product_counts:
+            $ref: '#/components/schemas/CatalogsFeedProductCounts'
+          validation_details:
+            $ref: '#/components/schemas/CatalogsFeedValidationDetails'
+        required:
+        - ingestion_details
+        - status
+        - product_counts
+        - validation_details
+    CatalogsFeedProcessingStatus:
+      type: string
+      enum:
+      - COMPLETED
+      - COMPLETED_EARLY
+      - DISAPPROVED
+      - FAILED
+      - PROCESSING
+      - QUEUED_FOR_PROCESSING
+      - UNDER_APPEAL
+      - UNDER_REVIEW
   parameters:
-    query_bookmark:
-      name: bookmark
-      description: Cursor used to fetch the next page of items
-      in: query
-      required: false
-      schema:
-        type: string
     query_page_size:
       name: page_size
       description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
@@ -2440,22 +2433,13 @@ components:
         minimum: 1
         maximum: 250
         default: 25
-    query_ad_account_id:
-      name: ad_account_id
-      description: Unique identifier of an ad account.
+    query_bookmark:
+      name: bookmark
+      description: Cursor used to fetch the next page of items
       in: query
+      required: false
       schema:
         type: string
-        pattern: ^\d+$
-        maxLength: 18
-    path_catalogs_feed_id:
-      description: Unique identifier of a feed
-      in: path
-      required: true
-      name: feed_id
-      schema:
-        type: string
-        pattern: ^\d+$
     query_catalogs_catalog_id:
       description: Filter entities for a given catalog_id. If not given, all catalogs are considered.
       in: query
@@ -2464,6 +2448,22 @@ components:
       schema:
         type: string
         pattern: ^\d+$
+    path_catalogs_feed_id:
+      description: Unique identifier of a feed
+      in: path
+      required: true
+      name: feed_id
+      schema:
+        type: string
+        pattern: ^\d+$
+    query_ad_account_id:
+      name: ad_account_id
+      description: Unique identifier of an ad account.
+      in: query
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
   securitySchemes:
     pinterest_oauth2:
       type: oauth2

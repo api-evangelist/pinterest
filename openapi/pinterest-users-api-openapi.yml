@@ -70,50 +70,7 @@ paths:
                 $ref: '#/components/schemas/Error'
       x-sandbox: enabled
 components:
-  parameters:
-    query_bookmark:
-      name: bookmark
-      description: Cursor used to fetch the next page of items
-      in: query
-      required: false
-      schema:
-        type: string
-    path_username:
-      name: username
-      description: A valid username
-      in: path
-      required: true
-      schema:
-        type: string
-        pattern: (?!^\d+$)^.+$
-        example: username
-    query_page_size:
-      name: page_size
-      description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
-      in: query
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 250
-        default: 25
   schemas:
-    Interest:
-      title: Interest
-      type: object
-      properties:
-        canonical_url:
-          type: string
-        id:
-          type: string
-          pattern: ^\d+$
-          example: '903972677830'
-        key:
-          type: string
-          example: man cave
-        name:
-          type: string
-          example: Man cave
     Error:
       title: Error
       type: object
@@ -138,6 +95,49 @@ components:
           - 'null'
       required:
       - items
+    Interest:
+      title: Interest
+      type: object
+      properties:
+        canonical_url:
+          type: string
+        id:
+          type: string
+          pattern: ^\d+$
+          example: '903972677830'
+        key:
+          type: string
+          example: man cave
+        name:
+          type: string
+          example: Man cave
+  parameters:
+    path_username:
+      name: username
+      description: A valid username
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: (?!^\d+$)^.+$
+        example: username
+    query_bookmark:
+      name: bookmark
+      description: Cursor used to fetch the next page of items
+      in: query
+      required: false
+      schema:
+        type: string
+    query_page_size:
+      name: page_size
+      description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 250
+        default: 25
   securitySchemes:
     pinterest_oauth2:
       type: oauth2

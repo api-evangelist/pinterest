@@ -96,6 +96,16 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   parameters:
+    query_list_input_terms:
+      description: List of input terms.
+      in: query
+      name: terms
+      required: true
+      schema:
+        type: array
+        items:
+          type: string
+          example: workout
     query_term_limit:
       description: Max suggested terms to return.
       in: query
@@ -115,17 +125,18 @@ components:
       required: true
       schema:
         type: string
-    query_list_input_terms:
-      description: List of input terms.
-      in: query
-      name: terms
-      required: true
-      schema:
-        type: array
-        items:
-          type: string
-          example: workout
   schemas:
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
     RelatedTerms:
       type: object
       properties:
@@ -153,17 +164,6 @@ components:
                 example:
                 - shoes
                 - cute clothes
-    Error:
-      title: Error
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
     TermsSuggestedResponse:
       items:
         type: string

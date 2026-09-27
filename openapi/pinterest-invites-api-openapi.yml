@@ -49,6 +49,59 @@ paths:
       - Invites
 components:
   schemas:
+    AuthRespondInvitesBody:
+      description: An object with a list of all the invites the user would like to respond to and the action to take.
+      type: object
+      required:
+      - invites
+      properties:
+        invites:
+          type: array
+          minItems: 1
+          maxItems: 100
+          items:
+            properties:
+              action:
+                type: object
+                properties:
+                  accept_invite:
+                    description: Whether the invite/request is accepted.
+                    type: boolean
+                  asset_id_to_permissions:
+                    $ref: '#/components/schemas/AssetIdToPermissions'
+                required:
+                - accept_invite
+              invite_id:
+                description: Unique identifier of an invite.
+                pattern: ^\d+$
+                type: string
+                minLength: 1
+                maxLength: 25
+            required:
+            - invite_id
+            - action
+            type: object
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    Permissions:
+      type: string
+      enum:
+      - ADMIN
+      - ANALYST
+      - FINANCE_MANAGER
+      - AUDIENCE_MANAGER
+      - CAMPAIGN_MANAGER
+      - CATALOGS_MANAGER
+      - PROFILE_PUBLISHER
     RespondToInvitesResponseArray:
       type: object
       properties:
@@ -87,38 +140,38 @@ components:
           type:
           - string
           - 'null'
-    AuthRespondInvitesBody:
-      description: An object with a list of all the invites the user would like to respond to and the action to take.
-      type: object
-      required:
-      - invites
+    InviteExceptionResponse:
+      type:
+      - object
+      - 'null'
+      description: An exception object if there is an error performing the action. Will only be provided if there is an error.
       properties:
-        invites:
-          type: array
-          minItems: 1
-          maxItems: 100
+        invite_or_request_id:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier of the invite/request.
+          example: '383791336903426391'
+          pattern: ^\d+$
+        code:
+          type: integer
+          description: Error code associated with the error in performing the action on the invite/request.
+          example: 403
+        message:
+          type: string
+          description: Error message associated with the error in performing the action on the invite/request.
+          example: You hit the maximum number of pending invites allowed.
+        users_or_partner_ids:
+          type:
+          - array
+          - 'null'
+          description: A list of users' usernames or emails OR a list of partner ids that caused the error.
+          example:
+          - businessMember0101
+          - business+member@business.com
           items:
-            properties:
-              action:
-                type: object
-                properties:
-                  accept_invite:
-                    description: Whether the invite/request is accepted.
-                    type: boolean
-                  asset_id_to_permissions:
-                    $ref: '#/components/schemas/AssetIdToPermissions'
-                required:
-                - accept_invite
-              invite_id:
-                description: Unique identifier of an invite.
-                pattern: ^\d+$
-                type: string
-                minLength: 1
-                maxLength: 25
-            required:
-            - invite_id
-            - action
-            type: object
+            type: string
+            description: A user's username or email OR a partner id that caused the error.
     AssetIdToPermissions:
       description: 'An object mapping asset ids to lists of business permissions. This can be used to setting/requesting permissions on various assets. If accepting an invite or request, this object would be used to grant asset permissions to the member or partner.
 
@@ -139,17 +192,6 @@ components:
         - ADMIN
         '809944451643622187':
         - PROFILE_PUBLISHER
-    Error:
-      title: Error
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
     BaseInviteDataResponse:
       type:
       - object
@@ -192,48 +234,6 @@ components:
           description: Metadata for the member/partner that was sent the invite/request.
           allOf:
           - $ref: '#/components/schemas/BusinessAccessUserSummary'
-    InviteExceptionResponse:
-      type:
-      - object
-      - 'null'
-      description: An exception object if there is an error performing the action. Will only be provided if there is an error.
-      properties:
-        invite_or_request_id:
-          type:
-          - string
-          - 'null'
-          description: Unique identifier of the invite/request.
-          example: '383791336903426391'
-          pattern: ^\d+$
-        code:
-          type: integer
-          description: Error code associated with the error in performing the action on the invite/request.
-          example: 403
-        message:
-          type: string
-          description: Error message associated with the error in performing the action on the invite/request.
-          example: You hit the maximum number of pending invites allowed.
-        users_or_partner_ids:
-          type:
-          - array
-          - 'null'
-          description: A list of users' usernames or emails OR a list of partner ids that caused the error.
-          example:
-          - businessMember0101
-          - business+member@business.com
-          items:
-            type: string
-            description: A user's username or email OR a partner id that caused the error.
-    Permissions:
-      type: string
-      enum:
-      - ADMIN
-      - ANALYST
-      - FINANCE_MANAGER
-      - AUDIENCE_MANAGER
-      - CAMPAIGN_MANAGER
-      - CATALOGS_MANAGER
-      - PROFILE_PUBLISHER
   securitySchemes:
     pinterest_oauth2:
       type: oauth2

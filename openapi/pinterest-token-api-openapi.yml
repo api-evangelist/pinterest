@@ -57,17 +57,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Error:
-      title: Error
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
     OauthAccessTokenRequest:
       title: OAuth access token request
       description: Describes the valid schema for possible OAuth access token requests.
@@ -116,6 +105,17 @@ components:
       - token_type
       - expires_in
       - scope
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
   securitySchemes:
     pinterest_oauth2:
       type: oauth2

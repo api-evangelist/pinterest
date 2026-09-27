@@ -851,192 +851,118 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 components:
-  parameters:
-    query_pin_filter:
-      name: pin_filter
-      description: Pin filter.
-      required: false
-      in: query
-      schema:
-        type: string
-        enum:
-        - exclude_native
-        - exclude_repins
-        - has_been_promoted
-    query_bookmark:
-      name: bookmark
-      description: Cursor used to fetch the next page of items
-      in: query
-      required: false
-      schema:
-        type: string
-    query_split_field_pins:
-      description: How to split the data into groups. Not including this param means data won't be split.
-      required: false
-      in: query
-      explode: false
-      name: split_field
-      schema:
-        default: NO_SPLIT
-        enum:
-        - NO_SPLIT
-        - APP_TYPE
-        type: string
-    query_pin_analytics_metric_types:
-      description: Pin metric types to get data for. Keep in mind this cannot have ALL if split_field is set to any value other than <code>NO_SPLIT</code>.
-      explode: false
-      in: query
-      name: metric_types
-      required: true
-      schema:
-        type: array
-        items:
-          oneOf:
-          - description: Standard Pin metric types
-            type: string
-            enum:
-            - IMPRESSION
-            - OUTBOUND_CLICK
-            - PIN_CLICK
-            - SAVE
-            - SAVE_RATE
-            - TOTAL_COMMENTS
-            - TOTAL_REACTIONS
-          - description: Video Pin metric types
-            type: string
-            enum:
-            - IMPRESSION
-            - OUTBOUND_CLICK
-            - PIN_CLICK
-            - SAVE
-            - SAVE_RATE
-            - VIDEO_MRC_VIEW
-            - VIDEO_10S_VIEW
-            - QUARTILE_95_PERCENT_VIEW
-            - VIDEO_V50_WATCH_TIME
-            - VIDEO_START
-            - VIDEO_AVG_WATCH_TIME
-            - TOTAL_COMMENTS
-            - TOTAL_REACTIONS
-      style: form
-    path_pin_id:
-      name: pin_id
-      description: Unique identifier of a Pin.
-      in: path
-      required: true
-      schema:
-        type: string
-    query_end_date:
-      description: 'Metric report end date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days past start_date.'
-      in: query
-      name: end_date
-      required: true
-      schema:
-        type: string
-        format: date
-    query_start_date:
-      description: 'Metric report start date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days back from today.'
-      in: query
-      name: start_date
-      required: true
-      schema:
-        type: string
-        format: date
-    query_pin_type:
-      name: pin_type
-      description: The type of pins to return, currently only enabled for private pins
-      required: false
-      in: query
-      schema:
-        type: string
-        enum:
-        - PRIVATE
-    query_page_size:
-      name: page_size
-      description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
-      in: query
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 250
-        default: 25
-    query_ad_account_id:
-      name: ad_account_id
-      description: Unique identifier of an ad account.
-      in: query
-      schema:
-        type: string
-        pattern: ^\d+$
-        maxLength: 18
-    query_pin_metrics:
-      name: pin_metrics
-      description: Specify whether to return 90d and lifetime Pin metrics. Total comments and total reactions are only available with lifetime Pin metrics. If Pin was created before <code>2023-03-20</code> lifetime metrics will only be available for Video and Idea Pin formats. Lifetime metrics are available for all Pin formats since then.
-      in: query
-      required: false
-      schema:
-        type: boolean
-        default: false
-    query_include_protected_pins:
-      name: include_protected_pins
-      description: Specify if return pins from protected boards
-      required: false
-      in: query
-      schema:
-        type: boolean
-        default: false
-    query_app_types:
-      description: Apps or devices to get data for, default is all.
-      in: query
-      name: app_types
-      required: false
-      schema:
-        default: ALL
-        enum:
-        - ALL
-        - MOBILE
-        - TABLET
-        - WEB
-        type: string
-    query_creative_types:
-      in: query
-      name: creative_types
-      required: false
-      description: Pin creative types filter. </p><strong>Note:</strong> SHOP_THE_PIN has been deprecated. Please use COLLECTION instead.
-      schema:
-        type: array
-        items:
-          type: string
-          example: REGULAR
-          enum:
-          - REGULAR
-          - VIDEO
-          - SHOPPING
-          - CAROUSEL
-          - MAX_VIDEO
-          - SHOP_THE_PIN
-          - COLLECTION
-          - IDEA
   schemas:
-    PinMediaSource:
-      title: Pin media source
-      description: Pin media source.
-      oneOf:
-      - $ref: '#/components/schemas/PinMediaSourceImageBase64'
-      - $ref: '#/components/schemas/PinMediaSourceImageURL'
-      - $ref: '#/components/schemas/PinMediaSourceVideoID'
-      - $ref: '#/components/schemas/PinMediaSourceImagesBase64'
-      - $ref: '#/components/schemas/PinMediaSourceImagesURL'
-      - $ref: '#/components/schemas/PinMediaSourcePinURL'
+    PinCreate:
+      title: PinCreate
+      description: Pin
+      type:
+      - object
+      - 'null'
+      properties:
+        id:
+          type: string
+          readOnly: true
+          example: '813744226420795884'
+          pattern: ^\d+$
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2020-01-01T20:10:40-00:00'
+        link:
+          type:
+          - string
+          - 'null'
+          example: https://www.pinterest.com/
+          maxLength: 2048
+        title:
+          type:
+          - string
+          - 'null'
+          maxLength: 100
+        description:
+          type:
+          - string
+          - 'null'
+          maxLength: 800
+        dominant_color:
+          type:
+          - string
+          - 'null'
+          description: Dominant pin color. Hex number, e.g. \"#6E7874\".
+          example: '#6E7874'
+        alt_text:
+          type:
+          - string
+          - 'null'
+          maxLength: 500
+        board_id:
+          description: The board to which this Pin belongs.
+          type: string
+          pattern: ^\d+$
+        board_section_id:
+          description: The board section to which this Pin belongs.
+          type:
+          - string
+          - 'null'
+          pattern: ^\d+$
+        board_owner:
+          allOf:
+          - $ref: '#/components/schemas/BoardOwner'
+          type: object
+          readOnly: true
+        media:
+          allOf:
+          - $ref: '#/components/schemas/PinMedia'
+          type: object
+          readOnly: true
+        media_source:
+          allOf:
+          - $ref: '#/components/schemas/PinMediaSource'
+          type: object
+          writeOnly: true
+        parent_pin_id:
+          description: The source pin id if this pin was saved from another pin. <a href="https://help.pinterest.com/article/save-pins-on-pinterest">Learn more</a>.
+          type:
+          - string
+          - 'null'
+          pattern: ^\d+$
+        note:
+          description: Private note for this Pin. <a href="https://help.pinterest.com/en/article/add-notes-to-your-pins">Learn more</a>.
+          type:
+          - string
+          - 'null'
+    PinMedia:
+      title: Pin media
+      type: object
+      description: Pin media objects.
       discriminator:
-        propertyName: source_type
+        propertyName: media_type
         mapping:
-          multiple_image_base64: '#/components/schemas/PinMediaSourceImagesBase64'
-          image_base64: '#/components/schemas/PinMediaSourceImageBase64'
-          multiple_image_urls: '#/components/schemas/PinMediaSourceImagesURL'
-          image_url: '#/components/schemas/PinMediaSourceImageURL'
-          video_id: '#/components/schemas/PinMediaSourceVideoID'
-          pin_url: '#/components/schemas/PinMediaSourcePinURL'
+          image: '#/components/schemas/PinMediaWithImage'
+          video: '#/components/schemas/PinMediaWithVideo'
+          multiple_images: '#/components/schemas/PinMediaWithImages'
+          multiple_videos: '#/components/schemas/PinMediaWithVideos'
+          multiple_mixed: '#/components/schemas/PinMediaWithImageAndVideo'
+      properties:
+        media_type:
+          type: string
+    CreativeType:
+      type: string
+      description: Ad creative type enum. For update, only draft ads may update creative type. </p><strong>Note:</strong> SHOP_THE_PIN has been deprecated. Please use COLLECTION instead.
+      enum:
+      - REGULAR
+      - VIDEO
+      - SHOPPING
+      - CAROUSEL
+      - MAX_VIDEO
+      - SHOP_THE_PIN
+      - COLLECTION
+      - IDEA
+      - SHOWCASE
+      - QUIZ
+      example: REGULAR
+      title: CreativeType
     PinMediaSourceImagesURL:
       title: Images urls
       description: Multiple images urls-based media source
@@ -1073,17 +999,213 @@ components:
       required:
       - items
       type: object
-    BulkPinAnalyticsResponse:
-      type: object
-      additionalProperties:
-        $ref: '#/components/schemas/PinAnalyticsResponse'
-    BoardOwner:
-      title: Board owner
+    PinMediaSource:
+      title: Pin media source
+      description: Pin media source.
+      oneOf:
+      - $ref: '#/components/schemas/PinMediaSourceImageBase64'
+      - $ref: '#/components/schemas/PinMediaSourceImageURL'
+      - $ref: '#/components/schemas/PinMediaSourceVideoID'
+      - $ref: '#/components/schemas/PinMediaSourceImagesBase64'
+      - $ref: '#/components/schemas/PinMediaSourceImagesURL'
+      - $ref: '#/components/schemas/PinMediaSourcePinURL'
+      discriminator:
+        propertyName: source_type
+        mapping:
+          multiple_image_base64: '#/components/schemas/PinMediaSourceImagesBase64'
+          image_base64: '#/components/schemas/PinMediaSourceImageBase64'
+          multiple_image_urls: '#/components/schemas/PinMediaSourceImagesURL'
+          image_url: '#/components/schemas/PinMediaSourceImageURL'
+          video_id: '#/components/schemas/PinMediaSourceVideoID'
+          pin_url: '#/components/schemas/PinMediaSourcePinURL'
+    Paginated:
       type: object
       properties:
-        username:
+        items:
+          type: array
+          items:
+            type: object
+        bookmark:
+          type:
+          - string
+          - 'null'
+      required:
+      - items
+    PinMediaSourceImageURL:
+      title: Image URL
+      description: Image URL-based media source
+      type: object
+      properties:
+        source_type:
           type: string
-          readOnly: true
+          enum:
+          - image_url
+        url:
+          type: string
+        is_standard:
+          type: boolean
+          description: Set the parameter to false to create the new simplified Pin instead of the standard pin. Currently the field is only available to a list of beta users.
+          default: true
+      required:
+      - source_type
+      - url
+    PinMediaSourceImageBase64:
+      title: Image Base64
+      description: Base64-encoded image media source
+      type: object
+      properties:
+        source_type:
+          type: string
+          enum:
+          - image_base64
+        content_type:
+          type: string
+          enum:
+          - image/jpeg
+          - image/png
+        data:
+          type: string
+          pattern: '[a-zA-Z0-9+\/=]+'
+        is_standard:
+          type: boolean
+          description: Set the parameter to false to create the new simplified Pin instead of the standard pin. Currently the field is only available to a list of beta users.
+          default: true
+      required:
+      - source_type
+      - content_type
+      - data
+    DataStatus:
+      description: Metrics availablity, e.g., "READY".
+      example: READY
+      type: string
+      enum:
+      - PROCESSING
+      - READY
+      - ESTIMATE
+      - BEFORE_BUSINESS_CREATED
+      - BEFORE_DATA_RETENTION_PERIOD
+      - BEFORE_PIN_DATA_RETENTION_PERIOD
+      - BEFORE_METRIC_START_DATE
+      - BEFORE_CORE_METRIC_START_DATE
+      - BEFORE_PIN_FORMAT_METRIC_START_DATE
+      - BEFORE_AUDIENCE_METRIC_START_DATE
+      - BEFORE_AUDIENCE_MONTHLY_METRIC_START_DATE
+      - BEFORE_VIDEO_METRIC_START_DATE
+      - BEFORE_CONVERSION_METRIC_START_DATE
+      - PURCHASERS_METRIC_SMALLER_THAN_THRESHOLD
+      - IN_BAD_TAG_DATE
+      - BEFORE_PUBLISHED_METRIC_START_DATE
+      - BEFORE_ASSIST_METRIC_START_DATE
+      - BEFORE_PIN_CREATED
+      - BEFORE_ACCOUNT_CLAIMED
+      - BEFORE_DEMOGRAPHIC_FILTERS_START_DATE
+      - AUDIENCE_SEGMENT_SMALLER_THAN_THRESHOLD
+      - AUDIENCE_TOTAL_SMALLER_THAN_THRESHOLD
+      - BEFORE_PRODUCT_GROUP_FILTER_START_DATE
+    PinMediaSourceImagesBase64:
+      title: Images Base64
+      description: Multiple Base64-encoded images media source
+      additionalProperties: false
+      properties:
+        source_type:
+          type: string
+          enum:
+          - multiple_image_base64
+        items:
+          items:
+            additionalProperties: false
+            properties:
+              title:
+                type: string
+              description:
+                type: string
+              link:
+                type: string
+                description: Destination link for the image.
+              content_type:
+                type: string
+                enum:
+                - image/jpeg
+                - image/png
+              data:
+                type: string
+                description: Image to upload as base64 string.
+                pattern: '[a-zA-Z0-9+\/=]+'
+            required:
+            - data
+            - content_type
+            type: object
+          minItems: 2
+          maxItems: 5
+          description: Array with image objects.
+          type: array
+        index:
+          type: integer
+          minimum: 0
+      required:
+      - items
+      type: object
+    PinAnalyticsResponse:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/PinAnalyticsMetricsResponse'
+    PinAnalyticsMetricsResponse:
+      type: object
+      properties:
+        lifetime_metrics:
+          description: The lifetime metric name and value.
+          type: object
+          additionalProperties:
+            type: integer
+          example:
+            TOTAL_COMMENTS: 10
+            TOTAL_REACTIONS: 12
+        daily_metrics:
+          description: Array with the requested daily metric records
+          items:
+            type: object
+            properties:
+              data_status:
+                $ref: '#/components/schemas/DataStatus'
+              date:
+                description: 'Metrics date (UTC): YYYY-MM-DD.'
+                example: '2019-12-01'
+                type: string
+              metrics:
+                description: The metric name and daily value for each requested metric
+                type: object
+                additionalProperties:
+                  type: number
+                example:
+                  IMPRESSION: 240
+                  OUTBOUND_CLICK: 20
+                  PIN_CLICK: 37
+                  QUARTILE_95_PERCENT_VIEW: 8
+                  SAVE: 20
+                  SAVE_RATE: 0.18
+                  VIDEO_10S_VIEW: 2
+                  VIDEO_AVG_WATCH_TIME: 2507.75
+                  VIDEO_MRC_VIEW: 20
+                  VIDEO_START: 29
+                  VIDEO_V50_WATCH_TIME: 10031
+          type: array
+        summary_metrics:
+          description: The metric name and value over the requested period for each requested metric
+          type: object
+          additionalProperties:
+            type: number
+          example:
+            IMPRESSION: 240
+            OUTBOUND_CLICK: 20
+            PIN_CLICK: 37
+            QUARTILE_95_PERCENT_VIEW: 8
+            SAVE: 20
+            SAVE_RATE: 0.18
+            VIDEO_10S_VIEW: 2
+            VIDEO_AVG_WATCH_TIME: 2507.75
+            VIDEO_MRC_VIEW: 20
+            VIDEO_START: 29
+            VIDEO_V50_WATCH_TIME: 10031
     PinUpdate:
       title: PinUpdate
       description: Pin fields for updates
@@ -1148,39 +1270,13 @@ components:
           type:
           - string
           - 'null'
-    PinMediaSourceImageURL:
-      title: Image URL
-      description: Image URL-based media source
+    BoardOwner:
+      title: Board owner
       type: object
       properties:
-        source_type:
+        username:
           type: string
-          enum:
-          - image_url
-        url:
-          type: string
-        is_standard:
-          type: boolean
-          description: Set the parameter to false to create the new simplified Pin instead of the standard pin. Currently the field is only available to a list of beta users.
-          default: true
-      required:
-      - source_type
-      - url
-    PinMediaSourcePinURL:
-      title: Pin URL
-      description: Pin URL-based media source for product pin creation. Currently the field is only available to a list of beta users.
-      type: object
-      properties:
-        source_type:
-          type: string
-          enum:
-          - pin_url
-        is_affiliate_link:
-          type: boolean
-          description: This is an affiliate link or sponsored product. The FTC requires disclosure for paid partnerships and affiliate products.
-          default: false
-      required:
-      - source_type
+          readOnly: true
     Error:
       title: Error
       type: object
@@ -1192,52 +1288,6 @@ components:
       required:
       - code
       - message
-    PinMediaSourceVideoID:
-      title: Video ID
-      description: Video ID-based media source
-      type: object
-      properties:
-        source_type:
-          type: string
-          enum:
-          - video_id
-        cover_image_url:
-          type: string
-          description: Cover image url.
-        cover_image_content_type:
-          type: string
-          description: Content type for cover image Base64.
-          enum:
-          - image/jpeg
-          - image/png
-        cover_image_data:
-          type: string
-          description: Cover image Base64.
-        media_id:
-          type: string
-          pattern: ^\d+$
-        is_standard:
-          type: boolean
-          description: Set the parameter to false to create the new simplified Pin instead of the standard pin. Currently the field is only available to a list of beta users.
-          default: true
-      required:
-      - source_type
-      - media_id
-    PinMedia:
-      title: Pin media
-      type: object
-      description: Pin media objects.
-      discriminator:
-        propertyName: media_type
-        mapping:
-          image: '#/components/schemas/PinMediaWithImage'
-          video: '#/components/schemas/PinMediaWithVideo'
-          multiple_images: '#/components/schemas/PinMediaWithImages'
-          multiple_videos: '#/components/schemas/PinMediaWithVideos'
-          multiple_mixed: '#/components/schemas/PinMediaWithImageAndVideo'
-      properties:
-        media_type:
-          type: string
     Pin:
       title: Pin
       description: Pin
@@ -1352,272 +1402,222 @@ components:
                 reaction: 10
                 comment: 2
             - null
-    PinMediaSourceImageBase64:
-      title: Image Base64
-      description: Base64-encoded image media source
+    PinMediaSourceVideoID:
+      title: Video ID
+      description: Video ID-based media source
       type: object
       properties:
         source_type:
           type: string
           enum:
-          - image_base64
-        content_type:
+          - video_id
+        cover_image_url:
           type: string
+          description: Cover image url.
+        cover_image_content_type:
+          type: string
+          description: Content type for cover image Base64.
           enum:
           - image/jpeg
           - image/png
-        data:
+        cover_image_data:
           type: string
-          pattern: '[a-zA-Z0-9+\/=]+'
+          description: Cover image Base64.
+        media_id:
+          type: string
+          pattern: ^\d+$
         is_standard:
           type: boolean
           description: Set the parameter to false to create the new simplified Pin instead of the standard pin. Currently the field is only available to a list of beta users.
           default: true
       required:
       - source_type
-      - content_type
-      - data
-    CreativeType:
-      type: string
-      description: Ad creative type enum. For update, only draft ads may update creative type. </p><strong>Note:</strong> SHOP_THE_PIN has been deprecated. Please use COLLECTION instead.
-      enum:
-      - REGULAR
-      - VIDEO
-      - SHOPPING
-      - CAROUSEL
-      - MAX_VIDEO
-      - SHOP_THE_PIN
-      - COLLECTION
-      - IDEA
-      - SHOWCASE
-      - QUIZ
-      example: REGULAR
-      title: CreativeType
-    DataStatus:
-      description: Metrics availablity, e.g., "READY".
-      example: READY
-      type: string
-      enum:
-      - PROCESSING
-      - READY
-      - ESTIMATE
-      - BEFORE_BUSINESS_CREATED
-      - BEFORE_DATA_RETENTION_PERIOD
-      - BEFORE_PIN_DATA_RETENTION_PERIOD
-      - BEFORE_METRIC_START_DATE
-      - BEFORE_CORE_METRIC_START_DATE
-      - BEFORE_PIN_FORMAT_METRIC_START_DATE
-      - BEFORE_AUDIENCE_METRIC_START_DATE
-      - BEFORE_AUDIENCE_MONTHLY_METRIC_START_DATE
-      - BEFORE_VIDEO_METRIC_START_DATE
-      - BEFORE_CONVERSION_METRIC_START_DATE
-      - PURCHASERS_METRIC_SMALLER_THAN_THRESHOLD
-      - IN_BAD_TAG_DATE
-      - BEFORE_PUBLISHED_METRIC_START_DATE
-      - BEFORE_ASSIST_METRIC_START_DATE
-      - BEFORE_PIN_CREATED
-      - BEFORE_ACCOUNT_CLAIMED
-      - BEFORE_DEMOGRAPHIC_FILTERS_START_DATE
-      - AUDIENCE_SEGMENT_SMALLER_THAN_THRESHOLD
-      - AUDIENCE_TOTAL_SMALLER_THAN_THRESHOLD
-      - BEFORE_PRODUCT_GROUP_FILTER_START_DATE
-    PinMediaSourceImagesBase64:
-      title: Images Base64
-      description: Multiple Base64-encoded images media source
-      additionalProperties: false
+      - media_id
+    BulkPinAnalyticsResponse:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/PinAnalyticsResponse'
+    PinMediaSourcePinURL:
+      title: Pin URL
+      description: Pin URL-based media source for product pin creation. Currently the field is only available to a list of beta users.
+      type: object
       properties:
         source_type:
           type: string
           enum:
-          - multiple_image_base64
-        items:
-          items:
-            additionalProperties: false
-            properties:
-              title:
-                type: string
-              description:
-                type: string
-              link:
-                type: string
-                description: Destination link for the image.
-              content_type:
-                type: string
-                enum:
-                - image/jpeg
-                - image/png
-              data:
-                type: string
-                description: Image to upload as base64 string.
-                pattern: '[a-zA-Z0-9+\/=]+'
-            required:
-            - data
-            - content_type
-            type: object
-          minItems: 2
-          maxItems: 5
-          description: Array with image objects.
-          type: array
-        index:
-          type: integer
-          minimum: 0
+          - pin_url
+        is_affiliate_link:
+          type: boolean
+          description: This is an affiliate link or sponsored product. The FTC requires disclosure for paid partnerships and affiliate products.
+          default: false
       required:
-      - items
-      type: object
-    Paginated:
-      type: object
-      properties:
+      - source_type
+  parameters:
+    query_page_size:
+      name: page_size
+      description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 250
+        default: 25
+    query_bookmark:
+      name: bookmark
+      description: Cursor used to fetch the next page of items
+      in: query
+      required: false
+      schema:
+        type: string
+    query_pin_type:
+      name: pin_type
+      description: The type of pins to return, currently only enabled for private pins
+      required: false
+      in: query
+      schema:
+        type: string
+        enum:
+        - PRIVATE
+    query_app_types:
+      description: Apps or devices to get data for, default is all.
+      in: query
+      name: app_types
+      required: false
+      schema:
+        default: ALL
+        enum:
+        - ALL
+        - MOBILE
+        - TABLET
+        - WEB
+        type: string
+    query_pin_metrics:
+      name: pin_metrics
+      description: Specify whether to return 90d and lifetime Pin metrics. Total comments and total reactions are only available with lifetime Pin metrics. If Pin was created before <code>2023-03-20</code> lifetime metrics will only be available for Video and Idea Pin formats. Lifetime metrics are available for all Pin formats since then.
+      in: query
+      required: false
+      schema:
+        type: boolean
+        default: false
+    query_start_date:
+      description: 'Metric report start date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days back from today.'
+      in: query
+      name: start_date
+      required: true
+      schema:
+        type: string
+        format: date
+    query_creative_types:
+      in: query
+      name: creative_types
+      required: false
+      description: Pin creative types filter. </p><strong>Note:</strong> SHOP_THE_PIN has been deprecated. Please use COLLECTION instead.
+      schema:
+        type: array
         items:
-          type: array
-          items:
-            type: object
-        bookmark:
-          type:
-          - string
-          - 'null'
-      required:
-      - items
-    PinAnalyticsResponse:
-      type: object
-      additionalProperties:
-        $ref: '#/components/schemas/PinAnalyticsMetricsResponse'
-    PinCreate:
-      title: PinCreate
-      description: Pin
-      type:
-      - object
-      - 'null'
-      properties:
-        id:
           type: string
-          readOnly: true
-          example: '813744226420795884'
-          pattern: ^\d+$
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-          example: '2020-01-01T20:10:40-00:00'
-        link:
-          type:
-          - string
-          - 'null'
-          example: https://www.pinterest.com/
-          maxLength: 2048
-        title:
-          type:
-          - string
-          - 'null'
-          maxLength: 100
-        description:
-          type:
-          - string
-          - 'null'
-          maxLength: 800
-        dominant_color:
-          type:
-          - string
-          - 'null'
-          description: Dominant pin color. Hex number, e.g. \"#6E7874\".
-          example: '#6E7874'
-        alt_text:
-          type:
-          - string
-          - 'null'
-          maxLength: 500
-        board_id:
-          description: The board to which this Pin belongs.
-          type: string
-          pattern: ^\d+$
-        board_section_id:
-          description: The board section to which this Pin belongs.
-          type:
-          - string
-          - 'null'
-          pattern: ^\d+$
-        board_owner:
-          allOf:
-          - $ref: '#/components/schemas/BoardOwner'
-          type: object
-          readOnly: true
-        media:
-          allOf:
-          - $ref: '#/components/schemas/PinMedia'
-          type: object
-          readOnly: true
-        media_source:
-          allOf:
-          - $ref: '#/components/schemas/PinMediaSource'
-          type: object
-          writeOnly: true
-        parent_pin_id:
-          description: The source pin id if this pin was saved from another pin. <a href="https://help.pinterest.com/article/save-pins-on-pinterest">Learn more</a>.
-          type:
-          - string
-          - 'null'
-          pattern: ^\d+$
-        note:
-          description: Private note for this Pin. <a href="https://help.pinterest.com/en/article/add-notes-to-your-pins">Learn more</a>.
-          type:
-          - string
-          - 'null'
-    PinAnalyticsMetricsResponse:
-      type: object
-      properties:
-        lifetime_metrics:
-          description: The lifetime metric name and value.
-          type: object
-          additionalProperties:
-            type: integer
-          example:
-            TOTAL_COMMENTS: 10
-            TOTAL_REACTIONS: 12
-        daily_metrics:
-          description: Array with the requested daily metric records
-          items:
-            type: object
-            properties:
-              data_status:
-                $ref: '#/components/schemas/DataStatus'
-              date:
-                description: 'Metrics date (UTC): YYYY-MM-DD.'
-                example: '2019-12-01'
-                type: string
-              metrics:
-                description: The metric name and daily value for each requested metric
-                type: object
-                additionalProperties:
-                  type: number
-                example:
-                  IMPRESSION: 240
-                  OUTBOUND_CLICK: 20
-                  PIN_CLICK: 37
-                  QUARTILE_95_PERCENT_VIEW: 8
-                  SAVE: 20
-                  SAVE_RATE: 0.18
-                  VIDEO_10S_VIEW: 2
-                  VIDEO_AVG_WATCH_TIME: 2507.75
-                  VIDEO_MRC_VIEW: 20
-                  VIDEO_START: 29
-                  VIDEO_V50_WATCH_TIME: 10031
-          type: array
-        summary_metrics:
-          description: The metric name and value over the requested period for each requested metric
-          type: object
-          additionalProperties:
-            type: number
-          example:
-            IMPRESSION: 240
-            OUTBOUND_CLICK: 20
-            PIN_CLICK: 37
-            QUARTILE_95_PERCENT_VIEW: 8
-            SAVE: 20
-            SAVE_RATE: 0.18
-            VIDEO_10S_VIEW: 2
-            VIDEO_AVG_WATCH_TIME: 2507.75
-            VIDEO_MRC_VIEW: 20
-            VIDEO_START: 29
-            VIDEO_V50_WATCH_TIME: 10031
+          example: REGULAR
+          enum:
+          - REGULAR
+          - VIDEO
+          - SHOPPING
+          - CAROUSEL
+          - MAX_VIDEO
+          - SHOP_THE_PIN
+          - COLLECTION
+          - IDEA
+    query_split_field_pins:
+      description: How to split the data into groups. Not including this param means data won't be split.
+      required: false
+      in: query
+      explode: false
+      name: split_field
+      schema:
+        default: NO_SPLIT
+        enum:
+        - NO_SPLIT
+        - APP_TYPE
+        type: string
+    query_end_date:
+      description: 'Metric report end date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days past start_date.'
+      in: query
+      name: end_date
+      required: true
+      schema:
+        type: string
+        format: date
+    query_pin_filter:
+      name: pin_filter
+      description: Pin filter.
+      required: false
+      in: query
+      schema:
+        type: string
+        enum:
+        - exclude_native
+        - exclude_repins
+        - has_been_promoted
+    query_include_protected_pins:
+      name: include_protected_pins
+      description: Specify if return pins from protected boards
+      required: false
+      in: query
+      schema:
+        type: boolean
+        default: false
+    query_pin_analytics_metric_types:
+      description: Pin metric types to get data for. Keep in mind this cannot have ALL if split_field is set to any value other than <code>NO_SPLIT</code>.
+      explode: false
+      in: query
+      name: metric_types
+      required: true
+      schema:
+        type: array
+        items:
+          oneOf:
+          - description: Standard Pin metric types
+            type: string
+            enum:
+            - IMPRESSION
+            - OUTBOUND_CLICK
+            - PIN_CLICK
+            - SAVE
+            - SAVE_RATE
+            - TOTAL_COMMENTS
+            - TOTAL_REACTIONS
+          - description: Video Pin metric types
+            type: string
+            enum:
+            - IMPRESSION
+            - OUTBOUND_CLICK
+            - PIN_CLICK
+            - SAVE
+            - SAVE_RATE
+            - VIDEO_MRC_VIEW
+            - VIDEO_10S_VIEW
+            - QUARTILE_95_PERCENT_VIEW
+            - VIDEO_V50_WATCH_TIME
+            - VIDEO_START
+            - VIDEO_AVG_WATCH_TIME
+            - TOTAL_COMMENTS
+            - TOTAL_REACTIONS
+      style: form
+    path_pin_id:
+      name: pin_id
+      description: Unique identifier of a Pin.
+      in: path
+      required: true
+      schema:
+        type: string
+    query_ad_account_id:
+      name: ad_account_id
+      description: Unique identifier of an ad account.
+      in: query
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
   securitySchemes:
     pinterest_oauth2:
       type: oauth2

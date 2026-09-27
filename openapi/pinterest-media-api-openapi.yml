@@ -144,34 +144,58 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 components:
+  parameters:
+    path_media_id:
+      name: media_id
+      description: Media identifier
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+    query_page_size:
+      name: page_size
+      description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 250
+        default: 25
+    query_bookmark:
+      name: bookmark
+      description: Cursor used to fetch the next page of items
+      in: query
+      required: false
+      schema:
+        type: string
   schemas:
-    MediaUploadType:
-      type: string
-      enum:
-      - video
-    MediaUploadDetails:
-      title: Media upload details
-      description: Media upload details
+    MediaUploadRequest:
+      title: Media upload request
+      description: Media upload request
       type: object
       properties:
-        media_id:
-          type: string
-          pattern: ^\d+$
-          readOnly: true
         media_type:
           allOf:
           - $ref: '#/components/schemas/MediaUploadType'
           type: string
-          readOnly: true
-        status:
-          allOf:
-          - $ref: '#/components/schemas/MediaUploadStatus'
-          type: string
-          readOnly: true
+          writeOnly: true
+      required:
+      - media_type
       example:
-        media_id: '12345'
         media_type: video
-        status: succeeded
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
     MediaUpload:
       type: object
       title: Media upload
@@ -226,39 +250,6 @@ components:
           x-amz-security-token: IQoJb3JpZ2luX2VjEJr...==
           x-amz-algorithm: AWS4-HMAC-SHA256
           Content-Type: multipart/form-data
-    Error:
-      title: Error
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
-    MediaUploadStatus:
-      description: Media upload status
-      type: string
-      enum:
-      - registered
-      - processing
-      - succeeded
-      - failed
-    MediaUploadRequest:
-      title: Media upload request
-      description: Media upload request
-      type: object
-      properties:
-        media_type:
-          allOf:
-          - $ref: '#/components/schemas/MediaUploadType'
-          type: string
-          writeOnly: true
-      required:
-      - media_type
-      example:
-        media_type: video
     Paginated:
       type: object
       properties:
@@ -272,32 +263,41 @@ components:
           - 'null'
       required:
       - items
-  parameters:
-    query_bookmark:
-      name: bookmark
-      description: Cursor used to fetch the next page of items
-      in: query
-      required: false
-      schema:
-        type: string
-    query_page_size:
-      name: page_size
-      description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
-      in: query
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 250
-        default: 25
-    path_media_id:
-      name: media_id
-      description: Media identifier
-      in: path
-      required: true
-      schema:
-        type: string
-        pattern: ^\d+$
+    MediaUploadDetails:
+      title: Media upload details
+      description: Media upload details
+      type: object
+      properties:
+        media_id:
+          type: string
+          pattern: ^\d+$
+          readOnly: true
+        media_type:
+          allOf:
+          - $ref: '#/components/schemas/MediaUploadType'
+          type: string
+          readOnly: true
+        status:
+          allOf:
+          - $ref: '#/components/schemas/MediaUploadStatus'
+          type: string
+          readOnly: true
+      example:
+        media_id: '12345'
+        media_type: video
+        status: succeeded
+    MediaUploadType:
+      type: string
+      enum:
+      - video
+    MediaUploadStatus:
+      description: Media upload status
+      type: string
+      enum:
+      - registered
+      - processing
+      - succeeded
+      - failed
   securitySchemes:
     pinterest_oauth2:
       type: oauth2

@@ -79,6 +79,17 @@ paths:
       - Keywords
 components:
   parameters:
+    query_trending_keyword_limit:
+      name: limit
+      description: The maximum number of trending keywords that will be returned. Keywords are returned in trend-ranked order, so a `limit` of 50 will return the top 50 trends.
+      example: 25
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+        default: 50
     query_interest_list:
       name: interests
       description: 'If set, filters the results to trends associated with the specified interests.<br />
@@ -141,6 +152,18 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/L1InterestList'
+    query_age_bucket_list:
+      name: ages
+      description: 'If set, filters the results to trends among users in the specified age range(s).<br />
+
+        If unset, trends among all age groups will be returned.'
+      example:
+      - 35-44
+      - 50-54
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/AgeBucketList'
     path_trend_region:
       name: region
       description: 'The geographic region of interest. Only top trends within the specified region will be returned.<br />
@@ -186,18 +209,6 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/TrendsSupportedRegion'
-    query_age_bucket_list:
-      name: ages
-      description: 'If set, filters the results to trends among users in the specified age range(s).<br />
-
-        If unset, trends among all age groups will be returned.'
-      example:
-      - 35-44
-      - 50-54
-      in: query
-      required: false
-      schema:
-        $ref: '#/components/schemas/AgeBucketList'
     query_gender_list:
       name: genders
       description: 'If set, filters the results to trends among users who identify with the specified gender(s).<br />
@@ -225,17 +236,6 @@ components:
         type: boolean
         example: true
         default: false
-    query_trending_keyword_limit:
-      name: limit
-      description: The maximum number of trending keywords that will be returned. Keywords are returned in trend-ranked order, so a `limit` of 50 will return the top 50 trends.
-      example: 25
-      in: query
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 50
-        default: 50
     path_trend_type:
       name: trend_type
       description: 'The methodology used to rank how trendy a keyword is.
@@ -252,15 +252,40 @@ components:
       schema:
         $ref: '#/components/schemas/TrendType'
   schemas:
-    TrendType:
-      title: TrendType
+    TrendsSupportedRegion:
+      title: Region
       type: string
-      example: monthly
+      example: GB+IE
       enum:
-      - growing
-      - monthly
-      - yearly
-      - seasonal
+      - US
+      - CA
+      - DE
+      - FR
+      - ES
+      - IT
+      - DE+AT+CH
+      - GB+IE
+      - IT+ES+PT+GR+MT
+      - PL+RO+HU+SK+CZ
+      - SE+DK+FI+NO
+      - NL+BE+LU
+      - AR
+      - BR
+      - CO
+      - MX
+      - MX+AR+CO+CL
+      - AU+NZ
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
     TrendingKeywordsResponse:
       type: object
       properties:
@@ -333,41 +358,6 @@ components:
         maxLength: 100
       minItems: 1
       maxItems: 50
-    TrendsSupportedRegion:
-      title: Region
-      type: string
-      example: GB+IE
-      enum:
-      - US
-      - CA
-      - DE
-      - FR
-      - ES
-      - IT
-      - DE+AT+CH
-      - GB+IE
-      - IT+ES+PT+GR+MT
-      - PL+RO+HU+SK+CZ
-      - SE+DK+FI+NO
-      - NL+BE+LU
-      - AR
-      - BR
-      - CO
-      - MX
-      - MX+AR+CO+CL
-      - AU+NZ
-    GenderList:
-      title: Gender
-      type: array
-      example:
-      - female
-      - unknown
-      items:
-        type: string
-        enum:
-        - female
-        - male
-        - unknown
     AgeBucketList:
       title: AgeRange
       type: array
@@ -384,17 +374,6 @@ components:
         - 50-54
         - 55-64
         - 65+
-    Error:
-      title: Error
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
     L1InterestList:
       title: Interest
       type: array
@@ -428,6 +407,27 @@ components:
         - vehicles
         - wedding
         - womens_fashion
+    GenderList:
+      title: Gender
+      type: array
+      example:
+      - female
+      - unknown
+      items:
+        type: string
+        enum:
+        - female
+        - male
+        - unknown
+    TrendType:
+      title: TrendType
+      type: string
+      example: monthly
+      enum:
+      - growing
+      - monthly
+      - yearly
+      - seasonal
   securitySchemes:
     pinterest_oauth2:
       type: oauth2

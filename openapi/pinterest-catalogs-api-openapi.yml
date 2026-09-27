@@ -82,47 +82,25 @@ paths:
       tags:
       - Catalogs
 components:
-  parameters:
-    query_ad_account_id:
-      name: ad_account_id
-      description: Unique identifier of an ad account.
-      in: query
-      schema:
-        type: string
-        pattern: ^\d+$
-        maxLength: 18
-    query_bookmark:
-      name: bookmark
-      description: Cursor used to fetch the next page of items
-      in: query
-      required: false
-      schema:
-        type: string
-    query_page_size:
-      name: page_size
-      description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
-      in: query
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 250
-        default: 25
   schemas:
-    CatalogsDbItem:
+    Error:
+      title: Error
       type: object
-      title: db_item
       properties:
-        created_at:
+        code:
+          type: integer
+        message:
           type: string
-          format: date-time
-          example: '2022-03-14T15:15:22Z'
-        id:
-          type: string
-        updated_at:
-          type: string
-          format: date-time
-          example: '2022-03-14T15:16:34Z'
+      required:
+      - code
+      - message
+    CatalogsType:
+      description: Type of the catalog entity.
+      type: string
+      enum:
+      - RETAIL
+      - HOTEL
+      - CREATIVE_ASSETS
     Catalog:
       type: object
       title: catalog
@@ -147,24 +125,6 @@ components:
         - id
         - name
         - catalog_type
-    Error:
-      title: Error
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
-    CatalogsType:
-      description: Type of the catalog entity.
-      type: string
-      enum:
-      - RETAIL
-      - HOTEL
-      - CREATIVE_ASSETS
     Paginated:
       type: object
       properties:
@@ -178,6 +138,46 @@ components:
           - 'null'
       required:
       - items
+    CatalogsDbItem:
+      type: object
+      title: db_item
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          example: '2022-03-14T15:15:22Z'
+        id:
+          type: string
+        updated_at:
+          type: string
+          format: date-time
+          example: '2022-03-14T15:16:34Z'
+  parameters:
+    query_page_size:
+      name: page_size
+      description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 250
+        default: 25
+    query_bookmark:
+      name: bookmark
+      description: Cursor used to fetch the next page of items
+      in: query
+      required: false
+      schema:
+        type: string
+    query_ad_account_id:
+      name: ad_account_id
+      description: Unique identifier of an ad account.
+      in: query
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
   securitySchemes:
     pinterest_oauth2:
       type: oauth2
