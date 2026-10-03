@@ -307,28 +307,6 @@ paths:
       - Items
 components:
   schemas:
-    ItemProcessingRecord:
-      type: object
-      description: Object describing an item processing record
-      properties:
-        item_id:
-          description: The catalog item id in the merchant namespace
-          example: DS0294-M
-          type: string
-        errors:
-          description: 'Array with the validation errors for the item processing record.
-
-            A non empty errors list causes the item processing to fail.'
-          items:
-            $ref: '#/components/schemas/ItemValidationEvent'
-          type: array
-        warnings:
-          description: Array with the validation warnings for the item processing record
-          items:
-            $ref: '#/components/schemas/ItemValidationEvent'
-          type: array
-        status:
-          $ref: '#/components/schemas/ItemProcessingStatus'
     HotelProcessingRecord:
       type: object
       description: Object describing an item processing record
@@ -351,67 +329,162 @@ components:
           type: array
         status:
           $ref: '#/components/schemas/ItemProcessingStatus'
-    CatalogsItemsPostFilters:
+    CatalogsCreateHotelItem:
+      type: object
+      description: A hotel item to be created.
+      properties:
+        hotel_id:
+          description: The catalog hotel id in the merchant namespace
+          example: DS0294-M
+          type: string
+        operation:
+          type: string
+          enum:
+          - CREATE
+        attributes:
+          $ref: '#/components/schemas/CatalogsHotelAttributes'
+      required:
+      - hotel_id
+      - operation
+      - attributes
+    CatalogsHotelAttributes:
+      type: object
+      allOf:
+      - type: object
+        properties:
+          main_image:
+            type: object
+            description: The main hotel image
+            properties:
+              link:
+                type: string
+                description: '<p><= 2000 characters</p>
+
+                  <p>The link to the main hotel image. Image should be at least
+
+                  75x75 pixels to avoid errors. Use the additional_image_link field to add
+
+                  more images of your hotel. The URL of your main_image.link must be accessible
+
+                  by the Pinterest user-agent, and send the accurate image. Please make
+
+                  sure there is no template or placeholder image at the link. Must start
+
+                  with http:// or https://.</p>'
+              tag:
+                type:
+                - array
+                - 'null'
+                description: Tag appended to the image that identifies image category or details. There can be multiple tags associated with an image
+                items:
+                  type: string
+          additional_image_link:
+            type:
+            - array
+            - 'null'
+            items:
+              type: string
+            description: '<p><= 2000 characters</p>
+
+              <p>The links to additional images for your hotel. Up to ten
+
+              additional images can be used to show a hotel from different angles.
+
+              Must begin with http:// or https://.</p>'
+            example:
+            - https://scene.example.com/image/image_v2.jpg
+            - https://scene.example.com/image/image_v3.jpg
+      - $ref: '#/components/schemas/CatalogsUpdatableHotelAttributes'
+    ItemUpdateBatchRecord:
+      type: object
+      description: Object describing an item batch record to update items
+      properties:
+        item_id:
+          description: The catalog item id in the merchant namespace
+          example: DS0294-M
+          type: string
+        attributes:
+          $ref: '#/components/schemas/UpdatableItemAttributes'
+        update_mask:
+          description: The list of product attributes to be updated. Attributes specified in the update mask without a value specified in the body will be deleted from the product item.
+          example:
+          - ad_link
+          - adult
+          - age_group
+          - availability
+          - average_review_rating
+          - brand
+          - checkout_enabled
+          - color
+          - condition
+          - custom_label_0
+          - custom_label_1
+          - custom_label_2
+          - custom_label_3
+          - custom_label_4
+          - description
+          - free_shipping_label
+          - free_shipping_limit
+          - gender
+          - google_product_category
+          - gtin
+          - item_group_id
+          - last_updated_time
+          - link
+          - material
+          - min_ad_price
+          - mpn
+          - number_of_ratings
+          - number_of_reviews
+          - pattern
+          - price
+          - product_type
+          - sale_price
+          - shipping
+          - shipping_height
+          - shipping_weight
+          - shipping_width
+          - size
+          - size_system
+          - size_type
+          - tax
+          - title
+          - variant_names
+          - variant_values
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UpdateMaskFieldType'
+    ItemDeleteBatchRecord:
+      type: object
+      description: Object describing an item batch record to delete items
+      properties:
+        item_id:
+          description: The catalog item id in the merchant namespace
+          example: DS0294-M
+          type: string
+    CatalogsRetailItemsFilter:
       type: object
       properties:
         catalog_type:
-          $ref: '#/components/schemas/CatalogsType'
+          type: string
+          enum:
+          - RETAIL
+        item_ids:
+          type: array
+          minItems: 1
+          maxItems: 100
+          items:
+            type: string
+        catalog_id:
+          type: string
+          pattern: ^\d+$
+          description: Catalog id pertaining to the retail item. If not provided, default to oldest retail catalog
       required:
       - catalog_type
-      oneOf:
-      - $ref: '#/components/schemas/CatalogsRetailItemsPostFilter'
-      - $ref: '#/components/schemas/CatalogsHotelItemsPostFilter'
-      - $ref: '#/components/schemas/CatalogsCreativeAssetsItemsPostFilter'
-      discriminator:
-        propertyName: catalog_type
-        mapping:
-          RETAIL: '#/components/schemas/CatalogsRetailItemsPostFilter'
-          HOTEL: '#/components/schemas/CatalogsHotelItemsPostFilter'
-          CREATIVE_ASSETS: '#/components/schemas/CatalogsCreativeAssetsItemsPostFilter'
-    PinMediaSourceImageURL:
-      title: Image URL
-      description: Image URL-based media source
-      type: object
-      properties:
-        source_type:
-          type: string
-          enum:
-          - image_url
-        url:
-          type: string
-        is_standard:
-          type: boolean
-          description: Set the parameter to false to create the new simplified Pin instead of the standard pin. Currently the field is only available to a list of beta users.
-          default: true
-      required:
-      - source_type
-      - url
-    PinMediaSourceImageBase64:
-      title: Image Base64
-      description: Base64-encoded image media source
-      type: object
-      properties:
-        source_type:
-          type: string
-          enum:
-          - image_base64
-        content_type:
-          type: string
-          enum:
-          - image/jpeg
-          - image/png
-        data:
-          type: string
-          pattern: '[a-zA-Z0-9+\/=]+'
-        is_standard:
-          type: boolean
-          description: Set the parameter to false to create the new simplified Pin instead of the standard pin. Currently the field is only available to a list of beta users.
-          default: true
-      required:
-      - source_type
-      - content_type
-      - data
-    CatalogsCreativeAssetsItemsFilter:
+      - item_ids
+    CatalogsCreativeAssetsItemsPostFilter:
       type: object
       properties:
         catalog_type:
@@ -421,7 +494,7 @@ components:
         creative_assets_ids:
           type: array
           minItems: 1
-          maxItems: 100
+          maxItems: 1000
           items:
             type: string
         catalog_id:
@@ -431,50 +504,90 @@ components:
       required:
       - catalog_type
       - creative_assets_ids
-    CatalogsHotelGuestRatings:
+    CatalogsItemsUpsertBatchRequest:
+      description: Request object to upsert catalogs items
       type: object
-      description: If specified, you must provide all properties
       properties:
-        score:
-          description: Your hotel's rating.
-          type: number
-        number_of_reviewers:
-          description: Total number of people who have rated this hotel.
-          type: integer
-        max_score:
-          description: Max value for the hotel rating score.
-          type: number
-        rating_system:
-          description: System you use for guest reviews.
-          type: string
-    CatalogsUpdateHotelItem:
-      type: object
-      description: Object describing an hotel item batch record
-      properties:
-        hotel_id:
-          description: The catalog hotel item id in the merchant namespace
-          example: DS0294-M
-          type: string
+        country:
+          $ref: '#/components/schemas/Country'
+        language:
+          $ref: '#/components/schemas/Language'
         operation:
-          type: string
-          enum:
-          - UPDATE
-        attributes:
-          $ref: '#/components/schemas/CatalogsUpdatableHotelAttributes'
+          $ref: '#/components/schemas/BatchOperation'
+        items:
+          type: array
+          description: Array with catalogs items
+          items:
+            $ref: '#/components/schemas/ItemUpsertBatchRecord'
+          minItems: 1
+          maxItems: 1000
       required:
-      - hotel_id
+      - country
+      - language
       - operation
-      - attributes
-    ItemCreateBatchRecord:
+      - items
+    ItemAttributesRequest:
       type: object
-      description: Object describing an item batch record to create items
-      properties:
-        item_id:
-          description: The catalog item id in the merchant namespace
-          example: DS0294-M
-          type: string
-        attributes:
-          $ref: '#/components/schemas/ItemAttributesRequest'
+      allOf:
+      - type: object
+        properties:
+          additional_image_link:
+            description: '<p><= 2000 characters</p>
+
+              <p>The links to additional images for your product. Up to ten
+
+              additional images can be used to show a product from different angles
+
+              or to show different stages. Must begin with http:// or https://.</p>'
+            example:
+            - https://scene.example.com/image/image_v2.jpg
+            - https://scene.example.com/image/image_v3.jpg
+            type:
+            - array
+            - 'null'
+            items:
+              type: string
+          image_link:
+            description: '<p><= 2000 characters</p>
+
+              <p>The links to the main product images. Images should be at least
+
+              75x75 pixels to avoid errors. Use the additional_image_link field to add
+
+              more images of your product. The URL of your image_link must be accessible
+
+              by the Pinterest user-agent, and send the accurate images. Please make
+
+              sure there are no template or placeholder images at the link. Must start
+
+              with http:// or https://.</p>'
+            example:
+            - https://scene.example.com/image/image.jpg
+            oneOf:
+            - description: The list of links to the main product images
+              type: array
+              minItems: 1
+              items:
+                type: string
+            - description: The main product image link.
+              type: string
+      - $ref: '#/components/schemas/UpdatableItemAttributes'
+    CreativeType:
+      type: string
+      description: Ad creative type enum. For update, only draft ads may update creative type. </p><strong>Note:</strong> SHOP_THE_PIN has been deprecated. Please use COLLECTION instead.
+      enum:
+      - REGULAR
+      - VIDEO
+      - SHOPPING
+      - CAROUSEL
+      - MAX_VIDEO
+      - SHOP_THE_PIN
+      - COLLECTION
+      - IDEA
+      - SHOWCASE
+      - QUIZ
+      example: REGULAR
+      title: CreativeType
     CatalogsCreateRetailItem:
       type: object
       description: An item to be created
@@ -496,6 +609,181 @@ components:
       - item_id
       - operation
       - attributes
+    CatalogsDeleteRetailItem:
+      type: object
+      description: An item to be deleted
+      properties:
+        item_id:
+          description: The catalog item id in the merchant namespace
+          example: DS0294-M
+          type: string
+        operation:
+          type: string
+          enum:
+          - CREATE
+          - UPDATE
+          - UPSERT
+          - DELETE
+      required:
+      - item_id
+      - operation
+    CatalogsItemsUpdateBatchRequest:
+      description: Request object to update catalogs items
+      type: object
+      additionalProperties: false
+      properties:
+        country:
+          $ref: '#/components/schemas/Country'
+        language:
+          $ref: '#/components/schemas/Language'
+        operation:
+          $ref: '#/components/schemas/BatchOperation'
+        items:
+          type: array
+          description: Array with catalogs items
+          items:
+            $ref: '#/components/schemas/ItemUpdateBatchRecord'
+          minItems: 1
+          maxItems: 1000
+      required:
+      - country
+      - language
+      - operation
+      - items
+    CatalogsRetailItemsPostFilter:
+      type: object
+      properties:
+        catalog_type:
+          type: string
+          enum:
+          - RETAIL
+        item_ids:
+          type: array
+          minItems: 1
+          maxItems: 1000
+          items:
+            type: string
+        catalog_id:
+          type: string
+          pattern: ^\d+$
+          description: Catalog id pertaining to the retail item. If not provided, default to oldest retail catalog
+      required:
+      - catalog_type
+      - item_ids
+    CatalogsCreativeAssetsItemResponse:
+      type: object
+      description: Object describing a hotel record
+      properties:
+        catalog_type:
+          $ref: '#/components/schemas/CatalogsType'
+        creative_assets_id:
+          description: The catalog creative assets id in the merchant namespace
+          example: DS0294-M
+          type: string
+        pins:
+          description: The pins mapped to the item
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Pin'
+          maxItems: 11
+        attributes:
+          $ref: '#/components/schemas/CatalogsCreativeAssetsAttributes'
+      required:
+      - catalog_type
+    CatalogsCreativeAssetsAttributes:
+      type: object
+      allOf:
+      - type: object
+        properties:
+          image_link:
+            type: string
+            description: The creative assets image.
+            example: https://scene.example.com/image/image_v2.jpg
+          video_link:
+            type: string
+            description: The creative assets video.
+            example: https://scene.example.com/image/image_v2.mp4
+      - $ref: '#/components/schemas/CatalogsUpdatableCreativeAssetsAttributes'
+    CatalogsItemsDeleteBatchRequest:
+      description: Request object to delete catalogs items
+      type: object
+      additionalProperties: false
+      properties:
+        country:
+          $ref: '#/components/schemas/Country'
+        language:
+          $ref: '#/components/schemas/Language'
+        operation:
+          $ref: '#/components/schemas/BatchOperation'
+        items:
+          type: array
+          description: Array with catalogs items
+          items:
+            $ref: '#/components/schemas/ItemDeleteBatchRecord'
+      required:
+      - country
+      - language
+      - operation
+      - items
+    CatalogsUpdatableCreativeAssetsAttributes:
+      type: object
+      properties:
+        title:
+          description: The name of the creative assets.
+          type: string
+        description:
+          description: Brief description of the creative assets.
+          type: string
+        link:
+          description: Link to the creative assets page.
+          type: string
+        ios_deep_link:
+          description: IOS deep link to the creative assets page.
+          type:
+          - string
+          - 'null'
+        android_deep_link:
+          description: Link to the creative assets page.
+          type:
+          - string
+          - 'null'
+        google_product_category:
+          description: The categorization of the product based on the standardized Google Product Taxonomy. This is a set taxonomy. Both the text values and numeric codes are accepted.
+          type:
+          - string
+          - 'null'
+        custom_label_0:
+          description: Custom grouping of creative assets.
+          type:
+          - string
+          - 'null'
+        custom_label_1:
+          description: Custom grouping of creative assets.
+          type:
+          - string
+          - 'null'
+        custom_label_2:
+          description: Custom grouping of creative assets.
+          type:
+          - string
+          - 'null'
+        custom_label_3:
+          description: Custom grouping of creative assets.
+          type:
+          - string
+          - 'null'
+        custom_label_4:
+          description: Custom grouping of creative assets.
+          type:
+          - string
+          - 'null'
+        visibility:
+          description: 'Visibility of the creative assets. Must be one of the following values (upper or lowercase): visible, hidden.'
+          type:
+          - string
+          - 'null'
     CatalogsUpdatableHotelAttributes:
       type: object
       properties:
@@ -582,8 +870,25 @@ components:
         guest_ratings:
           description: If specified, you must provide all properties
           $ref: '#/components/schemas/CatalogsHotelGuestRatings'
-    CatalogsCreativeAssetsBatchRequest:
-      description: Request object to update catalogs creative assets items
+    CatalogsCreativeAssetsItemErrorResponse:
+      type: object
+      description: Object describing a creative assets item error
+      properties:
+        catalog_type:
+          $ref: '#/components/schemas/CatalogsType'
+        creative_assets_id:
+          description: The catalog creative assets id in the merchant namespace
+          example: DS0294-M
+          type: string
+        errors:
+          description: Array with the errors for the item id requested
+          items:
+            $ref: '#/components/schemas/ItemValidationEvent'
+          type: array
+      required:
+      - catalog_type
+    CatalogsHotelBatchRequest:
+      description: Request object to update catalogs hotel items
       type: object
       additionalProperties: false
       properties:
@@ -597,11 +902,11 @@ components:
           minItems: 1
           maxItems: 1000
           type: array
-          description: Array with creative assets item operations
+          description: Array with catalogs item operations
           items:
-            $ref: '#/components/schemas/CatalogsCreativeAssetsBatchItem'
+            $ref: '#/components/schemas/CatalogsHotelBatchItem'
         catalog_id:
-          description: Catalog id pertaining to the creative assets item. If not provided, default to oldest creative assets catalog
+          description: Catalog id pertaining to the hotel item. If not provided, default to oldest hotel catalog
           example: '2680059592705'
           type: string
           pattern: ^\d+$
@@ -610,6 +915,58 @@ components:
       - country
       - language
       - items
+    CatalogsHotelItemResponse:
+      type: object
+      description: Object describing a hotel record
+      properties:
+        catalog_type:
+          $ref: '#/components/schemas/CatalogsType'
+        hotel_id:
+          description: The catalog hotel id in the merchant namespace
+          example: DS0294-M
+          type: string
+        pins:
+          description: The pins mapped to the item
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Pin'
+          maxItems: 11
+        attributes:
+          $ref: '#/components/schemas/CatalogsHotelAttributes'
+      required:
+      - catalog_type
+    CatalogsDeleteHotelItem:
+      type: object
+      description: A hotel item to be deleted
+      properties:
+        hotel_id:
+          description: The catalog hotel id in the merchant namespace
+          example: DS0294-M
+          type: string
+        operation:
+          type: string
+          enum:
+          - DELETE
+      required:
+      - hotel_id
+      - operation
+    PinMedia:
+      title: Pin media
+      type: object
+      description: Pin media objects.
+      discriminator:
+        propertyName: media_type
+        mapping:
+          image: '#/components/schemas/PinMediaWithImage'
+          video: '#/components/schemas/PinMediaWithVideo'
+          multiple_images: '#/components/schemas/PinMediaWithImages'
+          multiple_videos: '#/components/schemas/PinMediaWithVideos'
+          multiple_mixed: '#/components/schemas/PinMediaWithImageAndVideo'
+      properties:
+        media_type:
+          type: string
     CatalogsHotelItemsBatch:
       type: object
       description: Object describing the catalogs hotel items batch
@@ -643,1057 +1000,23 @@ components:
           type: array
       required:
       - catalog_type
-    CatalogsRetailBatchRequest:
+    CatalogsCreativeAssetsBatchItem:
+      description: Creative assets batch item
       type: object
-      description: A request object that can have multiple operations on a single retail batch
-      additionalProperties: false
-      properties:
-        catalog_type:
-          $ref: '#/components/schemas/CatalogsType'
-        country:
-          $ref: '#/components/schemas/Country'
-        language:
-          $ref: '#/components/schemas/Language'
-        items:
-          minItems: 1
-          maxItems: 1000
-          type: array
-          description: Array with catalogs item operations
-          items:
-            anyOf:
-            - $ref: '#/components/schemas/CatalogsCreateRetailItem'
-            - $ref: '#/components/schemas/CatalogsUpdateRetailItem'
-            - $ref: '#/components/schemas/CatalogsUpsertRetailItem'
-            - $ref: '#/components/schemas/CatalogsDeleteRetailItem'
-            discriminator:
-              propertyName: operation
-              mapping:
-                CREATE: '#/components/schemas/CatalogsCreateRetailItem'
-                UPDATE: '#/components/schemas/CatalogsUpdateRetailItem'
-                UPSERT: '#/components/schemas/CatalogsUpsertRetailItem'
-                DELETE: '#/components/schemas/CatalogsDeleteRetailItem'
-      required:
-      - catalog_type
-      - country
-      - language
-      - items
-    CatalogsCreateHotelItem:
-      type: object
-      description: A hotel item to be created.
-      properties:
-        hotel_id:
-          description: The catalog hotel id in the merchant namespace
-          example: DS0294-M
-          type: string
-        operation:
-          type: string
-          enum:
-          - CREATE
-        attributes:
-          $ref: '#/components/schemas/CatalogsHotelAttributes'
-      required:
-      - hotel_id
-      - operation
-      - attributes
-    CatalogsItemsBatchRequest:
-      type: object
-      title: legacy_retail_only
-      description: Request object of catalogs items batch
-      oneOf:
-      - $ref: '#/components/schemas/CatalogsItemsUpdateBatchRequest'
-      - $ref: '#/components/schemas/CatalogsItemsUpsertBatchRequest'
-      - $ref: '#/components/schemas/CatalogsItemsCreateBatchRequest'
-      - $ref: '#/components/schemas/CatalogsItemsDeleteDiscontinuedBatchRequest'
-      - $ref: '#/components/schemas/CatalogsItemsDeleteBatchRequest'
+      anyOf:
+      - $ref: '#/components/schemas/CatalogsCreateCreativeAssetsItem'
+      - $ref: '#/components/schemas/CatalogsUpsertCreativeAssetsItem'
+      - $ref: '#/components/schemas/CatalogsUpdateCreativeAssetsItem'
+      - $ref: '#/components/schemas/CatalogsDeleteCreativeAssetsItem'
       discriminator:
         propertyName: operation
         mapping:
-          UPDATE: '#/components/schemas/CatalogsItemsUpdateBatchRequest'
-          UPSERT: '#/components/schemas/CatalogsItemsUpsertBatchRequest'
-          CREATE: '#/components/schemas/CatalogsItemsCreateBatchRequest'
-          DELETE_DISCONTINUED: '#/components/schemas/CatalogsItemsDeleteDiscontinuedBatchRequest'
-          DELETE: '#/components/schemas/CatalogsItemsDeleteBatchRequest'
-    CatalogsVerticalBatchRequest:
-      type: object
-      title: operate on item batch
-      description: A request object that can have multiple operations on a single batch
-      oneOf:
-      - $ref: '#/components/schemas/CatalogsRetailBatchRequest'
-      - $ref: '#/components/schemas/CatalogsHotelBatchRequest'
-      - $ref: '#/components/schemas/CatalogsCreativeAssetsBatchRequest'
-      discriminator:
-        propertyName: catalog_type
-        mapping:
-          RETAIL: '#/components/schemas/CatalogsRetailBatchRequest'
-          HOTEL: '#/components/schemas/CatalogsHotelBatchRequest'
-          CREATIVE_ASSETS: '#/components/schemas/CatalogsCreativeAssetsBatchRequest'
-    CatalogsUpsertRetailItem:
-      type: object
-      description: An item to be upserted
-      properties:
-        item_id:
-          description: The catalog item id in the merchant namespace
-          example: DS0294-M
-          type: string
-        operation:
-          type: string
-          enum:
-          - CREATE
-          - UPDATE
-          - UPSERT
-          - DELETE
-        attributes:
-          $ref: '#/components/schemas/ItemAttributesRequest'
-      required:
-      - item_id
-      - operation
-      - attributes
-    Pin:
-      title: Pin
-      description: Pin
-      type:
-      - object
-      - 'null'
-      properties:
-        id:
-          type: string
-          readOnly: true
-          example: '813744226420795884'
-          pattern: ^\d+$
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-          example: '2020-01-01T20:10:40-00:00'
-        link:
-          type:
-          - string
-          - 'null'
-          example: https://www.pinterest.com/
-          maxLength: 2048
-        title:
-          type:
-          - string
-          - 'null'
-        description:
-          type:
-          - string
-          - 'null'
-        dominant_color:
-          type:
-          - string
-          - 'null'
-          description: Dominant pin color. Hex number, e.g. \"#6E7874\".
-          example: '#6E7874'
-        alt_text:
-          type:
-          - string
-          - 'null'
-          maxLength: 500
-        creative_type:
-          readOnly: true
-          type:
-          - string
-          - 'null'
-          allOf:
-          - $ref: '#/components/schemas/CreativeType'
-        board_id:
-          description: The board to which this Pin belongs.
-          type: string
-          pattern: ^\d+$
-        board_section_id:
-          description: The board section to which this Pin belongs.
-          type:
-          - string
-          - 'null'
-          pattern: ^\d+$
-        board_owner:
-          allOf:
-          - $ref: '#/components/schemas/BoardOwner'
-          type: object
-          readOnly: true
-        is_owner:
-          description: Whether the "operation user_account" is the Pin owner.
-          type: boolean
-          readOnly: true
-        media:
-          allOf:
-          - $ref: '#/components/schemas/PinMedia'
-          type: object
-          readOnly: true
-        media_source:
-          allOf:
-          - $ref: '#/components/schemas/PinMediaSource'
-          type: object
-          writeOnly: true
-        parent_pin_id:
-          description: The source pin id if this pin was saved from another pin. <a href="https://help.pinterest.com/article/save-pins-on-pinterest">Learn more</a>.
-          type:
-          - string
-          - 'null'
-          pattern: ^\d+$
-        is_standard:
-          description: Whether the Pin is standard or not. See documentation on <a href="https://developers.pinterest.com/docs/content/update/">Changes to Pin creation</a> for more information.
-          type: boolean
-        has_been_promoted:
-          description: Whether the Pin has been promoted or not.
-          type: boolean
-          readOnly: true
-        note:
-          description: Private note for this Pin. <a href="https://help.pinterest.com/en/article/add-notes-to-your-pins">Learn more</a>.
-          type:
-          - string
-          - 'null'
-        pin_metrics:
-          description: Pin metrics with associated time intervals if any.
-          type:
-          - object
-          - 'null'
-          example:
-            pin_metrics:
-            - 90d:
-                pin_click: 7
-                impression: 2
-                clickthrough: 3
-              all_time:
-                pin_click: 7
-                impression: 2
-                clickthrough: 3
-                reaction: 10
-                comment: 2
-            - null
-    ItemProcessingStatus:
-      description: The status of the item processing record
-      example: SUCCESS
-      type: string
-      enum:
-      - SUCCESS
-      - FAILURE
-      - PROCESSING
-    CatalogsHotelItemResponse:
-      type: object
-      description: Object describing a hotel record
-      properties:
-        catalog_type:
-          $ref: '#/components/schemas/CatalogsType'
-        hotel_id:
-          description: The catalog hotel id in the merchant namespace
-          example: DS0294-M
-          type: string
-        pins:
-          description: The pins mapped to the item
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Pin'
-          maxItems: 11
-        attributes:
-          $ref: '#/components/schemas/CatalogsHotelAttributes'
-      required:
-      - catalog_type
-    CatalogsHotelItemsFilter:
-      type: object
-      properties:
-        catalog_type:
-          type: string
-          enum:
-          - HOTEL
-        hotel_ids:
-          type: array
-          minItems: 1
-          maxItems: 100
-          items:
-            type: string
-        catalog_id:
-          type: string
-          pattern: ^\d+$
-          description: Catalog id pertaining to the hotel item. If not provided, default to oldest hotel catalog
-      required:
-      - catalog_type
-      - hotel_ids
-    ItemDeleteDiscontinuedBatchRecord:
-      type: object
-      description: Object describing an item batch record to discontinue items
-      properties:
-        item_id:
-          description: The catalog item id in the merchant namespace
-          example: DS0294-M
-          type: string
-    BatchOperation:
-      description: The operation performed by the batch. The DELETE_DISCONTINUED operation only updates availablity to "Out of Stock".
-      example: UPDATE
-      type: string
-      enum:
-      - UPDATE
-      - UPSERT
-      - CREATE
-      - DELETE_DISCONTINUED
-      - DELETE
-    CatalogsHotelItemErrorResponse:
-      type: object
-      description: Object describing a hotel item error
-      properties:
-        catalog_type:
-          $ref: '#/components/schemas/CatalogsType'
-        hotel_id:
-          description: The catalog hotel id in the merchant namespace
-          example: DS0294-M
-          type: string
-        errors:
-          description: Array with the errors for the item id requested
-          items:
-            $ref: '#/components/schemas/ItemValidationEvent'
-          type: array
-      required:
-      - catalog_type
-    CreativeType:
-      type: string
-      description: Ad creative type enum. For update, only draft ads may update creative type. </p><strong>Note:</strong> SHOP_THE_PIN has been deprecated. Please use COLLECTION instead.
-      enum:
-      - REGULAR
-      - VIDEO
-      - SHOPPING
-      - CAROUSEL
-      - MAX_VIDEO
-      - SHOP_THE_PIN
-      - COLLECTION
-      - IDEA
-      - SHOWCASE
-      - QUIZ
-      example: REGULAR
-      title: CreativeType
-    PinMediaSource:
-      title: Pin media source
-      description: Pin media source.
-      oneOf:
-      - $ref: '#/components/schemas/PinMediaSourceImageBase64'
-      - $ref: '#/components/schemas/PinMediaSourceImageURL'
-      - $ref: '#/components/schemas/PinMediaSourceVideoID'
-      - $ref: '#/components/schemas/PinMediaSourceImagesBase64'
-      - $ref: '#/components/schemas/PinMediaSourceImagesURL'
-      - $ref: '#/components/schemas/PinMediaSourcePinURL'
-      discriminator:
-        propertyName: source_type
-        mapping:
-          multiple_image_base64: '#/components/schemas/PinMediaSourceImagesBase64'
-          image_base64: '#/components/schemas/PinMediaSourceImageBase64'
-          multiple_image_urls: '#/components/schemas/PinMediaSourceImagesURL'
-          image_url: '#/components/schemas/PinMediaSourceImageURL'
-          video_id: '#/components/schemas/PinMediaSourceVideoID'
-          pin_url: '#/components/schemas/PinMediaSourcePinURL'
-    Country:
-      type: string
-      description: Country ID from ISO 3166-1 alpha-2.
-      example: US
-      enum:
-      - AD
-      - AE
-      - AF
-      - AG
-      - AI
-      - AL
-      - AM
-      - AO
-      - AQ
-      - AR
-      - AS
-      - AT
-      - AU
-      - AW
-      - AX
-      - AZ
-      - BA
-      - BB
-      - BD
-      - BE
-      - BF
-      - BG
-      - BH
-      - BI
-      - BJ
-      - BL
-      - BM
-      - BN
-      - BO
-      - BQ
-      - BR
-      - BS
-      - BT
-      - BV
-      - BW
-      - BY
-      - BZ
-      - CA
-      - CC
-      - CD
-      - CF
-      - CG
-      - CH
-      - CI
-      - CK
-      - CL
-      - CM
-      - CN
-      - CO
-      - CR
-      - CU
-      - CV
-      - CW
-      - CX
-      - CY
-      - CZ
-      - DE
-      - DJ
-      - DK
-      - DM
-      - DO
-      - DZ
-      - EC
-      - EE
-      - EG
-      - EH
-      - ER
-      - ES
-      - ET
-      - FI
-      - FJ
-      - FK
-      - FM
-      - FO
-      - FR
-      - GA
-      - GB
-      - GD
-      - GE
-      - GF
-      - GG
-      - GH
-      - GI
-      - GL
-      - GM
-      - GN
-      - GP
-      - GQ
-      - GR
-      - GS
-      - GT
-      - GU
-      - GW
-      - GY
-      - HK
-      - HM
-      - HN
-      - HR
-      - HT
-      - HU
-      - ID
-      - IE
-      - IL
-      - IM
-      - IN
-      - IO
-      - IQ
-      - IR
-      - IS
-      - IT
-      - JE
-      - JM
-      - JO
-      - JP
-      - KE
-      - KG
-      - KH
-      - KI
-      - KM
-      - KN
-      - KR
-      - KW
-      - KY
-      - KZ
-      - LA
-      - LB
-      - LC
-      - LI
-      - LK
-      - LR
-      - LS
-      - LT
-      - LU
-      - LV
-      - LY
-      - MA
-      - MC
-      - MD
-      - ME
-      - MF
-      - MG
-      - MH
-      - MK
-      - ML
-      - MM
-      - MN
-      - MO
-      - MP
-      - MQ
-      - MR
-      - MS
-      - MT
-      - MU
-      - MV
-      - MW
-      - MX
-      - MY
-      - MZ
-      - NA
-      - NC
-      - NE
-      - NF
-      - NG
-      - NI
-      - NL
-      - 'NO'
-      - NP
-      - NR
-      - NU
-      - NZ
-      - OM
-      - PA
-      - PE
-      - PF
-      - PG
-      - PH
-      - PK
-      - PL
-      - PM
-      - PN
-      - PR
-      - PS
-      - PT
-      - PW
-      - PY
-      - QA
-      - RE
-      - RO
-      - RS
-      - RU
-      - RW
-      - SA
-      - SB
-      - SC
-      - SD
-      - SE
-      - SG
-      - SH
-      - SI
-      - SJ
-      - SK
-      - SL
-      - SM
-      - SN
-      - SO
-      - SR
-      - SS
-      - ST
-      - SV
-      - SX
-      - SY
-      - SZ
-      - TC
-      - TD
-      - TF
-      - TG
-      - TH
-      - TJ
-      - TK
-      - TL
-      - TM
-      - TN
-      - TO
-      - TR
-      - TT
-      - TV
-      - TW
-      - TZ
-      - UA
-      - UG
-      - UM
-      - US
-      - UY
-      - UZ
-      - VA
-      - VC
-      - VE
-      - VG
-      - VI
-      - VN
-      - VU
-      - WF
-      - WS
-      - YE
-      - YT
-      - ZA
-      - ZM
-      - ZW
-    CatalogsRetailItemsFilter:
-      type: object
-      properties:
-        catalog_type:
-          type: string
-          enum:
-          - RETAIL
-        item_ids:
-          type: array
-          minItems: 1
-          maxItems: 100
-          items:
-            type: string
-        catalog_id:
-          type: string
-          pattern: ^\d+$
-          description: Catalog id pertaining to the retail item. If not provided, default to oldest retail catalog
-      required:
-      - catalog_type
-      - item_ids
-    CatalogsItemsRequest:
-      type: object
-      additionalProperties: false
-      description: Request object of catalogs items
-      properties:
-        country:
-          $ref: '#/components/schemas/Country'
-        language:
-          $ref: '#/components/schemas/Language'
-        filters:
-          $ref: '#/components/schemas/CatalogsItemsPostFilters'
-      required:
-      - country
-      - language
-      - filters
-    CatalogsHotelBatchItem:
-      description: Hotel batch item
-      type: object
-      anyOf:
-      - $ref: '#/components/schemas/CatalogsCreateHotelItem'
-      - $ref: '#/components/schemas/CatalogsUpsertHotelItem'
-      - $ref: '#/components/schemas/CatalogsUpdateHotelItem'
-      - $ref: '#/components/schemas/CatalogsDeleteHotelItem'
-      discriminator:
-        propertyName: operation
-        mapping:
-          CREATE: '#/components/schemas/CatalogsCreateHotelItem'
-          UPSERT: '#/components/schemas/CatalogsUpsertHotelItem'
-          UPDATE: '#/components/schemas/CatalogsUpdateHotelItem'
-          DELETE: '#/components/schemas/CatalogsDeleteHotelItem'
-    PinMediaSourceImagesBase64:
-      title: Images Base64
-      description: Multiple Base64-encoded images media source
-      additionalProperties: false
-      properties:
-        source_type:
-          type: string
-          enum:
-          - multiple_image_base64
-        items:
-          items:
-            additionalProperties: false
-            properties:
-              title:
-                type: string
-              description:
-                type: string
-              link:
-                type: string
-                description: Destination link for the image.
-              content_type:
-                type: string
-                enum:
-                - image/jpeg
-                - image/png
-              data:
-                type: string
-                description: Image to upload as base64 string.
-                pattern: '[a-zA-Z0-9+\/=]+'
-            required:
-            - data
-            - content_type
-            type: object
-          minItems: 2
-          maxItems: 5
-          description: Array with image objects.
-          type: array
-        index:
-          type: integer
-          minimum: 0
-      required:
-      - items
-      type: object
-    ItemAttributes:
-      type: object
-      allOf:
-      - type: object
-        properties:
-          additional_image_link:
-            description: '<p><= 2000 characters</p>
-
-              <p>The links to additional images for your product. Up to ten
-
-              additional images can be used to show a product from different angles
-
-              or to show different stages. Must begin with http:// or https://.</p>'
-            example:
-            - https://scene.example.com/image/image_v2.jpg
-            - https://scene.example.com/image/image_v3.jpg
-            type:
-            - array
-            - 'null'
-            items:
-              type: string
-          image_link:
-            description: '<p><= 2000 characters</p>
-
-              <p>The link to the main product images. Images should be at least
-
-              75x75 pixels to avoid errors. Use the additional_image_link field to add
-
-              more images of your product. The URL of your image_link must be accessible
-
-              by the Pinterest user-agent, and send the accurate images. Please make
-
-              sure there are no template or placeholder images at the link. Must start
-
-              with http:// or https://.</p>'
-            example:
-            - https://scene.example.com/image/image.jpg
-            type: array
-            minItems: 1
-            items:
-              type: string
-      - $ref: '#/components/schemas/UpdatableItemAttributes'
-    CatalogsItemsUpdateBatchRequest:
-      description: Request object to update catalogs items
-      type: object
-      additionalProperties: false
-      properties:
-        country:
-          $ref: '#/components/schemas/Country'
-        language:
-          $ref: '#/components/schemas/Language'
-        operation:
-          $ref: '#/components/schemas/BatchOperation'
-        items:
-          type: array
-          description: Array with catalogs items
-          items:
-            $ref: '#/components/schemas/ItemUpdateBatchRecord'
-          minItems: 1
-          maxItems: 1000
-      required:
-      - country
-      - language
-      - operation
-      - items
-    UpdateMaskFieldType:
-      description: The field types supported by the update mask
-      example: availability
-      type: string
-      enum:
-      - ad_link
-      - adult
-      - age_group
-      - availability
-      - average_review_rating
-      - brand
-      - checkout_enabled
-      - color
-      - condition
-      - custom_label_0
-      - custom_label_1
-      - custom_label_2
-      - custom_label_3
-      - custom_label_4
-      - description
-      - free_shipping_label
-      - free_shipping_limit
-      - gender
-      - google_product_category
-      - gtin
-      - item_group_id
-      - last_updated_time
-      - link
-      - material
-      - min_ad_price
-      - mpn
-      - number_of_ratings
-      - number_of_reviews
-      - pattern
-      - price
-      - product_type
-      - sale_price
-      - shipping
-      - shipping_height
-      - shipping_weight
-      - shipping_width
-      - size
-      - size_system
-      - size_type
-      - tax
-      - title
-      - variant_names
-      - variant_values
-    ItemAttributesRequest:
-      type: object
-      allOf:
-      - type: object
-        properties:
-          additional_image_link:
-            description: '<p><= 2000 characters</p>
-
-              <p>The links to additional images for your product. Up to ten
-
-              additional images can be used to show a product from different angles
-
-              or to show different stages. Must begin with http:// or https://.</p>'
-            example:
-            - https://scene.example.com/image/image_v2.jpg
-            - https://scene.example.com/image/image_v3.jpg
-            type:
-            - array
-            - 'null'
-            items:
-              type: string
-          image_link:
-            description: '<p><= 2000 characters</p>
-
-              <p>The links to the main product images. Images should be at least
-
-              75x75 pixels to avoid errors. Use the additional_image_link field to add
-
-              more images of your product. The URL of your image_link must be accessible
-
-              by the Pinterest user-agent, and send the accurate images. Please make
-
-              sure there are no template or placeholder images at the link. Must start
-
-              with http:// or https://.</p>'
-            example:
-            - https://scene.example.com/image/image.jpg
-            oneOf:
-            - description: The list of links to the main product images
-              type: array
-              minItems: 1
-              items:
-                type: string
-            - description: The main product image link.
-              type: string
-      - $ref: '#/components/schemas/UpdatableItemAttributes'
-    ItemDeleteBatchRecord:
-      type: object
-      description: Object describing an item batch record to delete items
-      properties:
-        item_id:
-          description: The catalog item id in the merchant namespace
-          example: DS0294-M
-          type: string
-    BatchOperationStatus:
-      description: The status of the operation performed by the batch
-      example: PROCESSING
-      type: string
-      enum:
-      - PROCESSING
-      - COMPLETED
-      - FAILED
-    CreativeAssetsProcessingRecord:
-      type: object
-      description: Object describing an item processing record
-      properties:
-        creative_assets_id:
-          description: The catalog creative assets id in the merchant namespace
-          example: DS0294-M
-          type: string
-        errors:
-          description: 'Array with the validation errors for the item processing record.
-
-            A non empty errors list causes the item processing to fail.'
-          items:
-            $ref: '#/components/schemas/ItemValidationEvent'
-          type: array
-        warnings:
-          description: Array with the validation warnings for the item processing record
-          items:
-            $ref: '#/components/schemas/ItemValidationEvent'
-          type: array
-        status:
-          $ref: '#/components/schemas/ItemProcessingStatus'
-    CatalogsItemsBatch:
-      type: object
-      description: Object describing the catalogs items batch
-      properties:
-        catalog_type:
-          $ref: '#/components/schemas/CatalogsType'
-      required:
-      - catalog_type
-      oneOf:
-      - $ref: '#/components/schemas/CatalogsRetailItemsBatch'
-      - $ref: '#/components/schemas/CatalogsHotelItemsBatch'
-      - $ref: '#/components/schemas/CatalogsCreativeAssetsItemsBatch'
-      discriminator:
-        propertyName: catalog_type
-        mapping:
-          RETAIL: '#/components/schemas/CatalogsRetailItemsBatch'
-          HOTEL: '#/components/schemas/CatalogsHotelItemsBatch'
-          CREATIVE_ASSETS: '#/components/schemas/CatalogsCreativeAssetsItemsBatch'
-    BoardOwner:
-      title: Board owner
-      type: object
-      properties:
-        username:
-          type: string
-          readOnly: true
-    CatalogsRetailItemsPostFilter:
-      type: object
-      properties:
-        catalog_type:
-          type: string
-          enum:
-          - RETAIL
-        item_ids:
-          type: array
-          minItems: 1
-          maxItems: 1000
-          items:
-            type: string
-        catalog_id:
-          type: string
-          pattern: ^\d+$
-          description: Catalog id pertaining to the retail item. If not provided, default to oldest retail catalog
-      required:
-      - catalog_type
-      - item_ids
-    CatalogsUpsertHotelItem:
-      type: object
-      description: A hotel item to be upserted.
-      properties:
-        hotel_id:
-          description: The catalog hotel id in the merchant namespace
-          example: DS0294-M
-          type: string
-        operation:
-          type: string
-          enum:
-          - UPSERT
-        attributes:
-          $ref: '#/components/schemas/CatalogsHotelAttributes'
-      required:
-      - hotel_id
-      - operation
-      - attributes
-    PinMediaSourceVideoID:
-      title: Video ID
-      description: Video ID-based media source
-      type: object
-      properties:
-        source_type:
-          type: string
-          enum:
-          - video_id
-        cover_image_url:
-          type: string
-          description: Cover image url.
-        cover_image_content_type:
-          type: string
-          description: Content type for cover image Base64.
-          enum:
-          - image/jpeg
-          - image/png
-        cover_image_data:
-          type: string
-          description: Cover image Base64.
-        media_id:
-          type: string
-          pattern: ^\d+$
-        is_standard:
-          type: boolean
-          description: Set the parameter to false to create the new simplified Pin instead of the standard pin. Currently the field is only available to a list of beta users.
-          default: true
-      required:
-      - source_type
-      - media_id
-    CatalogsDeleteCreativeAssetsItem:
-      type: object
-      description: A creative assets item to be deleted
-      properties:
-        creative_assets_id:
-          description: The catalog creative assets id in the merchant namespace
-          example: DS0294-M
-          type: string
-        operation:
-          type: string
-          enum:
-          - DELETE
-      required:
-      - creative_assets_id
-      - operation
-    CatalogsRetailItemResponse:
-      type: object
-      description: Object describing a retail item record
-      properties:
-        catalog_type:
-          $ref: '#/components/schemas/CatalogsType'
-        item_id:
-          description: The catalog retail item id in the merchant namespace
-          example: DS0294-M
-          type: string
-        pins:
-          description: The pins mapped to the item
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Pin'
-          maxItems: 11
-        attributes:
-          $ref: '#/components/schemas/ItemAttributes'
-      required:
-      - catalog_type
-    ItemResponse:
-      type: object
-      description: Object describing an item record
-      anyOf:
-      - type: object
-        properties:
-          catalog_type:
-            $ref: '#/components/schemas/CatalogsType'
-        required:
-        - catalog_type
-        oneOf:
-        - $ref: '#/components/schemas/CatalogsRetailItemResponse'
-        - $ref: '#/components/schemas/CatalogsHotelItemResponse'
-        - $ref: '#/components/schemas/CatalogsCreativeAssetsItemResponse'
-        discriminator:
-          propertyName: catalog_type
-          mapping:
-            RETAIL: '#/components/schemas/CatalogsRetailItemResponse'
-            HOTEL: '#/components/schemas/CatalogsHotelItemResponse'
-            CREATIVE_ASSETS: '#/components/schemas/CatalogsCreativeAssetsItemResponse'
-      - type: object
-        properties:
-          catalog_type:
-            $ref: '#/components/schemas/CatalogsType'
-        required:
-        - catalog_type
-        oneOf:
-        - $ref: '#/components/schemas/CatalogsRetailItemErrorResponse'
-        - $ref: '#/components/schemas/CatalogsHotelItemErrorResponse'
-        - $ref: '#/components/schemas/CatalogsCreativeAssetsItemErrorResponse'
-        discriminator:
-          propertyName: catalog_type
-          mapping:
-            RETAIL: '#/components/schemas/CatalogsRetailItemErrorResponse'
-            HOTEL: '#/components/schemas/CatalogsHotelItemErrorResponse'
-            CREATIVE_ASSETS: '#/components/schemas/CatalogsCreativeAssetsItemErrorResponse'
-    CatalogsHotelBatchRequest:
-      description: Request object to update catalogs hotel items
+          CREATE: '#/components/schemas/CatalogsCreateCreativeAssetsItem'
+          UPSERT: '#/components/schemas/CatalogsUpsertCreativeAssetsItem'
+          UPDATE: '#/components/schemas/CatalogsUpdateCreativeAssetsItem'
+          DELETE: '#/components/schemas/CatalogsDeleteCreativeAssetsItem'
+    CatalogsCreativeAssetsBatchRequest:
+      description: Request object to update catalogs creative assets items
       type: object
       additionalProperties: false
       properties:
@@ -1707,11 +1030,11 @@ components:
           minItems: 1
           maxItems: 1000
           type: array
-          description: Array with catalogs item operations
+          description: Array with creative assets item operations
           items:
-            $ref: '#/components/schemas/CatalogsHotelBatchItem'
+            $ref: '#/components/schemas/CatalogsCreativeAssetsBatchItem'
         catalog_id:
-          description: Catalog id pertaining to the hotel item. If not provided, default to oldest hotel catalog
+          description: Catalog id pertaining to the creative assets item. If not provided, default to oldest creative assets catalog
           example: '2680059592705'
           type: string
           pattern: ^\d+$
@@ -1720,41 +1043,72 @@ components:
       - country
       - language
       - items
-    CatalogsRetailItemErrorResponse:
-      type: object
-      description: Object describing a retail item error
-      properties:
-        catalog_type:
-          $ref: '#/components/schemas/CatalogsType'
-        item_id:
-          description: The catalog item id in the merchant namespace
-          example: DS0294-M
-          type: string
-        errors:
-          description: Array with the errors for the item id requested
-          items:
-            $ref: '#/components/schemas/ItemValidationEvent'
-          type: array
-      required:
-      - catalog_type
-    CatalogsHotelAddress:
-      type: object
-      properties:
-        addr1:
-          description: Primary street address of hotel.
-          type: string
-        city:
-          description: City where the hotel is located.
-          type: string
-        region:
-          description: State, county, province, where the hotel is located.
-          type: string
-        country:
-          description: Country where the hotel is located.
-          type: string
-        postal_code:
-          description: Required for countries with a postal code system. Postal or zip code of the hotel.
-          type: string
+    Language:
+      type: string
+      description: Language code, which is among the offical ISO 639-1 language list.
+      example: EN
+      enum:
+      - AM
+      - AR
+      - AZ
+      - BG
+      - BN
+      - BS
+      - CA
+      - CS
+      - DA
+      - DV
+      - DZ
+      - DE
+      - EL
+      - EN
+      - ES
+      - ET
+      - FA
+      - FI
+      - FR
+      - HE
+      - HI
+      - HR
+      - HU
+      - HY
+      - ID
+      - IN
+      - IS
+      - IT
+      - IW
+      - JA
+      - KA
+      - KM
+      - KO
+      - LO
+      - LT
+      - LV
+      - MK
+      - MN
+      - MS
+      - MY
+      - NB
+      - NE
+      - NL
+      - 'NO'
+      - PL
+      - PT
+      - RO
+      - RU
+      - SK
+      - SL
+      - SQ
+      - SR
+      - SV
+      - TL
+      - UK
+      - VI
+      - TE
+      - TH
+      - TR
+      - XX
+      - ZH
     ItemValidationEvent:
       type: object
       description: Object describing an item validation event
@@ -1771,92 +1125,21 @@ components:
           description: Title message describing the item validation event
           example: Title is missing from product metadata.
           type: string
-    CatalogsUpdateCreativeAssetsItem:
+    CatalogsUpdateRetailItem:
       type: object
-      description: A creative assets item to be updated.
-      properties:
-        creative_assets_id:
-          description: The catalog creative assets item id in the merchant namespace
-          example: DS0294-M
-          type: string
-        operation:
-          type: string
-          enum:
-          - UPDATE
-        attributes:
-          $ref: '#/components/schemas/CatalogsUpdatableCreativeAssetsAttributes'
-      required:
-      - creative_assets_id
-      - operation
-      - attributes
-    CatalogsCreativeAssetsItemResponse:
-      type: object
-      description: Object describing a hotel record
-      properties:
-        catalog_type:
-          $ref: '#/components/schemas/CatalogsType'
-        creative_assets_id:
-          description: The catalog creative assets id in the merchant namespace
-          example: DS0294-M
-          type: string
-        pins:
-          description: The pins mapped to the item
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Pin'
-          maxItems: 11
-        attributes:
-          $ref: '#/components/schemas/CatalogsCreativeAssetsAttributes'
-      required:
-      - catalog_type
-    CatalogsItemsFilters:
-      type: object
-      properties:
-        catalog_type:
-          $ref: '#/components/schemas/CatalogsType'
-      required:
-      - catalog_type
-      oneOf:
-      - $ref: '#/components/schemas/CatalogsRetailItemsFilter'
-      - $ref: '#/components/schemas/CatalogsHotelItemsFilter'
-      - $ref: '#/components/schemas/CatalogsCreativeAssetsItemsFilter'
-      discriminator:
-        propertyName: catalog_type
-        mapping:
-          RETAIL: '#/components/schemas/CatalogsRetailItemsFilter'
-          HOTEL: '#/components/schemas/CatalogsHotelItemsFilter'
-          CREATIVE_ASSETS: '#/components/schemas/CatalogsCreativeAssetsItemsFilter'
-    CatalogsItemsDeleteBatchRequest:
-      description: Request object to delete catalogs items
-      type: object
-      additionalProperties: false
-      properties:
-        country:
-          $ref: '#/components/schemas/Country'
-        language:
-          $ref: '#/components/schemas/Language'
-        operation:
-          $ref: '#/components/schemas/BatchOperation'
-        items:
-          type: array
-          description: Array with catalogs items
-          items:
-            $ref: '#/components/schemas/ItemDeleteBatchRecord'
-      required:
-      - country
-      - language
-      - operation
-      - items
-    ItemUpdateBatchRecord:
-      type: object
-      description: Object describing an item batch record to update items
+      description: An item to be updated
       properties:
         item_id:
           description: The catalog item id in the merchant namespace
           example: DS0294-M
           type: string
+        operation:
+          type: string
+          enum:
+          - CREATE
+          - UPDATE
+          - UPSERT
+          - DELETE
         attributes:
           $ref: '#/components/schemas/UpdatableItemAttributes'
         update_mask:
@@ -1910,53 +1193,50 @@ components:
           - 'null'
           items:
             $ref: '#/components/schemas/UpdateMaskFieldType'
-    CatalogsDeleteRetailItem:
-      type: object
-      description: An item to be deleted
-      properties:
-        item_id:
-          description: The catalog item id in the merchant namespace
-          example: DS0294-M
-          type: string
-        operation:
-          type: string
-          enum:
-          - CREATE
-          - UPDATE
-          - UPSERT
-          - DELETE
       required:
       - item_id
       - operation
-    CatalogsUpsertCreativeAssetsItem:
-      type: object
-      description: A creative assets item to be upserted.
-      properties:
-        creative_assets_id:
-          description: The catalog creative assets id in the merchant namespace
-          example: DS0294-M
-          type: string
-        operation:
-          type: string
-          enum:
-          - UPSERT
-        attributes:
-          $ref: '#/components/schemas/CatalogsCreativeAssetsAttributes'
-      required:
-      - creative_assets_id
-      - operation
       - attributes
-    Error:
-      title: Error
+    BoardOwner:
+      title: Board owner
       type: object
       properties:
-        code:
-          type: integer
-        message:
+        username:
           type: string
+          readOnly: true
+    CatalogsRetailItemsBatch:
+      type: object
+      description: Object describing the catalogs retail items batch
+      properties:
+        batch_id:
+          description: Id of the catalogs items batch
+          example: 595953100599279259-66753b9bb65c46c49bd8503b27fecf9e
+          type: string
+        created_time:
+          description: 'Time of the batch creation: YYYY-MM-DD''T''hh:mm:ssTZD'
+          example: '2020-01-01T20:10:40-00:00'
+          type: string
+          format: date-time
+          readOnly: true
+        completed_time:
+          description: 'Time of the batch completion: YYYY-MM-DD''T''hh:mm:ssTZD'
+          example: '2022-03-10T15:37:10-00:00'
+          type:
+          - string
+          - 'null'
+          format: date-time
+          readOnly: true
+        status:
+          $ref: '#/components/schemas/BatchOperationStatus'
+        catalog_type:
+          $ref: '#/components/schemas/CatalogsType'
+        items:
+          description: Array with the catalogs items processing records part of the catalogs items batch
+          items:
+            $ref: '#/components/schemas/ItemProcessingRecord'
+          type: array
       required:
-      - code
-      - message
+      - catalog_type
     UpdatableItemAttributes:
       type: object
       properties:
@@ -2259,117 +1539,125 @@ components:
           - 'null'
           items:
             type: string
-    CatalogsUpdateRetailItem:
+    CatalogsHotelGuestRatings:
       type: object
-      description: An item to be updated
+      description: If specified, you must provide all properties
       properties:
+        score:
+          description: Your hotel's rating.
+          type: number
+        number_of_reviewers:
+          description: Total number of people who have rated this hotel.
+          type: integer
+        max_score:
+          description: Max value for the hotel rating score.
+          type: number
+        rating_system:
+          description: System you use for guest reviews.
+          type: string
+    BatchOperationStatus:
+      description: The status of the operation performed by the batch
+      example: PROCESSING
+      type: string
+      enum:
+      - PROCESSING
+      - COMPLETED
+      - FAILED
+    CatalogsRetailItemErrorResponse:
+      type: object
+      description: Object describing a retail item error
+      properties:
+        catalog_type:
+          $ref: '#/components/schemas/CatalogsType'
         item_id:
           description: The catalog item id in the merchant namespace
           example: DS0294-M
           type: string
-        operation:
+        errors:
+          description: Array with the errors for the item id requested
+          items:
+            $ref: '#/components/schemas/ItemValidationEvent'
+          type: array
+      required:
+      - catalog_type
+    CatalogsItemsBatchRequest:
+      type: object
+      title: legacy_retail_only
+      description: Request object of catalogs items batch
+      oneOf:
+      - $ref: '#/components/schemas/CatalogsItemsUpdateBatchRequest'
+      - $ref: '#/components/schemas/CatalogsItemsUpsertBatchRequest'
+      - $ref: '#/components/schemas/CatalogsItemsCreateBatchRequest'
+      - $ref: '#/components/schemas/CatalogsItemsDeleteDiscontinuedBatchRequest'
+      - $ref: '#/components/schemas/CatalogsItemsDeleteBatchRequest'
+      discriminator:
+        propertyName: operation
+        mapping:
+          UPDATE: '#/components/schemas/CatalogsItemsUpdateBatchRequest'
+          UPSERT: '#/components/schemas/CatalogsItemsUpsertBatchRequest'
+          CREATE: '#/components/schemas/CatalogsItemsCreateBatchRequest'
+          DELETE_DISCONTINUED: '#/components/schemas/CatalogsItemsDeleteDiscontinuedBatchRequest'
+          DELETE: '#/components/schemas/CatalogsItemsDeleteBatchRequest'
+    CatalogsHotelItemsFilter:
+      type: object
+      properties:
+        catalog_type:
           type: string
           enum:
-          - CREATE
-          - UPDATE
-          - UPSERT
-          - DELETE
-        attributes:
-          $ref: '#/components/schemas/UpdatableItemAttributes'
-        update_mask:
-          description: The list of product attributes to be updated. Attributes specified in the update mask without a value specified in the body will be deleted from the product item.
-          example:
-          - ad_link
-          - adult
-          - age_group
-          - availability
-          - average_review_rating
-          - brand
-          - checkout_enabled
-          - color
-          - condition
-          - custom_label_0
-          - custom_label_1
-          - custom_label_2
-          - custom_label_3
-          - custom_label_4
-          - description
-          - free_shipping_label
-          - free_shipping_limit
-          - gender
-          - google_product_category
-          - gtin
-          - item_group_id
-          - last_updated_time
-          - link
-          - material
-          - min_ad_price
-          - mpn
-          - number_of_ratings
-          - number_of_reviews
-          - pattern
-          - price
-          - product_type
-          - sale_price
-          - shipping
-          - shipping_height
-          - shipping_weight
-          - shipping_width
-          - size
-          - size_system
-          - size_type
-          - tax
-          - title
-          - variant_names
-          - variant_values
-          type:
-          - array
-          - 'null'
+          - HOTEL
+        hotel_ids:
+          type: array
+          minItems: 1
+          maxItems: 100
           items:
-            $ref: '#/components/schemas/UpdateMaskFieldType'
+            type: string
+        catalog_id:
+          type: string
+          pattern: ^\d+$
+          description: Catalog id pertaining to the hotel item. If not provided, default to oldest hotel catalog
       required:
-      - item_id
-      - operation
-      - attributes
-    CatalogsItems:
+      - catalog_type
+      - hotel_ids
+    CatalogsItemsCreateBatchRequest:
+      description: Request object to create catalogs items
       type: object
-      description: Response object of catalogs items
+      additionalProperties: false
       properties:
+        country:
+          $ref: '#/components/schemas/Country'
+        language:
+          $ref: '#/components/schemas/Language'
+        operation:
+          $ref: '#/components/schemas/BatchOperation'
         items:
           type: array
           description: Array with catalogs items
           items:
-            $ref: '#/components/schemas/ItemResponse'
-    PinMediaSourcePinURL:
-      title: Pin URL
-      description: Pin URL-based media source for product pin creation. Currently the field is only available to a list of beta users.
-      type: object
-      properties:
-        source_type:
-          type: string
-          enum:
-          - pin_url
-        is_affiliate_link:
-          type: boolean
-          description: This is an affiliate link or sponsored product. The FTC requires disclosure for paid partnerships and affiliate products.
-          default: false
+            $ref: '#/components/schemas/ItemCreateBatchRecord'
+          minItems: 1
+          maxItems: 1000
       required:
-      - source_type
-    PinMedia:
-      title: Pin media
+      - country
+      - language
+      - operation
+      - items
+    CatalogsItemsPostFilters:
       type: object
-      description: Pin media objects.
-      discriminator:
-        propertyName: media_type
-        mapping:
-          image: '#/components/schemas/PinMediaWithImage'
-          video: '#/components/schemas/PinMediaWithVideo'
-          multiple_images: '#/components/schemas/PinMediaWithImages'
-          multiple_videos: '#/components/schemas/PinMediaWithVideos'
-          multiple_mixed: '#/components/schemas/PinMediaWithImageAndVideo'
       properties:
-        media_type:
-          type: string
+        catalog_type:
+          $ref: '#/components/schemas/CatalogsType'
+      required:
+      - catalog_type
+      oneOf:
+      - $ref: '#/components/schemas/CatalogsRetailItemsPostFilter'
+      - $ref: '#/components/schemas/CatalogsHotelItemsPostFilter'
+      - $ref: '#/components/schemas/CatalogsCreativeAssetsItemsPostFilter'
+      discriminator:
+        propertyName: catalog_type
+        mapping:
+          RETAIL: '#/components/schemas/CatalogsRetailItemsPostFilter'
+          HOTEL: '#/components/schemas/CatalogsHotelItemsPostFilter'
+          CREATIVE_ASSETS: '#/components/schemas/CatalogsCreativeAssetsItemsPostFilter'
     PinMediaSourceImagesURL:
       title: Images urls
       description: Multiple images urls-based media source
@@ -2406,110 +1694,51 @@ components:
       required:
       - items
       type: object
-    CatalogsHotelAttributes:
+    Error:
+      title: Error
       type: object
-      allOf:
-      - type: object
-        properties:
-          main_image:
-            type: object
-            description: The main hotel image
-            properties:
-              link:
-                type: string
-                description: '<p><= 2000 characters</p>
-
-                  <p>The link to the main hotel image. Image should be at least
-
-                  75x75 pixels to avoid errors. Use the additional_image_link field to add
-
-                  more images of your hotel. The URL of your main_image.link must be accessible
-
-                  by the Pinterest user-agent, and send the accurate image. Please make
-
-                  sure there is no template or placeholder image at the link. Must start
-
-                  with http:// or https://.</p>'
-              tag:
-                type:
-                - array
-                - 'null'
-                description: Tag appended to the image that identifies image category or details. There can be multiple tags associated with an image
-                items:
-                  type: string
-          additional_image_link:
-            type:
-            - array
-            - 'null'
-            items:
-              type: string
-            description: '<p><= 2000 characters</p>
-
-              <p>The links to additional images for your hotel. Up to ten
-
-              additional images can be used to show a hotel from different angles.
-
-              Must begin with http:// or https://.</p>'
-            example:
-            - https://scene.example.com/image/image_v2.jpg
-            - https://scene.example.com/image/image_v3.jpg
-      - $ref: '#/components/schemas/CatalogsUpdatableHotelAttributes'
-    CatalogsItemsCreateBatchRequest:
-      description: Request object to create catalogs items
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    CatalogsRetailBatchRequest:
       type: object
+      description: A request object that can have multiple operations on a single retail batch
       additionalProperties: false
       properties:
+        catalog_type:
+          $ref: '#/components/schemas/CatalogsType'
         country:
           $ref: '#/components/schemas/Country'
         language:
           $ref: '#/components/schemas/Language'
-        operation:
-          $ref: '#/components/schemas/BatchOperation'
         items:
-          type: array
-          description: Array with catalogs items
-          items:
-            $ref: '#/components/schemas/ItemCreateBatchRecord'
           minItems: 1
           maxItems: 1000
+          type: array
+          description: Array with catalogs item operations
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/CatalogsCreateRetailItem'
+            - $ref: '#/components/schemas/CatalogsUpdateRetailItem'
+            - $ref: '#/components/schemas/CatalogsUpsertRetailItem'
+            - $ref: '#/components/schemas/CatalogsDeleteRetailItem'
+            discriminator:
+              propertyName: operation
+              mapping:
+                CREATE: '#/components/schemas/CatalogsCreateRetailItem'
+                UPDATE: '#/components/schemas/CatalogsUpdateRetailItem'
+                UPSERT: '#/components/schemas/CatalogsUpsertRetailItem'
+                DELETE: '#/components/schemas/CatalogsDeleteRetailItem'
       required:
+      - catalog_type
       - country
       - language
-      - operation
       - items
-    CatalogsCreateCreativeAssetsItem:
-      type: object
-      description: A creative assets item to be created.
-      properties:
-        creative_assets_id:
-          description: The catalog creative assets id in the merchant namespace
-          example: DS0294-M
-          type: string
-        operation:
-          type: string
-          enum:
-          - CREATE
-        attributes:
-          $ref: '#/components/schemas/CatalogsCreativeAssetsAttributes'
-      required:
-      - creative_assets_id
-      - operation
-      - attributes
-    CatalogsCreativeAssetsBatchItem:
-      description: Creative assets batch item
-      type: object
-      anyOf:
-      - $ref: '#/components/schemas/CatalogsCreateCreativeAssetsItem'
-      - $ref: '#/components/schemas/CatalogsUpsertCreativeAssetsItem'
-      - $ref: '#/components/schemas/CatalogsUpdateCreativeAssetsItem'
-      - $ref: '#/components/schemas/CatalogsDeleteCreativeAssetsItem'
-      discriminator:
-        propertyName: operation
-        mapping:
-          CREATE: '#/components/schemas/CatalogsCreateCreativeAssetsItem'
-          UPSERT: '#/components/schemas/CatalogsUpsertCreativeAssetsItem'
-          UPDATE: '#/components/schemas/CatalogsUpdateCreativeAssetsItem'
-          DELETE: '#/components/schemas/CatalogsDeleteCreativeAssetsItem'
     CatalogsCreativeAssetsItemsBatch:
       type: object
       description: Object describing the catalogs creative assets items batch
@@ -2543,6 +1772,962 @@ components:
           type: array
       required:
       - catalog_type
+    CatalogsHotelAddress:
+      type: object
+      properties:
+        addr1:
+          description: Primary street address of hotel.
+          type: string
+        city:
+          description: City where the hotel is located.
+          type: string
+        region:
+          description: State, county, province, where the hotel is located.
+          type: string
+        country:
+          description: Country where the hotel is located.
+          type: string
+        postal_code:
+          description: Required for countries with a postal code system. Postal or zip code of the hotel.
+          type: string
+    CatalogsType:
+      description: Type of the catalog entity.
+      type: string
+      enum:
+      - RETAIL
+      - HOTEL
+      - CREATIVE_ASSETS
+    CatalogsHotelItemErrorResponse:
+      type: object
+      description: Object describing a hotel item error
+      properties:
+        catalog_type:
+          $ref: '#/components/schemas/CatalogsType'
+        hotel_id:
+          description: The catalog hotel id in the merchant namespace
+          example: DS0294-M
+          type: string
+        errors:
+          description: Array with the errors for the item id requested
+          items:
+            $ref: '#/components/schemas/ItemValidationEvent'
+          type: array
+      required:
+      - catalog_type
+    ItemCreateBatchRecord:
+      type: object
+      description: Object describing an item batch record to create items
+      properties:
+        item_id:
+          description: The catalog item id in the merchant namespace
+          example: DS0294-M
+          type: string
+        attributes:
+          $ref: '#/components/schemas/ItemAttributesRequest'
+    CatalogsUpsertCreativeAssetsItem:
+      type: object
+      description: A creative assets item to be upserted.
+      properties:
+        creative_assets_id:
+          description: The catalog creative assets id in the merchant namespace
+          example: DS0294-M
+          type: string
+        operation:
+          type: string
+          enum:
+          - UPSERT
+        attributes:
+          $ref: '#/components/schemas/CatalogsCreativeAssetsAttributes'
+      required:
+      - creative_assets_id
+      - operation
+      - attributes
+    ItemAttributes:
+      type: object
+      allOf:
+      - type: object
+        properties:
+          additional_image_link:
+            description: '<p><= 2000 characters</p>
+
+              <p>The links to additional images for your product. Up to ten
+
+              additional images can be used to show a product from different angles
+
+              or to show different stages. Must begin with http:// or https://.</p>'
+            example:
+            - https://scene.example.com/image/image_v2.jpg
+            - https://scene.example.com/image/image_v3.jpg
+            type:
+            - array
+            - 'null'
+            items:
+              type: string
+          image_link:
+            description: '<p><= 2000 characters</p>
+
+              <p>The link to the main product images. Images should be at least
+
+              75x75 pixels to avoid errors. Use the additional_image_link field to add
+
+              more images of your product. The URL of your image_link must be accessible
+
+              by the Pinterest user-agent, and send the accurate images. Please make
+
+              sure there are no template or placeholder images at the link. Must start
+
+              with http:// or https://.</p>'
+            example:
+            - https://scene.example.com/image/image.jpg
+            type: array
+            minItems: 1
+            items:
+              type: string
+      - $ref: '#/components/schemas/UpdatableItemAttributes'
+    CatalogsItemsBatch:
+      type: object
+      description: Object describing the catalogs items batch
+      properties:
+        catalog_type:
+          $ref: '#/components/schemas/CatalogsType'
+      required:
+      - catalog_type
+      oneOf:
+      - $ref: '#/components/schemas/CatalogsRetailItemsBatch'
+      - $ref: '#/components/schemas/CatalogsHotelItemsBatch'
+      - $ref: '#/components/schemas/CatalogsCreativeAssetsItemsBatch'
+      discriminator:
+        propertyName: catalog_type
+        mapping:
+          RETAIL: '#/components/schemas/CatalogsRetailItemsBatch'
+          HOTEL: '#/components/schemas/CatalogsHotelItemsBatch'
+          CREATIVE_ASSETS: '#/components/schemas/CatalogsCreativeAssetsItemsBatch'
+    CatalogsDeleteCreativeAssetsItem:
+      type: object
+      description: A creative assets item to be deleted
+      properties:
+        creative_assets_id:
+          description: The catalog creative assets id in the merchant namespace
+          example: DS0294-M
+          type: string
+        operation:
+          type: string
+          enum:
+          - DELETE
+      required:
+      - creative_assets_id
+      - operation
+    CatalogsCreativeAssetsItemsFilter:
+      type: object
+      properties:
+        catalog_type:
+          type: string
+          enum:
+          - CREATIVE_ASSETS
+        creative_assets_ids:
+          type: array
+          minItems: 1
+          maxItems: 100
+          items:
+            type: string
+        catalog_id:
+          type: string
+          pattern: ^\d+$
+          description: Catalog id pertaining to the creative assets item. If not provided, default to oldest creative assets catalog
+      required:
+      - catalog_type
+      - creative_assets_ids
+    ItemUpsertBatchRecord:
+      type: object
+      description: Object describing an item batch record to upsert items
+      properties:
+        item_id:
+          description: The catalog item id in the merchant namespace
+          example: DS0294-M
+          type: string
+        attributes:
+          $ref: '#/components/schemas/ItemAttributesRequest'
+    PinMediaSource:
+      title: Pin media source
+      description: Pin media source.
+      oneOf:
+      - $ref: '#/components/schemas/PinMediaSourceImageBase64'
+      - $ref: '#/components/schemas/PinMediaSourceImageURL'
+      - $ref: '#/components/schemas/PinMediaSourceVideoID'
+      - $ref: '#/components/schemas/PinMediaSourceImagesBase64'
+      - $ref: '#/components/schemas/PinMediaSourceImagesURL'
+      - $ref: '#/components/schemas/PinMediaSourcePinURL'
+      discriminator:
+        propertyName: source_type
+        mapping:
+          multiple_image_base64: '#/components/schemas/PinMediaSourceImagesBase64'
+          image_base64: '#/components/schemas/PinMediaSourceImageBase64'
+          multiple_image_urls: '#/components/schemas/PinMediaSourceImagesURL'
+          image_url: '#/components/schemas/PinMediaSourceImageURL'
+          video_id: '#/components/schemas/PinMediaSourceVideoID'
+          pin_url: '#/components/schemas/PinMediaSourcePinURL'
+    CatalogsItems:
+      type: object
+      description: Response object of catalogs items
+      properties:
+        items:
+          type: array
+          description: Array with catalogs items
+          items:
+            $ref: '#/components/schemas/ItemResponse'
+    ItemProcessingStatus:
+      description: The status of the item processing record
+      example: SUCCESS
+      type: string
+      enum:
+      - SUCCESS
+      - FAILURE
+      - PROCESSING
+    CatalogsUpdateCreativeAssetsItem:
+      type: object
+      description: A creative assets item to be updated.
+      properties:
+        creative_assets_id:
+          description: The catalog creative assets item id in the merchant namespace
+          example: DS0294-M
+          type: string
+        operation:
+          type: string
+          enum:
+          - UPDATE
+        attributes:
+          $ref: '#/components/schemas/CatalogsUpdatableCreativeAssetsAttributes'
+      required:
+      - creative_assets_id
+      - operation
+      - attributes
+    PinMediaSourceVideoID:
+      title: Video ID
+      description: Video ID-based media source
+      type: object
+      properties:
+        source_type:
+          type: string
+          enum:
+          - video_id
+        cover_image_url:
+          type: string
+          description: Cover image url.
+        cover_image_content_type:
+          type: string
+          description: Content type for cover image Base64.
+          enum:
+          - image/jpeg
+          - image/png
+        cover_image_data:
+          type: string
+          description: Cover image Base64.
+        media_id:
+          type: string
+          pattern: ^\d+$
+        is_standard:
+          type: boolean
+          description: Set the parameter to false to create the new simplified Pin instead of the standard pin. Currently the field is only available to a list of beta users.
+          default: true
+      required:
+      - source_type
+      - media_id
+    BatchOperation:
+      description: The operation performed by the batch. The DELETE_DISCONTINUED operation only updates availablity to "Out of Stock".
+      example: UPDATE
+      type: string
+      enum:
+      - UPDATE
+      - UPSERT
+      - CREATE
+      - DELETE_DISCONTINUED
+      - DELETE
+    PinMediaSourceImageBase64:
+      title: Image Base64
+      description: Base64-encoded image media source
+      type: object
+      properties:
+        source_type:
+          type: string
+          enum:
+          - image_base64
+        content_type:
+          type: string
+          enum:
+          - image/jpeg
+          - image/png
+        data:
+          type: string
+          pattern: '[a-zA-Z0-9+\/=]+'
+        is_standard:
+          type: boolean
+          description: Set the parameter to false to create the new simplified Pin instead of the standard pin. Currently the field is only available to a list of beta users.
+          default: true
+      required:
+      - source_type
+      - content_type
+      - data
+    CatalogsUpsertHotelItem:
+      type: object
+      description: A hotel item to be upserted.
+      properties:
+        hotel_id:
+          description: The catalog hotel id in the merchant namespace
+          example: DS0294-M
+          type: string
+        operation:
+          type: string
+          enum:
+          - UPSERT
+        attributes:
+          $ref: '#/components/schemas/CatalogsHotelAttributes'
+      required:
+      - hotel_id
+      - operation
+      - attributes
+    UpdateMaskFieldType:
+      description: The field types supported by the update mask
+      example: availability
+      type: string
+      enum:
+      - ad_link
+      - adult
+      - age_group
+      - availability
+      - average_review_rating
+      - brand
+      - checkout_enabled
+      - color
+      - condition
+      - custom_label_0
+      - custom_label_1
+      - custom_label_2
+      - custom_label_3
+      - custom_label_4
+      - description
+      - free_shipping_label
+      - free_shipping_limit
+      - gender
+      - google_product_category
+      - gtin
+      - item_group_id
+      - last_updated_time
+      - link
+      - material
+      - min_ad_price
+      - mpn
+      - number_of_ratings
+      - number_of_reviews
+      - pattern
+      - price
+      - product_type
+      - sale_price
+      - shipping
+      - shipping_height
+      - shipping_weight
+      - shipping_width
+      - size
+      - size_system
+      - size_type
+      - tax
+      - title
+      - variant_names
+      - variant_values
+    ItemProcessingRecord:
+      type: object
+      description: Object describing an item processing record
+      properties:
+        item_id:
+          description: The catalog item id in the merchant namespace
+          example: DS0294-M
+          type: string
+        errors:
+          description: 'Array with the validation errors for the item processing record.
+
+            A non empty errors list causes the item processing to fail.'
+          items:
+            $ref: '#/components/schemas/ItemValidationEvent'
+          type: array
+        warnings:
+          description: Array with the validation warnings for the item processing record
+          items:
+            $ref: '#/components/schemas/ItemValidationEvent'
+          type: array
+        status:
+          $ref: '#/components/schemas/ItemProcessingStatus'
+    CatalogsHotelBatchItem:
+      description: Hotel batch item
+      type: object
+      anyOf:
+      - $ref: '#/components/schemas/CatalogsCreateHotelItem'
+      - $ref: '#/components/schemas/CatalogsUpsertHotelItem'
+      - $ref: '#/components/schemas/CatalogsUpdateHotelItem'
+      - $ref: '#/components/schemas/CatalogsDeleteHotelItem'
+      discriminator:
+        propertyName: operation
+        mapping:
+          CREATE: '#/components/schemas/CatalogsCreateHotelItem'
+          UPSERT: '#/components/schemas/CatalogsUpsertHotelItem'
+          UPDATE: '#/components/schemas/CatalogsUpdateHotelItem'
+          DELETE: '#/components/schemas/CatalogsDeleteHotelItem'
+    PinMediaSourceImagesBase64:
+      title: Images Base64
+      description: Multiple Base64-encoded images media source
+      additionalProperties: false
+      properties:
+        source_type:
+          type: string
+          enum:
+          - multiple_image_base64
+        items:
+          items:
+            additionalProperties: false
+            properties:
+              title:
+                type: string
+              description:
+                type: string
+              link:
+                type: string
+                description: Destination link for the image.
+              content_type:
+                type: string
+                enum:
+                - image/jpeg
+                - image/png
+              data:
+                type: string
+                description: Image to upload as base64 string.
+                pattern: '[a-zA-Z0-9+\/=]+'
+            required:
+            - data
+            - content_type
+            type: object
+          minItems: 2
+          maxItems: 5
+          description: Array with image objects.
+          type: array
+        index:
+          type: integer
+          minimum: 0
+      required:
+      - items
+      type: object
+    Pin:
+      title: Pin
+      description: Pin
+      type:
+      - object
+      - 'null'
+      properties:
+        id:
+          type: string
+          readOnly: true
+          example: '813744226420795884'
+          pattern: ^\d+$
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2020-01-01T20:10:40-00:00'
+        link:
+          type:
+          - string
+          - 'null'
+          example: https://www.pinterest.com/
+          maxLength: 2048
+        title:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        dominant_color:
+          type:
+          - string
+          - 'null'
+          description: Dominant pin color. Hex number, e.g. \"#6E7874\".
+          example: '#6E7874'
+        alt_text:
+          type:
+          - string
+          - 'null'
+          maxLength: 500
+        creative_type:
+          readOnly: true
+          type:
+          - string
+          - 'null'
+          allOf:
+          - $ref: '#/components/schemas/CreativeType'
+        board_id:
+          description: The board to which this Pin belongs.
+          type: string
+          pattern: ^\d+$
+        board_section_id:
+          description: The board section to which this Pin belongs.
+          type:
+          - string
+          - 'null'
+          pattern: ^\d+$
+        board_owner:
+          allOf:
+          - $ref: '#/components/schemas/BoardOwner'
+          type: object
+          readOnly: true
+        is_owner:
+          description: Whether the "operation user_account" is the Pin owner.
+          type: boolean
+          readOnly: true
+        media:
+          allOf:
+          - $ref: '#/components/schemas/PinMedia'
+          type: object
+          readOnly: true
+        media_source:
+          allOf:
+          - $ref: '#/components/schemas/PinMediaSource'
+          type: object
+          writeOnly: true
+        parent_pin_id:
+          description: The source pin id if this pin was saved from another pin. <a href="https://help.pinterest.com/article/save-pins-on-pinterest">Learn more</a>.
+          type:
+          - string
+          - 'null'
+          pattern: ^\d+$
+        is_standard:
+          description: Whether the Pin is standard or not. See documentation on <a href="https://developers.pinterest.com/docs/content/update/">Changes to Pin creation</a> for more information.
+          type: boolean
+        has_been_promoted:
+          description: Whether the Pin has been promoted or not.
+          type: boolean
+          readOnly: true
+        note:
+          description: Private note for this Pin. <a href="https://help.pinterest.com/en/article/add-notes-to-your-pins">Learn more</a>.
+          type:
+          - string
+          - 'null'
+        pin_metrics:
+          description: Pin metrics with associated time intervals if any.
+          type:
+          - object
+          - 'null'
+          example:
+            pin_metrics:
+            - 90d:
+                pin_click: 7
+                impression: 2
+                clickthrough: 3
+              all_time:
+                pin_click: 7
+                impression: 2
+                clickthrough: 3
+                reaction: 10
+                comment: 2
+            - null
+    CatalogsUpdateHotelItem:
+      type: object
+      description: Object describing an hotel item batch record
+      properties:
+        hotel_id:
+          description: The catalog hotel item id in the merchant namespace
+          example: DS0294-M
+          type: string
+        operation:
+          type: string
+          enum:
+          - UPDATE
+        attributes:
+          $ref: '#/components/schemas/CatalogsUpdatableHotelAttributes'
+      required:
+      - hotel_id
+      - operation
+      - attributes
+    CreativeAssetsProcessingRecord:
+      type: object
+      description: Object describing an item processing record
+      properties:
+        creative_assets_id:
+          description: The catalog creative assets id in the merchant namespace
+          example: DS0294-M
+          type: string
+        errors:
+          description: 'Array with the validation errors for the item processing record.
+
+            A non empty errors list causes the item processing to fail.'
+          items:
+            $ref: '#/components/schemas/ItemValidationEvent'
+          type: array
+        warnings:
+          description: Array with the validation warnings for the item processing record
+          items:
+            $ref: '#/components/schemas/ItemValidationEvent'
+          type: array
+        status:
+          $ref: '#/components/schemas/ItemProcessingStatus'
+    CatalogsItemsFilters:
+      type: object
+      properties:
+        catalog_type:
+          $ref: '#/components/schemas/CatalogsType'
+      required:
+      - catalog_type
+      oneOf:
+      - $ref: '#/components/schemas/CatalogsRetailItemsFilter'
+      - $ref: '#/components/schemas/CatalogsHotelItemsFilter'
+      - $ref: '#/components/schemas/CatalogsCreativeAssetsItemsFilter'
+      discriminator:
+        propertyName: catalog_type
+        mapping:
+          RETAIL: '#/components/schemas/CatalogsRetailItemsFilter'
+          HOTEL: '#/components/schemas/CatalogsHotelItemsFilter'
+          CREATIVE_ASSETS: '#/components/schemas/CatalogsCreativeAssetsItemsFilter'
+    Country:
+      type: string
+      description: Country ID from ISO 3166-1 alpha-2.
+      example: US
+      enum:
+      - AD
+      - AE
+      - AF
+      - AG
+      - AI
+      - AL
+      - AM
+      - AO
+      - AQ
+      - AR
+      - AS
+      - AT
+      - AU
+      - AW
+      - AX
+      - AZ
+      - BA
+      - BB
+      - BD
+      - BE
+      - BF
+      - BG
+      - BH
+      - BI
+      - BJ
+      - BL
+      - BM
+      - BN
+      - BO
+      - BQ
+      - BR
+      - BS
+      - BT
+      - BV
+      - BW
+      - BY
+      - BZ
+      - CA
+      - CC
+      - CD
+      - CF
+      - CG
+      - CH
+      - CI
+      - CK
+      - CL
+      - CM
+      - CN
+      - CO
+      - CR
+      - CU
+      - CV
+      - CW
+      - CX
+      - CY
+      - CZ
+      - DE
+      - DJ
+      - DK
+      - DM
+      - DO
+      - DZ
+      - EC
+      - EE
+      - EG
+      - EH
+      - ER
+      - ES
+      - ET
+      - FI
+      - FJ
+      - FK
+      - FM
+      - FO
+      - FR
+      - GA
+      - GB
+      - GD
+      - GE
+      - GF
+      - GG
+      - GH
+      - GI
+      - GL
+      - GM
+      - GN
+      - GP
+      - GQ
+      - GR
+      - GS
+      - GT
+      - GU
+      - GW
+      - GY
+      - HK
+      - HM
+      - HN
+      - HR
+      - HT
+      - HU
+      - ID
+      - IE
+      - IL
+      - IM
+      - IN
+      - IO
+      - IQ
+      - IR
+      - IS
+      - IT
+      - JE
+      - JM
+      - JO
+      - JP
+      - KE
+      - KG
+      - KH
+      - KI
+      - KM
+      - KN
+      - KR
+      - KW
+      - KY
+      - KZ
+      - LA
+      - LB
+      - LC
+      - LI
+      - LK
+      - LR
+      - LS
+      - LT
+      - LU
+      - LV
+      - LY
+      - MA
+      - MC
+      - MD
+      - ME
+      - MF
+      - MG
+      - MH
+      - MK
+      - ML
+      - MM
+      - MN
+      - MO
+      - MP
+      - MQ
+      - MR
+      - MS
+      - MT
+      - MU
+      - MV
+      - MW
+      - MX
+      - MY
+      - MZ
+      - NA
+      - NC
+      - NE
+      - NF
+      - NG
+      - NI
+      - NL
+      - 'NO'
+      - NP
+      - NR
+      - NU
+      - NZ
+      - OM
+      - PA
+      - PE
+      - PF
+      - PG
+      - PH
+      - PK
+      - PL
+      - PM
+      - PN
+      - PR
+      - PS
+      - PT
+      - PW
+      - PY
+      - QA
+      - RE
+      - RO
+      - RS
+      - RU
+      - RW
+      - SA
+      - SB
+      - SC
+      - SD
+      - SE
+      - SG
+      - SH
+      - SI
+      - SJ
+      - SK
+      - SL
+      - SM
+      - SN
+      - SO
+      - SR
+      - SS
+      - ST
+      - SV
+      - SX
+      - SY
+      - SZ
+      - TC
+      - TD
+      - TF
+      - TG
+      - TH
+      - TJ
+      - TK
+      - TL
+      - TM
+      - TN
+      - TO
+      - TR
+      - TT
+      - TV
+      - TW
+      - TZ
+      - UA
+      - UG
+      - UM
+      - US
+      - UY
+      - UZ
+      - VA
+      - VC
+      - VE
+      - VG
+      - VI
+      - VN
+      - VU
+      - WF
+      - WS
+      - YE
+      - YT
+      - ZA
+      - ZM
+      - ZW
+    CatalogsVerticalBatchRequest:
+      type: object
+      title: operate on item batch
+      description: A request object that can have multiple operations on a single batch
+      oneOf:
+      - $ref: '#/components/schemas/CatalogsRetailBatchRequest'
+      - $ref: '#/components/schemas/CatalogsHotelBatchRequest'
+      - $ref: '#/components/schemas/CatalogsCreativeAssetsBatchRequest'
+      discriminator:
+        propertyName: catalog_type
+        mapping:
+          RETAIL: '#/components/schemas/CatalogsRetailBatchRequest'
+          HOTEL: '#/components/schemas/CatalogsHotelBatchRequest'
+          CREATIVE_ASSETS: '#/components/schemas/CatalogsCreativeAssetsBatchRequest'
+    ItemDeleteDiscontinuedBatchRecord:
+      type: object
+      description: Object describing an item batch record to discontinue items
+      properties:
+        item_id:
+          description: The catalog item id in the merchant namespace
+          example: DS0294-M
+          type: string
+    PinMediaSourceImageURL:
+      title: Image URL
+      description: Image URL-based media source
+      type: object
+      properties:
+        source_type:
+          type: string
+          enum:
+          - image_url
+        url:
+          type: string
+        is_standard:
+          type: boolean
+          description: Set the parameter to false to create the new simplified Pin instead of the standard pin. Currently the field is only available to a list of beta users.
+          default: true
+      required:
+      - source_type
+      - url
+    CatalogsItemsRequest:
+      type: object
+      additionalProperties: false
+      description: Request object of catalogs items
+      properties:
+        country:
+          $ref: '#/components/schemas/Country'
+        language:
+          $ref: '#/components/schemas/Language'
+        filters:
+          $ref: '#/components/schemas/CatalogsItemsPostFilters'
+      required:
+      - country
+      - language
+      - filters
+    ItemResponse:
+      type: object
+      description: Object describing an item record
+      anyOf:
+      - type: object
+        properties:
+          catalog_type:
+            $ref: '#/components/schemas/CatalogsType'
+        required:
+        - catalog_type
+        oneOf:
+        - $ref: '#/components/schemas/CatalogsRetailItemResponse'
+        - $ref: '#/components/schemas/CatalogsHotelItemResponse'
+        - $ref: '#/components/schemas/CatalogsCreativeAssetsItemResponse'
+        discriminator:
+          propertyName: catalog_type
+          mapping:
+            RETAIL: '#/components/schemas/CatalogsRetailItemResponse'
+            HOTEL: '#/components/schemas/CatalogsHotelItemResponse'
+            CREATIVE_ASSETS: '#/components/schemas/CatalogsCreativeAssetsItemResponse'
+      - type: object
+        properties:
+          catalog_type:
+            $ref: '#/components/schemas/CatalogsType'
+        required:
+        - catalog_type
+        oneOf:
+        - $ref: '#/components/schemas/CatalogsRetailItemErrorResponse'
+        - $ref: '#/components/schemas/CatalogsHotelItemErrorResponse'
+        - $ref: '#/components/schemas/CatalogsCreativeAssetsItemErrorResponse'
+        discriminator:
+          propertyName: catalog_type
+          mapping:
+            RETAIL: '#/components/schemas/CatalogsRetailItemErrorResponse'
+            HOTEL: '#/components/schemas/CatalogsHotelItemErrorResponse'
+            CREATIVE_ASSETS: '#/components/schemas/CatalogsCreativeAssetsItemErrorResponse'
     CatalogsHotelItemsPostFilter:
       type: object
       properties:
@@ -2563,64 +2748,82 @@ components:
       required:
       - catalog_type
       - hotel_ids
-    CatalogsDeleteHotelItem:
+    CatalogsUpsertRetailItem:
       type: object
-      description: A hotel item to be deleted
+      description: An item to be upserted
       properties:
-        hotel_id:
-          description: The catalog hotel id in the merchant namespace
+        item_id:
+          description: The catalog item id in the merchant namespace
           example: DS0294-M
           type: string
         operation:
           type: string
           enum:
+          - CREATE
+          - UPDATE
+          - UPSERT
           - DELETE
+        attributes:
+          $ref: '#/components/schemas/ItemAttributesRequest'
       required:
-      - hotel_id
+      - item_id
       - operation
-    CatalogsItemsUpsertBatchRequest:
-      description: Request object to upsert catalogs items
+      - attributes
+    CatalogsRetailItemResponse:
+      type: object
+      description: Object describing a retail item record
+      properties:
+        catalog_type:
+          $ref: '#/components/schemas/CatalogsType'
+        item_id:
+          description: The catalog retail item id in the merchant namespace
+          example: DS0294-M
+          type: string
+        pins:
+          description: The pins mapped to the item
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Pin'
+          maxItems: 11
+        attributes:
+          $ref: '#/components/schemas/ItemAttributes'
+      required:
+      - catalog_type
+    PinMediaSourcePinURL:
+      title: Pin URL
+      description: Pin URL-based media source for product pin creation. Currently the field is only available to a list of beta users.
       type: object
       properties:
-        country:
-          $ref: '#/components/schemas/Country'
-        language:
-          $ref: '#/components/schemas/Language'
-        operation:
-          $ref: '#/components/schemas/BatchOperation'
-        items:
-          type: array
-          description: Array with catalogs items
-          items:
-            $ref: '#/components/schemas/ItemUpsertBatchRecord'
-          minItems: 1
-          maxItems: 1000
+        source_type:
+          type: string
+          enum:
+          - pin_url
+        is_affiliate_link:
+          type: boolean
+          description: This is an affiliate link or sponsored product. The FTC requires disclosure for paid partnerships and affiliate products.
+          default: false
       required:
-      - country
-      - language
-      - operation
-      - items
-    CatalogsCreativeAssetsAttributes:
+      - source_type
+    CatalogsCreateCreativeAssetsItem:
       type: object
-      allOf:
-      - type: object
-        properties:
-          image_link:
-            type: string
-            description: The creative assets image.
-            example: https://scene.example.com/image/image_v2.jpg
-          video_link:
-            type: string
-            description: The creative assets video.
-            example: https://scene.example.com/image/image_v2.mp4
-      - $ref: '#/components/schemas/CatalogsUpdatableCreativeAssetsAttributes'
-    CatalogsType:
-      description: Type of the catalog entity.
-      type: string
-      enum:
-      - RETAIL
-      - HOTEL
-      - CREATIVE_ASSETS
+      description: A creative assets item to be created.
+      properties:
+        creative_assets_id:
+          description: The catalog creative assets id in the merchant namespace
+          example: DS0294-M
+          type: string
+        operation:
+          type: string
+          enum:
+          - CREATE
+        attributes:
+          $ref: '#/components/schemas/CatalogsCreativeAssetsAttributes'
+      required:
+      - creative_assets_id
+      - operation
+      - attributes
     CatalogsItemsDeleteDiscontinuedBatchRequest:
       description: Request object to discontinue catalogs items
       type: object
@@ -2642,210 +2845,31 @@ components:
       - language
       - operation
       - items
-    Language:
-      type: string
-      description: Language code, which is among the offical ISO 639-1 language list.
-      example: EN
-      enum:
-      - AM
-      - AR
-      - AZ
-      - BG
-      - BN
-      - BS
-      - CA
-      - CS
-      - DA
-      - DV
-      - DZ
-      - DE
-      - EL
-      - EN
-      - ES
-      - ET
-      - FA
-      - FI
-      - FR
-      - HE
-      - HI
-      - HR
-      - HU
-      - HY
-      - ID
-      - IN
-      - IS
-      - IT
-      - IW
-      - JA
-      - KA
-      - KM
-      - KO
-      - LO
-      - LT
-      - LV
-      - MK
-      - MN
-      - MS
-      - MY
-      - NB
-      - NE
-      - NL
-      - 'NO'
-      - PL
-      - PT
-      - RO
-      - RU
-      - SK
-      - SL
-      - SQ
-      - SR
-      - SV
-      - TL
-      - UK
-      - VI
-      - TE
-      - TH
-      - TR
-      - XX
-      - ZH
-    CatalogsCreativeAssetsItemErrorResponse:
-      type: object
-      description: Object describing a creative assets item error
-      properties:
-        catalog_type:
-          $ref: '#/components/schemas/CatalogsType'
-        creative_assets_id:
-          description: The catalog creative assets id in the merchant namespace
-          example: DS0294-M
-          type: string
-        errors:
-          description: Array with the errors for the item id requested
-          items:
-            $ref: '#/components/schemas/ItemValidationEvent'
-          type: array
-      required:
-      - catalog_type
-    ItemUpsertBatchRecord:
-      type: object
-      description: Object describing an item batch record to upsert items
-      properties:
-        item_id:
-          description: The catalog item id in the merchant namespace
-          example: DS0294-M
-          type: string
-        attributes:
-          $ref: '#/components/schemas/ItemAttributesRequest'
-    CatalogsCreativeAssetsItemsPostFilter:
-      type: object
-      properties:
-        catalog_type:
-          type: string
-          enum:
-          - CREATIVE_ASSETS
-        creative_assets_ids:
-          type: array
-          minItems: 1
-          maxItems: 1000
-          items:
-            type: string
-        catalog_id:
-          type: string
-          pattern: ^\d+$
-          description: Catalog id pertaining to the creative assets item. If not provided, default to oldest creative assets catalog
-      required:
-      - catalog_type
-      - creative_assets_ids
-    CatalogsUpdatableCreativeAssetsAttributes:
-      type: object
-      properties:
-        title:
-          description: The name of the creative assets.
-          type: string
-        description:
-          description: Brief description of the creative assets.
-          type: string
-        link:
-          description: Link to the creative assets page.
-          type: string
-        ios_deep_link:
-          description: IOS deep link to the creative assets page.
-          type:
-          - string
-          - 'null'
-        android_deep_link:
-          description: Link to the creative assets page.
-          type:
-          - string
-          - 'null'
-        google_product_category:
-          description: The categorization of the product based on the standardized Google Product Taxonomy. This is a set taxonomy. Both the text values and numeric codes are accepted.
-          type:
-          - string
-          - 'null'
-        custom_label_0:
-          description: Custom grouping of creative assets.
-          type:
-          - string
-          - 'null'
-        custom_label_1:
-          description: Custom grouping of creative assets.
-          type:
-          - string
-          - 'null'
-        custom_label_2:
-          description: Custom grouping of creative assets.
-          type:
-          - string
-          - 'null'
-        custom_label_3:
-          description: Custom grouping of creative assets.
-          type:
-          - string
-          - 'null'
-        custom_label_4:
-          description: Custom grouping of creative assets.
-          type:
-          - string
-          - 'null'
-        visibility:
-          description: 'Visibility of the creative assets. Must be one of the following values (upper or lowercase): visible, hidden.'
-          type:
-          - string
-          - 'null'
-    CatalogsRetailItemsBatch:
-      type: object
-      description: Object describing the catalogs retail items batch
-      properties:
-        batch_id:
-          description: Id of the catalogs items batch
-          example: 595953100599279259-66753b9bb65c46c49bd8503b27fecf9e
-          type: string
-        created_time:
-          description: 'Time of the batch creation: YYYY-MM-DD''T''hh:mm:ssTZD'
-          example: '2020-01-01T20:10:40-00:00'
-          type: string
-          format: date-time
-          readOnly: true
-        completed_time:
-          description: 'Time of the batch completion: YYYY-MM-DD''T''hh:mm:ssTZD'
-          example: '2022-03-10T15:37:10-00:00'
-          type:
-          - string
-          - 'null'
-          format: date-time
-          readOnly: true
-        status:
-          $ref: '#/components/schemas/BatchOperationStatus'
-        catalog_type:
-          $ref: '#/components/schemas/CatalogsType'
-        items:
-          description: Array with the catalogs items processing records part of the catalogs items batch
-          items:
-            $ref: '#/components/schemas/ItemProcessingRecord'
-          type: array
-      required:
-      - catalog_type
   parameters:
+    query_catalogs_items_filters:
+      name: filters
+      in: query
+      description: Identifies items to be retrieved. This is a required parameter.
+      required: false
+      style: deepObject
+      schema:
+        $ref: '#/components/schemas/CatalogsItemsFilters'
+    query_catalogs_items_language:
+      name: language
+      in: query
+      description: Language for the Catalogs Items
+      example: EN
+      required: true
+      schema:
+        type: string
+    query_catalogs_items_country:
+      name: country
+      in: query
+      description: Country for the Catalogs Items
+      example: US
+      required: true
+      schema:
+        type: string
     query_catalogs_items:
       deprecated: true
       name: item_ids
@@ -2858,30 +2882,6 @@ components:
         type: array
         items:
           type: string
-    query_ad_account_id:
-      name: ad_account_id
-      description: Unique identifier of an ad account.
-      in: query
-      schema:
-        type: string
-        pattern: ^\d+$
-        maxLength: 18
-    query_catalogs_items_country:
-      name: country
-      in: query
-      description: Country for the Catalogs Items
-      example: US
-      required: true
-      schema:
-        type: string
-    query_catalogs_items_language:
-      name: language
-      in: query
-      description: Language for the Catalogs Items
-      example: EN
-      required: true
-      schema:
-        type: string
     path_catalogs_items_batch_id:
       name: batch_id
       in: path
@@ -2890,14 +2890,14 @@ components:
       required: true
       schema:
         type: string
-    query_catalogs_items_filters:
-      name: filters
+    query_ad_account_id:
+      name: ad_account_id
+      description: Unique identifier of an ad account.
       in: query
-      description: Identifies items to be retrieved. This is a required parameter.
-      required: false
-      style: deepObject
       schema:
-        $ref: '#/components/schemas/CatalogsItemsFilters'
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
   securitySchemes:
     pinterest_oauth2:
       type: oauth2

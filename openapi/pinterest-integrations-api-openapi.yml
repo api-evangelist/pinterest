@@ -325,102 +325,12 @@ paths:
       - Integrations
 components:
   schemas:
-    IntegrationRequest:
-      type: object
-      description: Schema used for creating the integration metadata.
-      properties:
-        external_business_id:
-          type:
-          - string
-          - 'null'
-          description: External business ID for the integration.
-        connected_merchant_id:
-          type: string
-        connected_advertiser_id:
-          type: string
-        connected_lba_id:
-          type: string
-        connected_tag_id:
-          type: string
-        partner_access_token:
-          type: string
-        partner_refresh_token:
-          type: string
-        partner_primary_email:
-          type: string
-        partner_access_token_expiry:
-          type: integer
-        partner_refresh_token_expiry:
-          type: integer
-        scopes:
-          type: string
-        additional_id_1:
-          type: string
-        partner_metadata:
-          type: string
-    DetailedError:
-      title: Detailed Error
-      description: Used for including extra details to a base error
+    IntegrationLogsSuccessResponse:
+      description: Response when logs are successfully processed.
       type: object
       properties:
-        code:
-          type: integer
         message:
           type: string
-        details:
-          type: object
-      required:
-      - code
-      - message
-      - details
-    Error:
-      title: Error
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
-    IntegrationLogClientError:
-      type: object
-      additionalProperties: false
-      description: System error details included in the log sent by the client.
-      properties:
-        cause:
-          type: string
-          description: Original cause of the error.
-          maxLength: 512
-        column_number:
-          type: integer
-          description: Column number in the line of the file that raised the error.
-        file_name:
-          type: string
-          description: Filename where the error happened.
-          maxLength: 256
-        line_number:
-          type: integer
-          description: Line number where the error happened.
-        message:
-          type: string
-          description: Human-readable description of the error.
-          maxLength: 512
-        message_detail:
-          type: string
-          description: More detail about the message.
-          maxLength: 1024
-        name:
-          type: string
-          description: Filename where the error happened.
-          maxLength: 256
-        number:
-          type: integer
-          description: Integer that specifies the error code.
-        stack_trace:
-          type: string
-          description: Stack trace of where the error happened.
     IntegrationMetadata:
       title: integration
       description: Integration metadata
@@ -472,6 +382,17 @@ components:
         updated_timestamp: 1621350033000
         additional_id_1: '128464'
         partner_metadata: ''
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
     IntegrationLogClientRequest:
       type: object
       additionalProperties: false
@@ -511,19 +432,6 @@ components:
             type: string
         response_status_code:
           type: integer
-    Paginated:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            type: object
-        bookmark:
-          type:
-          - string
-          - 'null'
-      required:
-      - items
     IntegrationLog:
       type: object
       additionalProperties: false
@@ -590,51 +498,6 @@ components:
           $ref: '#/components/schemas/IntegrationLogClientError'
         request:
           $ref: '#/components/schemas/IntegrationLogClientRequest'
-    IntegrationLogsSuccessResponse:
-      description: Response when logs are successfully processed.
-      type: object
-      properties:
-        message:
-          type: string
-    IntegrationLogsRequest:
-      type: object
-      additionalProperties: false
-      description: Batch of logs sent from an integration application.
-      required:
-      - logs
-      properties:
-        logs:
-          type: array
-          items:
-            $ref: '#/components/schemas/IntegrationLog'
-    IntegrationRequestPatch:
-      type: object
-      description: Schema used for updating the integration metadata.
-      properties:
-        connected_merchant_id:
-          type: string
-        connected_advertiser_id:
-          type: string
-        connected_lba_id:
-          type: string
-        connected_tag_id:
-          type: string
-        partner_access_token:
-          type: string
-        partner_refresh_token:
-          type: string
-        partner_primary_email:
-          type: string
-        partner_access_token_expiry:
-          type: number
-        partner_refresh_token_expiry:
-          type: number
-        scopes:
-          type: string
-        additional_id_1:
-          type: string
-        partner_metadata:
-          type: string
     IntegrationRecord:
       title: Integration record
       description: Integration record
@@ -721,12 +584,149 @@ components:
         additional_id_1: '123456'
         created_time: 1621350033000
         updated_time: 1621350033000
+    IntegrationLogsRequest:
+      type: object
+      additionalProperties: false
+      description: Batch of logs sent from an integration application.
+      required:
+      - logs
+      properties:
+        logs:
+          type: array
+          items:
+            $ref: '#/components/schemas/IntegrationLog'
+    IntegrationLogClientError:
+      type: object
+      additionalProperties: false
+      description: System error details included in the log sent by the client.
+      properties:
+        cause:
+          type: string
+          description: Original cause of the error.
+          maxLength: 512
+        column_number:
+          type: integer
+          description: Column number in the line of the file that raised the error.
+        file_name:
+          type: string
+          description: Filename where the error happened.
+          maxLength: 256
+        line_number:
+          type: integer
+          description: Line number where the error happened.
+        message:
+          type: string
+          description: Human-readable description of the error.
+          maxLength: 512
+        message_detail:
+          type: string
+          description: More detail about the message.
+          maxLength: 1024
+        name:
+          type: string
+          description: Filename where the error happened.
+          maxLength: 256
+        number:
+          type: integer
+          description: Integer that specifies the error code.
+        stack_trace:
+          type: string
+          description: Stack trace of where the error happened.
+    IntegrationRequest:
+      type: object
+      description: Schema used for creating the integration metadata.
+      properties:
+        external_business_id:
+          type:
+          - string
+          - 'null'
+          description: External business ID for the integration.
+        connected_merchant_id:
+          type: string
+        connected_advertiser_id:
+          type: string
+        connected_lba_id:
+          type: string
+        connected_tag_id:
+          type: string
+        partner_access_token:
+          type: string
+        partner_refresh_token:
+          type: string
+        partner_primary_email:
+          type: string
+        partner_access_token_expiry:
+          type: integer
+        partner_refresh_token_expiry:
+          type: integer
+        scopes:
+          type: string
+        additional_id_1:
+          type: string
+        partner_metadata:
+          type: string
+    IntegrationRequestPatch:
+      type: object
+      description: Schema used for updating the integration metadata.
+      properties:
+        connected_merchant_id:
+          type: string
+        connected_advertiser_id:
+          type: string
+        connected_lba_id:
+          type: string
+        connected_tag_id:
+          type: string
+        partner_access_token:
+          type: string
+        partner_refresh_token:
+          type: string
+        partner_primary_email:
+          type: string
+        partner_access_token_expiry:
+          type: number
+        partner_refresh_token_expiry:
+          type: number
+        scopes:
+          type: string
+        additional_id_1:
+          type: string
+        partner_metadata:
+          type: string
+    DetailedError:
+      title: Detailed Error
+      description: Used for including extra details to a base error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        details:
+          type: object
+      required:
+      - code
+      - message
+      - details
+    Paginated:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+        bookmark:
+          type:
+          - string
+          - 'null'
+      required:
+      - items
   parameters:
-    path_external_business_id:
-      name: external_business_id
-      description: External business ID for the integration.
-      in: path
-      required: true
+    query_bookmark:
+      name: bookmark
+      description: Cursor used to fetch the next page of items
+      in: query
+      required: false
       schema:
         type: string
     query_page_size:
@@ -739,11 +739,11 @@ components:
         minimum: 1
         maximum: 250
         default: 25
-    query_bookmark:
-      name: bookmark
-      description: Cursor used to fetch the next page of items
-      in: query
-      required: false
+    path_external_business_id:
+      name: external_business_id
+      description: External business ID for the integration.
+      in: path
+      required: true
       schema:
         type: string
   securitySchemes:

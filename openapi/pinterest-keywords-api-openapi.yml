@@ -78,7 +78,198 @@ paths:
       tags:
       - Keywords
 components:
+  schemas:
+    GenderList:
+      title: Gender
+      type: array
+      example:
+      - female
+      - unknown
+      items:
+        type: string
+        enum:
+        - female
+        - male
+        - unknown
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    TrendType:
+      title: TrendType
+      type: string
+      example: monthly
+      enum:
+      - growing
+      - monthly
+      - yearly
+      - seasonal
+    TrendingKeywordsResponse:
+      type: object
+      properties:
+        trends:
+          description: 'The top trending keywords for the specified trend type in the requested region.<br />
+
+            Results are ordered, with the first element in the array representing the #1 top trend.'
+          type: array
+          items:
+            type: object
+            properties:
+              keyword:
+                description: The keyword that is trending.
+                example: couples halloween costumes
+                type: string
+                minLength: 1
+              pct_growth_wow:
+                description: 'The week-over-week percent change in search volume for this keyword.<br />
+
+                  For example, a value of "50" would represent a 50% increase in searches in the last seven days compared to the week prior.<br />
+
+                  **Note**: growth rates are rounded, with a maximum of +/- 10000% change.  A value of 10001 indicates that this keyword experienced > 10000% week-over-week growth.'
+                example: 50
+                type: integer
+              pct_growth_mom:
+                description: 'The month-over-month percent change in search volume for this keyword.<br />
+
+                  For example, a value of "400" would represent a 400% increase in searches in the last 30 days compared to the month prior.<br />
+
+                  **Note**: growth rates are rounded, with a maximum of +/- 10000% change.  A value of 10001 indicates that this keyword experienced > 10000% month-over-month growth.'
+                example: 400
+                type: integer
+              pct_growth_yoy:
+                description: 'The year-over-year percent change in search volume for this keyword.<br />
+
+                  For example, a value of "-5" would represent a 5% decrease in searches in the last 365 days compared to the month prior.<br />
+
+                  **Note**: growth rates are rounded, with a maximum of +/- 10000% change.  A value of 10001 indicates that this keyword experienced > 10000% year-over-year growth.'
+                example: -5
+                type: integer
+              time_series:
+                description: 'A sequence of weekly observations of the relative search volume for this keyword over the past year.<br />
+
+                  These values are normalized to a [0-100] range, and can be used to visualize the history of user interest in this keyword.
+
+                  By default, normalization is applied independently to the time series of each keyword, but the `normalize_against_group` query parameter can be used in cases where you wish to compare relative volume between keywords.<br />
+
+                  **Note**: The date of each observation is in ISO-8601 format and represents the *end* of the week.  For example, a value of `2023-10-31` would include searches that happened between `2023-10-25` and `2023-10-31`.'
+                example:
+                  '2023-10-10': 31
+                  '2023-10-17': 54
+                  '2023-10-24': 77
+                  '2023-10-31': 100
+                type: object
+                properties:
+                  date:
+                    type: string
+                    format: date
+                additionalProperties:
+                  type: integer
+    TrendsSupportedRegion:
+      title: Region
+      type: string
+      example: GB+IE
+      enum:
+      - US
+      - CA
+      - DE
+      - FR
+      - ES
+      - IT
+      - DE+AT+CH
+      - GB+IE
+      - IT+ES+PT+GR+MT
+      - PL+RO+HU+SK+CZ
+      - SE+DK+FI+NO
+      - NL+BE+LU
+      - AR
+      - BR
+      - CO
+      - MX
+      - MX+AR+CO+CL
+      - AU+NZ
+    AgeBucketList:
+      title: AgeRange
+      type: array
+      example:
+      - 35-44
+      - 50-54
+      items:
+        type: string
+        enum:
+        - 18-24
+        - 25-34
+        - 35-44
+        - 45-49
+        - 50-54
+        - 55-64
+        - 65+
+    L1InterestList:
+      title: Interest
+      type: array
+      example:
+      - beauty
+      - womens_fashion
+      items:
+        type: string
+        enum:
+        - animals
+        - architecture
+        - art
+        - beauty
+        - childrens_fashion
+        - design
+        - diy_and_crafts
+        - education
+        - electronics
+        - entertainment
+        - event_planning
+        - finance
+        - food_and_drinks
+        - gardening
+        - health
+        - home_decor
+        - mens_fashion
+        - parenting
+        - quotes
+        - sport
+        - travel
+        - vehicles
+        - wedding
+        - womens_fashion
+    KeywordList:
+      title: Keywords
+      type: array
+      example:
+      - recipes
+      - dessert
+      items:
+        type: string
+        minLength: 1
+        maxLength: 100
+      minItems: 1
+      maxItems: 50
   parameters:
+    query_gender_list:
+      name: genders
+      description: 'If set, filters the results to trends among users who identify with the specified gender(s).<br />
+
+        If unset, trends among all genders will be returned.<br />
+
+        The `unknown` group includes users with unspecified or customized gender profile settings.'
+      example:
+      - female
+      - unknown
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/GenderList'
     query_trending_keyword_limit:
       name: limit
       description: The maximum number of trending keywords that will be returned. Keywords are returned in trend-ranked order, so a `limit` of 50 will return the top 50 trends.
@@ -90,6 +281,21 @@ components:
         minimum: 1
         maximum: 50
         default: 50
+    path_trend_type:
+      name: trend_type
+      description: 'The methodology used to rank how trendy a keyword is.
+
+        - `growing` trends have high upward growth in search volume over the last quarter
+
+        - `monthly` trends have high search volume in the last month
+
+        - `yearly` trends have high search volume in the last year
+
+        - `seasonal` trends have high upward growth in search volume over the last month and exhibit a seasonal recurring pattern (typically annual)'
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/TrendType'
     query_interest_list:
       name: interests
       description: 'If set, filters the results to trends associated with the specified interests.<br />
@@ -152,18 +358,6 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/L1InterestList'
-    query_age_bucket_list:
-      name: ages
-      description: 'If set, filters the results to trends among users in the specified age range(s).<br />
-
-        If unset, trends among all age groups will be returned.'
-      example:
-      - 35-44
-      - 50-54
-      in: query
-      required: false
-      schema:
-        $ref: '#/components/schemas/AgeBucketList'
     path_trend_region:
       name: region
       description: 'The geographic region of interest. Only top trends within the specified region will be returned.<br />
@@ -209,20 +403,6 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/TrendsSupportedRegion'
-    query_gender_list:
-      name: genders
-      description: 'If set, filters the results to trends among users who identify with the specified gender(s).<br />
-
-        If unset, trends among all genders will be returned.<br />
-
-        The `unknown` group includes users with unspecified or customized gender profile settings.'
-      example:
-      - female
-      - unknown
-      in: query
-      required: false
-      schema:
-        $ref: '#/components/schemas/GenderList'
     query_normalize_against_group:
       name: normalize_against_group
       description: 'Governs how the resulting time series data will be normalized to a [0-100] scale.<br />
@@ -236,198 +416,18 @@ components:
         type: boolean
         example: true
         default: false
-    path_trend_type:
-      name: trend_type
-      description: 'The methodology used to rank how trendy a keyword is.
+    query_age_bucket_list:
+      name: ages
+      description: 'If set, filters the results to trends among users in the specified age range(s).<br />
 
-        - `growing` trends have high upward growth in search volume over the last quarter
-
-        - `monthly` trends have high search volume in the last month
-
-        - `yearly` trends have high search volume in the last year
-
-        - `seasonal` trends have high upward growth in search volume over the last month and exhibit a seasonal recurring pattern (typically annual)'
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/TrendType'
-  schemas:
-    TrendsSupportedRegion:
-      title: Region
-      type: string
-      example: GB+IE
-      enum:
-      - US
-      - CA
-      - DE
-      - FR
-      - ES
-      - IT
-      - DE+AT+CH
-      - GB+IE
-      - IT+ES+PT+GR+MT
-      - PL+RO+HU+SK+CZ
-      - SE+DK+FI+NO
-      - NL+BE+LU
-      - AR
-      - BR
-      - CO
-      - MX
-      - MX+AR+CO+CL
-      - AU+NZ
-    Error:
-      title: Error
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
-    TrendingKeywordsResponse:
-      type: object
-      properties:
-        trends:
-          description: 'The top trending keywords for the specified trend type in the requested region.<br />
-
-            Results are ordered, with the first element in the array representing the #1 top trend.'
-          type: array
-          items:
-            type: object
-            properties:
-              keyword:
-                description: The keyword that is trending.
-                example: couples halloween costumes
-                type: string
-                minLength: 1
-              pct_growth_wow:
-                description: 'The week-over-week percent change in search volume for this keyword.<br />
-
-                  For example, a value of "50" would represent a 50% increase in searches in the last seven days compared to the week prior.<br />
-
-                  **Note**: growth rates are rounded, with a maximum of +/- 10000% change.  A value of 10001 indicates that this keyword experienced > 10000% week-over-week growth.'
-                example: 50
-                type: integer
-              pct_growth_mom:
-                description: 'The month-over-month percent change in search volume for this keyword.<br />
-
-                  For example, a value of "400" would represent a 400% increase in searches in the last 30 days compared to the month prior.<br />
-
-                  **Note**: growth rates are rounded, with a maximum of +/- 10000% change.  A value of 10001 indicates that this keyword experienced > 10000% month-over-month growth.'
-                example: 400
-                type: integer
-              pct_growth_yoy:
-                description: 'The year-over-year percent change in search volume for this keyword.<br />
-
-                  For example, a value of "-5" would represent a 5% decrease in searches in the last 365 days compared to the month prior.<br />
-
-                  **Note**: growth rates are rounded, with a maximum of +/- 10000% change.  A value of 10001 indicates that this keyword experienced > 10000% year-over-year growth.'
-                example: -5
-                type: integer
-              time_series:
-                description: 'A sequence of weekly observations of the relative search volume for this keyword over the past year.<br />
-
-                  These values are normalized to a [0-100] range, and can be used to visualize the history of user interest in this keyword.
-
-                  By default, normalization is applied independently to the time series of each keyword, but the `normalize_against_group` query parameter can be used in cases where you wish to compare relative volume between keywords.<br />
-
-                  **Note**: The date of each observation is in ISO-8601 format and represents the *end* of the week.  For example, a value of `2023-10-31` would include searches that happened between `2023-10-25` and `2023-10-31`.'
-                example:
-                  '2023-10-10': 31
-                  '2023-10-17': 54
-                  '2023-10-24': 77
-                  '2023-10-31': 100
-                type: object
-                properties:
-                  date:
-                    type: string
-                    format: date
-                additionalProperties:
-                  type: integer
-    KeywordList:
-      title: Keywords
-      type: array
-      example:
-      - recipes
-      - dessert
-      items:
-        type: string
-        minLength: 1
-        maxLength: 100
-      minItems: 1
-      maxItems: 50
-    AgeBucketList:
-      title: AgeRange
-      type: array
+        If unset, trends among all age groups will be returned.'
       example:
       - 35-44
       - 50-54
-      items:
-        type: string
-        enum:
-        - 18-24
-        - 25-34
-        - 35-44
-        - 45-49
-        - 50-54
-        - 55-64
-        - 65+
-    L1InterestList:
-      title: Interest
-      type: array
-      example:
-      - beauty
-      - womens_fashion
-      items:
-        type: string
-        enum:
-        - animals
-        - architecture
-        - art
-        - beauty
-        - childrens_fashion
-        - design
-        - diy_and_crafts
-        - education
-        - electronics
-        - entertainment
-        - event_planning
-        - finance
-        - food_and_drinks
-        - gardening
-        - health
-        - home_decor
-        - mens_fashion
-        - parenting
-        - quotes
-        - sport
-        - travel
-        - vehicles
-        - wedding
-        - womens_fashion
-    GenderList:
-      title: Gender
-      type: array
-      example:
-      - female
-      - unknown
-      items:
-        type: string
-        enum:
-        - female
-        - male
-        - unknown
-    TrendType:
-      title: TrendType
-      type: string
-      example: monthly
-      enum:
-      - growing
-      - monthly
-      - yearly
-      - seasonal
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/AgeBucketList'
   securitySchemes:
     pinterest_oauth2:
       type: oauth2

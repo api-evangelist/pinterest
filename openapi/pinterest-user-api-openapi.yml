@@ -566,19 +566,77 @@ paths:
       x-sandbox: disabled
 components:
   schemas:
-    Paginated:
+    UserSummary:
+      title: UserSummary
       type: object
       properties:
-        items:
-          type: array
-          items:
-            type: object
-        bookmark:
-          type:
-          - string
-          - 'null'
-      required:
-      - items
+        username:
+          title: username
+          type: string
+          description: Username
+          example: username
+        type:
+          title: type
+          type: string
+          description: Always "user"
+          example: user
+    LinkedBusiness:
+      title: LinkedBusiness
+      type: object
+      properties:
+        username:
+          title: username
+          type: string
+          description: Username
+          example: username
+        image_small_url:
+          title: image_small_url
+          type: string
+          description: image_small_url
+          example: https://www.example.com/dj23454f53dfk2324.jpg
+        image_medium_url:
+          title: image_medium_url
+          type: string
+          description: image_medium_url
+          example: https://www.example.com/dj23454f53dfk2324.jpg
+        image_large_url:
+          title: image_large_url
+          type: string
+          description: image_large_url
+          example: https://www.example.com/dj23454f53dfk2324.jpg
+        image_xlarge_url:
+          title: image_xlarge_url
+          type: string
+          description: image_xlarge_url
+          example: https://www.example.com/dj23454f53dfk2324.jpg
+    UserWebsiteVerificationCode:
+      title: UserWebsiteVerificationCode
+      type: object
+      properties:
+        verification_code:
+          title: verification_code
+          type: string
+          description: Code to check against the user claiming the website
+          example: e1edcc1a43976c646367e9c6c9a9b7b6
+        dns_txt_record:
+          title: dns_txt_record
+          type: string
+          description: DNS TXT record to check against for the website to be claimed
+          example: pinterest-site-verification=e1edcc1a43976c646367e9c6c9a9b7b6
+        metatag:
+          title: metatag
+          type: string
+          description: Metatag the verification process searchs for the website to be claimed
+          example: <meta name="p:domain_verify" content="e1edcc1a43976c646367e9c6c9a9b7b6"/>
+        filename:
+          title: filename
+          type: string
+          description: File expected to find on the website being claimed
+          example: pinterest-e1edc.html
+        file_content:
+          title: file_content
+          type: string
+          description: A full html file to upload to the website in order for it to be claimed
     UserFollowingFeedType:
       description: Specifies the type of followees to be kept when filtering them.
       enum:
@@ -618,185 +676,6 @@ components:
       - AUDIENCE_SEGMENT_SMALLER_THAN_THRESHOLD
       - AUDIENCE_TOTAL_SMALLER_THAN_THRESHOLD
       - BEFORE_PRODUCT_GROUP_FILTER_START_DATE
-    FollowUserRequest:
-      title: FollowUserRequest
-      type: object
-      properties:
-        auto_follow:
-          title: auto_follow
-          type: boolean
-          description: Whether this request comes as result of auto-follow after clicking on a link. Follow links can be used by partners on their site or in emails. Only selected partners can be followed this way. We verify that partner can be auto-followed.
-          default: false
-          example: false
-    AnalyticsMetricsResponse:
-      type: object
-      properties:
-        summary_metrics:
-          description: The metric name and value over the requested period for each requested metric
-          type: object
-          additionalProperties:
-            type: number
-          example:
-            CLOSEUP: 1
-            CLOSEUP_RATE: 0
-            ENGAGEMENT: 1
-            ENGAGEMENT_RATE: 0
-            IMPRESSION: 240
-            OUTBOUND_CLICK: 20
-            OUTBOUND_CLICK_RATE: 0.08
-            PIN_CLICK: 37
-            PIN_CLICK_RATE: 0.15
-            PROFILE_VISIT: 0
-            QUARTILE_95_PERCENT_VIEW: 8
-            SAVE: 20
-            SAVE_RATE: 0.18
-            VIDEO_10S_VIEW: 2
-            VIDEO_AVG_WATCH_TIME: 2507.75
-            VIDEO_MRC_VIEW: 20
-            VIDEO_START: 29
-            VIDEO_V50_WATCH_TIME: 10031
-        daily_metrics:
-          description: Array with the requested daily metric records
-          items:
-            $ref: '#/components/schemas/AnalyticsDailyMetrics'
-          type: array
-    UserWebsiteVerificationCode:
-      title: UserWebsiteVerificationCode
-      type: object
-      properties:
-        verification_code:
-          title: verification_code
-          type: string
-          description: Code to check against the user claiming the website
-          example: e1edcc1a43976c646367e9c6c9a9b7b6
-        dns_txt_record:
-          title: dns_txt_record
-          type: string
-          description: DNS TXT record to check against for the website to be claimed
-          example: pinterest-site-verification=e1edcc1a43976c646367e9c6c9a9b7b6
-        metatag:
-          title: metatag
-          type: string
-          description: Metatag the verification process searchs for the website to be claimed
-          example: <meta name="p:domain_verify" content="e1edcc1a43976c646367e9c6c9a9b7b6"/>
-        filename:
-          title: filename
-          type: string
-          description: File expected to find on the website being claimed
-          example: pinterest-e1edc.html
-        file_content:
-          title: file_content
-          type: string
-          description: A full html file to upload to the website in order for it to be claimed
-    TopVideoPinsAnalyticsResponse:
-      type: object
-      properties:
-        date_availability:
-          type: object
-          properties:
-            latest_available_timestamp:
-              type: number
-              example: 1649116799000
-            is_realtime:
-              type: boolean
-              example: false
-        pins:
-          type: array
-          items:
-            description: Array with metrics, status, and pin id for the requested metric
-            type: object
-            properties:
-              metrics:
-                description: The metric name and daily value for each requested metric
-                type: object
-                additionalProperties:
-                  type: number
-                example:
-                  IMPRESSION: 7
-                  QUARTILE_95_PERCENT_VIEW: 2
-                  SAVE: 1
-                  VIDEO_10S_VIEW: 5
-                  VIDEO_AVG_WATCH_TIME: 86989
-                  VIDEO_MRC_VIEW: 2
-                  VIDEO_START: 2
-                  VIDEO_V50_WATCH_TIME: 173979
-                  OUTBOUND_CLICK: 2
-              data_status:
-                type: object
-                additionalProperties:
-                  $ref: '#/components/schemas/DataStatus'
-              pin_id:
-                description: The pin id
-                type: string
-                example: '642396334344813594'
-        sort_by:
-          type: string
-          enum:
-          - SAVE
-          - IMPRESSION
-          - OUTBOUND_CLICK
-          - VIDEO_MRC_VIEW
-          - VIDEO_AVG_WATCH_TIME
-          - VIDEO_V50_WATCH_TIME
-          - QUARTILE_95_PERCENT_VIEW
-          - VIDEO_10S_VIEW
-          - VIDEO_START
-          example: IMPRESSION
-    AnalyticsResponse:
-      type: object
-      additionalProperties:
-        $ref: '#/components/schemas/AnalyticsMetricsResponse'
-    TopPinsAnalyticsResponse:
-      type: object
-      properties:
-        date_availability:
-          type: object
-          properties:
-            latest_available_timestamp:
-              type: number
-              example: 1649116799000
-            is_realtime:
-              type: boolean
-              example: false
-        pins:
-          type: array
-          items:
-            description: Array with metrics, status, and pin id for the requested metric
-            type: object
-            properties:
-              metrics:
-                $ref: '#/components/schemas/Metrics'
-              data_status:
-                type: object
-                additionalProperties:
-                  $ref: '#/components/schemas/DataStatus'
-              pin_id:
-                description: The pin id
-                type: string
-                example: '642396334344813594'
-        sort_by:
-          type: string
-          enum:
-          - ENGAGEMENT
-          - SAVE
-          - IMPRESSION
-          - OUTBOUND_CLICK
-          - PIN_CLICK
-          example: IMPRESSION
-    UserSummary:
-      title: UserSummary
-      type: object
-      properties:
-        username:
-          title: username
-          type: string
-          description: Username
-          example: username
-        type:
-          title: type
-          type: string
-          description: Always "user"
-          example: user
     BoardOwner:
       title: Board owner
       type: object
@@ -804,17 +683,29 @@ components:
         username:
           type: string
           readOnly: true
-    Error:
-      title: Error
+    Metrics:
+      description: The metric name and daily value for each requested metric
       type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
+      additionalProperties:
+        type: number
+      example:
+        CLOSEUP: 1
+        CLOSEUP_RATE: 0
+        ENGAGEMENT: 1
+        ENGAGEMENT_RATE: 0
+        IMPRESSION: 240
+        OUTBOUND_CLICK: 20
+        OUTBOUND_CLICK_RATE: 0.08
+        PIN_CLICK: 37
+        PIN_CLICK_RATE: 0.15
+        QUARTILE_95_PERCENT_VIEW: 8
+        SAVE: 20
+        SAVE_RATE: 0.18
+        VIDEO_10S_VIEW: 2
+        VIDEO_AVG_WATCH_TIME: 2507.75
+        VIDEO_MRC_VIEW: 20
+        VIDEO_START: 29
+        VIDEO_V50_WATCH_TIME: 10031
     UserWebsiteVerifyRequest:
       title: User website verification request
       description: User website verification request
@@ -830,54 +721,33 @@ components:
           - FILENAME
           - METATAG
           - DNSTXT
-    UserWebsiteSummary:
-      title: UserWebsiteSummary
+    AnalyticsResponse:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/AnalyticsMetricsResponse'
+    FollowUserRequest:
+      title: FollowUserRequest
       type: object
       properties:
-        website:
-          title: website
-          type: string
-          description: Website with path or domain only
-          example: mysite.test
-        status:
-          title: status
-          type: string
-          description: Status of the verification process
-          example: success
-        verified_at:
-          title: verified_at
-          type: string
-          description: UTC timestamp when the verification happened - sometimes missing
-          example: '2022-12-14T21:03:01.602000'
-    LinkedBusiness:
-      title: LinkedBusiness
+        auto_follow:
+          title: auto_follow
+          type: boolean
+          description: Whether this request comes as result of auto-follow after clicking on a link. Follow links can be used by partners on their site or in emails. Only selected partners can be followed this way. We verify that partner can be auto-followed.
+          default: false
+          example: false
+    Paginated:
       type: object
       properties:
-        username:
-          title: username
-          type: string
-          description: Username
-          example: username
-        image_small_url:
-          title: image_small_url
-          type: string
-          description: image_small_url
-          example: https://www.example.com/dj23454f53dfk2324.jpg
-        image_medium_url:
-          title: image_medium_url
-          type: string
-          description: image_medium_url
-          example: https://www.example.com/dj23454f53dfk2324.jpg
-        image_large_url:
-          title: image_large_url
-          type: string
-          description: image_large_url
-          example: https://www.example.com/dj23454f53dfk2324.jpg
-        image_xlarge_url:
-          title: image_xlarge_url
-          type: string
-          description: image_xlarge_url
-          example: https://www.example.com/dj23454f53dfk2324.jpg
+        items:
+          type: array
+          items:
+            type: object
+        bookmark:
+          type:
+          - string
+          - 'null'
+      required:
+      - items
     Account:
       type: object
       readOnly: true
@@ -941,40 +811,6 @@ components:
           readOnly: true
           example: 163
           description: User account monthly views.
-    AnalyticsDailyMetrics:
-      type: object
-      properties:
-        data_status:
-          $ref: '#/components/schemas/DataStatus'
-        date:
-          description: 'Metrics date (UTC): YYYY-MM-DD.'
-          example: '2019-12-01'
-          type: string
-        metrics:
-          $ref: '#/components/schemas/Metrics'
-    Metrics:
-      description: The metric name and daily value for each requested metric
-      type: object
-      additionalProperties:
-        type: number
-      example:
-        CLOSEUP: 1
-        CLOSEUP_RATE: 0
-        ENGAGEMENT: 1
-        ENGAGEMENT_RATE: 0
-        IMPRESSION: 240
-        OUTBOUND_CLICK: 20
-        OUTBOUND_CLICK_RATE: 0.08
-        PIN_CLICK: 37
-        PIN_CLICK_RATE: 0.15
-        QUARTILE_95_PERCENT_VIEW: 8
-        SAVE: 20
-        SAVE_RATE: 0.18
-        VIDEO_10S_VIEW: 2
-        VIDEO_AVG_WATCH_TIME: 2507.75
-        VIDEO_MRC_VIEW: 20
-        VIDEO_START: 29
-        VIDEO_V50_WATCH_TIME: 10031
     Board:
       title: Board
       description: Board
@@ -1058,7 +894,253 @@ components:
           - SECRET
       required:
       - name
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    UserWebsiteSummary:
+      title: UserWebsiteSummary
+      type: object
+      properties:
+        website:
+          title: website
+          type: string
+          description: Website with path or domain only
+          example: mysite.test
+        status:
+          title: status
+          type: string
+          description: Status of the verification process
+          example: success
+        verified_at:
+          title: verified_at
+          type: string
+          description: UTC timestamp when the verification happened - sometimes missing
+          example: '2022-12-14T21:03:01.602000'
+    TopVideoPinsAnalyticsResponse:
+      type: object
+      properties:
+        date_availability:
+          type: object
+          properties:
+            latest_available_timestamp:
+              type: number
+              example: 1649116799000
+            is_realtime:
+              type: boolean
+              example: false
+        pins:
+          type: array
+          items:
+            description: Array with metrics, status, and pin id for the requested metric
+            type: object
+            properties:
+              metrics:
+                description: The metric name and daily value for each requested metric
+                type: object
+                additionalProperties:
+                  type: number
+                example:
+                  IMPRESSION: 7
+                  QUARTILE_95_PERCENT_VIEW: 2
+                  SAVE: 1
+                  VIDEO_10S_VIEW: 5
+                  VIDEO_AVG_WATCH_TIME: 86989
+                  VIDEO_MRC_VIEW: 2
+                  VIDEO_START: 2
+                  VIDEO_V50_WATCH_TIME: 173979
+                  OUTBOUND_CLICK: 2
+              data_status:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/DataStatus'
+              pin_id:
+                description: The pin id
+                type: string
+                example: '642396334344813594'
+        sort_by:
+          type: string
+          enum:
+          - SAVE
+          - IMPRESSION
+          - OUTBOUND_CLICK
+          - VIDEO_MRC_VIEW
+          - VIDEO_AVG_WATCH_TIME
+          - VIDEO_V50_WATCH_TIME
+          - QUARTILE_95_PERCENT_VIEW
+          - VIDEO_10S_VIEW
+          - VIDEO_START
+          example: IMPRESSION
+    AnalyticsMetricsResponse:
+      type: object
+      properties:
+        summary_metrics:
+          description: The metric name and value over the requested period for each requested metric
+          type: object
+          additionalProperties:
+            type: number
+          example:
+            CLOSEUP: 1
+            CLOSEUP_RATE: 0
+            ENGAGEMENT: 1
+            ENGAGEMENT_RATE: 0
+            IMPRESSION: 240
+            OUTBOUND_CLICK: 20
+            OUTBOUND_CLICK_RATE: 0.08
+            PIN_CLICK: 37
+            PIN_CLICK_RATE: 0.15
+            PROFILE_VISIT: 0
+            QUARTILE_95_PERCENT_VIEW: 8
+            SAVE: 20
+            SAVE_RATE: 0.18
+            VIDEO_10S_VIEW: 2
+            VIDEO_AVG_WATCH_TIME: 2507.75
+            VIDEO_MRC_VIEW: 20
+            VIDEO_START: 29
+            VIDEO_V50_WATCH_TIME: 10031
+        daily_metrics:
+          description: Array with the requested daily metric records
+          items:
+            $ref: '#/components/schemas/AnalyticsDailyMetrics'
+          type: array
+    TopPinsAnalyticsResponse:
+      type: object
+      properties:
+        date_availability:
+          type: object
+          properties:
+            latest_available_timestamp:
+              type: number
+              example: 1649116799000
+            is_realtime:
+              type: boolean
+              example: false
+        pins:
+          type: array
+          items:
+            description: Array with metrics, status, and pin id for the requested metric
+            type: object
+            properties:
+              metrics:
+                $ref: '#/components/schemas/Metrics'
+              data_status:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/DataStatus'
+              pin_id:
+                description: The pin id
+                type: string
+                example: '642396334344813594'
+        sort_by:
+          type: string
+          enum:
+          - ENGAGEMENT
+          - SAVE
+          - IMPRESSION
+          - OUTBOUND_CLICK
+          - PIN_CLICK
+          example: IMPRESSION
+    AnalyticsDailyMetrics:
+      type: object
+      properties:
+        data_status:
+          $ref: '#/components/schemas/DataStatus'
+        date:
+          description: 'Metrics date (UTC): YYYY-MM-DD.'
+          example: '2019-12-01'
+          type: string
+        metrics:
+          $ref: '#/components/schemas/Metrics'
   parameters:
+    query_created_in_last_n_days:
+      name: created_in_last_n_days
+      in: query
+      schema:
+        type: integer
+        enum:
+        - 30
+      description: Get metrics for pins created in the last "n" days.
+      example: 30
+    query_metric_types:
+      description: 'Metric types to get data for, default is all. '
+      explode: false
+      in: query
+      name: metric_types
+      required: false
+      schema:
+        items:
+          enum:
+          - ENGAGEMENT
+          - ENGAGEMENT_RATE
+          - IMPRESSION
+          - OUTBOUND_CLICK
+          - OUTBOUND_CLICK_RATE
+          - PIN_CLICK
+          - PIN_CLICK_RATE
+          - SAVE
+          - SAVE_RATE
+          type: string
+        type: array
+      style: form
+    query_bookmark:
+      name: bookmark
+      description: Cursor used to fetch the next page of items
+      in: query
+      required: false
+      schema:
+        type: string
+    query_start_date:
+      description: 'Metric report start date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days back from today.'
+      in: query
+      name: start_date
+      required: true
+      schema:
+        type: string
+        format: date
+    query_website:
+      description: Website with path or domain only
+      in: query
+      name: website
+      required: true
+      schema:
+        type: string
+        example: mysite.test
+    query_ad_account_id:
+      name: ad_account_id
+      description: Unique identifier of an ad account.
+      in: query
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
+    query_video_pin_metric_types:
+      description: 'Metric types to get video data for, default is all. '
+      explode: false
+      in: query
+      name: metric_types
+      required: false
+      schema:
+        items:
+          enum:
+          - IMPRESSION
+          - SAVE
+          - VIDEO_MRC_VIEW
+          - VIDEO_AVG_WATCH_TIME
+          - VIDEO_V50_WATCH_TIME
+          - QUARTILE_95_PERCENT_VIEW
+          - VIDEO_10S_VIEW
+          - VIDEO_START
+          - OUTBOUND_CLICK
+          type: string
+        type: array
+      style: form
     query_page_size:
       name: page_size
       description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
@@ -1069,6 +1151,14 @@ components:
         minimum: 1
         maximum: 250
         default: 25
+    query_end_date:
+      description: 'Metric report end date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days past start_date.'
+      in: query
+      name: end_date
+      required: true
+      schema:
+        type: string
+        format: date
     query_source:
       description: Filter to activity from Pins created and saved by your, or activity created and saved by others from your claimed accounts
       in: query
@@ -1081,45 +1171,6 @@ components:
         - YOUR_PINS
         - OTHER_PINS
         type: string
-    query_bookmark:
-      name: bookmark
-      description: Cursor used to fetch the next page of items
-      in: query
-      required: false
-      schema:
-        type: string
-    query_created_in_last_n_days:
-      name: created_in_last_n_days
-      in: query
-      schema:
-        type: integer
-        enum:
-        - 30
-      description: Get metrics for pins created in the last "n" days.
-      example: 30
-    query_app_types:
-      description: Apps or devices to get data for, default is all.
-      in: query
-      name: app_types
-      required: false
-      schema:
-        default: ALL
-        enum:
-        - ALL
-        - MOBILE
-        - TABLET
-        - WEB
-        type: string
-    query_num_of_pins:
-      name: num_of_pins
-      in: query
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 50
-        default: 10
-      description: Number of pins to include, default is 10. Max is 50.
-      example: 25
     query_from_claimed_content:
       description: Filter on Pins that match your claimed domain.
       in: query
@@ -1146,6 +1197,70 @@ components:
         - PIN_CLICK
         - SAVE
         type: string
+    query_user_following_feed_type:
+      description: Thrift param specifying what type of followees will be kept. Default to include all followees.
+      in: query
+      name: feed_type
+      required: false
+      schema:
+        type: string
+        $ref: '#/components/schemas/UserFollowingFeedType'
+        default: ALL
+    query_split_field_user_account:
+      description: How to split the data into groups. Not including this param means data won't be split.
+      required: false
+      in: query
+      explode: false
+      name: split_field
+      schema:
+        default: NO_SPLIT
+        enum:
+        - NO_SPLIT
+        - APP_TYPE
+        - OWNED_CONTENT
+        - SOURCE
+        - PIN_FORMAT
+        type: string
+    query_num_of_pins:
+      name: num_of_pins
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+        default: 10
+      description: Number of pins to include, default is 10. Max is 50.
+      example: 25
+    path_username:
+      name: username
+      description: A valid username
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: (?!^\d+$)^.+$
+        example: username
+    query_app_types:
+      description: Apps or devices to get data for, default is all.
+      in: query
+      name: app_types
+      required: false
+      schema:
+        default: ALL
+        enum:
+        - ALL
+        - MOBILE
+        - TABLET
+        - WEB
+        type: string
+    query_explicit_following:
+      description: Whether or not to include implicit user follows, which means followees with board follows. When explicit_following is True, it means we only want explicit user follows.
+      in: query
+      name: explicit_following
+      required: false
+      schema:
+        type: boolean
+        default: false
     query_video_pin_sort_by:
       description: Specify sorting order for video metrics
       explode: false
@@ -1184,121 +1299,6 @@ components:
         - REGULAR
         - VIDEO
         type: string
-    query_start_date:
-      description: 'Metric report start date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days back from today.'
-      in: query
-      name: start_date
-      required: true
-      schema:
-        type: string
-        format: date
-    query_user_following_feed_type:
-      description: Thrift param specifying what type of followees will be kept. Default to include all followees.
-      in: query
-      name: feed_type
-      required: false
-      schema:
-        type: string
-        $ref: '#/components/schemas/UserFollowingFeedType'
-        default: ALL
-    query_ad_account_id:
-      name: ad_account_id
-      description: Unique identifier of an ad account.
-      in: query
-      schema:
-        type: string
-        pattern: ^\d+$
-        maxLength: 18
-    query_video_pin_metric_types:
-      description: 'Metric types to get video data for, default is all. '
-      explode: false
-      in: query
-      name: metric_types
-      required: false
-      schema:
-        items:
-          enum:
-          - IMPRESSION
-          - SAVE
-          - VIDEO_MRC_VIEW
-          - VIDEO_AVG_WATCH_TIME
-          - VIDEO_V50_WATCH_TIME
-          - QUARTILE_95_PERCENT_VIEW
-          - VIDEO_10S_VIEW
-          - VIDEO_START
-          - OUTBOUND_CLICK
-          type: string
-        type: array
-      style: form
-    query_end_date:
-      description: 'Metric report end date (UTC). Format: YYYY-MM-DD. Cannot be more than 90 days past start_date.'
-      in: query
-      name: end_date
-      required: true
-      schema:
-        type: string
-        format: date
-    query_website:
-      description: Website with path or domain only
-      in: query
-      name: website
-      required: true
-      schema:
-        type: string
-        example: mysite.test
-    path_username:
-      name: username
-      description: A valid username
-      in: path
-      required: true
-      schema:
-        type: string
-        pattern: (?!^\d+$)^.+$
-        example: username
-    query_metric_types:
-      description: 'Metric types to get data for, default is all. '
-      explode: false
-      in: query
-      name: metric_types
-      required: false
-      schema:
-        items:
-          enum:
-          - ENGAGEMENT
-          - ENGAGEMENT_RATE
-          - IMPRESSION
-          - OUTBOUND_CLICK
-          - OUTBOUND_CLICK_RATE
-          - PIN_CLICK
-          - PIN_CLICK_RATE
-          - SAVE
-          - SAVE_RATE
-          type: string
-        type: array
-      style: form
-    query_split_field_user_account:
-      description: How to split the data into groups. Not including this param means data won't be split.
-      required: false
-      in: query
-      explode: false
-      name: split_field
-      schema:
-        default: NO_SPLIT
-        enum:
-        - NO_SPLIT
-        - APP_TYPE
-        - OWNED_CONTENT
-        - SOURCE
-        - PIN_FORMAT
-        type: string
-    query_explicit_following:
-      description: Whether or not to include implicit user follows, which means followees with board follows. When explicit_following is True, it means we only want explicit user follows.
-      in: query
-      name: explicit_following
-      required: false
-      schema:
-        type: boolean
-        default: false
     query_content_type:
       description: Filter to paid or organic data. Default is all.
       in: query

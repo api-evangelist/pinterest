@@ -53,6 +53,18 @@ paths:
       - Employers
 components:
   schemas:
+    BusinessRoleResponse:
+      type: string
+      description: 'The access level a member/partner has to the business. Values are case-sensitive.
+
+        <br> - EMPLOYEE: Can only view and access assets you assign to them.
+
+        They cannot see details about other employees, partners, or other assets.
+
+        <br> - BIZ_ADMIN: Have full control of roles and can add employees or external partners as well as grant asset access.
+
+        <br> - PARTNER: Can only view and access assets you assign them to/or they assign to you.'
+      example: BIZ_ADMIN
     BusinessMemberAssetsSummary:
       type:
       - object
@@ -89,6 +101,30 @@ components:
                 maxLength: 20
               permissions:
                 $ref: '#/components/schemas/PermissionsResponse'
+    BusinessAccessUserSummary:
+      type: object
+      description: Metadata of the member/partner that has access to the asset.
+      properties:
+        email:
+          description: Email of the business member/partner.
+          example: business0101@business.com
+          type:
+          - string
+          - 'null'
+        id:
+          description: Unique identifier of the business member/partner.
+          example: '383791336903426391'
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          maxLength: 20
+        username:
+          description: Username of the business member/partner.
+          example: business0101
+          type:
+          - string
+          - 'null'
     Error:
       title: Error
       type: object
@@ -100,6 +136,15 @@ components:
       required:
       - code
       - message
+    PermissionsResponse:
+      type: array
+      description: Permission levels member or partner has on an asset.
+      example:
+      - FINANCE_MANAGER
+      - CATALOGS_MANAGER
+      - AUDIENCE_MANAGER
+      items:
+        type: string
     UserBusinessRoleBinding:
       type: object
       properties:
@@ -160,30 +205,6 @@ components:
           description: Metadata for the business member/business partner/employer.
           allOf:
           - $ref: '#/components/schemas/BusinessAccessUserSummary'
-    BusinessAccessUserSummary:
-      type: object
-      description: Metadata of the member/partner that has access to the asset.
-      properties:
-        email:
-          description: Email of the business member/partner.
-          example: business0101@business.com
-          type:
-          - string
-          - 'null'
-        id:
-          description: Unique identifier of the business member/partner.
-          example: '383791336903426391'
-          type:
-          - string
-          - 'null'
-          minLength: 1
-          maxLength: 20
-        username:
-          description: Username of the business member/partner.
-          example: business0101
-          type:
-          - string
-          - 'null'
     Paginated:
       type: object
       properties:
@@ -197,28 +218,14 @@ components:
           - 'null'
       required:
       - items
-    BusinessRoleResponse:
-      type: string
-      description: 'The access level a member/partner has to the business. Values are case-sensitive.
-
-        <br> - EMPLOYEE: Can only view and access assets you assign to them.
-
-        They cannot see details about other employees, partners, or other assets.
-
-        <br> - BIZ_ADMIN: Have full control of roles and can add employees or external partners as well as grant asset access.
-
-        <br> - PARTNER: Can only view and access assets you assign them to/or they assign to you.'
-      example: BIZ_ADMIN
-    PermissionsResponse:
-      type: array
-      description: Permission levels member or partner has on an asset.
-      example:
-      - FINANCE_MANAGER
-      - CATALOGS_MANAGER
-      - AUDIENCE_MANAGER
-      items:
-        type: string
   parameters:
+    query_bookmark:
+      name: bookmark
+      description: Cursor used to fetch the next page of items
+      in: query
+      required: false
+      schema:
+        type: string
     query_page_size:
       name: page_size
       description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
@@ -229,13 +236,6 @@ components:
         minimum: 1
         maximum: 250
         default: 25
-    query_bookmark:
-      name: bookmark
-      description: Cursor used to fetch the next page of items
-      in: query
-      required: false
-      schema:
-        type: string
   securitySchemes:
     pinterest_oauth2:
       type: oauth2

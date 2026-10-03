@@ -83,24 +83,6 @@ paths:
       - Catalogs
 components:
   schemas:
-    Error:
-      title: Error
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
-    CatalogsType:
-      description: Type of the catalog entity.
-      type: string
-      enum:
-      - RETAIL
-      - HOTEL
-      - CREATIVE_ASSETS
     Catalog:
       type: object
       title: catalog
@@ -125,19 +107,24 @@ components:
         - id
         - name
         - catalog_type
-    Paginated:
+    Error:
+      title: Error
       type: object
       properties:
-        items:
-          type: array
-          items:
-            type: object
-        bookmark:
-          type:
-          - string
-          - 'null'
+        code:
+          type: integer
+        message:
+          type: string
       required:
-      - items
+      - code
+      - message
+    CatalogsType:
+      description: Type of the catalog entity.
+      type: string
+      enum:
+      - RETAIL
+      - HOTEL
+      - CREATIVE_ASSETS
     CatalogsDbItem:
       type: object
       title: db_item
@@ -152,7 +139,27 @@ components:
           type: string
           format: date-time
           example: '2022-03-14T15:16:34Z'
+    Paginated:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+        bookmark:
+          type:
+          - string
+          - 'null'
+      required:
+      - items
   parameters:
+    query_bookmark:
+      name: bookmark
+      description: Cursor used to fetch the next page of items
+      in: query
+      required: false
+      schema:
+        type: string
     query_page_size:
       name: page_size
       description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
@@ -163,13 +170,6 @@ components:
         minimum: 1
         maximum: 250
         default: 25
-    query_bookmark:
-      name: bookmark
-      description: Cursor used to fetch the next page of items
-      in: query
-      required: false
-      schema:
-        type: string
     query_ad_account_id:
       name: ad_account_id
       description: Unique identifier of an ad account.

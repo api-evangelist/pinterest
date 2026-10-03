@@ -70,47 +70,6 @@ paths:
                 $ref: '#/components/schemas/Error'
       x-sandbox: enabled
 components:
-  schemas:
-    Error:
-      title: Error
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
-    Paginated:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            type: object
-        bookmark:
-          type:
-          - string
-          - 'null'
-      required:
-      - items
-    Interest:
-      title: Interest
-      type: object
-      properties:
-        canonical_url:
-          type: string
-        id:
-          type: string
-          pattern: ^\d+$
-          example: '903972677830'
-        key:
-          type: string
-          example: man cave
-        name:
-          type: string
-          example: Man cave
   parameters:
     path_username:
       name: username
@@ -138,6 +97,47 @@ components:
         minimum: 1
         maximum: 250
         default: 25
+  schemas:
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    Interest:
+      title: Interest
+      type: object
+      properties:
+        canonical_url:
+          type: string
+        id:
+          type: string
+          pattern: ^\d+$
+          example: '903972677830'
+        key:
+          type: string
+          example: man cave
+        name:
+          type: string
+          example: Man cave
+    Paginated:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+        bookmark:
+          type:
+          - string
+          - 'null'
+      required:
+      - items
   securitySchemes:
     pinterest_oauth2:
       type: oauth2

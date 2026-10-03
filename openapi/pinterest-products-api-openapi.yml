@@ -101,32 +101,39 @@ paths:
       - Products
 components:
   schemas:
-    CatalogsProductGroupCurrencyCriteria:
-      title: catalogs_product_group_currency_criteria
-      type: object
-      description: A currency filter. This filter cannot be negated
-      additionalProperties: false
-      properties:
-        values:
-          $ref: '#/components/schemas/NonNullableCatalogsCurrency'
-        negated:
-          type: boolean
-          default: false
-          enum:
-          - false
-      required:
-      - values
-    CatalogsProductGroupFiltersAnyOf:
+    ConditionFilter:
       type: object
       additionalProperties: false
       properties:
-        any_of:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/CatalogsProductGroupFilterKeys'
+        CONDITION:
+          type: object
+          $ref: '#/components/schemas/CatalogsProductGroupMultipleStringCriteria'
       required:
-      - any_of
+      - CONDITION
+    Gender:
+      type: string
+      enum:
+      - FEMALE
+      - MALE
+      - UNISEX
+    GoogleProductCategory1Filter:
+      type: object
+      additionalProperties: false
+      properties:
+        GOOGLE_PRODUCT_CATEGORY_1:
+          type: object
+          $ref: '#/components/schemas/CatalogsProductGroupMultipleStringListCriteria'
+      required:
+      - GOOGLE_PRODUCT_CATEGORY_1
+    CurrencyFilter:
+      type: object
+      additionalProperties: false
+      properties:
+        CURRENCY:
+          type: object
+          $ref: '#/components/schemas/CatalogsProductGroupCurrencyCriteria'
+      required:
+      - CURRENCY
     PinMedia:
       title: Pin media
       type: object
@@ -142,98 +149,24 @@ components:
       properties:
         media_type:
           type: string
-    CreativeType:
-      type: string
-      description: Ad creative type enum. For update, only draft ads may update creative type. </p><strong>Note:</strong> SHOP_THE_PIN has been deprecated. Please use COLLECTION instead.
-      enum:
-      - REGULAR
-      - VIDEO
-      - SHOPPING
-      - CAROUSEL
-      - MAX_VIDEO
-      - SHOP_THE_PIN
-      - COLLECTION
-      - IDEA
-      - SHOWCASE
-      - QUIZ
-      example: REGULAR
-      title: CreativeType
-    PinMediaSourceImagesURL:
-      title: Images urls
-      description: Multiple images urls-based media source
-      additionalProperties: false
-      properties:
-        source_type:
-          type: string
-          enum:
-          - multiple_image_urls
-        items:
-          items:
-            additionalProperties: false
-            properties:
-              title:
-                type: string
-              description:
-                type: string
-              link:
-                type: string
-                description: Destination link for the image.
-              url:
-                description: URL of image to upload.
-                type: string
-            required:
-            - url
-            type: object
-          minItems: 2
-          maxItems: 5
-          description: Array with image objects.
-          type: array
-        index:
-          type: integer
-          minimum: 0
-      required:
-      - items
-      type: object
-    MaxPriceFilter:
+    ProductType2Filter:
       type: object
       additionalProperties: false
       properties:
-        MAX_PRICE:
-          type: object
-          $ref: '#/components/schemas/CatalogsProductGroupPricingCriteria'
-      required:
-      - MAX_PRICE
-    ConditionFilter:
-      type: object
-      additionalProperties: false
-      properties:
-        CONDITION:
-          type: object
-          $ref: '#/components/schemas/CatalogsProductGroupMultipleStringCriteria'
-      required:
-      - CONDITION
-    GoogleProductCategory0Filter:
-      type: object
-      additionalProperties: false
-      properties:
-        GOOGLE_PRODUCT_CATEGORY_0:
+        PRODUCT_TYPE_2:
           type: object
           $ref: '#/components/schemas/CatalogsProductGroupMultipleStringListCriteria'
       required:
-      - GOOGLE_PRODUCT_CATEGORY_0
-    Paginated:
+      - PRODUCT_TYPE_2
+    GoogleProductCategory2Filter:
       type: object
+      additionalProperties: false
       properties:
-        items:
-          type: array
-          items:
-            type: object
-        bookmark:
-          type:
-          - string
-          - 'null'
+        GOOGLE_PRODUCT_CATEGORY_2:
+          type: object
+          $ref: '#/components/schemas/CatalogsProductGroupMultipleStringListCriteria'
       required:
-      - items
+      - GOOGLE_PRODUCT_CATEGORY_2
     PinMediaSource:
       title: Pin media source
       description: Pin media source.
@@ -253,24 +186,111 @@ components:
           image_url: '#/components/schemas/PinMediaSourceImageURL'
           video_id: '#/components/schemas/PinMediaSourceVideoID'
           pin_url: '#/components/schemas/PinMediaSourcePinURL'
-    ProductType4Filter:
+    GoogleProductCategory5Filter:
       type: object
       additionalProperties: false
       properties:
-        PRODUCT_TYPE_4:
+        GOOGLE_PRODUCT_CATEGORY_5:
           type: object
           $ref: '#/components/schemas/CatalogsProductGroupMultipleStringListCriteria'
       required:
-      - PRODUCT_TYPE_4
-    GoogleProductCategory1Filter:
+      - GOOGLE_PRODUCT_CATEGORY_5
+    CatalogsProductGroupMultipleGenderCriteria:
+      title: catalogs_product_group_multiple_gender_criteria
       type: object
       additionalProperties: false
       properties:
-        GOOGLE_PRODUCT_CATEGORY_1:
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/Gender'
+        negated:
+          type: boolean
+          default: false
+      required:
+      - values
+    ProductType1Filter:
+      type: object
+      additionalProperties: false
+      properties:
+        PRODUCT_TYPE_1:
           type: object
           $ref: '#/components/schemas/CatalogsProductGroupMultipleStringListCriteria'
       required:
-      - GOOGLE_PRODUCT_CATEGORY_1
+      - PRODUCT_TYPE_1
+    GoogleProductCategory3Filter:
+      type: object
+      additionalProperties: false
+      properties:
+        GOOGLE_PRODUCT_CATEGORY_3:
+          type: object
+          $ref: '#/components/schemas/CatalogsProductGroupMultipleStringListCriteria'
+      required:
+      - GOOGLE_PRODUCT_CATEGORY_3
+    CatalogsProductGroupMultipleStringCriteria:
+      title: catalogs_product_group_multiple_string_criteria
+      type: object
+      additionalProperties: false
+      properties:
+        values:
+          type: array
+          items:
+            type: string
+        negated:
+          type: boolean
+          default: false
+      required:
+      - values
+    GoogleProductCategory6Filter:
+      type: object
+      additionalProperties: false
+      properties:
+        GOOGLE_PRODUCT_CATEGORY_6:
+          type: object
+          $ref: '#/components/schemas/CatalogsProductGroupMultipleStringListCriteria'
+      required:
+      - GOOGLE_PRODUCT_CATEGORY_6
+    CustomLabel3Filter:
+      type: object
+      additionalProperties: false
+      properties:
+        CUSTOM_LABEL_3:
+          type: object
+          $ref: '#/components/schemas/CatalogsProductGroupMultipleStringCriteria'
+      required:
+      - CUSTOM_LABEL_3
+    CreativeType:
+      type: string
+      description: Ad creative type enum. For update, only draft ads may update creative type. </p><strong>Note:</strong> SHOP_THE_PIN has been deprecated. Please use COLLECTION instead.
+      enum:
+      - REGULAR
+      - VIDEO
+      - SHOPPING
+      - CAROUSEL
+      - MAX_VIDEO
+      - SHOP_THE_PIN
+      - COLLECTION
+      - IDEA
+      - SHOWCASE
+      - QUIZ
+      example: REGULAR
+      title: CreativeType
+    GenderFilter:
+      type: object
+      additionalProperties: false
+      properties:
+        GENDER:
+          type: object
+          $ref: '#/components/schemas/CatalogsProductGroupMultipleGenderCriteria'
+      required:
+      - GENDER
+    BoardOwner:
+      title: Board owner
+      type: object
+      properties:
+        username:
+          type: string
+          readOnly: true
     ProductType3Filter:
       type: object
       additionalProperties: false
@@ -280,15 +300,50 @@ components:
           $ref: '#/components/schemas/CatalogsProductGroupMultipleStringListCriteria'
       required:
       - PRODUCT_TYPE_3
-    CustomLabel4Filter:
+    CatalogsProductMetadata:
+      type: object
+      description: Product metadata entity
+      properties:
+        item_id:
+          description: The user-created unique ID that represents the product.
+          example: DS0294-L
+          type: string
+        item_group_id:
+          description: The parent ID of the product.
+          example: DS0294
+          type:
+          - string
+          - 'null'
+        availability:
+          $ref: '#/components/schemas/NonNullableProductAvailabilityType'
+        price:
+          description: The price of the product.
+          example: 24.99
+          type: number
+        sale_price:
+          description: The discounted price of the product.
+          example: 14.99
+          type:
+          - number
+          - 'null'
+        currency:
+          $ref: '#/components/schemas/NonNullableCatalogsCurrency'
+      required:
+      - item_id
+      - item_group_id
+      - availability
+      - price
+      - sale_price
+      - currency
+    ProductType4Filter:
       type: object
       additionalProperties: false
       properties:
-        CUSTOM_LABEL_4:
+        PRODUCT_TYPE_4:
           type: object
-          $ref: '#/components/schemas/CatalogsProductGroupMultipleStringCriteria'
+          $ref: '#/components/schemas/CatalogsProductGroupMultipleStringListCriteria'
       required:
-      - CUSTOM_LABEL_4
+      - PRODUCT_TYPE_4
     PinMediaSourceImageURL:
       title: Image URL
       description: Image URL-based media source
@@ -307,6 +362,81 @@ components:
       required:
       - source_type
       - url
+    PinMediaSourceVideoID:
+      title: Video ID
+      description: Video ID-based media source
+      type: object
+      properties:
+        source_type:
+          type: string
+          enum:
+          - video_id
+        cover_image_url:
+          type: string
+          description: Cover image url.
+        cover_image_content_type:
+          type: string
+          description: Content type for cover image Base64.
+          enum:
+          - image/jpeg
+          - image/png
+        cover_image_data:
+          type: string
+          description: Cover image Base64.
+        media_id:
+          type: string
+          pattern: ^\d+$
+        is_standard:
+          type: boolean
+          description: Set the parameter to false to create the new simplified Pin instead of the standard pin. Currently the field is only available to a list of beta users.
+          default: true
+      required:
+      - source_type
+      - media_id
+    ItemGroupIdFilter:
+      type: object
+      additionalProperties: false
+      properties:
+        ITEM_GROUP_ID:
+          type: object
+          $ref: '#/components/schemas/CatalogsProductGroupMultipleStringCriteria'
+      required:
+      - ITEM_GROUP_ID
+    NonNullableProductAvailabilityType:
+      description: Product availability.
+      type: string
+      enum:
+      - IN_STOCK
+      - OUT_OF_STOCK
+      - PREORDER
+    GoogleProductCategory4Filter:
+      type: object
+      additionalProperties: false
+      properties:
+        GOOGLE_PRODUCT_CATEGORY_4:
+          type: object
+          $ref: '#/components/schemas/CatalogsProductGroupMultipleStringListCriteria'
+      required:
+      - GOOGLE_PRODUCT_CATEGORY_4
+    CatalogsProduct:
+      type: object
+      properties:
+        metadata:
+          $ref: '#/components/schemas/CatalogsProductMetadata'
+        pin:
+          $ref: '#/components/schemas/Pin'
+      required:
+      - metadata
+      - pin
+    CustomLabel4Filter:
+      type: object
+      additionalProperties: false
+      properties:
+        CUSTOM_LABEL_4:
+          type: object
+          $ref: '#/components/schemas/CatalogsProductGroupMultipleStringCriteria'
+      required:
+      - CUSTOM_LABEL_4
     PinMediaSourceImageBase64:
       title: Image Base64
       description: Base64-encoded image media source
@@ -332,15 +462,6 @@ components:
       - source_type
       - content_type
       - data
-    ItemGroupIdFilter:
-      type: object
-      additionalProperties: false
-      properties:
-        ITEM_GROUP_ID:
-          type: object
-          $ref: '#/components/schemas/CatalogsProductGroupMultipleStringCriteria'
-      required:
-      - ITEM_GROUP_ID
     ItemIdFilter:
       type: object
       additionalProperties: false
@@ -350,125 +471,6 @@ components:
           $ref: '#/components/schemas/CatalogsProductGroupMultipleStringCriteria'
       required:
       - ITEM_ID
-    PinMediaSourceImagesBase64:
-      title: Images Base64
-      description: Multiple Base64-encoded images media source
-      additionalProperties: false
-      properties:
-        source_type:
-          type: string
-          enum:
-          - multiple_image_base64
-        items:
-          items:
-            additionalProperties: false
-            properties:
-              title:
-                type: string
-              description:
-                type: string
-              link:
-                type: string
-                description: Destination link for the image.
-              content_type:
-                type: string
-                enum:
-                - image/jpeg
-                - image/png
-              data:
-                type: string
-                description: Image to upload as base64 string.
-                pattern: '[a-zA-Z0-9+\/=]+'
-            required:
-            - data
-            - content_type
-            type: object
-          minItems: 2
-          maxItems: 5
-          description: Array with image objects.
-          type: array
-        index:
-          type: integer
-          minimum: 0
-      required:
-      - items
-      type: object
-    Gender:
-      type: string
-      enum:
-      - FEMALE
-      - MALE
-      - UNISEX
-    CustomLabel2Filter:
-      type: object
-      additionalProperties: false
-      properties:
-        CUSTOM_LABEL_2:
-          type: object
-          $ref: '#/components/schemas/CatalogsProductGroupMultipleStringCriteria'
-      required:
-      - CUSTOM_LABEL_2
-    GoogleProductCategory2Filter:
-      type: object
-      additionalProperties: false
-      properties:
-        GOOGLE_PRODUCT_CATEGORY_2:
-          type: object
-          $ref: '#/components/schemas/CatalogsProductGroupMultipleStringListCriteria'
-      required:
-      - GOOGLE_PRODUCT_CATEGORY_2
-    ProductType1Filter:
-      type: object
-      additionalProperties: false
-      properties:
-        PRODUCT_TYPE_1:
-          type: object
-          $ref: '#/components/schemas/CatalogsProductGroupMultipleStringListCriteria'
-      required:
-      - PRODUCT_TYPE_1
-    CatalogsListProductsByFilterRequest:
-      description: Request object to list products for a given product group filter.
-      type: object
-      oneOf:
-      - description: Request object to list products for a given feed_id and product group filter.
-        type: object
-        additionalProperties: false
-        properties:
-          feed_id:
-            description: Catalog Feed id pertaining to the catalog product group filter.
-            example: '2680059592705'
-            type: string
-            pattern: ^\d+$
-          filters:
-            $ref: '#/components/schemas/CatalogsProductGroupFilters'
-        required:
-        - feed_id
-        - filters
-    ProductType0Filter:
-      type: object
-      additionalProperties: false
-      properties:
-        PRODUCT_TYPE_0:
-          type: object
-          $ref: '#/components/schemas/CatalogsProductGroupMultipleStringListCriteria'
-      required:
-      - PRODUCT_TYPE_0
-    CurrencyFilter:
-      type: object
-      additionalProperties: false
-      properties:
-        CURRENCY:
-          type: object
-          $ref: '#/components/schemas/CatalogsProductGroupCurrencyCriteria'
-      required:
-      - CURRENCY
-    CatalogsProductGroupFilters:
-      description: Object holding a group of filters for a catalog product group
-      title: catalogs_product_group_filters
-      type: object
-      anyOf:
-      - $ref: '#/components/schemas/CatalogsProductGroupFiltersAnyOf'
-      - $ref: '#/components/schemas/CatalogsProductGroupFiltersAllOf'
     NonNullableCatalogsCurrency:
       type: string
       description: Currency Codes from ISO 4217.
@@ -637,24 +639,6 @@ components:
       - ZAR
       - ZMW
       - ZWD
-    MinPriceFilter:
-      type: object
-      additionalProperties: false
-      properties:
-        MIN_PRICE:
-          type: object
-          $ref: '#/components/schemas/CatalogsProductGroupPricingCriteria'
-      required:
-      - MIN_PRICE
-    CustomLabel3Filter:
-      type: object
-      additionalProperties: false
-      properties:
-        CUSTOM_LABEL_3:
-          type: object
-          $ref: '#/components/schemas/CatalogsProductGroupMultipleStringCriteria'
-      required:
-      - CUSTOM_LABEL_3
     BrandFilter:
       type: object
       additionalProperties: false
@@ -664,6 +648,66 @@ components:
           $ref: '#/components/schemas/CatalogsProductGroupMultipleStringCriteria'
       required:
       - BRAND
+    GoogleProductCategory0Filter:
+      type: object
+      additionalProperties: false
+      properties:
+        GOOGLE_PRODUCT_CATEGORY_0:
+          type: object
+          $ref: '#/components/schemas/CatalogsProductGroupMultipleStringListCriteria'
+      required:
+      - GOOGLE_PRODUCT_CATEGORY_0
+    MaxPriceFilter:
+      type: object
+      additionalProperties: false
+      properties:
+        MAX_PRICE:
+          type: object
+          $ref: '#/components/schemas/CatalogsProductGroupPricingCriteria'
+      required:
+      - MAX_PRICE
+    CustomLabel0Filter:
+      type: object
+      additionalProperties: false
+      properties:
+        CUSTOM_LABEL_0:
+          type: object
+          $ref: '#/components/schemas/CatalogsProductGroupMultipleStringCriteria'
+      required:
+      - CUSTOM_LABEL_0
+    CustomLabel1Filter:
+      type: object
+      additionalProperties: false
+      properties:
+        CUSTOM_LABEL_1:
+          type: object
+          $ref: '#/components/schemas/CatalogsProductGroupMultipleStringCriteria'
+      required:
+      - CUSTOM_LABEL_1
+    Paginated:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+        bookmark:
+          type:
+          - string
+          - 'null'
+      required:
+      - items
+    CatalogsProductGroupFiltersAnyOf:
+      type: object
+      additionalProperties: false
+      properties:
+        any_of:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/CatalogsProductGroupFilterKeys'
+      required:
+      - any_of
     AvailabilityFilter:
       type: object
       additionalProperties: false
@@ -673,22 +717,76 @@ components:
           $ref: '#/components/schemas/CatalogsProductGroupMultipleStringCriteria'
       required:
       - AVAILABILITY
-    CatalogsProductGroupPricingCriteria:
-      title: catalogs_product_group_pricing_criteria
+    CatalogsProductGroupMultipleStringListCriteria:
+      title: catalogs_product_group_multiple_string_list_criteria
       type: object
       additionalProperties: false
       properties:
-        inclusion:
-          type: boolean
-          default: true
         values:
-          type: number
-          minimum: 0
+          type: array
+          items:
+            type: array
+            items:
+              type: string
         negated:
           type: boolean
           default: false
       required:
       - values
+    ProductType0Filter:
+      type: object
+      additionalProperties: false
+      properties:
+        PRODUCT_TYPE_0:
+          type: object
+          $ref: '#/components/schemas/CatalogsProductGroupMultipleStringListCriteria'
+      required:
+      - PRODUCT_TYPE_0
+    CustomLabel2Filter:
+      type: object
+      additionalProperties: false
+      properties:
+        CUSTOM_LABEL_2:
+          type: object
+          $ref: '#/components/schemas/CatalogsProductGroupMultipleStringCriteria'
+      required:
+      - CUSTOM_LABEL_2
+    PinMediaSourceImagesURL:
+      title: Images urls
+      description: Multiple images urls-based media source
+      additionalProperties: false
+      properties:
+        source_type:
+          type: string
+          enum:
+          - multiple_image_urls
+        items:
+          items:
+            additionalProperties: false
+            properties:
+              title:
+                type: string
+              description:
+                type: string
+              link:
+                type: string
+                description: Destination link for the image.
+              url:
+                description: URL of image to upload.
+                type: string
+            required:
+            - url
+            type: object
+          minItems: 2
+          maxItems: 5
+          description: Array with image objects.
+          type: array
+        index:
+          type: integer
+          minimum: 0
+      required:
+      - items
+      type: object
     ProductGroupReferenceFilter:
       type: object
       additionalProperties: false
@@ -698,6 +796,78 @@ components:
           $ref: '#/components/schemas/CatalogsProductGroupMultipleStringCriteria'
       required:
       - PRODUCT_GROUP
+    CatalogsProductGroupFilters:
+      description: Object holding a group of filters for a catalog product group
+      title: catalogs_product_group_filters
+      type: object
+      anyOf:
+      - $ref: '#/components/schemas/CatalogsProductGroupFiltersAnyOf'
+      - $ref: '#/components/schemas/CatalogsProductGroupFiltersAllOf'
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    CatalogsProductGroupFiltersAllOf:
+      type: object
+      additionalProperties: false
+      properties:
+        all_of:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/CatalogsProductGroupFilterKeys'
+      required:
+      - all_of
+    PinMediaSourceImagesBase64:
+      title: Images Base64
+      description: Multiple Base64-encoded images media source
+      additionalProperties: false
+      properties:
+        source_type:
+          type: string
+          enum:
+          - multiple_image_base64
+        items:
+          items:
+            additionalProperties: false
+            properties:
+              title:
+                type: string
+              description:
+                type: string
+              link:
+                type: string
+                description: Destination link for the image.
+              content_type:
+                type: string
+                enum:
+                - image/jpeg
+                - image/png
+              data:
+                type: string
+                description: Image to upload as base64 string.
+                pattern: '[a-zA-Z0-9+\/=]+'
+            required:
+            - data
+            - content_type
+            type: object
+          minItems: 2
+          maxItems: 5
+          description: Array with image objects.
+          type: array
+        index:
+          type: integer
+          minimum: 0
+      required:
+      - items
+      type: object
     CatalogsProductGroupFilterKeys:
       title: catalogs_product_group_keys
       anyOf:
@@ -728,96 +898,61 @@ components:
       - $ref: '#/components/schemas/GoogleProductCategory1Filter'
       - $ref: '#/components/schemas/GoogleProductCategory0Filter'
       - $ref: '#/components/schemas/ProductGroupReferenceFilter'
-    CatalogsProductGroupFiltersAllOf:
+    CatalogsProductGroupPricingCriteria:
+      title: catalogs_product_group_pricing_criteria
       type: object
       additionalProperties: false
       properties:
-        all_of:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/CatalogsProductGroupFilterKeys'
-      required:
-      - all_of
-    GoogleProductCategory6Filter:
-      type: object
-      additionalProperties: false
-      properties:
-        GOOGLE_PRODUCT_CATEGORY_6:
-          type: object
-          $ref: '#/components/schemas/CatalogsProductGroupMultipleStringListCriteria'
-      required:
-      - GOOGLE_PRODUCT_CATEGORY_6
-    CustomLabel1Filter:
-      type: object
-      additionalProperties: false
-      properties:
-        CUSTOM_LABEL_1:
-          type: object
-          $ref: '#/components/schemas/CatalogsProductGroupMultipleStringCriteria'
-      required:
-      - CUSTOM_LABEL_1
-    CatalogsProductMetadata:
-      type: object
-      description: Product metadata entity
-      properties:
-        item_id:
-          description: The user-created unique ID that represents the product.
-          example: DS0294-L
-          type: string
-        item_group_id:
-          description: The parent ID of the product.
-          example: DS0294
-          type:
-          - string
-          - 'null'
-        availability:
-          $ref: '#/components/schemas/NonNullableProductAvailabilityType'
-        price:
-          description: The price of the product.
-          example: 24.99
+        inclusion:
+          type: boolean
+          default: true
+        values:
           type: number
-        sale_price:
-          description: The discounted price of the product.
-          example: 14.99
-          type:
-          - number
-          - 'null'
-        currency:
-          $ref: '#/components/schemas/NonNullableCatalogsCurrency'
+          minimum: 0
+        negated:
+          type: boolean
+          default: false
       required:
-      - item_id
-      - item_group_id
-      - availability
-      - price
-      - sale_price
-      - currency
-    GoogleProductCategory5Filter:
+      - values
+    MinPriceFilter:
       type: object
       additionalProperties: false
       properties:
-        GOOGLE_PRODUCT_CATEGORY_5:
+        MIN_PRICE:
           type: object
-          $ref: '#/components/schemas/CatalogsProductGroupMultipleStringListCriteria'
+          $ref: '#/components/schemas/CatalogsProductGroupPricingCriteria'
       required:
-      - GOOGLE_PRODUCT_CATEGORY_5
-    NonNullableProductAvailabilityType:
-      description: Product availability.
-      type: string
-      enum:
-      - IN_STOCK
-      - OUT_OF_STOCK
-      - PREORDER
-    CatalogsProduct:
+      - MIN_PRICE
+    CatalogsProductGroupCurrencyCriteria:
+      title: catalogs_product_group_currency_criteria
+      type: object
+      description: A currency filter. This filter cannot be negated
+      additionalProperties: false
+      properties:
+        values:
+          $ref: '#/components/schemas/NonNullableCatalogsCurrency'
+        negated:
+          type: boolean
+          default: false
+          enum:
+          - false
+      required:
+      - values
+    PinMediaSourcePinURL:
+      title: Pin URL
+      description: Pin URL-based media source for product pin creation. Currently the field is only available to a list of beta users.
       type: object
       properties:
-        metadata:
-          $ref: '#/components/schemas/CatalogsProductMetadata'
-        pin:
-          $ref: '#/components/schemas/Pin'
+        source_type:
+          type: string
+          enum:
+          - pin_url
+        is_affiliate_link:
+          type: boolean
+          description: This is an affiliate link or sponsored product. The FTC requires disclosure for paid partnerships and affiliate products.
+          default: false
       required:
-      - metadata
-      - pin
+      - source_type
     Pin:
       title: Pin
       description: Pin
@@ -932,160 +1067,32 @@ components:
                 reaction: 10
                 comment: 2
             - null
-    CatalogsProductGroupMultipleStringCriteria:
-      title: catalogs_product_group_multiple_string_criteria
+    CatalogsListProductsByFilterRequest:
+      description: Request object to list products for a given product group filter.
       type: object
-      additionalProperties: false
-      properties:
-        values:
-          type: array
-          items:
+      oneOf:
+      - description: Request object to list products for a given feed_id and product group filter.
+        type: object
+        additionalProperties: false
+        properties:
+          feed_id:
+            description: Catalog Feed id pertaining to the catalog product group filter.
+            example: '2680059592705'
             type: string
-        negated:
-          type: boolean
-          default: false
-      required:
-      - values
-    GoogleProductCategory4Filter:
-      type: object
-      additionalProperties: false
-      properties:
-        GOOGLE_PRODUCT_CATEGORY_4:
-          type: object
-          $ref: '#/components/schemas/CatalogsProductGroupMultipleStringListCriteria'
-      required:
-      - GOOGLE_PRODUCT_CATEGORY_4
-    ProductType2Filter:
-      type: object
-      additionalProperties: false
-      properties:
-        PRODUCT_TYPE_2:
-          type: object
-          $ref: '#/components/schemas/CatalogsProductGroupMultipleStringListCriteria'
-      required:
-      - PRODUCT_TYPE_2
-    CustomLabel0Filter:
-      type: object
-      additionalProperties: false
-      properties:
-        CUSTOM_LABEL_0:
-          type: object
-          $ref: '#/components/schemas/CatalogsProductGroupMultipleStringCriteria'
-      required:
-      - CUSTOM_LABEL_0
-    PinMediaSourceVideoID:
-      title: Video ID
-      description: Video ID-based media source
-      type: object
-      properties:
-        source_type:
-          type: string
-          enum:
-          - video_id
-        cover_image_url:
-          type: string
-          description: Cover image url.
-        cover_image_content_type:
-          type: string
-          description: Content type for cover image Base64.
-          enum:
-          - image/jpeg
-          - image/png
-        cover_image_data:
-          type: string
-          description: Cover image Base64.
-        media_id:
-          type: string
-          pattern: ^\d+$
-        is_standard:
-          type: boolean
-          description: Set the parameter to false to create the new simplified Pin instead of the standard pin. Currently the field is only available to a list of beta users.
-          default: true
-      required:
-      - source_type
-      - media_id
-    BoardOwner:
-      title: Board owner
-      type: object
-      properties:
-        username:
-          type: string
-          readOnly: true
-    Error:
-      title: Error
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
-    GenderFilter:
-      type: object
-      additionalProperties: false
-      properties:
-        GENDER:
-          type: object
-          $ref: '#/components/schemas/CatalogsProductGroupMultipleGenderCriteria'
-      required:
-      - GENDER
-    CatalogsProductGroupMultipleStringListCriteria:
-      title: catalogs_product_group_multiple_string_list_criteria
-      type: object
-      additionalProperties: false
-      properties:
-        values:
-          type: array
-          items:
-            type: array
-            items:
-              type: string
-        negated:
-          type: boolean
-          default: false
-      required:
-      - values
-    GoogleProductCategory3Filter:
-      type: object
-      additionalProperties: false
-      properties:
-        GOOGLE_PRODUCT_CATEGORY_3:
-          type: object
-          $ref: '#/components/schemas/CatalogsProductGroupMultipleStringListCriteria'
-      required:
-      - GOOGLE_PRODUCT_CATEGORY_3
-    PinMediaSourcePinURL:
-      title: Pin URL
-      description: Pin URL-based media source for product pin creation. Currently the field is only available to a list of beta users.
-      type: object
-      properties:
-        source_type:
-          type: string
-          enum:
-          - pin_url
-        is_affiliate_link:
-          type: boolean
-          description: This is an affiliate link or sponsored product. The FTC requires disclosure for paid partnerships and affiliate products.
-          default: false
-      required:
-      - source_type
-    CatalogsProductGroupMultipleGenderCriteria:
-      title: catalogs_product_group_multiple_gender_criteria
-      type: object
-      additionalProperties: false
-      properties:
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/Gender'
-        negated:
-          type: boolean
-          default: false
-      required:
-      - values
+            pattern: ^\d+$
+          filters:
+            $ref: '#/components/schemas/CatalogsProductGroupFilters'
+        required:
+        - feed_id
+        - filters
   parameters:
+    query_bookmark:
+      name: bookmark
+      description: Cursor used to fetch the next page of items
+      in: query
+      required: false
+      schema:
+        type: string
     query_page_size:
       name: page_size
       description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
@@ -1096,13 +1103,6 @@ components:
         minimum: 1
         maximum: 250
         default: 25
-    query_bookmark:
-      name: bookmark
-      description: Cursor used to fetch the next page of items
-      in: query
-      required: false
-      schema:
-        type: string
     query_ad_account_id:
       name: ad_account_id
       description: Unique identifier of an ad account.

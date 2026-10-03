@@ -49,97 +49,6 @@ paths:
       - Invites
 components:
   schemas:
-    AuthRespondInvitesBody:
-      description: An object with a list of all the invites the user would like to respond to and the action to take.
-      type: object
-      required:
-      - invites
-      properties:
-        invites:
-          type: array
-          minItems: 1
-          maxItems: 100
-          items:
-            properties:
-              action:
-                type: object
-                properties:
-                  accept_invite:
-                    description: Whether the invite/request is accepted.
-                    type: boolean
-                  asset_id_to_permissions:
-                    $ref: '#/components/schemas/AssetIdToPermissions'
-                required:
-                - accept_invite
-              invite_id:
-                description: Unique identifier of an invite.
-                pattern: ^\d+$
-                type: string
-                minLength: 1
-                maxLength: 25
-            required:
-            - invite_id
-            - action
-            type: object
-    Error:
-      title: Error
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
-    Permissions:
-      type: string
-      enum:
-      - ADMIN
-      - ANALYST
-      - FINANCE_MANAGER
-      - AUDIENCE_MANAGER
-      - CAMPAIGN_MANAGER
-      - CATALOGS_MANAGER
-      - PROFILE_PUBLISHER
-    RespondToInvitesResponseArray:
-      type: object
-      properties:
-        items:
-          type: array
-          description: List of invite/request accept/decline status. If there is an error, an exception object will be returned. If the invite/request was successfully accepted/declined, an invite object will be returned.
-          items:
-            type: object
-            properties:
-              exception:
-                $ref: '#/components/schemas/InviteExceptionResponse'
-              invite:
-                description: An invite object for the invite/request that was successfully accepted/declined. Will only be provided if the an invite/request is successfully created.
-                $ref: '#/components/schemas/BaseInviteDataResponse'
-    BusinessAccessUserSummary:
-      type: object
-      description: Metadata of the member/partner that has access to the asset.
-      properties:
-        email:
-          description: Email of the business member/partner.
-          example: business0101@business.com
-          type:
-          - string
-          - 'null'
-        id:
-          description: Unique identifier of the business member/partner.
-          example: '383791336903426391'
-          type:
-          - string
-          - 'null'
-          minLength: 1
-          maxLength: 20
-        username:
-          description: Username of the business member/partner.
-          example: business0101
-          type:
-          - string
-          - 'null'
     InviteExceptionResponse:
       type:
       - object
@@ -172,26 +81,87 @@ components:
           items:
             type: string
             description: A user's username or email OR a partner id that caused the error.
-    AssetIdToPermissions:
-      description: 'An object mapping asset ids to lists of business permissions. This can be used to setting/requesting permissions on various assets. If accepting an invite or request, this object would be used to grant asset permissions to the member or partner.
-
-        '
+    BusinessAccessUserSummary:
       type: object
-      minProperties: 1
-      additionalProperties:
-        type: array
-        minItems: 1
-        maxItems: 50
+      description: Metadata of the member/partner that has access to the asset.
+      properties:
+        email:
+          description: Email of the business member/partner.
+          example: business0101@business.com
+          type:
+          - string
+          - 'null'
+        id:
+          description: Unique identifier of the business member/partner.
+          example: '383791336903426391'
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          maxLength: 20
+        username:
+          description: Username of the business member/partner.
+          example: business0101
+          type:
+          - string
+          - 'null'
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    RespondToInvitesResponseArray:
+      type: object
+      properties:
         items:
-          $ref: '#/components/schemas/Permissions'
-      example:
-        '549760723247':
-        - ANALYST
-        '549760723248':
-        - ANALYST
-        - ADMIN
-        '809944451643622187':
-        - PROFILE_PUBLISHER
+          type: array
+          description: List of invite/request accept/decline status. If there is an error, an exception object will be returned. If the invite/request was successfully accepted/declined, an invite object will be returned.
+          items:
+            type: object
+            properties:
+              exception:
+                $ref: '#/components/schemas/InviteExceptionResponse'
+              invite:
+                description: An invite object for the invite/request that was successfully accepted/declined. Will only be provided if the an invite/request is successfully created.
+                $ref: '#/components/schemas/BaseInviteDataResponse'
+    AuthRespondInvitesBody:
+      description: An object with a list of all the invites the user would like to respond to and the action to take.
+      type: object
+      required:
+      - invites
+      properties:
+        invites:
+          type: array
+          minItems: 1
+          maxItems: 100
+          items:
+            properties:
+              action:
+                type: object
+                properties:
+                  accept_invite:
+                    description: Whether the invite/request is accepted.
+                    type: boolean
+                  asset_id_to_permissions:
+                    $ref: '#/components/schemas/AssetIdToPermissions'
+                required:
+                - accept_invite
+              invite_id:
+                description: Unique identifier of an invite.
+                pattern: ^\d+$
+                type: string
+                minLength: 1
+                maxLength: 25
+            required:
+            - invite_id
+            - action
+            type: object
     BaseInviteDataResponse:
       type:
       - object
@@ -234,6 +204,36 @@ components:
           description: Metadata for the member/partner that was sent the invite/request.
           allOf:
           - $ref: '#/components/schemas/BusinessAccessUserSummary'
+    Permissions:
+      type: string
+      enum:
+      - ADMIN
+      - ANALYST
+      - FINANCE_MANAGER
+      - AUDIENCE_MANAGER
+      - CAMPAIGN_MANAGER
+      - CATALOGS_MANAGER
+      - PROFILE_PUBLISHER
+    AssetIdToPermissions:
+      description: 'An object mapping asset ids to lists of business permissions. This can be used to setting/requesting permissions on various assets. If accepting an invite or request, this object would be used to grant asset permissions to the member or partner.
+
+        '
+      type: object
+      minProperties: 1
+      additionalProperties:
+        type: array
+        minItems: 1
+        maxItems: 50
+        items:
+          $ref: '#/components/schemas/Permissions'
+      example:
+        '549760723247':
+        - ANALYST
+        '549760723248':
+        - ANALYST
+        - ADMIN
+        '809944451643622187':
+        - PROFILE_PUBLISHER
   securitySchemes:
     pinterest_oauth2:
       type: oauth2

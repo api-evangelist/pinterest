@@ -201,58 +201,35 @@ components:
       properties:
         media_type:
           type: string
-    CreativeType:
-      type: string
-      description: Ad creative type enum. For update, only draft ads may update creative type. </p><strong>Note:</strong> SHOP_THE_PIN has been deprecated. Please use COLLECTION instead.
-      enum:
-      - REGULAR
-      - VIDEO
-      - SHOPPING
-      - CAROUSEL
-      - MAX_VIDEO
-      - SHOP_THE_PIN
-      - COLLECTION
-      - IDEA
-      - SHOWCASE
-      - QUIZ
-      example: REGULAR
-      title: CreativeType
-    PinMediaSourceImagesURL:
-      title: Images urls
-      description: Multiple images urls-based media source
-      additionalProperties: false
-      properties:
-        source_type:
-          type: string
-          enum:
-          - multiple_image_urls
-        items:
-          items:
-            additionalProperties: false
-            properties:
-              title:
-                type: string
-              description:
-                type: string
-              link:
-                type: string
-                description: Destination link for the image.
-              url:
-                description: URL of image to upload.
-                type: string
-            required:
-            - url
-            type: object
-          minItems: 2
-          maxItems: 5
-          description: Array with image objects.
-          type: array
-        index:
-          type: integer
-          minimum: 0
-      required:
-      - items
+    SummaryPin:
+      description: Summarized pin information
+      title: SummaryPin
       type: object
+      properties:
+        media:
+          allOf:
+          - $ref: '#/components/schemas/PinMedia'
+          type: object
+          readOnly: true
+        alt_text:
+          type:
+          - string
+          - 'null'
+          maxLength: 500
+        link:
+          type:
+          - string
+          - 'null'
+          example: https://www.pinterest.com/
+          maxLength: 2048
+        title:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
     PinMediaSource:
       title: Pin media source
       description: Pin media source.
@@ -272,19 +249,29 @@ components:
           image_url: '#/components/schemas/PinMediaSourceImageURL'
           video_id: '#/components/schemas/PinMediaSourceVideoID'
           pin_url: '#/components/schemas/PinMediaSourcePinURL'
-    Paginated:
+    CreativeType:
+      type: string
+      description: Ad creative type enum. For update, only draft ads may update creative type. </p><strong>Note:</strong> SHOP_THE_PIN has been deprecated. Please use COLLECTION instead.
+      enum:
+      - REGULAR
+      - VIDEO
+      - SHOPPING
+      - CAROUSEL
+      - MAX_VIDEO
+      - SHOP_THE_PIN
+      - COLLECTION
+      - IDEA
+      - SHOWCASE
+      - QUIZ
+      example: REGULAR
+      title: CreativeType
+    BoardOwner:
+      title: Board owner
       type: object
       properties:
-        items:
-          type: array
-          items:
-            type: object
-        bookmark:
-          type:
-          - string
-          - 'null'
-      required:
-      - items
+        username:
+          type: string
+          readOnly: true
     PinMediaSourceImageURL:
       title: Image URL
       description: Image URL-based media source
@@ -303,6 +290,37 @@ components:
       required:
       - source_type
       - url
+    PinMediaSourceVideoID:
+      title: Video ID
+      description: Video ID-based media source
+      type: object
+      properties:
+        source_type:
+          type: string
+          enum:
+          - video_id
+        cover_image_url:
+          type: string
+          description: Cover image url.
+        cover_image_content_type:
+          type: string
+          description: Content type for cover image Base64.
+          enum:
+          - image/jpeg
+          - image/png
+        cover_image_data:
+          type: string
+          description: Cover image Base64.
+        media_id:
+          type: string
+          pattern: ^\d+$
+        is_standard:
+          type: boolean
+          description: Set the parameter to false to create the new simplified Pin instead of the standard pin. Currently the field is only available to a list of beta users.
+          default: true
+      required:
+      - source_type
+      - media_id
     PinMediaSourceImageBase64:
       title: Image Base64
       description: Base64-encoded image media source
@@ -328,6 +346,19 @@ components:
       - source_type
       - content_type
       - data
+    Paginated:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+        bookmark:
+          type:
+          - string
+          - 'null'
+      required:
+      - items
     PinMediaSourceImagesBase64:
       title: Images Base64
       description: Multiple Base64-encoded images media source
@@ -371,42 +402,151 @@ components:
       required:
       - items
       type: object
-    SummaryPin:
-      description: Summarized pin information
-      title: SummaryPin
+    PinMediaSourceImagesURL:
+      title: Images urls
+      description: Multiple images urls-based media source
+      additionalProperties: false
+      properties:
+        source_type:
+          type: string
+          enum:
+          - multiple_image_urls
+        items:
+          items:
+            additionalProperties: false
+            properties:
+              title:
+                type: string
+              description:
+                type: string
+              link:
+                type: string
+                description: Destination link for the image.
+              url:
+                description: URL of image to upload.
+                type: string
+            required:
+            - url
+            type: object
+          minItems: 2
+          maxItems: 5
+          description: Array with image objects.
+          type: array
+        index:
+          type: integer
+          minimum: 0
+      required:
+      - items
+      type: object
+    Error:
+      title: Error
       type: object
       properties:
-        media:
-          allOf:
-          - $ref: '#/components/schemas/PinMedia'
-          type: object
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    Board:
+      title: Board
+      description: Board
+      type: object
+      properties:
+        id:
+          type: string
           readOnly: true
-        alt_text:
-          type:
-          - string
-          - 'null'
-          maxLength: 500
-        link:
-          type:
-          - string
-          - 'null'
-          example: https://www.pinterest.com/
-          maxLength: 2048
-        title:
-          type:
-          - string
-          - 'null'
+          example: '549755885175'
+        created_at:
+          type: string
+          description: Date and time of board creation.
+          readOnly: true
+          format: date-time
+          example: '2020-01-01T20:10:40-00:00'
+        board_pins_modified_at:
+          type: string
+          description: Date and time of last board pins modified.
+          readOnly: true
+          format: date-time
+          example: '2020-01-01T20:10:40-00:00'
+        name:
+          type: string
+          example: Summer Recipes
         description:
           type:
           - string
           - 'null'
-    BoardOwner:
-      title: Board owner
+          example: My favorite summer recipes
+        collaborator_count:
+          type: integer
+          description: Count of collaborators on the board.
+          minimum: 0
+          readOnly: true
+          example: 17
+        pin_count:
+          type: integer
+          description: Count of pins on the board.
+          minimum: 0
+          readOnly: true
+          example: 5
+        follower_count:
+          type: integer
+          description: Board follower count.
+          readOnly: true
+          minimum: 0
+          example: 13
+        media:
+          type: object
+          readOnly: true
+          description: Board media.
+          properties:
+            image_cover_url:
+              type:
+              - string
+              - 'null'
+              description: Board cover image.
+              example: https://i.pinimg.com/400x300/fd/cd/d5/fdcdd5a6d8a80824add0d054125cd957.jpg
+            pin_thumbnail_urls:
+              type: array
+              description: Board pin thumbnail urls.
+              items:
+                type: string
+              example:
+              - https://i.pinimg.com/150x150/b4/57/10/b45710f1ede96af55230f4b43935c4af.jpg
+              - https://i.pinimg.com/150x150/dd/ff/46/ddff4616e39c1935cd05738794fa860e.jpg
+              - https://i.pinimg.com/150x150/84/ac/59/84ac59b670ccb5b903dace480a98930c.jpg
+              - https://i.pinimg.com/150x150/4c/54/6f/4c546f521be85e30838fb742bfff6936.jpg
+        owner:
+          allOf:
+          - $ref: '#/components/schemas/BoardOwner'
+          type: object
+          readOnly: true
+        privacy:
+          type: string
+          default: PUBLIC
+          description: Privacy setting for a board. Learn more about <a href="https://help.pinterest.com/en/article/secret-boards">secret boards</a> and <a href="https://help.pinterest.com/en/business/article/protected-boards">protected boards</a>
+          enum:
+          - PUBLIC
+          - PROTECTED
+          - SECRET
+      required:
+      - name
+    PinMediaSourcePinURL:
+      title: Pin URL
+      description: Pin URL-based media source for product pin creation. Currently the field is only available to a list of beta users.
       type: object
       properties:
-        username:
+        source_type:
           type: string
-          readOnly: true
+          enum:
+          - pin_url
+        is_affiliate_link:
+          type: boolean
+          description: This is an affiliate link or sponsored product. The FTC requires disclosure for paid partnerships and affiliate products.
+          default: false
+      required:
+      - source_type
     Pin:
       title: Pin
       description: Pin
@@ -521,147 +661,25 @@ components:
                 reaction: 10
                 comment: 2
             - null
-    Error:
-      title: Error
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
-    PinMediaSourceVideoID:
-      title: Video ID
-      description: Video ID-based media source
-      type: object
-      properties:
-        source_type:
-          type: string
-          enum:
-          - video_id
-        cover_image_url:
-          type: string
-          description: Cover image url.
-        cover_image_content_type:
-          type: string
-          description: Content type for cover image Base64.
-          enum:
-          - image/jpeg
-          - image/png
-        cover_image_data:
-          type: string
-          description: Cover image Base64.
-        media_id:
-          type: string
-          pattern: ^\d+$
-        is_standard:
-          type: boolean
-          description: Set the parameter to false to create the new simplified Pin instead of the standard pin. Currently the field is only available to a list of beta users.
-          default: true
-      required:
-      - source_type
-      - media_id
-    PinMediaSourcePinURL:
-      title: Pin URL
-      description: Pin URL-based media source for product pin creation. Currently the field is only available to a list of beta users.
-      type: object
-      properties:
-        source_type:
-          type: string
-          enum:
-          - pin_url
-        is_affiliate_link:
-          type: boolean
-          description: This is an affiliate link or sponsored product. The FTC requires disclosure for paid partnerships and affiliate products.
-          default: false
-      required:
-      - source_type
-    Board:
-      title: Board
-      description: Board
-      type: object
-      properties:
-        id:
-          type: string
-          readOnly: true
-          example: '549755885175'
-        created_at:
-          type: string
-          description: Date and time of board creation.
-          readOnly: true
-          format: date-time
-          example: '2020-01-01T20:10:40-00:00'
-        board_pins_modified_at:
-          type: string
-          description: Date and time of last board pins modified.
-          readOnly: true
-          format: date-time
-          example: '2020-01-01T20:10:40-00:00'
-        name:
-          type: string
-          example: Summer Recipes
-        description:
-          type:
-          - string
-          - 'null'
-          example: My favorite summer recipes
-        collaborator_count:
-          type: integer
-          description: Count of collaborators on the board.
-          minimum: 0
-          readOnly: true
-          example: 17
-        pin_count:
-          type: integer
-          description: Count of pins on the board.
-          minimum: 0
-          readOnly: true
-          example: 5
-        follower_count:
-          type: integer
-          description: Board follower count.
-          readOnly: true
-          minimum: 0
-          example: 13
-        media:
-          type: object
-          readOnly: true
-          description: Board media.
-          properties:
-            image_cover_url:
-              type:
-              - string
-              - 'null'
-              description: Board cover image.
-              example: https://i.pinimg.com/400x300/fd/cd/d5/fdcdd5a6d8a80824add0d054125cd957.jpg
-            pin_thumbnail_urls:
-              type: array
-              description: Board pin thumbnail urls.
-              items:
-                type: string
-              example:
-              - https://i.pinimg.com/150x150/b4/57/10/b45710f1ede96af55230f4b43935c4af.jpg
-              - https://i.pinimg.com/150x150/dd/ff/46/ddff4616e39c1935cd05738794fa860e.jpg
-              - https://i.pinimg.com/150x150/84/ac/59/84ac59b670ccb5b903dace480a98930c.jpg
-              - https://i.pinimg.com/150x150/4c/54/6f/4c546f521be85e30838fb742bfff6936.jpg
-        owner:
-          allOf:
-          - $ref: '#/components/schemas/BoardOwner'
-          type: object
-          readOnly: true
-        privacy:
-          type: string
-          default: PUBLIC
-          description: Privacy setting for a board. Learn more about <a href="https://help.pinterest.com/en/article/secret-boards">secret boards</a> and <a href="https://help.pinterest.com/en/business/article/protected-boards">protected boards</a>
-          enum:
-          - PUBLIC
-          - PROTECTED
-          - SECRET
-      required:
-      - name
   parameters:
+    query_bookmark:
+      name: bookmark
+      description: Cursor used to fetch the next page of items
+      in: query
+      required: false
+      schema:
+        type: string
+    result_limit:
+      description: Max search result size
+      in: query
+      name: limit
+      example: 4
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+        default: 10
     query_page_size:
       name: page_size
       description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
@@ -682,10 +700,10 @@ components:
       schema:
         type: string
       style: form
-    query_bookmark:
-      name: bookmark
-      description: Cursor used to fetch the next page of items
+    query_query:
+      description: Search query. Can contain pin description keywords or comma-separated pin IDs.
       in: query
+      name: query
       required: false
       schema:
         type: string
@@ -705,24 +723,6 @@ components:
         type: string
         pattern: ^\d+$
         maxLength: 18
-    query_query:
-      description: Search query. Can contain pin description keywords or comma-separated pin IDs.
-      in: query
-      name: query
-      required: false
-      schema:
-        type: string
-    result_limit:
-      description: Max search result size
-      in: query
-      name: limit
-      example: 4
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 50
-        default: 10
   securitySchemes:
     pinterest_oauth2:
       type: oauth2
