@@ -206,55 +206,6 @@ paths:
       - Resources
 components:
   parameters:
-    path_interest_id:
-      name: interest_id
-      description: Unique identifier of an interest.
-      in: path
-      required: true
-      schema:
-        type: string
-        pattern: ^\d+$
-        maxLength: 18
-    query_timestamp:
-      name: timestamp
-      description: Timestamp
-      in: query
-      required: false
-      schema:
-        type: string
-        example: '1618338184277'
-        pattern: \d+
-      style: form
-    query_oauth_signature:
-      name: oauth_signature
-      description: Oauth signature
-      in: query
-      required: false
-      schema:
-        type: string
-        example: 8209f
-      style: form
-    query_report_type:
-      name: report_type
-      description: Report type.
-      in: query
-      required: false
-      schema:
-        type: string
-        enum:
-        - SYNC
-        - ASYNC
-    query_client_id:
-      name: client_id
-      description: Client ID.
-      in: query
-      required: false
-      schema:
-        type: string
-        pattern: ^\d+$
-        maxLength: 18
-        example: '1094834'
-      style: form
     path_targeting_type:
       name: targeting_type
       description: Public targeting type.
@@ -277,14 +228,56 @@ components:
         - KEYWORD
         - AUDIENCE_INCLUDE
         - AUDIENCE_EXCLUDE
+    query_client_id:
+      name: client_id
+      description: Client ID.
+      in: query
+      required: false
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
+        example: '1094834'
+      style: form
+    query_timestamp:
+      name: timestamp
+      description: Timestamp
+      in: query
+      required: false
+      schema:
+        type: string
+        example: '1618338184277'
+        pattern: \d+
+      style: form
+    query_report_type:
+      name: report_type
+      description: Report type.
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+        - SYNC
+        - ASYNC
+    query_oauth_signature:
+      name: oauth_signature
+      description: Oauth signature
+      in: query
+      required: false
+      schema:
+        type: string
+        example: 8209f
+      style: form
+    path_interest_id:
+      name: interest_id
+      description: Unique identifier of an interest.
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
   schemas:
-    AdAccountsCountryResponse:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdAccountsCountryResponseData'
     Error:
       title: Error
       type: object
@@ -296,6 +289,63 @@ components:
       required:
       - code
       - message
+    SingleInterestTargetingOptionResponse:
+      title: SingleInterestTargetingOptionData
+      type: object
+      properties:
+        id:
+          type: string
+          title: id
+          pattern: \d+
+          example: '945391946569'
+        name:
+          type: string
+          title: name
+          example: Dress
+        child_interests:
+          type: array
+          title: child_interests
+          items:
+            type: string
+        level:
+          type: integer
+          title: level
+          example: 2
+    AdAccountsCountryResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdAccountsCountryResponseData'
+    TargetingOptionResponse:
+      title: TargetingOptionResponse
+      type:
+      - array
+      - 'null'
+      items:
+        type: object
+        example:
+          '36313': 'Australia: Moreton Bay - North'
+          '124735': 'Canada: North Battleford'
+    AdAccountsCountryResponseData:
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/AdCountry'
+          type: string
+        currency:
+          description: Country currency.
+          example: Dollars
+          type: string
+        index:
+          type: number
+          description: Country index
+          example: 1
+        name:
+          type: string
+          description: Country name
+          example: United States of America
     DeliveryMetricsResponse:
       type: object
       properties:
@@ -322,6 +372,21 @@ components:
                 type: string
                 description: Display name, when available. If unavaible it will not be returned. Matches how the metric is named in our native tools like Pinterest Ads Manager.
                 example: Ad group ID
+    BookClosedResponse:
+      title: BookClosed
+      description: Creation fields
+      type: object
+      properties:
+        conversion_metrics_ready:
+          title: conversion_metrics_ready
+          description: Are conversion metrics ready?
+          type: boolean
+          example: false
+        non_conversion_metrics_ready:
+          title: non_conversion_metrics_ready
+          description: Are non-conversion metrics ready?
+          type: boolean
+          example: false
     AdCountry:
       type: string
       description: Country ID from ISO 3166-1 alpha-2.
@@ -575,71 +640,6 @@ components:
       - ZA
       - ZM
       - ZW
-    AdAccountsCountryResponseData:
-      type: object
-      properties:
-        code:
-          $ref: '#/components/schemas/AdCountry'
-          type: string
-        currency:
-          description: Country currency.
-          example: Dollars
-          type: string
-        index:
-          type: number
-          description: Country index
-          example: 1
-        name:
-          type: string
-          description: Country name
-          example: United States of America
-    SingleInterestTargetingOptionResponse:
-      title: SingleInterestTargetingOptionData
-      type: object
-      properties:
-        id:
-          type: string
-          title: id
-          pattern: \d+
-          example: '945391946569'
-        name:
-          type: string
-          title: name
-          example: Dress
-        child_interests:
-          type: array
-          title: child_interests
-          items:
-            type: string
-        level:
-          type: integer
-          title: level
-          example: 2
-    BookClosedResponse:
-      title: BookClosed
-      description: Creation fields
-      type: object
-      properties:
-        conversion_metrics_ready:
-          title: conversion_metrics_ready
-          description: Are conversion metrics ready?
-          type: boolean
-          example: false
-        non_conversion_metrics_ready:
-          title: non_conversion_metrics_ready
-          description: Are non-conversion metrics ready?
-          type: boolean
-          example: false
-    TargetingOptionResponse:
-      title: TargetingOptionResponse
-      type:
-      - array
-      - 'null'
-      items:
-        type: object
-        example:
-          '36313': 'Australia: Moreton Bay - North'
-          '124735': 'Canada: North Battleford'
   securitySchemes:
     pinterest_oauth2:
       type: oauth2

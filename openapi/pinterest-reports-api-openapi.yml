@@ -192,73 +192,7 @@ paths:
       tags:
       - Reports
 components:
-  parameters:
-    query_catalogs_report_token:
-      name: token
-      description: Token returned from async build report call
-      in: query
-      required: true
-      schema:
-        type: string
-    query_bookmark:
-      name: bookmark
-      description: Cursor used to fetch the next page of items
-      in: query
-      required: false
-      schema:
-        type: string
-    query_catalogs_report_stats_parameters:
-      name: parameters
-      in: query
-      description: Contains the parameters for report identification.
-      required: true
-      style: deepObject
-      schema:
-        $ref: '#/components/schemas/CatalogsReportParameters'
-    query_page_size:
-      name: page_size
-      description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
-      in: query
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 250
-        default: 25
-    query_ad_account_id:
-      name: ad_account_id
-      description: Unique identifier of an ad account.
-      in: query
-      schema:
-        type: string
-        pattern: ^\d+$
-        maxLength: 18
   schemas:
-    Error:
-      title: Error
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
-    CatalogsReportDistributionIssueFilter:
-      type: object
-      additionalProperties: false
-      properties:
-        report_type:
-          type: string
-          enum:
-          - DISTRIBUTION_ISSUES
-        catalog_id:
-          type: string
-          description: Unique identifier of a catalog. If not given, oldest catalog will be used
-          pattern: ^\d+$
-      required:
-      - report_type
     CatalogsRetailReportParameters:
       type: object
       description: Parameters for retail report
@@ -267,164 +201,6 @@ components:
           type: string
           enum:
           - RETAIL
-        report:
-          type: object
-          oneOf:
-          - $ref: '#/components/schemas/CatalogsReportFeedIngestionFilter'
-          - $ref: '#/components/schemas/CatalogsReportDistributionIssueFilter'
-          discriminator:
-            propertyName: report_type
-            mapping:
-              FEED_INGESTION_ISSUES: '#/components/schemas/CatalogsReportFeedIngestionFilter'
-              DISTRIBUTION_ISSUES: '#/components/schemas/CatalogsReportDistributionIssueFilter'
-          properties:
-            report_type:
-              type: string
-              enum:
-              - FEED_INGESTION_ISSUES
-              - DISTRIBUTION_ISSUES
-      required:
-      - catalog_type
-      - report
-    CatalogsReport:
-      type: object
-      properties:
-        report_status:
-          type: string
-          enum:
-          - FINISHED
-          - IN_PROGRESS
-        url:
-          type:
-          - string
-          - 'null'
-          description: URL to download the report
-        size:
-          type:
-          - number
-          - 'null'
-          description: Size of the report in bytes
-    CatalogsReportFeedIngestionStats:
-      type: object
-      properties:
-        report_type:
-          type: string
-          enum:
-          - FEED_INGESTION_ISSUES
-        catalog_id:
-          type: string
-          pattern: ^\d+$
-          description: ID of the catalog entity.
-        code:
-          description: The event code that a diagnostics aggregated number references
-          type: integer
-          example: 112
-        code_label:
-          description: A human-friendly label for the event code (e.g, 'AVAILABILITY_INVALID')
-          type: string
-          example: AVAILABILITY_INVALID
-        message:
-          description: Title message describing the diagnostic issue
-          type: string
-        occurrences:
-          description: Number of occurrences of the issue
-          example: 10
-          type: integer
-        severity:
-          description: An ERROR means that items have been dropped, while a WARN denotes that items have been ingested despite an issue
-          type: string
-          enum:
-          - WARN
-          - ERROR
-    CatalogsReportDistributionStats:
-      type: object
-      properties:
-        report_type:
-          type: string
-          enum:
-          - DISTRIBUTION_ISSUES
-        catalog_id:
-          type: string
-          pattern: ^\d+$
-          description: ID of the catalog entity.
-        code:
-          description: The event code that a diagnostics aggregated number references
-          type: integer
-        code_label:
-          description: A human-friendly label for the event code (e.g, 'SPAM')
-          type: string
-          example: SPAM
-        message:
-          description: Title message describing the diagnostic issue
-          type: string
-        occurrences:
-          description: Number of occurrences of the issue
-          example: 10
-          type: integer
-        ineligible_for_ads:
-          description: Indicates if issue makes items ineligible for ads distribution
-          example: true
-          type: boolean
-        ineligible_for_organic:
-          description: Indicates if issue makes items ineligible for organic distribution
-          example: true
-          type: boolean
-    CatalogsReportStats:
-      type: object
-      description: Diagnostics aggregated numbers
-      oneOf:
-      - $ref: '#/components/schemas/CatalogsReportFeedIngestionStats'
-      - $ref: '#/components/schemas/CatalogsReportDistributionStats'
-      discriminator:
-        propertyName: report_type
-        mapping:
-          FEED_INGESTION_ISSUES: '#/components/schemas/CatalogsReportFeedIngestionStats'
-          DISTRIBUTION_ISSUES: '#/components/schemas/CatalogsReportDistributionStats'
-      properties:
-        report_type:
-          type: string
-          enum:
-          - FEED_INGESTION_ISSUES
-          - DISTRIBUTION_ISSUES
-      required:
-      - report_type
-    CatalogsReportParameters:
-      type: object
-      description: Report parameters
-      properties:
-        catalog_type:
-          $ref: '#/components/schemas/CatalogsType'
-      required:
-      - catalog_type
-      oneOf:
-      - $ref: '#/components/schemas/CatalogsRetailReportParameters'
-      - $ref: '#/components/schemas/CatalogsHotelReportParameters'
-      discriminator:
-        propertyName: catalog_type
-        mapping:
-          RETAIL: '#/components/schemas/CatalogsRetailReportParameters'
-          HOTEL: '#/components/schemas/CatalogsHotelReportParameters'
-    CatalogsCreateReportResponse:
-      type: object
-      properties:
-        token:
-          type: string
-          description: Token to be used to get the report
-    CatalogsType:
-      description: Type of the catalog entity.
-      type: string
-      enum:
-      - RETAIL
-      - HOTEL
-      - CREATIVE_ASSETS
-    CatalogsHotelReportParameters:
-      type: object
-      description: Parameters for hotel report
-      properties:
-        catalog_type:
-          type: string
-          enum:
-          - HOTEL
         report:
           type: object
           oneOf:
@@ -463,6 +239,71 @@ components:
       required:
       - report_type
       - feed_id
+    CatalogsType:
+      description: Type of the catalog entity.
+      type: string
+      enum:
+      - RETAIL
+      - HOTEL
+      - CREATIVE_ASSETS
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    CatalogsReportDistributionStats:
+      type: object
+      properties:
+        report_type:
+          type: string
+          enum:
+          - DISTRIBUTION_ISSUES
+        catalog_id:
+          type: string
+          pattern: ^\d+$
+          description: ID of the catalog entity.
+        code:
+          description: The event code that a diagnostics aggregated number references
+          type: integer
+        code_label:
+          description: A human-friendly label for the event code (e.g, 'SPAM')
+          type: string
+          example: SPAM
+        message:
+          description: Title message describing the diagnostic issue
+          type: string
+        occurrences:
+          description: Number of occurrences of the issue
+          example: 10
+          type: integer
+        ineligible_for_ads:
+          description: Indicates if issue makes items ineligible for ads distribution
+          example: true
+          type: boolean
+        ineligible_for_organic:
+          description: Indicates if issue makes items ineligible for organic distribution
+          example: true
+          type: boolean
+    CatalogsReportDistributionIssueFilter:
+      type: object
+      additionalProperties: false
+      properties:
+        report_type:
+          type: string
+          enum:
+          - DISTRIBUTION_ISSUES
+        catalog_id:
+          type: string
+          description: Unique identifier of a catalog. If not given, oldest catalog will be used
+          pattern: ^\d+$
+      required:
+      - report_type
     Paginated:
       type: object
       properties:
@@ -476,6 +317,165 @@ components:
           - 'null'
       required:
       - items
+    CatalogsCreateReportResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          description: Token to be used to get the report
+    CatalogsReportParameters:
+      type: object
+      description: Report parameters
+      properties:
+        catalog_type:
+          $ref: '#/components/schemas/CatalogsType'
+      required:
+      - catalog_type
+      oneOf:
+      - $ref: '#/components/schemas/CatalogsRetailReportParameters'
+      - $ref: '#/components/schemas/CatalogsHotelReportParameters'
+      discriminator:
+        propertyName: catalog_type
+        mapping:
+          RETAIL: '#/components/schemas/CatalogsRetailReportParameters'
+          HOTEL: '#/components/schemas/CatalogsHotelReportParameters'
+    CatalogsReportFeedIngestionStats:
+      type: object
+      properties:
+        report_type:
+          type: string
+          enum:
+          - FEED_INGESTION_ISSUES
+        catalog_id:
+          type: string
+          pattern: ^\d+$
+          description: ID of the catalog entity.
+        code:
+          description: The event code that a diagnostics aggregated number references
+          type: integer
+          example: 112
+        code_label:
+          description: A human-friendly label for the event code (e.g, 'AVAILABILITY_INVALID')
+          type: string
+          example: AVAILABILITY_INVALID
+        message:
+          description: Title message describing the diagnostic issue
+          type: string
+        occurrences:
+          description: Number of occurrences of the issue
+          example: 10
+          type: integer
+        severity:
+          description: An ERROR means that items have been dropped, while a WARN denotes that items have been ingested despite an issue
+          type: string
+          enum:
+          - WARN
+          - ERROR
+    CatalogsHotelReportParameters:
+      type: object
+      description: Parameters for hotel report
+      properties:
+        catalog_type:
+          type: string
+          enum:
+          - HOTEL
+        report:
+          type: object
+          oneOf:
+          - $ref: '#/components/schemas/CatalogsReportFeedIngestionFilter'
+          - $ref: '#/components/schemas/CatalogsReportDistributionIssueFilter'
+          discriminator:
+            propertyName: report_type
+            mapping:
+              FEED_INGESTION_ISSUES: '#/components/schemas/CatalogsReportFeedIngestionFilter'
+              DISTRIBUTION_ISSUES: '#/components/schemas/CatalogsReportDistributionIssueFilter'
+          properties:
+            report_type:
+              type: string
+              enum:
+              - FEED_INGESTION_ISSUES
+              - DISTRIBUTION_ISSUES
+      required:
+      - catalog_type
+      - report
+    CatalogsReport:
+      type: object
+      properties:
+        report_status:
+          type: string
+          enum:
+          - FINISHED
+          - IN_PROGRESS
+        url:
+          type:
+          - string
+          - 'null'
+          description: URL to download the report
+        size:
+          type:
+          - number
+          - 'null'
+          description: Size of the report in bytes
+    CatalogsReportStats:
+      type: object
+      description: Diagnostics aggregated numbers
+      oneOf:
+      - $ref: '#/components/schemas/CatalogsReportFeedIngestionStats'
+      - $ref: '#/components/schemas/CatalogsReportDistributionStats'
+      discriminator:
+        propertyName: report_type
+        mapping:
+          FEED_INGESTION_ISSUES: '#/components/schemas/CatalogsReportFeedIngestionStats'
+          DISTRIBUTION_ISSUES: '#/components/schemas/CatalogsReportDistributionStats'
+      properties:
+        report_type:
+          type: string
+          enum:
+          - FEED_INGESTION_ISSUES
+          - DISTRIBUTION_ISSUES
+      required:
+      - report_type
+  parameters:
+    query_ad_account_id:
+      name: ad_account_id
+      description: Unique identifier of an ad account.
+      in: query
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
+    query_page_size:
+      name: page_size
+      description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 250
+        default: 25
+    query_catalogs_report_stats_parameters:
+      name: parameters
+      in: query
+      description: Contains the parameters for report identification.
+      required: true
+      style: deepObject
+      schema:
+        $ref: '#/components/schemas/CatalogsReportParameters'
+    query_catalogs_report_token:
+      name: token
+      description: Token returned from async build report call
+      in: query
+      required: true
+      schema:
+        type: string
+    query_bookmark:
+      name: bookmark
+      description: Cursor used to fetch the next page of items
+      in: query
+      required: false
+      schema:
+        type: string
   securitySchemes:
     pinterest_oauth2:
       type: oauth2

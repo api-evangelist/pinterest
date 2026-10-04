@@ -57,17 +57,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Error:
-      title: Error
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
     OauthAccessTokenRequest:
       title: OAuth access token request
       description: Describes the valid schema for possible OAuth access token requests.
@@ -85,6 +74,17 @@ components:
           - refresh_token
       required:
       - grant_type
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
     OauthAccessTokenResponse:
       title: OAuth access token response
       description: A successful OAuth access token response.

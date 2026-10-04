@@ -70,45 +70,7 @@ paths:
                 $ref: '#/components/schemas/Error'
       x-sandbox: enabled
 components:
-  parameters:
-    path_username:
-      name: username
-      description: A valid username
-      in: path
-      required: true
-      schema:
-        type: string
-        pattern: (?!^\d+$)^.+$
-        example: username
-    query_bookmark:
-      name: bookmark
-      description: Cursor used to fetch the next page of items
-      in: query
-      required: false
-      schema:
-        type: string
-    query_page_size:
-      name: page_size
-      description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
-      in: query
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 250
-        default: 25
   schemas:
-    Error:
-      title: Error
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
     Interest:
       title: Interest
       type: object
@@ -125,6 +87,17 @@ components:
         name:
           type: string
           example: Man cave
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
     Paginated:
       type: object
       properties:
@@ -138,6 +111,33 @@ components:
           - 'null'
       required:
       - items
+  parameters:
+    path_username:
+      name: username
+      description: A valid username
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: (?!^\d+$)^.+$
+        example: username
+    query_page_size:
+      name: page_size
+      description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 250
+        default: 25
+    query_bookmark:
+      name: bookmark
+      description: Cursor used to fetch the next page of items
+      in: query
+      required: false
+      schema:
+        type: string
   securitySchemes:
     pinterest_oauth2:
       type: oauth2

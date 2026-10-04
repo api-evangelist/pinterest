@@ -186,21 +186,6 @@ paths:
       - Search
 components:
   schemas:
-    PinMedia:
-      title: Pin media
-      type: object
-      description: Pin media objects.
-      discriminator:
-        propertyName: media_type
-        mapping:
-          image: '#/components/schemas/PinMediaWithImage'
-          video: '#/components/schemas/PinMediaWithVideo'
-          multiple_images: '#/components/schemas/PinMediaWithImages'
-          multiple_videos: '#/components/schemas/PinMediaWithVideos'
-          multiple_mixed: '#/components/schemas/PinMediaWithImageAndVideo'
-      properties:
-        media_type:
-          type: string
     SummaryPin:
       description: Summarized pin information
       title: SummaryPin
@@ -230,225 +215,6 @@ components:
           type:
           - string
           - 'null'
-    PinMediaSource:
-      title: Pin media source
-      description: Pin media source.
-      oneOf:
-      - $ref: '#/components/schemas/PinMediaSourceImageBase64'
-      - $ref: '#/components/schemas/PinMediaSourceImageURL'
-      - $ref: '#/components/schemas/PinMediaSourceVideoID'
-      - $ref: '#/components/schemas/PinMediaSourceImagesBase64'
-      - $ref: '#/components/schemas/PinMediaSourceImagesURL'
-      - $ref: '#/components/schemas/PinMediaSourcePinURL'
-      discriminator:
-        propertyName: source_type
-        mapping:
-          multiple_image_base64: '#/components/schemas/PinMediaSourceImagesBase64'
-          image_base64: '#/components/schemas/PinMediaSourceImageBase64'
-          multiple_image_urls: '#/components/schemas/PinMediaSourceImagesURL'
-          image_url: '#/components/schemas/PinMediaSourceImageURL'
-          video_id: '#/components/schemas/PinMediaSourceVideoID'
-          pin_url: '#/components/schemas/PinMediaSourcePinURL'
-    CreativeType:
-      type: string
-      description: Ad creative type enum. For update, only draft ads may update creative type. </p><strong>Note:</strong> SHOP_THE_PIN has been deprecated. Please use COLLECTION instead.
-      enum:
-      - REGULAR
-      - VIDEO
-      - SHOPPING
-      - CAROUSEL
-      - MAX_VIDEO
-      - SHOP_THE_PIN
-      - COLLECTION
-      - IDEA
-      - SHOWCASE
-      - QUIZ
-      example: REGULAR
-      title: CreativeType
-    BoardOwner:
-      title: Board owner
-      type: object
-      properties:
-        username:
-          type: string
-          readOnly: true
-    PinMediaSourceImageURL:
-      title: Image URL
-      description: Image URL-based media source
-      type: object
-      properties:
-        source_type:
-          type: string
-          enum:
-          - image_url
-        url:
-          type: string
-        is_standard:
-          type: boolean
-          description: Set the parameter to false to create the new simplified Pin instead of the standard pin. Currently the field is only available to a list of beta users.
-          default: true
-      required:
-      - source_type
-      - url
-    PinMediaSourceVideoID:
-      title: Video ID
-      description: Video ID-based media source
-      type: object
-      properties:
-        source_type:
-          type: string
-          enum:
-          - video_id
-        cover_image_url:
-          type: string
-          description: Cover image url.
-        cover_image_content_type:
-          type: string
-          description: Content type for cover image Base64.
-          enum:
-          - image/jpeg
-          - image/png
-        cover_image_data:
-          type: string
-          description: Cover image Base64.
-        media_id:
-          type: string
-          pattern: ^\d+$
-        is_standard:
-          type: boolean
-          description: Set the parameter to false to create the new simplified Pin instead of the standard pin. Currently the field is only available to a list of beta users.
-          default: true
-      required:
-      - source_type
-      - media_id
-    PinMediaSourceImageBase64:
-      title: Image Base64
-      description: Base64-encoded image media source
-      type: object
-      properties:
-        source_type:
-          type: string
-          enum:
-          - image_base64
-        content_type:
-          type: string
-          enum:
-          - image/jpeg
-          - image/png
-        data:
-          type: string
-          pattern: '[a-zA-Z0-9+\/=]+'
-        is_standard:
-          type: boolean
-          description: Set the parameter to false to create the new simplified Pin instead of the standard pin. Currently the field is only available to a list of beta users.
-          default: true
-      required:
-      - source_type
-      - content_type
-      - data
-    Paginated:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            type: object
-        bookmark:
-          type:
-          - string
-          - 'null'
-      required:
-      - items
-    PinMediaSourceImagesBase64:
-      title: Images Base64
-      description: Multiple Base64-encoded images media source
-      additionalProperties: false
-      properties:
-        source_type:
-          type: string
-          enum:
-          - multiple_image_base64
-        items:
-          items:
-            additionalProperties: false
-            properties:
-              title:
-                type: string
-              description:
-                type: string
-              link:
-                type: string
-                description: Destination link for the image.
-              content_type:
-                type: string
-                enum:
-                - image/jpeg
-                - image/png
-              data:
-                type: string
-                description: Image to upload as base64 string.
-                pattern: '[a-zA-Z0-9+\/=]+'
-            required:
-            - data
-            - content_type
-            type: object
-          minItems: 2
-          maxItems: 5
-          description: Array with image objects.
-          type: array
-        index:
-          type: integer
-          minimum: 0
-      required:
-      - items
-      type: object
-    PinMediaSourceImagesURL:
-      title: Images urls
-      description: Multiple images urls-based media source
-      additionalProperties: false
-      properties:
-        source_type:
-          type: string
-          enum:
-          - multiple_image_urls
-        items:
-          items:
-            additionalProperties: false
-            properties:
-              title:
-                type: string
-              description:
-                type: string
-              link:
-                type: string
-                description: Destination link for the image.
-              url:
-                description: URL of image to upload.
-                type: string
-            required:
-            - url
-            type: object
-          minItems: 2
-          maxItems: 5
-          description: Array with image objects.
-          type: array
-        index:
-          type: integer
-          minimum: 0
-      required:
-      - items
-      type: object
-    Error:
-      title: Error
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
     Board:
       title: Board
       description: Board
@@ -532,6 +298,83 @@ components:
           - SECRET
       required:
       - name
+    CreativeType:
+      type: string
+      description: Ad creative type enum. For update, only draft ads may update creative type. </p><strong>Note:</strong> SHOP_THE_PIN has been deprecated. Please use COLLECTION instead.
+      enum:
+      - REGULAR
+      - VIDEO
+      - SHOPPING
+      - CAROUSEL
+      - MAX_VIDEO
+      - SHOP_THE_PIN
+      - COLLECTION
+      - IDEA
+      - SHOWCASE
+      - QUIZ
+      example: REGULAR
+      title: CreativeType
+    PinMediaSourceImagesBase64:
+      title: Images Base64
+      description: Multiple Base64-encoded images media source
+      additionalProperties: false
+      properties:
+        source_type:
+          type: string
+          enum:
+          - multiple_image_base64
+        items:
+          items:
+            additionalProperties: false
+            properties:
+              title:
+                type: string
+              description:
+                type: string
+              link:
+                type: string
+                description: Destination link for the image.
+              content_type:
+                type: string
+                enum:
+                - image/jpeg
+                - image/png
+              data:
+                type: string
+                description: Image to upload as base64 string.
+                pattern: '[a-zA-Z0-9+\/=]+'
+            required:
+            - data
+            - content_type
+            type: object
+          minItems: 2
+          maxItems: 5
+          description: Array with image objects.
+          type: array
+        index:
+          type: integer
+          minimum: 0
+      required:
+      - items
+      type: object
+    PinMediaSourceImageURL:
+      title: Image URL
+      description: Image URL-based media source
+      type: object
+      properties:
+        source_type:
+          type: string
+          enum:
+          - image_url
+        url:
+          type: string
+        is_standard:
+          type: boolean
+          description: Set the parameter to false to create the new simplified Pin instead of the standard pin. Currently the field is only available to a list of beta users.
+          default: true
+      required:
+      - source_type
+      - url
     PinMediaSourcePinURL:
       title: Pin URL
       description: Pin URL-based media source for product pin creation. Currently the field is only available to a list of beta users.
@@ -547,6 +390,108 @@ components:
           default: false
       required:
       - source_type
+    BoardOwner:
+      title: Board owner
+      type: object
+      properties:
+        username:
+          type: string
+          readOnly: true
+    PinMediaSourceImageBase64:
+      title: Image Base64
+      description: Base64-encoded image media source
+      type: object
+      properties:
+        source_type:
+          type: string
+          enum:
+          - image_base64
+        content_type:
+          type: string
+          enum:
+          - image/jpeg
+          - image/png
+        data:
+          type: string
+          pattern: '[a-zA-Z0-9+\/=]+'
+        is_standard:
+          type: boolean
+          description: Set the parameter to false to create the new simplified Pin instead of the standard pin. Currently the field is only available to a list of beta users.
+          default: true
+      required:
+      - source_type
+      - content_type
+      - data
+    PinMediaSource:
+      title: Pin media source
+      description: Pin media source.
+      oneOf:
+      - $ref: '#/components/schemas/PinMediaSourceImageBase64'
+      - $ref: '#/components/schemas/PinMediaSourceImageURL'
+      - $ref: '#/components/schemas/PinMediaSourceVideoID'
+      - $ref: '#/components/schemas/PinMediaSourceImagesBase64'
+      - $ref: '#/components/schemas/PinMediaSourceImagesURL'
+      - $ref: '#/components/schemas/PinMediaSourcePinURL'
+      discriminator:
+        propertyName: source_type
+        mapping:
+          multiple_image_base64: '#/components/schemas/PinMediaSourceImagesBase64'
+          image_base64: '#/components/schemas/PinMediaSourceImageBase64'
+          multiple_image_urls: '#/components/schemas/PinMediaSourceImagesURL'
+          image_url: '#/components/schemas/PinMediaSourceImageURL'
+          video_id: '#/components/schemas/PinMediaSourceVideoID'
+          pin_url: '#/components/schemas/PinMediaSourcePinURL'
+    PinMedia:
+      title: Pin media
+      type: object
+      description: Pin media objects.
+      discriminator:
+        propertyName: media_type
+        mapping:
+          image: '#/components/schemas/PinMediaWithImage'
+          video: '#/components/schemas/PinMediaWithVideo'
+          multiple_images: '#/components/schemas/PinMediaWithImages'
+          multiple_videos: '#/components/schemas/PinMediaWithVideos'
+          multiple_mixed: '#/components/schemas/PinMediaWithImageAndVideo'
+      properties:
+        media_type:
+          type: string
+    PinMediaSourceImagesURL:
+      title: Images urls
+      description: Multiple images urls-based media source
+      additionalProperties: false
+      properties:
+        source_type:
+          type: string
+          enum:
+          - multiple_image_urls
+        items:
+          items:
+            additionalProperties: false
+            properties:
+              title:
+                type: string
+              description:
+                type: string
+              link:
+                type: string
+                description: Destination link for the image.
+              url:
+                description: URL of image to upload.
+                type: string
+            required:
+            - url
+            type: object
+          minItems: 2
+          maxItems: 5
+          description: Array with image objects.
+          type: array
+        index:
+          type: integer
+          minimum: 0
+      required:
+      - items
+      type: object
     Pin:
       title: Pin
       description: Pin
@@ -661,12 +606,68 @@ components:
                 reaction: 10
                 comment: 2
             - null
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+    Paginated:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+        bookmark:
+          type:
+          - string
+          - 'null'
+      required:
+      - items
+    PinMediaSourceVideoID:
+      title: Video ID
+      description: Video ID-based media source
+      type: object
+      properties:
+        source_type:
+          type: string
+          enum:
+          - video_id
+        cover_image_url:
+          type: string
+          description: Cover image url.
+        cover_image_content_type:
+          type: string
+          description: Content type for cover image Base64.
+          enum:
+          - image/jpeg
+          - image/png
+        cover_image_data:
+          type: string
+          description: Cover image Base64.
+        media_id:
+          type: string
+          pattern: ^\d+$
+        is_standard:
+          type: boolean
+          description: Set the parameter to false to create the new simplified Pin instead of the standard pin. Currently the field is only available to a list of beta users.
+          default: true
+      required:
+      - source_type
+      - media_id
   parameters:
-    query_bookmark:
-      name: bookmark
-      description: Cursor used to fetch the next page of items
+    query_required_search_query:
+      description: Search query. Can contain pin description keywords or comma-separated pin IDs.
       in: query
-      required: false
+      example: Plants
+      name: query
+      required: true
       schema:
         type: string
     result_limit:
@@ -680,6 +681,28 @@ components:
         minimum: 1
         maximum: 50
         default: 10
+    query_bookmark:
+      name: bookmark
+      description: Cursor used to fetch the next page of items
+      in: query
+      required: false
+      schema:
+        type: string
+    query_ad_account_id:
+      name: ad_account_id
+      description: Unique identifier of an ad account.
+      in: query
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
+    query_query:
+      description: Search query. Can contain pin description keywords or comma-separated pin IDs.
+      in: query
+      name: query
+      required: false
+      schema:
+        type: string
     query_page_size:
       name: page_size
       description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
@@ -700,29 +723,6 @@ components:
       schema:
         type: string
       style: form
-    query_query:
-      description: Search query. Can contain pin description keywords or comma-separated pin IDs.
-      in: query
-      name: query
-      required: false
-      schema:
-        type: string
-    query_required_search_query:
-      description: Search query. Can contain pin description keywords or comma-separated pin IDs.
-      in: query
-      example: Plants
-      name: query
-      required: true
-      schema:
-        type: string
-    query_ad_account_id:
-      name: ad_account_id
-      description: Unique identifier of an ad account.
-      in: query
-      schema:
-        type: string
-        pattern: ^\d+$
-        maxLength: 18
   securitySchemes:
     pinterest_oauth2:
       type: oauth2
