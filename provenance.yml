@@ -7,17 +7,17 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   collections/pinterest-access-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-access-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-access-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-access-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-accounts-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-accounts-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-accounts-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-accounts-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-ad-api.opencollection.json:
     method: derived
     evidence: openapi/pinterest-ad-api
@@ -25,68 +25,68 @@ artifacts:
     method: derived
     evidence: openapi/pinterest-ad-api
   collections/pinterest-ad-groups-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-ad-groups-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-ad-groups-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-ad-groups-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-ads-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-ads-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-ads-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-ads-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-analytics-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-analytics-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-analytics-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-analytics-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-assets-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-assets-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-assets-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-assets-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-asyncapi.opencollection.json:
     method: derived
     evidence: openapi/pinterest-asyncapi
   collections/pinterest-audience-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-audience-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-audience-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-audience-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-audience-insights-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-audience-insights-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-audience-insights-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-audience-insights-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-audiences-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-audiences-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-audiences-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-audiences-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-batch-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-batch-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-batch-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-batch-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-bid-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-bid-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-bid-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-bid-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-billing-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-billing-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-billing-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-billing-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-board-api.opencollection.json:
     method: derived
     evidence: openapi/pinterest-board-api
@@ -100,11 +100,11 @@ artifacts:
     method: derived
     evidence: openapi/pinterest-boards-api
   collections/pinterest-bulk-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-bulk-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-bulk-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-bulk-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-business-api.opencollection.json:
     method: derived
     evidence: openapi/pinterest-business-api
@@ -112,11 +112,11 @@ artifacts:
     method: derived
     evidence: openapi/pinterest-business-api
   collections/pinterest-campaigns-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-campaigns-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-campaigns-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-campaigns-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-catalogs-api.opencollection.json:
     method: derived
     evidence: openapi/pinterest-catalogs-api
@@ -124,89 +124,89 @@ artifacts:
     method: derived
     evidence: openapi/pinterest-catalogs-api
   collections/pinterest-commerce-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-commerce-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-commerce-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-commerce-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-conversion-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-conversion-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-conversion-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-conversion-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-conversions-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-conversions-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-conversions-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-conversions-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-countries-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-countries-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-countries-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-countries-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-counts-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-counts-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-counts-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-counts-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-credit-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-credit-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-credit-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-credit-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-custom-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-custom-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-custom-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-custom-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-customer-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-customer-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-customer-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-customer-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-customer-lists-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-customer-lists-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-customer-lists-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-customer-lists-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-customers-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-customers-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-customers-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-customers-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-deliveries-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-deliveries-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-deliveries-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-deliveries-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-discounts-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-discounts-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-discounts-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-discounts-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-downloads-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-downloads-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-downloads-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-downloads-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-eligible-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-eligible-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-eligible-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-eligible-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-employers-api.opencollection.json:
     method: derived
     evidence: openapi/pinterest-employers-api
@@ -214,23 +214,23 @@ artifacts:
     method: derived
     evidence: openapi/pinterest-employers-api
   collections/pinterest-events-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-events-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-events-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-events-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-external-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-external-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-external-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-external-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-feed-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-feed-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-feed-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-feed-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-feeds-api.opencollection.json:
     method: derived
     evidence: openapi/pinterest-feeds-api
@@ -238,71 +238,71 @@ artifacts:
     method: derived
     evidence: openapi/pinterest-feeds-api
   collections/pinterest-filters-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-filters-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-filters-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-filters-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-floor-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-floor-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-floor-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-floor-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-follow-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-follow-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-follow-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-follow-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-followers-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-followers-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-followers-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-followers-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-following-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-following-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-following-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-following-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-forms-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-forms-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-forms-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-forms-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-groups-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-groups-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-groups-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-groups-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-id-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-id-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-id-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-id-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-ingest-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-ingest-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-ingest-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-ingest-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-insertion-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-insertion-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-insertion-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-insertion-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-insights-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-insights-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-insights-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-insights-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-integrations-api.opencollection.json:
     method: derived
     evidence: openapi/pinterest-integrations-api
@@ -310,17 +310,17 @@ artifacts:
     method: derived
     evidence: openapi/pinterest-integrations-api
   collections/pinterest-interest-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-interest-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-interest-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-interest-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-interests-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-interests-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-interests-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-interests-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-invites-api.opencollection.json:
     method: derived
     evidence: openapi/pinterest-invites-api
@@ -328,17 +328,17 @@ artifacts:
     method: derived
     evidence: openapi/pinterest-invites-api
   collections/pinterest-issues-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-issues-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-issues-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-issues-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-item-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-item-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-item-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-item-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-items-api.opencollection.json:
     method: derived
     evidence: openapi/pinterest-items-api
@@ -352,29 +352,29 @@ artifacts:
     method: derived
     evidence: openapi/pinterest-keywords-api
   collections/pinterest-lead-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-lead-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-lead-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-lead-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-line-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-line-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-line-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-line-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-lines-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-lines-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-lines-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-lines-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-logs-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-logs-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-logs-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-logs-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-media-api.opencollection.json:
     method: derived
     evidence: openapi/pinterest-media-api
@@ -382,59 +382,59 @@ artifacts:
     method: derived
     evidence: openapi/pinterest-media-api
   collections/pinterest-member-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-member-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-member-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-member-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-members-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-members-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-members-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-members-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-metrics-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-metrics-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-metrics-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-metrics-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-multiple-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-multiple-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-multiple-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-multiple-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-order-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-order-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-order-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-order-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-orders-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-orders-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-orders-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-orders-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-page-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-page-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-page-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-page-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-partners-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-partners-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-partners-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-partners-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-pin-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-pin-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-pin-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-pin-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-pins-api.opencollection.json:
     method: derived
     evidence: openapi/pinterest-pins-api
@@ -454,11 +454,11 @@ artifacts:
     method: derived
     evidence: openapi/pinterest-product-api
   collections/pinterest-product-groups-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-product-groups-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-product-groups-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-product-groups-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-products-api.opencollection.json:
     method: derived
     evidence: openapi/pinterest-products-api
@@ -466,53 +466,53 @@ artifacts:
     method: derived
     evidence: openapi/pinterest-products-api
   collections/pinterest-profiles-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-profiles-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-profiles-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-profiles-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-promotion-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-promotion-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-promotion-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-promotion-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-promotions-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-promotions-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-promotions-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-promotions-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-questions-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-questions-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-questions-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-questions-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-ready-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-ready-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-ready-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-ready-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-redeem-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-redeem-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-redeem-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-redeem-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-region-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-region-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-region-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-region-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-related-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-related-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-related-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-related-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-reports-api.opencollection.json:
     method: derived
     evidence: openapi/pinterest-reports-api
@@ -520,11 +520,11 @@ artifacts:
     method: derived
     evidence: openapi/pinterest-reports-api
   collections/pinterest-request-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-request-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-request-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-request-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-resources-api.opencollection.json:
     method: derived
     evidence: openapi/pinterest-resources-api
@@ -532,23 +532,23 @@ artifacts:
     method: derived
     evidence: openapi/pinterest-resources-api
   collections/pinterest-results-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-results-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-results-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-results-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-sandbox-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-sandbox-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-sandbox-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-sandbox-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-save-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-save-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-save-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-save-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-search-api.opencollection.json:
     method: derived
     evidence: openapi/pinterest-search-api
@@ -556,77 +556,77 @@ artifacts:
     method: derived
     evidence: openapi/pinterest-search-api
   collections/pinterest-section-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-section-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-section-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-section-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-sections-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-sections-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-sections-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-sections-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-service-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-service-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-service-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-service-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-state-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-state-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-state-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-state-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-statistics-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-statistics-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-statistics-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-statistics-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-status-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-status-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-status-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-status-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-subscriptions-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-subscriptions-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-subscriptions-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-subscriptions-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-suggested-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-suggested-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-suggested-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-suggested-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-tags-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-tags-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-tags-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-tags-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-targeting-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-targeting-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-targeting-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-targeting-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-template-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-template-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-template-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-template-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-templates-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-templates-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-templates-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-templates-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-terms-api.opencollection.json:
     method: derived
     evidence: openapi/pinterest-terms-api
@@ -634,11 +634,11 @@ artifacts:
     method: derived
     evidence: openapi/pinterest-terms-api
   collections/pinterest-test-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-test-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-test-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-test-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-token-api.opencollection.json:
     method: derived
     evidence: openapi/pinterest-token-api
@@ -646,29 +646,29 @@ artifacts:
     method: derived
     evidence: openapi/pinterest-token-api
   collections/pinterest-top-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-top-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-top-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-top-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-trend-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-trend-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-trend-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-trend-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-type-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-type-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-type-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-type-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-user-account-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-user-account-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-user-account-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-user-account-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-user-api.opencollection.json:
     method: derived
     evidence: openapi/pinterest-user-api
@@ -676,11 +676,11 @@ artifacts:
     method: derived
     evidence: openapi/pinterest-user-api
   collections/pinterest-user-names-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-user-names-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-user-names-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-user-names-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-users-api.opencollection.json:
     method: derived
     evidence: openapi/pinterest-users-api
@@ -688,81 +688,30 @@ artifacts:
     method: derived
     evidence: openapi/pinterest-users-api
   collections/pinterest-verifications-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-verifications-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-verifications-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-verifications-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-videos-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-videos-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-videos-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-videos-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-visit-api.opencollection.json:
-    method: derived
-    evidence: openapi/pinterest-visit-api
+    method: unknown
+    evidence: no authorship recorded
   collections/pinterest-visit-api.postman_collection.json:
-    method: derived
-    evidence: openapi/pinterest-visit-api
+    method: unknown
+    evidence: no authorship recorded
   finops/pinterest-finops.yml:
     method: generated
     evidence: declared in the artifact
-  graphql/pinterest-graphql.md:
+  front-door-ai/2026-09-17.yml:
     method: unknown
     evidence: no authorship recorded
-  graphql/pinterest-schema.graphql:
-    method: unknown
-    evidence: no authorship recorded
-  kin/checks-2026-09-05T072335.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-06T210741.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-07T135032.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-10T093022.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-10T111628.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-11T211707.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-12T193225.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-17T064519.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-19T080027.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-19T082702.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-19T114122.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-20T165047.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-20T191845.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-20T205517.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-21T110057.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-24T064859.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-24T171257.yml:
+  kin/checks-2026-09-24T161608.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-08-25T125852.yml:
@@ -849,52 +798,134 @@ artifacts:
   kin/score-2026-09-05T072335.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-05T144739.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-05T195450.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-05T211839.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-06T011047.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-06T211804.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-06T224210.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-07T200636.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-07T213054.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-08T214843.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-08T232836.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-10T204815.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-10T222408.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-12T062655.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-12T080032.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-12T204651.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-12T221936.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-13T214537.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-14T064754.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-14T210656.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-14T225847.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-15T211329.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-15T230249.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-16T210549.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-16T225339.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-17T211151.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-17T233623.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-18T205255.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-18T231945.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-19T165737.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-19T193153.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-20T205903.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-20T232958.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-21T211425.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-21T233935.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-22T213221.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-23T000603.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-24T064009.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-24T090406.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-24T161608.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
   llms/pinterest-llms-probe.yml:
     method: searched
     evidence: 'derive-llms-provenance.py: harvested'
   openapi/_original/pinterest-openapi-original.yml:
     method: harvested
-    evidence: fetched from the provider as-is; byte-identical to the source
-  openapi/pinterest-access-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-accounts-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
+    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
+      to the provider's source is unverified
   openapi/pinterest-ad-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
-  openapi/pinterest-ad-groups-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-ads-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-analytics-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-assets-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
   openapi/pinterest-asyncapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-audience-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-audience-insights-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-audiences-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-batch-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-bid-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-billing-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
   openapi/pinterest-board-api-openapi.yml:
@@ -903,124 +934,22 @@ artifacts:
   openapi/pinterest-boards-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
-  openapi/pinterest-bulk-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
   openapi/pinterest-business-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-campaigns-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
   openapi/pinterest-catalogs-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
-  openapi/pinterest-commerce-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-conversion-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-conversions-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-countries-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-counts-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-credit-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-custom-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-customer-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-customer-lists-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-customers-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-deliveries-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-discounts-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-downloads-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-eligible-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
   openapi/pinterest-employers-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-events-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-external-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-feed-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
   openapi/pinterest-feeds-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
-  openapi/pinterest-filters-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-floor-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-follow-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-followers-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-following-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-forms-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-groups-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-id-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-ingest-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-insertion-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-insights-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
   openapi/pinterest-integrations-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
-  openapi/pinterest-interest-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-interests-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
   openapi/pinterest-invites-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-issues-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-item-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
   openapi/pinterest-items-api-openapi.yml:
@@ -1029,52 +958,10 @@ artifacts:
   openapi/pinterest-keywords-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
-  openapi/pinterest-lead-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-line-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-lines-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-logs-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
   openapi/pinterest-media-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
-  openapi/pinterest-member-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-members-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-metrics-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-multiple-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-order-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-orders-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-page-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-partners-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-pin-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
   openapi/pinterest-pins-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-previews-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
   openapi/pinterest-processing-api-openapi.yml:
@@ -1083,130 +970,28 @@ artifacts:
   openapi/pinterest-product-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
-  openapi/pinterest-product-groups-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
   openapi/pinterest-products-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-profiles-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-promotion-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-promotions-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-questions-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-ready-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-redeem-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-region-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-related-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
   openapi/pinterest-reports-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
-  openapi/pinterest-request-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
   openapi/pinterest-resources-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-results-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-sandbox-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-save-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
   openapi/pinterest-search-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
-  openapi/pinterest-section-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-sections-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-service-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-state-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-statistics-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-status-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-subscriptions-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-suggested-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-tags-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-targeting-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-template-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-templates-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
   openapi/pinterest-terms-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-test-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
   openapi/pinterest-token-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
-  openapi/pinterest-top-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-trend-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-type-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-user-account-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
   openapi/pinterest-user-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
-  openapi/pinterest-user-names-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
   openapi/pinterest-users-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-verifications-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-videos-api-openapi.yml:
-    method: unknown
-    evidence: no authorship recorded
-  openapi/pinterest-visit-api-openapi.yml:
     method: unknown
     evidence: no authorship recorded
   plans/pinterest-plans-pricing.yml:
