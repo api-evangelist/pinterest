@@ -1,0 +1,106 @@
+generated: '2026-10-14'
+edges:
+- partner_name: Twilio Segment
+  partner: segment
+  partner_match: aggregator
+  marketplace: coverage
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://www.twilio.com/docs/segment/connections/destinations/catalog/actions-pinterest-conversions-api
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - actions-pinterest-conversions-api
+      - pinterest-audiences
+      - pinterest-tag
+      status: PUBLIC
+      partner_owned: false
+      connection_modes:
+      - cloud:mobile
+      - cloud:server
+      - device:web
+      accepted_methods:
+      - Page
+      - Track
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: mParticle
+  partner: mparticle
+  partner_match: aggregator
+  marketplace: coverage
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://docs.mparticle.com/integrations/pinterest/audience/
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - pinterest
+      integration_types:
+      - audience
+      - event
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: Hightouch
+  partner: hightouch
+  partner_match: aggregator
+  marketplace: coverage
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://hightouch.com/docs/destinations/pinterest-ads
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - pinterest-ads
+      status: released
+      sync_types:
+      - Conversion Events
+      - Customer List Audiences
+      sync_modes:
+      - add
+      - insert
+      - remove
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: Census
+  partner: getcensus
+  partner_match: aggregator
+  marketplace: coverage
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://fivetran.com/docs/activations/destinations/available-destinations/pinterest
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - pinterest
+      sync_behaviours:
+      - mirror
+      - update or create
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+method: searched
+checked:
+- https://docs.mparticle.com/integrations/pinterest/audience/
+- https://fivetran.com/docs/activations/destinations/available-destinations/pinterest
+- https://hightouch.com/docs/destinations/pinterest-ads
+- https://www.twilio.com/docs/segment/connections/destinations/catalog/actions-pinterest-conversions-api
+source:
+- https://docs.mparticle.com/integrations/pinterest/audience/
+- https://fivetran.com/docs/activations/destinations/available-destinations/pinterest
+- https://hightouch.com/docs/destinations/pinterest-ads
+- https://www.twilio.com/docs/segment/connections/destinations/catalog/actions-pinterest-conversions-api
