@@ -884,6 +884,688 @@ paths:
       - Business
 components:
   schemas:
+    UpdateMemberResultsResponseArray:
+      type: object
+      properties:
+        items:
+          type: array
+          description: List of members with updated business access role.
+          items:
+            $ref: '#/components/schemas/UpdateMemberResult'
+    PermissionsWithOwner:
+      type: string
+      enum:
+      - ADMIN
+      - ANALYST
+      - FINANCE_MANAGER
+      - AUDIENCE_MANAGER
+      - CAMPAIGN_MANAGER
+      - CATALOGS_MANAGER
+      - PROFILE_PUBLISHER
+      - OWNER
+    CreateAssetInvitesRequestItem:
+      description: Object declaring an asset role update to an invite.
+      type: object
+      required:
+      - invite_id
+      - invite_type
+      - asset_id_to_permissions
+      properties:
+        invite_id:
+          description: Unique identifier of an invite.
+          example: '1234567890123'
+          type: string
+          pattern: ^\d+$
+        invite_type:
+          $ref: '#/components/schemas/InviteType'
+        asset_id_to_permissions:
+          $ref: '#/components/schemas/AssetIdToPermissions'
+    BusinessAccessUserSummary:
+      type: object
+      description: Metadata of the member/partner that has access to the asset.
+      properties:
+        email:
+          description: Email of the business member/partner.
+          example: business0101@business.com
+          type:
+          - string
+          - 'null'
+        id:
+          description: Unique identifier of the business member/partner.
+          example: '383791336903426391'
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          maxLength: 20
+        username:
+          description: Username of the business member/partner.
+          example: business0101
+          type:
+          - string
+          - 'null'
+    GetBusinessAssetsResponse:
+      type: object
+      description: An object containing the permissions a business has on the asset.
+      properties:
+        asset_id:
+          description: Unique identifier of a business asset.
+          example: '549755885175'
+          pattern: ^\d+$
+          type: string
+          maxLength: 20
+          minLength: 1
+        asset_type:
+          $ref: '#/components/schemas/AssetTypeResponse'
+    DeletePartnerAssetsResult:
+      type: object
+      description: The terminated asset access.
+      properties:
+        asset_id:
+          description: Unique identifier of a business asset.
+          example: '549755885175'
+          pattern: ^\d+$
+          type: string
+        asset_type:
+          $ref: '#/components/schemas/AssetTypeResponse'
+        permissions:
+          $ref: '#/components/schemas/PermissionsResponse'
+        is_shared_partner:
+          type: boolean
+          description: If is_shared_partner=FALSE, you terminated a partner's asset access to your business asset.<br> If is_shared_partner=TRUE, you terminated your asset access to your partner's business asset.
+          example: false
+        partner_id:
+          description: Unique identifier of a business partner.
+          example: '140943737684417'
+          pattern: ^\d+$
+          type: string
+    UpdateMemberAssetAccessBody:
+      type: object
+      description: An object with a list of all the new accesses.
+      required:
+      - accesses
+      properties:
+        accesses:
+          type: array
+          minItems: 1
+          maxItems: 50
+          items:
+            type: object
+            required:
+            - asset_id
+            - member_id
+            - permissions
+            properties:
+              asset_id:
+                type: string
+                description: Id of the asset to update.
+                example: '549755885175'
+                maxLength: 25
+                pattern: ^\d+$
+              member_id:
+                type: string
+                description: Unique identifier of the member on which to perform the update
+                example: '140943737684417'
+                maxLength: 25
+                pattern: ^\d+$
+              permissions:
+                type: array
+                description: A non-empty array of permissions to assign to the member.
+                example:
+                - ANALYST
+                - ADMIN
+                minItems: 1
+                maxItems: 50
+                items:
+                  $ref: '#/components/schemas/Permissions'
+    UserSingleAssetBinding:
+      type: object
+      description: An object containing the permissions a business member/partner has on the asset.
+      properties:
+        permissions:
+          $ref: '#/components/schemas/PermissionsResponse'
+        user:
+          $ref: '#/components/schemas/BusinessAccessUserSummary'
+    UpdatePartnerAssetAccessBody:
+      type: object
+      required:
+      - accesses
+      properties:
+        accesses:
+          type: array
+          minItems: 1
+          maxItems: 50
+          items:
+            type: object
+            required:
+            - partner_id
+            - asset_id
+            - permissions
+            properties:
+              partner_id:
+                type: string
+                description: Unique identifier of a business partner to update asset access to.
+                example: '1234567890123'
+                maxLength: 25
+                pattern: ^\d+$
+              asset_id:
+                type: string
+                description: Unique identifier of the business asset.
+                example: '549755885175'
+                maxLength: 25
+                pattern: ^\d+$
+              permissions:
+                type: array
+                description: A non-empty array of permissions to assign to the partner.
+                example:
+                - ANALYST
+                - ADMIN
+                minItems: 1
+                maxItems: 50
+                items:
+                  $ref: '#/components/schemas/Permissions'
+    InviteAssetsSummary:
+      type:
+      - object
+      - 'null'
+      description: Ad accounts and profiles the member/partner will be granted access to with this invite/request.
+      properties:
+        ad_accounts:
+          type: array
+          description: List of ad account IDs and respective permission levels that will be assigned.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Unique identifier of a business ad account.
+                example: '549755885175'
+                pattern: ^\d+$
+              permissions:
+                $ref: '#/components/schemas/PermissionsResponse'
+        profiles:
+          type: array
+          description: List of profile IDs and respective permission levels that will be assigned.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Unique identifier of a business profile.
+                example: '383791336903426391'
+                pattern: ^\d+$
+              permissions:
+                $ref: '#/components/schemas/PermissionsResponse'
+    CreateInvitesResultsResponseArray:
+      type: object
+      properties:
+        items:
+          type: array
+          description: List of invite/request creation status. If there is an error, an exception object will be returned. If the action was successfully completed, an invite object will be returned.
+          items:
+            type: object
+            properties:
+              exception:
+                $ref: '#/components/schemas/InviteExceptionResponse'
+              invite:
+                type:
+                - object
+                - 'null'
+                description: An invite object if the invite/request was successfully created. Will only be provided if the an invite/request is successfully created.
+                properties:
+                  id:
+                    type: string
+                    description: Unique identifier of the invite/request.
+                    example: '383791336903426391'
+                    pattern: ^\d+$
+                  user:
+                    type: object
+                    description: Metadata for the member/partner that was sent the invite/request.
+                    allOf:
+                    - $ref: '#/components/schemas/BusinessAccessUserSummary'
+    BusinessRoleForMembers:
+      type: string
+      description: 'The access level a member has to the business. Values are case-sensitive.
+
+        <br> - EMPLOYEE: Can only view and access assets you assign to them.
+
+        They cannot see details about other employees, partners, or other assets.
+
+        <br> - BIZ_ADMIN: Have full control of roles and can add employees and partners as well as grant asset access.'
+      example: BIZ_ADMIN
+      enum:
+      - EMPLOYEE
+      - BIZ_ADMIN
+    BusinessRoleResponse:
+      type: string
+      description: 'The access level a member/partner has to the business. Values are case-sensitive.
+
+        <br> - EMPLOYEE: Can only view and access assets you assign to them.
+
+        They cannot see details about other employees, partners, or other assets.
+
+        <br> - BIZ_ADMIN: Have full control of roles and can add employees or external partners as well as grant asset access.
+
+        <br> - PARTNER: Can only view and access assets you assign them to/or they assign to you.'
+      example: BIZ_ADMIN
+    BaseInviteDataResponse:
+      type:
+      - object
+      - 'null'
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the invite/request.
+          example: '383791336903426391'
+          pattern: ^\d+$
+        invite_data:
+          type: object
+          description: Metadata for the invite/request.
+          properties:
+            invite_expiration:
+              type: integer
+              description: The date and time when the invite/request will expire. Returned in milliseconds.
+              example: 1709748104775
+            invite_status:
+              type: string
+              description: The current status of the invite. The invite can be in one of the following states PENDING, ACCEPTED, DECLINED, CANCELLED, EXPIRED.
+              example: PENDING
+            invite_type:
+              type: string
+              description: The type of invite. <br>'MEMBER_INVITE' is to invite a member to access your business assets. <br>'PARTNER_INVITE' is to invite a partner to access your business assets. <br>'PARTNER_REQUEST' is to request access a partner's business assets.
+              example: MEMBER_INVITE
+            last_updated_time:
+              type: integer
+              description: The date and time the invite/request was last updated. Returned in milliseconds.
+              example: 1646767577816
+            sent_at:
+              type: integer
+              description: The date and time the invite/request was sent/created. Returned in milliseconds.
+              example: 1646767577816
+        is_received_invite:
+          type: boolean
+          description: Indicates whether the invite/request was received.
+        user:
+          type: object
+          description: Metadata for the member/partner that was sent the invite/request.
+          allOf:
+          - $ref: '#/components/schemas/BusinessAccessUserSummary'
+    InviteBusinessRoleBinding:
+      type:
+      - object
+      - 'null'
+      description: An invite object if the invite/request was successfully updated. Will only be provided if the an invite/request is successfully updated.
+      allOf:
+      - $ref: '#/components/schemas/BaseInviteDataResponse'
+      properties:
+        created_by_business_id:
+          type: string
+          description: Unique identifier for the business that created the invite/request.
+          example: '1234567890123'
+        created_by_user_id:
+          type: string
+          description: Unique identifier for the user that created the invite/request.
+          example: '1234567890123'
+        user:
+          type: object
+          description: Metadata for the user that updated the invite/request.
+          allOf:
+          - $ref: '#/components/schemas/BusinessAccessUserSummary'
+    UpdateMemberAssetsResultsResponseArray:
+      type: object
+      properties:
+        items:
+          type: array
+          description: 'List of assigned/updated member asset access.
+
+            If there is an error, an exception object will be returned. If the action was successfully completed, a response object will be returned.'
+          items:
+            type: object
+            properties:
+              response:
+                $ref: '#/components/schemas/UsersForIndividualAssetResponse'
+    Permissions:
+      type: string
+      enum:
+      - ADMIN
+      - ANALYST
+      - FINANCE_MANAGER
+      - AUDIENCE_MANAGER
+      - CAMPAIGN_MANAGER
+      - CATALOGS_MANAGER
+      - PROFILE_PUBLISHER
+    UpdateMemberResult:
+      type: object
+      properties:
+        business_role:
+          type: string
+          description: 'The access level a member has to the business. Values are case-sensitive.
+
+            <br> - EMPLOYEE: Can only view and access assets you assign to them.
+
+            They cannot see details about other employees, partners, or other assets.
+
+            <br> - BIZ_ADMIN: Have full control of roles and can add employees and partners as well as grant asset access.'
+          example: EMPLOYEE
+        member_id:
+          type: string
+          description: Unique identifier of the business member.
+          example: '140943737684417'
+          pattern: ^\d+$
+    DeletePartnersResponse:
+      type: object
+      description: An object with a list of partners that were deleted.
+      properties:
+        deleted_partners:
+          type: array
+          description: List of partners whose business partnership have been terminated.
+          example:
+          - '809944451643622187'
+          - '383791336903426391'
+          items:
+            type: string
+            pattern: ^\d+$
+            example: '809944451643622187'
+    CancelInvitesBody:
+      description: Request body used to cancel invites
+      type: object
+      required:
+      - invite_ids
+      properties:
+        invite_ids:
+          description: List of invite/request ids to be cancelled
+          example:
+          - '1234567890123456789'
+          - '1122334455667788991'
+          items:
+            type: string
+            maxLength: 25
+            pattern: ^\d+$
+          type: array
+          minItems: 1
+          maxItems: 50
+    DeleteMemberAccessResult:
+      type: object
+      description: The terminated asset access.
+      properties:
+        asset_id:
+          type: string
+          description: Unique identifier of the business asset.
+          example: '549755885175'
+          pattern: ^\d+$
+        member_id:
+          type: string
+          description: Unique identifier of the business member.
+          example: '140943737684417'
+          pattern: ^\d+$
+    UsersForIndividualAssetResponse:
+      type: object
+      description: An object containing the permissions a business member has on the asset.
+      properties:
+        asset_id:
+          description: Unique identifier of a business asset.
+          example: '549755885175'
+          type: string
+          pattern: ^\d+$
+        member_id:
+          description: Unique identifier of the business member with asset access.
+          example: '140943737684417'
+          type: string
+          pattern: ^\d+$
+        permissions:
+          $ref: '#/components/schemas/PermissionsResponse'
+    UpdatePartnerAssetsResult:
+      type: object
+      description: An object containing the permissions a business partner has on the asset.
+      properties:
+        asset_id:
+          description: Unique identifier of a business asset.
+          example: '549755885175'
+          pattern: ^\d+$
+          type: string
+        asset_type:
+          $ref: '#/components/schemas/AssetTypeResponse'
+        partner_id:
+          description: Unique identifier of a business partner.
+          example: '140943737684417'
+          pattern: ^\d+$
+          type: string
+        permissions:
+          $ref: '#/components/schemas/PermissionsResponse'
+    InviteExceptionResponse:
+      type:
+      - object
+      - 'null'
+      description: An exception object if there is an error performing the action. Will only be provided if there is an error.
+      properties:
+        invite_or_request_id:
+          type:
+          - string
+          - 'null'
+          description: Unique identifier of the invite/request.
+          example: '383791336903426391'
+          pattern: ^\d+$
+        code:
+          type: integer
+          description: Error code associated with the error in performing the action on the invite/request.
+          example: 403
+        message:
+          type: string
+          description: Error message associated with the error in performing the action on the invite/request.
+          example: You hit the maximum number of pending invites allowed.
+        users_or_partner_ids:
+          type:
+          - array
+          - 'null'
+          description: A list of users' usernames or emails OR a list of partner ids that caused the error.
+          example:
+          - businessMember0101
+          - business+member@business.com
+          items:
+            type: string
+            description: A user's username or email OR a partner id that caused the error.
+    DeletePartnersRequest:
+      properties:
+        partner_ids:
+          items:
+            description: A list of partner ids to be deleted
+            example: '1234567890123'
+            maxLength: 22
+            pattern: ^\d+$
+            type: string
+          minItems: 1
+          maxItems: 50
+          type: array
+        partner_type:
+          allOf:
+          - description: 'If partner_type=INTERNAL, the deleted relationship is the partnership
+
+              relationship a partner has with you
+
+              If partner_type=EXTERNAL, the deleted relationship is the partnership
+
+              relationship you have with a partner'
+            type:
+            - string
+            - 'null'
+            example: INTERNAL
+          - $ref: '#/components/schemas/BusinessRoleCheckMode'
+          type:
+          - string
+          - 'null'
+      required:
+      - partner_ids
+      type: object
+    CreateAssetAccessRequestResponse:
+      type: object
+      properties:
+        exceptions:
+          $ref: '#/components/schemas/CreateAssetAccessRequestErrorMessage'
+        invites:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            description: An object mapping each partner id to the asset access request id. Only one request id is returned per partner.
+            type: string
+            pattern: ^\d+$
+          example:
+            '766456567741825556': '5349280584552211583'
+            '733242520489967216': '5349280584552211845'
+    DeleteMemberAccessResultsResponseArray:
+      type: object
+      properties:
+        items:
+          type: array
+          description: List of member asset permissions that were deleted.
+          items:
+            $ref: '#/components/schemas/DeleteMemberAccessResult'
+    CreateAssetAccessRequestErrorMessage:
+      type:
+      - array
+      - 'null'
+      description: A list of errors associated with the asset access requests. Will be returned if there is an error.
+      items:
+        type: object
+        properties:
+          code:
+            type: integer
+            description: Error code associated with the error in requesting asset access.
+            example: 2932
+          messages:
+            type: array
+            example:
+            - 'Invalid asset id: 549760723247'
+            - 'Invalid asset id: 546760723248'
+            items:
+              type: string
+    DeletedMembersResponse:
+      type: object
+      description: An object with a list of members that were deleted.
+      properties:
+        deleted_members:
+          type: array
+          description: List of members whose business membership have been terminated.
+          example:
+          - '809944451643622187'
+          - '383791336903426391'
+          items:
+            type: string
+            pattern: ^\d+$
+            example: '809944451643622187'
+    MemberBusinessRole:
+      type: string
+      description: 'The access level a member/partner has to the business. Values are case-sensitive.
+
+        <br> - EMPLOYEE: Can only view and access ad accounts you assign to them.
+
+        They cannot see details about other employees, external partners or other ad accounts.
+
+        <br> - BIZ_ADMIN: Have full control of roles and can add employees, external partners as well as grant ad account access.'
+      example: BIZ_ADMIN
+      enum:
+      - EMPLOYEE
+      - BIZ_ADMIN
+    AssetTypeResponse:
+      description: Type of asset. Currently we only support AD_ACCOUNT and PROFILE.
+      example: AD_ACCOUNT
+      type: string
+    UpdateInvitesResultsResponseArray:
+      type: object
+      properties:
+        items:
+          type: array
+          description: List of invite/Request action status. If there is an error, an exception object will be returned. If the action was successfully completed, an invite object will be returned.
+          items:
+            type: object
+            properties:
+              exception:
+                $ref: '#/components/schemas/InviteExceptionResponse'
+              invite:
+                $ref: '#/components/schemas/InviteBusinessRoleBinding'
+    CreateMembershipOrPartnershipInvitesBody:
+      description: Body to be used on path to send Members or Partners Invite or Request
+      required:
+      - business_role
+      - invite_type
+      properties:
+        business_role:
+          type: string
+          description: 'The business access level to grant member/partner. Note, values are case-sensitive.
+
+            - EMPLOYEE: Can only view and access assets you assign them to. They cannot see details about other employees, partners, or other assets.
+
+            - BIZ_ADMIN: Have full control of roles and can add employees and partners as well as grant asset access.
+
+            - PARTNER: Can only view and access assets you assign them to/or they assign to you.'
+          example: BIZ_ADMIN
+          enum:
+          - EMPLOYEE
+          - BIZ_ADMIN
+          - PARTNER
+        invite_type:
+          $ref: '#/components/schemas/InviteType'
+        members:
+          description: A list of usernames, emails, or a mix of them. Should be used if invite_type is MEMBER_INVITE
+          example:
+          - business0101
+          - user@business.com
+          items:
+            type: string
+          type: array
+          minItems: 1
+          maxItems: 50
+        partners:
+          description: A list of partner_id. Should be used if invite_type is PARTNER_INVITE or PARTNER_REQUEST
+          example:
+          - '809944451643622187'
+          - '766456567741825556'
+          items:
+            type: string
+            maxLength: 25
+            pattern: ^\d+$
+          minItems: 1
+          maxItems: 50
+          type: array
+      type: object
+    AssetIdPermissions:
+      type: object
+      description: An object containing the permissions a business member has on the asset.
+      properties:
+        asset_id:
+          description: Unique identifier of a business asset.
+          example: '549755885175'
+          pattern: ^\d+$
+          type: string
+          maxLength: 20
+          minLength: 1
+        asset_type:
+          $ref: '#/components/schemas/AssetTypeResponse'
+        permissions:
+          $ref: '#/components/schemas/PermissionsResponse'
+    CreateAssetAccessRequestBody:
+      type: object
+      description: An object containing a list of all the asset access requests
+      required:
+      - asset_requests
+      properties:
+        asset_requests:
+          type: array
+          minItems: 1
+          maxItems: 100
+          items:
+            type: object
+            required:
+            - partner_id
+            - asset_id_to_permissions
+            properties:
+              partner_id:
+                description: Unique identifier of a business partner to request asset access to.
+                example: '809944451643622187'
+                type: string
+                pattern: ^\d+$
+              asset_id_to_permissions:
+                $ref: '#/components/schemas/AssetIdToPermissions'
     UserBusinessRoleBinding:
       type: object
       properties:
@@ -944,151 +1626,14 @@ components:
           description: Metadata for the business member/business partner/employer.
           allOf:
           - $ref: '#/components/schemas/BusinessAccessUserSummary'
-    DeletePartnersRequest:
-      properties:
-        partner_ids:
-          items:
-            description: A list of partner ids to be deleted
-            example: '1234567890123'
-            maxLength: 22
-            pattern: ^\d+$
-            type: string
-          minItems: 1
-          maxItems: 50
-          type: array
-        partner_type:
-          allOf:
-          - description: 'If partner_type=INTERNAL, the deleted relationship is the partnership
-
-              relationship a partner has with you
-
-              If partner_type=EXTERNAL, the deleted relationship is the partnership
-
-              relationship you have with a partner'
-            type:
-            - string
-            - 'null'
-            example: INTERNAL
-          - $ref: '#/components/schemas/BusinessRoleCheckMode'
-          type:
-          - string
-          - 'null'
-      required:
-      - partner_ids
-      type: object
-    AssetIdToPermissions:
-      description: 'An object mapping asset ids to lists of business permissions. This can be used to setting/requesting permissions on various assets. If accepting an invite or request, this object would be used to grant asset permissions to the member or partner.
-
-        '
-      type: object
-      minProperties: 1
-      additionalProperties:
-        type: array
-        minItems: 1
-        maxItems: 50
-        items:
-          $ref: '#/components/schemas/Permissions'
-      example:
-        '549760723247':
-        - ANALYST
-        '549760723248':
-        - ANALYST
-        - ADMIN
-        '809944451643622187':
-        - PROFILE_PUBLISHER
-    UpdateMemberResult:
-      type: object
-      properties:
-        business_role:
-          type: string
-          description: 'The access level a member has to the business. Values are case-sensitive.
-
-            <br> - EMPLOYEE: Can only view and access assets you assign to them.
-
-            They cannot see details about other employees, partners, or other assets.
-
-            <br> - BIZ_ADMIN: Have full control of roles and can add employees and partners as well as grant asset access.'
-          example: EMPLOYEE
-        member_id:
-          type: string
-          description: Unique identifier of the business member.
-          example: '140943737684417'
-          pattern: ^\d+$
-    DeletedMembersResponse:
-      type: object
-      description: An object with a list of members that were deleted.
-      properties:
-        deleted_members:
-          type: array
-          description: List of members whose business membership have been terminated.
-          example:
-          - '809944451643622187'
-          - '383791336903426391'
-          items:
-            type: string
-            pattern: ^\d+$
-            example: '809944451643622187'
-    AssetTypeResponse:
-      description: Type of asset. Currently we only support AD_ACCOUNT and PROFILE.
-      example: AD_ACCOUNT
-      type: string
-    PermissionsWithOwner:
-      type: string
+    InviteType:
+      description: The type of invite. <br>'MEMBER_INVITE' is to invite a member to access your business assets. <br>'PARTNER INVITE' is to invite a partner to access your business assets. <br>'PARTNER_REQUEST' is to request access a partner's business assets.
+      example: MEMBER_INVITE
       enum:
-      - ADMIN
-      - ANALYST
-      - FINANCE_MANAGER
-      - AUDIENCE_MANAGER
-      - CAMPAIGN_MANAGER
-      - CATALOGS_MANAGER
-      - PROFILE_PUBLISHER
-      - OWNER
-    UsersForIndividualAssetResponse:
-      type: object
-      description: An object containing the permissions a business member has on the asset.
-      properties:
-        asset_id:
-          description: Unique identifier of a business asset.
-          example: '549755885175'
-          type: string
-          pattern: ^\d+$
-        member_id:
-          description: Unique identifier of the business member with asset access.
-          example: '140943737684417'
-          type: string
-          pattern: ^\d+$
-        permissions:
-          $ref: '#/components/schemas/PermissionsResponse'
-    DeletePartnersResponse:
-      type: object
-      description: An object with a list of partners that were deleted.
-      properties:
-        deleted_partners:
-          type: array
-          description: List of partners whose business partnership have been terminated.
-          example:
-          - '809944451643622187'
-          - '383791336903426391'
-          items:
-            type: string
-            pattern: ^\d+$
-            example: '809944451643622187'
-    UpdateMemberResultsResponseArray:
-      type: object
-      properties:
-        items:
-          type: array
-          description: List of members with updated business access role.
-          items:
-            $ref: '#/components/schemas/UpdateMemberResult'
-    UserSingleAssetBinding:
-      type: object
-      description: An object containing the permissions a business member/partner has on the asset.
-      properties:
-        permissions:
-          $ref: '#/components/schemas/PermissionsResponse'
-        user:
-          $ref: '#/components/schemas/BusinessAccessUserSummary'
+      - MEMBER_INVITE
+      - PARTNER_INVITE
+      - PARTNER_REQUEST
+      type: string
     PermissionsResponse:
       type: array
       description: Permission levels member or partner has on an asset.
@@ -1098,622 +1643,6 @@ components:
       - AUDIENCE_MANAGER
       items:
         type: string
-    BusinessRoleForMembers:
-      type: string
-      description: 'The access level a member has to the business. Values are case-sensitive.
-
-        <br> - EMPLOYEE: Can only view and access assets you assign to them.
-
-        They cannot see details about other employees, partners, or other assets.
-
-        <br> - BIZ_ADMIN: Have full control of roles and can add employees and partners as well as grant asset access.'
-      example: BIZ_ADMIN
-      enum:
-      - EMPLOYEE
-      - BIZ_ADMIN
-    UpdatePartnerAssetsResult:
-      type: object
-      description: An object containing the permissions a business partner has on the asset.
-      properties:
-        asset_id:
-          description: Unique identifier of a business asset.
-          example: '549755885175'
-          pattern: ^\d+$
-          type: string
-        asset_type:
-          $ref: '#/components/schemas/AssetTypeResponse'
-        partner_id:
-          description: Unique identifier of a business partner.
-          example: '140943737684417'
-          pattern: ^\d+$
-          type: string
-        permissions:
-          $ref: '#/components/schemas/PermissionsResponse'
-    BaseInviteDataResponse:
-      type:
-      - object
-      - 'null'
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the invite/request.
-          example: '383791336903426391'
-          pattern: ^\d+$
-        invite_data:
-          type: object
-          description: Metadata for the invite/request.
-          properties:
-            invite_expiration:
-              type: integer
-              description: The date and time when the invite/request will expire. Returned in milliseconds.
-              example: 1709748104775
-            invite_status:
-              type: string
-              description: The current status of the invite. The invite can be in one of the following states PENDING, ACCEPTED, DECLINED, CANCELLED, EXPIRED.
-              example: PENDING
-            invite_type:
-              type: string
-              description: The type of invite. <br>'MEMBER_INVITE' is to invite a member to access your business assets. <br>'PARTNER_INVITE' is to invite a partner to access your business assets. <br>'PARTNER_REQUEST' is to request access a partner's business assets.
-              example: MEMBER_INVITE
-            last_updated_time:
-              type: integer
-              description: The date and time the invite/request was last updated. Returned in milliseconds.
-              example: 1646767577816
-            sent_at:
-              type: integer
-              description: The date and time the invite/request was sent/created. Returned in milliseconds.
-              example: 1646767577816
-        is_received_invite:
-          type: boolean
-          description: Indicates whether the invite/request was received.
-        user:
-          type: object
-          description: Metadata for the member/partner that was sent the invite/request.
-          allOf:
-          - $ref: '#/components/schemas/BusinessAccessUserSummary'
-    CreateAssetAccessRequestBody:
-      type: object
-      description: An object containing a list of all the asset access requests
-      required:
-      - asset_requests
-      properties:
-        asset_requests:
-          type: array
-          minItems: 1
-          maxItems: 100
-          items:
-            type: object
-            required:
-            - partner_id
-            - asset_id_to_permissions
-            properties:
-              partner_id:
-                description: Unique identifier of a business partner to request asset access to.
-                example: '809944451643622187'
-                type: string
-                pattern: ^\d+$
-              asset_id_to_permissions:
-                $ref: '#/components/schemas/AssetIdToPermissions'
-    InviteAssetsSummary:
-      type:
-      - object
-      - 'null'
-      description: Ad accounts and profiles the member/partner will be granted access to with this invite/request.
-      properties:
-        ad_accounts:
-          type: array
-          description: List of ad account IDs and respective permission levels that will be assigned.
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-                description: Unique identifier of a business ad account.
-                example: '549755885175'
-                pattern: ^\d+$
-              permissions:
-                $ref: '#/components/schemas/PermissionsResponse'
-        profiles:
-          type: array
-          description: List of profile IDs and respective permission levels that will be assigned.
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-                description: Unique identifier of a business profile.
-                example: '383791336903426391'
-                pattern: ^\d+$
-              permissions:
-                $ref: '#/components/schemas/PermissionsResponse'
-    UpdatePartnerAssetAccessBody:
-      type: object
-      required:
-      - accesses
-      properties:
-        accesses:
-          type: array
-          minItems: 1
-          maxItems: 50
-          items:
-            type: object
-            required:
-            - partner_id
-            - asset_id
-            - permissions
-            properties:
-              partner_id:
-                type: string
-                description: Unique identifier of a business partner to update asset access to.
-                example: '1234567890123'
-                maxLength: 25
-                pattern: ^\d+$
-              asset_id:
-                type: string
-                description: Unique identifier of the business asset.
-                example: '549755885175'
-                maxLength: 25
-                pattern: ^\d+$
-              permissions:
-                type: array
-                description: A non-empty array of permissions to assign to the partner.
-                example:
-                - ANALYST
-                - ADMIN
-                minItems: 1
-                maxItems: 50
-                items:
-                  $ref: '#/components/schemas/Permissions'
-    UpdateMemberAssetsResultsResponseArray:
-      type: object
-      properties:
-        items:
-          type: array
-          description: 'List of assigned/updated member asset access.
-
-            If there is an error, an exception object will be returned. If the action was successfully completed, a response object will be returned.'
-          items:
-            type: object
-            properties:
-              response:
-                $ref: '#/components/schemas/UsersForIndividualAssetResponse'
-    GetBusinessAssetsResponse:
-      type: object
-      description: An object containing the permissions a business has on the asset.
-      properties:
-        asset_id:
-          description: Unique identifier of a business asset.
-          example: '549755885175'
-          pattern: ^\d+$
-          type: string
-          maxLength: 20
-          minLength: 1
-        asset_type:
-          $ref: '#/components/schemas/AssetTypeResponse'
-    Permissions:
-      type: string
-      enum:
-      - ADMIN
-      - ANALYST
-      - FINANCE_MANAGER
-      - AUDIENCE_MANAGER
-      - CAMPAIGN_MANAGER
-      - CATALOGS_MANAGER
-      - PROFILE_PUBLISHER
-    DeletePartnerAssetsResult:
-      type: object
-      description: The terminated asset access.
-      properties:
-        asset_id:
-          description: Unique identifier of a business asset.
-          example: '549755885175'
-          pattern: ^\d+$
-          type: string
-        asset_type:
-          $ref: '#/components/schemas/AssetTypeResponse'
-        permissions:
-          $ref: '#/components/schemas/PermissionsResponse'
-        is_shared_partner:
-          type: boolean
-          description: If is_shared_partner=FALSE, you terminated a partner's asset access to your business asset.<br> If is_shared_partner=TRUE, you terminated your asset access to your partner's business asset.
-          example: false
-        partner_id:
-          description: Unique identifier of a business partner.
-          example: '140943737684417'
-          pattern: ^\d+$
-          type: string
-    CreateInvitesResultsResponseArray:
-      type: object
-      properties:
-        items:
-          type: array
-          description: List of invite/request creation status. If there is an error, an exception object will be returned. If the action was successfully completed, an invite object will be returned.
-          items:
-            type: object
-            properties:
-              exception:
-                $ref: '#/components/schemas/InviteExceptionResponse'
-              invite:
-                type:
-                - object
-                - 'null'
-                description: An invite object if the invite/request was successfully created. Will only be provided if the an invite/request is successfully created.
-                properties:
-                  id:
-                    type: string
-                    description: Unique identifier of the invite/request.
-                    example: '383791336903426391'
-                    pattern: ^\d+$
-                  user:
-                    type: object
-                    description: Metadata for the member/partner that was sent the invite/request.
-                    allOf:
-                    - $ref: '#/components/schemas/BusinessAccessUserSummary'
-    MembersToDeleteBody:
-      required:
-      - members
-      properties:
-        members:
-          items:
-            required:
-            - member_id
-            - business_role
-            properties:
-              member_id:
-                type: string
-                description: Unique identifier of the member
-                maxLength: 25
-                example: '140943737684417'
-                pattern: ^\d+$
-              business_role:
-                $ref: '#/components/schemas/BusinessRoleForMembers'
-            type: object
-          type: array
-          minItems: 1
-          maxItems: 50
-      type: object
-    InviteType:
-      description: The type of invite. <br>'MEMBER_INVITE' is to invite a member to access your business assets. <br>'PARTNER INVITE' is to invite a partner to access your business assets. <br>'PARTNER_REQUEST' is to request access a partner's business assets.
-      example: MEMBER_INVITE
-      enum:
-      - MEMBER_INVITE
-      - PARTNER_INVITE
-      - PARTNER_REQUEST
-      type: string
-    CreateAssetAccessRequestResponse:
-      type: object
-      properties:
-        exceptions:
-          $ref: '#/components/schemas/CreateAssetAccessRequestErrorMessage'
-        invites:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            description: An object mapping each partner id to the asset access request id. Only one request id is returned per partner.
-            type: string
-            pattern: ^\d+$
-          example:
-            '766456567741825556': '5349280584552211583'
-            '733242520489967216': '5349280584552211845'
-    GetPartnerAssetsResponse:
-      type: object
-      description: An object containing the permissions a you/your business partner has on the asset.
-      properties:
-        asset_id:
-          description: Unique identifier of a business asset.
-          example: '549755885175'
-          pattern: ^\d+$
-          type: string
-          maxLength: 20
-          minLength: 1
-        asset_type:
-          $ref: '#/components/schemas/AssetTypeResponse'
-        permissions:
-          type: array
-          description: The permissions you or your partner has on the asset. If partner_type=INTERNAL, the permission levels are for the access the partner has to your business asset.<br> If partner_type=EXTERNAL, the permission levels are for the access you have to the partner's business asset.
-          example:
-          - FINANCE_MANAGER
-          - CATALOGS_MANAGER
-          - AUDIENCE_MANAGER
-          items:
-            description: The permission level a user has on an asset.
-            example: FINANCE_MANAGER
-            type: string
-    BusinessRoleCheckMode:
-      description: Specifies if the partner is internal or external.
-      enum:
-      - INTERNAL
-      - EXTERNAL
-      example: INTERNAL
-      type: string
-    UpdateMemberAssetAccessBody:
-      type: object
-      description: An object with a list of all the new accesses.
-      required:
-      - accesses
-      properties:
-        accesses:
-          type: array
-          minItems: 1
-          maxItems: 50
-          items:
-            type: object
-            required:
-            - asset_id
-            - member_id
-            - permissions
-            properties:
-              asset_id:
-                type: string
-                description: Id of the asset to update.
-                example: '549755885175'
-                maxLength: 25
-                pattern: ^\d+$
-              member_id:
-                type: string
-                description: Unique identifier of the member on which to perform the update
-                example: '140943737684417'
-                maxLength: 25
-                pattern: ^\d+$
-              permissions:
-                type: array
-                description: A non-empty array of permissions to assign to the member.
-                example:
-                - ANALYST
-                - ADMIN
-                minItems: 1
-                maxItems: 50
-                items:
-                  $ref: '#/components/schemas/Permissions'
-    CreateAssetInvitesRequest:
-      description: Request body for updating asset roles for existing invites.
-      type: object
-      required:
-      - invites
-      properties:
-        invites:
-          type: array
-          minItems: 1
-          maxItems: 50
-          items:
-            $ref: '#/components/schemas/CreateAssetInvitesRequestItem'
-    MemberBusinessRole:
-      type: string
-      description: 'The access level a member/partner has to the business. Values are case-sensitive.
-
-        <br> - EMPLOYEE: Can only view and access ad accounts you assign to them.
-
-        They cannot see details about other employees, external partners or other ad accounts.
-
-        <br> - BIZ_ADMIN: Have full control of roles and can add employees, external partners as well as grant ad account access.'
-      example: BIZ_ADMIN
-      enum:
-      - EMPLOYEE
-      - BIZ_ADMIN
-    DeletePartnerAssetsResultsResponseArray:
-      type: object
-      properties:
-        items:
-          type: array
-          description: List of terminated asset access.
-          items:
-            type: object
-            $ref: '#/components/schemas/DeletePartnerAssetsResult'
-    CreateMembershipOrPartnershipInvitesBody:
-      description: Body to be used on path to send Members or Partners Invite or Request
-      required:
-      - business_role
-      - invite_type
-      properties:
-        business_role:
-          type: string
-          description: 'The business access level to grant member/partner. Note, values are case-sensitive.
-
-            - EMPLOYEE: Can only view and access assets you assign them to. They cannot see details about other employees, partners, or other assets.
-
-            - BIZ_ADMIN: Have full control of roles and can add employees and partners as well as grant asset access.
-
-            - PARTNER: Can only view and access assets you assign them to/or they assign to you.'
-          example: BIZ_ADMIN
-          enum:
-          - EMPLOYEE
-          - BIZ_ADMIN
-          - PARTNER
-        invite_type:
-          $ref: '#/components/schemas/InviteType'
-        members:
-          description: A list of usernames, emails, or a mix of them. Should be used if invite_type is MEMBER_INVITE
-          example:
-          - business0101
-          - user@business.com
-          items:
-            type: string
-          type: array
-          minItems: 1
-          maxItems: 50
-        partners:
-          description: A list of partner_id. Should be used if invite_type is PARTNER_INVITE or PARTNER_REQUEST
-          example:
-          - '809944451643622187'
-          - '766456567741825556'
-          items:
-            type: string
-            maxLength: 25
-            pattern: ^\d+$
-          minItems: 1
-          maxItems: 50
-          type: array
-      type: object
-    UpdateInvitesResultsResponseArray:
-      type: object
-      properties:
-        items:
-          type: array
-          description: List of invite/Request action status. If there is an error, an exception object will be returned. If the action was successfully completed, an invite object will be returned.
-          items:
-            type: object
-            properties:
-              exception:
-                $ref: '#/components/schemas/InviteExceptionResponse'
-              invite:
-                $ref: '#/components/schemas/InviteBusinessRoleBinding'
-    InviteBusinessRoleBinding:
-      type:
-      - object
-      - 'null'
-      description: An invite object if the invite/request was successfully updated. Will only be provided if the an invite/request is successfully updated.
-      allOf:
-      - $ref: '#/components/schemas/BaseInviteDataResponse'
-      properties:
-        created_by_business_id:
-          type: string
-          description: Unique identifier for the business that created the invite/request.
-          example: '1234567890123'
-        created_by_user_id:
-          type: string
-          description: Unique identifier for the user that created the invite/request.
-          example: '1234567890123'
-        user:
-          type: object
-          description: Metadata for the user that updated the invite/request.
-          allOf:
-          - $ref: '#/components/schemas/BusinessAccessUserSummary'
-    CreateAssetAccessRequestErrorMessage:
-      type:
-      - array
-      - 'null'
-      description: A list of errors associated with the asset access requests. Will be returned if there is an error.
-      items:
-        type: object
-        properties:
-          code:
-            type: integer
-            description: Error code associated with the error in requesting asset access.
-            example: 2932
-          messages:
-            type: array
-            example:
-            - 'Invalid asset id: 549760723247'
-            - 'Invalid asset id: 546760723248'
-            items:
-              type: string
-    DeleteMemberAccessResult:
-      type: object
-      description: The terminated asset access.
-      properties:
-        asset_id:
-          type: string
-          description: Unique identifier of the business asset.
-          example: '549755885175'
-          pattern: ^\d+$
-        member_id:
-          type: string
-          description: Unique identifier of the business member.
-          example: '140943737684417'
-          pattern: ^\d+$
-    DeleteInvitesResultsResponseArray:
-      description: Response to delete invites sent to Members or Partners, if there is an exception, return the exception mapped with the invite id
-      properties:
-        items:
-          description: List of invite/Request deletion status. If there is an error, an exception object will be returned. If the invite/request was successfully cancelled, an invite object will be returned for the invite that was cancelled.
-          items:
-            properties:
-              exception:
-                description: An exception object if there is an error performing the cancellation. It will only be provided if there is an error.
-                properties:
-                  invite_id:
-                    description: Unique identifier of an invite.
-                    pattern: ^\d+$
-                    type: string
-                  message:
-                    type: string
-                    description: Error message associated with the error in performing the action on the invite/request.
-                    example: Business Invite request cannot be performed on current invitation status.
-                type:
-                - object
-                - 'null'
-              invite:
-                $ref: '#/components/schemas/BaseInviteDataResponse'
-            type: object
-          type: array
-      type: object
-    AssetIdPermissions:
-      type: object
-      description: An object containing the permissions a business member has on the asset.
-      properties:
-        asset_id:
-          description: Unique identifier of a business asset.
-          example: '549755885175'
-          pattern: ^\d+$
-          type: string
-          maxLength: 20
-          minLength: 1
-        asset_type:
-          $ref: '#/components/schemas/AssetTypeResponse'
-        permissions:
-          $ref: '#/components/schemas/PermissionsResponse'
-    Error:
-      title: Error
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
-    InviteResponse:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/BaseInviteDataResponse'
-      properties:
-        assets_summary:
-          $ref: '#/components/schemas/InviteAssetsSummary'
-        business_roles:
-          description: The access level a user would be granted on the business if the invite/request is accepted. This can be EMPLOYEE, BIZ_ADMIN, or PARTNER.
-          type: array
-          example:
-          - BIZ_ADMIN
-          items:
-            $ref: '#/components/schemas/BusinessRoleResponse'
-        created_by_business:
-          type:
-          - object
-          - 'null'
-          description: Metadata for the business that created the invite/request.
-          allOf:
-          - $ref: '#/components/schemas/BusinessAccessUserSummary'
-        created_by_user:
-          type:
-          - object
-          - 'null'
-          description: Metadata for the user that created the invite/request.
-          allOf:
-          - $ref: '#/components/schemas/BusinessAccessUserSummary'
-        created_time:
-          type: integer
-          description: The time the invite/request was created. Returned in milliseconds.
-          example: 1646767577816
-    CancelInvitesBody:
-      description: Request body used to cancel invites
-      type: object
-      required:
-      - invite_ids
-      properties:
-        invite_ids:
-          description: List of invite/request ids to be cancelled
-          example:
-          - '1234567890123456789'
-          - '1122334455667788991'
-          items:
-            type: string
-            maxLength: 25
-            pattern: ^\d+$
-          type: array
-          minItems: 1
-          maxItems: 50
     BusinessMemberAssetsSummary:
       type:
       - object
@@ -1756,75 +1685,6 @@ components:
       - EXTERNAL
       example: INTERNAL
       type: string
-    Paginated:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            type: object
-        bookmark:
-          type:
-          - string
-          - 'null'
-      required:
-      - items
-    BusinessAccessUserSummary:
-      type: object
-      description: Metadata of the member/partner that has access to the asset.
-      properties:
-        email:
-          description: Email of the business member/partner.
-          example: business0101@business.com
-          type:
-          - string
-          - 'null'
-        id:
-          description: Unique identifier of the business member/partner.
-          example: '383791336903426391'
-          type:
-          - string
-          - 'null'
-          minLength: 1
-          maxLength: 20
-        username:
-          description: Username of the business member/partner.
-          example: business0101
-          type:
-          - string
-          - 'null'
-    InviteExceptionResponse:
-      type:
-      - object
-      - 'null'
-      description: An exception object if there is an error performing the action. Will only be provided if there is an error.
-      properties:
-        invite_or_request_id:
-          type:
-          - string
-          - 'null'
-          description: Unique identifier of the invite/request.
-          example: '383791336903426391'
-          pattern: ^\d+$
-        code:
-          type: integer
-          description: Error code associated with the error in performing the action on the invite/request.
-          example: 403
-        message:
-          type: string
-          description: Error message associated with the error in performing the action on the invite/request.
-          example: You hit the maximum number of pending invites allowed.
-        users_or_partner_ids:
-          type:
-          - array
-          - 'null'
-          description: A list of users' usernames or emails OR a list of partner ids that caused the error.
-          example:
-          - businessMember0101
-          - business+member@business.com
-          items:
-            type: string
-            description: A user's username or email OR a partner id that caused the error.
     UpdateMemberBusinessRoleBody:
       description: Single instance of a business member to have its role updated
       properties:
@@ -1840,26 +1700,181 @@ components:
       - member_id
       - business_role
       type: object
-    BusinessRoleResponse:
-      type: string
-      description: 'The access level a member/partner has to the business. Values are case-sensitive.
-
-        <br> - EMPLOYEE: Can only view and access assets you assign to them.
-
-        They cannot see details about other employees, partners, or other assets.
-
-        <br> - BIZ_ADMIN: Have full control of roles and can add employees or external partners as well as grant asset access.
-
-        <br> - PARTNER: Can only view and access assets you assign them to/or they assign to you.'
-      example: BIZ_ADMIN
-    DeleteMemberAccessResultsResponseArray:
+    UpdatePartnerAssetsResultsResponseArray:
       type: object
       properties:
         items:
           type: array
-          description: List of member asset permissions that were deleted.
+          description: List of assigned/updated partner asset access.
           items:
-            $ref: '#/components/schemas/DeleteMemberAccessResult'
+            type: object
+            $ref: '#/components/schemas/UpdatePartnerAssetsResult'
+    GetPartnerAssetsResponse:
+      type: object
+      description: An object containing the permissions a you/your business partner has on the asset.
+      properties:
+        asset_id:
+          description: Unique identifier of a business asset.
+          example: '549755885175'
+          pattern: ^\d+$
+          type: string
+          maxLength: 20
+          minLength: 1
+        asset_type:
+          $ref: '#/components/schemas/AssetTypeResponse'
+        permissions:
+          type: array
+          description: The permissions you or your partner has on the asset. If partner_type=INTERNAL, the permission levels are for the access the partner has to your business asset.<br> If partner_type=EXTERNAL, the permission levels are for the access you have to the partner's business asset.
+          example:
+          - FINANCE_MANAGER
+          - CATALOGS_MANAGER
+          - AUDIENCE_MANAGER
+          items:
+            description: The permission level a user has on an asset.
+            example: FINANCE_MANAGER
+            type: string
+    DeletePartnerAssetsResultsResponseArray:
+      type: object
+      properties:
+        items:
+          type: array
+          description: List of terminated asset access.
+          items:
+            type: object
+            $ref: '#/components/schemas/DeletePartnerAssetsResult'
+    AssetIdToPermissions:
+      description: 'An object mapping asset ids to lists of business permissions. This can be used to setting/requesting permissions on various assets. If accepting an invite or request, this object would be used to grant asset permissions to the member or partner.
+
+        '
+      type: object
+      minProperties: 1
+      additionalProperties:
+        type: array
+        minItems: 1
+        maxItems: 50
+        items:
+          $ref: '#/components/schemas/Permissions'
+      example:
+        '549760723247':
+        - ANALYST
+        '549760723248':
+        - ANALYST
+        - ADMIN
+        '809944451643622187':
+        - PROFILE_PUBLISHER
+    InviteResponse:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/BaseInviteDataResponse'
+      properties:
+        assets_summary:
+          $ref: '#/components/schemas/InviteAssetsSummary'
+        business_roles:
+          description: The access level a user would be granted on the business if the invite/request is accepted. This can be EMPLOYEE, BIZ_ADMIN, or PARTNER.
+          type: array
+          example:
+          - BIZ_ADMIN
+          items:
+            $ref: '#/components/schemas/BusinessRoleResponse'
+        created_by_business:
+          type:
+          - object
+          - 'null'
+          description: Metadata for the business that created the invite/request.
+          allOf:
+          - $ref: '#/components/schemas/BusinessAccessUserSummary'
+        created_by_user:
+          type:
+          - object
+          - 'null'
+          description: Metadata for the user that created the invite/request.
+          allOf:
+          - $ref: '#/components/schemas/BusinessAccessUserSummary'
+        created_time:
+          type: integer
+          description: The time the invite/request was created. Returned in milliseconds.
+          example: 1646767577816
+    MembersToDeleteBody:
+      required:
+      - members
+      properties:
+        members:
+          items:
+            required:
+            - member_id
+            - business_role
+            properties:
+              member_id:
+                type: string
+                description: Unique identifier of the member
+                maxLength: 25
+                example: '140943737684417'
+                pattern: ^\d+$
+              business_role:
+                $ref: '#/components/schemas/BusinessRoleForMembers'
+            type: object
+          type: array
+          minItems: 1
+          maxItems: 50
+      type: object
+    DeleteInvitesResultsResponseArray:
+      description: Response to delete invites sent to Members or Partners, if there is an exception, return the exception mapped with the invite id
+      properties:
+        items:
+          description: List of invite/Request deletion status. If there is an error, an exception object will be returned. If the invite/request was successfully cancelled, an invite object will be returned for the invite that was cancelled.
+          items:
+            properties:
+              exception:
+                description: An exception object if there is an error performing the cancellation. It will only be provided if there is an error.
+                properties:
+                  invite_id:
+                    description: Unique identifier of an invite.
+                    pattern: ^\d+$
+                    type: string
+                  message:
+                    type: string
+                    description: Error message associated with the error in performing the action on the invite/request.
+                    example: Business Invite request cannot be performed on current invitation status.
+                type:
+                - object
+                - 'null'
+              invite:
+                $ref: '#/components/schemas/BaseInviteDataResponse'
+            type: object
+          type: array
+      type: object
+    Paginated:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+        bookmark:
+          type:
+          - string
+          - 'null'
+      required:
+      - items
+    BusinessRoleCheckMode:
+      description: Specifies if the partner is internal or external.
+      enum:
+      - INTERNAL
+      - EXTERNAL
+      example: INTERNAL
+      type: string
+    CreateAssetInvitesRequest:
+      description: Request body for updating asset roles for existing invites.
+      type: object
+      required:
+      - invites
+      properties:
+        invites:
+          type: array
+          minItems: 1
+          maxItems: 50
+          items:
+            $ref: '#/components/schemas/CreateAssetInvitesRequestItem'
     DeletePartnerAssetAccessBody:
       type: object
       required:
@@ -1897,48 +1912,22 @@ components:
             required:
             - partner_id
             - asset_id
-    UpdatePartnerAssetsResultsResponseArray:
+    Error:
+      title: Error
       type: object
       properties:
-        items:
-          type: array
-          description: List of assigned/updated partner asset access.
-          items:
-            type: object
-            $ref: '#/components/schemas/UpdatePartnerAssetsResult'
-    CreateAssetInvitesRequestItem:
-      description: Object declaring an asset role update to an invite.
-      type: object
-      required:
-      - invite_id
-      - invite_type
-      - asset_id_to_permissions
-      properties:
-        invite_id:
-          description: Unique identifier of an invite.
-          example: '1234567890123'
+        code:
+          type: integer
+        message:
           type: string
-          pattern: ^\d+$
-        invite_type:
-          $ref: '#/components/schemas/InviteType'
-        asset_id_to_permissions:
-          $ref: '#/components/schemas/AssetIdToPermissions'
+      required:
+      - code
+      - message
   parameters:
-    path_business_member_user:
-      name: member_id
-      in: path
-      description: The member id to fetch assets for.
-      example: '729090764583391194'
-      required: true
-      schema:
-        type: string
-        pattern: ^\d+$
-        minLength: 1
-        maxLength: 20
-    path_business_id:
+    path_business_user:
       name: business_id
       in: path
-      description: Business id
+      description: Unique identifier of the requesting business.
       example: '729090764583391194'
       required: true
       schema:
@@ -1946,16 +1935,33 @@ components:
         pattern: ^\d+$
         minLength: 1
         maxLength: 20
-    query_business_access_start_index:
-      name: start_index
+    query_bookmark:
+      name: bookmark
+      description: Cursor used to fetch the next page of items
       in: query
-      description: An index to start fetching the results from. Only the results starting from this index will be returned.
-      example: 0
       required: false
       schema:
-        type: integer
-        minimum: 0
-        default: 0
+        type: string
+    query_is_member:
+      name: is_member
+      description: A boolean field to indicate whether the invite is to create a partnership or a membership.
+      in: query
+      required: false
+      schema:
+        type: boolean
+        default: true
+    query_business_partner_type:
+      name: partner_type
+      in: query
+      description: 'Specifies whether to fetch internal or external (shared) partners.
+
+        If partner_type=INTERNAL, the asset being queried is for accesses the partner has to your business assets.<br>
+
+        If partner_type=EXTERNAL, the asset being queried is for the accesses you have to the partner''s business asset.'
+      example: INTERNAL
+      required: false
+      schema:
+        $ref: '#/components/schemas/PartnerType'
     query_invite_status:
       name: invite_status
       in: query
@@ -1972,10 +1978,32 @@ components:
           type: string
         minItems: 1
         maxLength: 2
-    path_business_partner_user:
-      name: partner_id
+    query_business_access_start_index:
+      name: start_index
+      in: query
+      description: An index to start fetching the results from. Only the results starting from this index will be returned.
+      example: 0
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    query_resource_type:
+      name: asset_type
+      in: query
+      required: false
+      description: A resource type to filter the assets by. Only assets of the specified type will be returned.
+      schema:
+        type: string
+        enum:
+        - AD_ACCOUNT
+        - PROFILE
+        default: AD_ACCOUNT
+        example: AD_ACCOUNT
+    path_asset_id:
+      name: asset_id
       in: path
-      description: The partner id to be bound to the Business
+      description: Unique identifier of a business asset.
       example: '729090764583391194'
       required: true
       schema:
@@ -1983,17 +2011,27 @@ components:
         pattern: ^\d+$
         minLength: 1
         maxLength: 20
-    query_bookmark:
-      name: bookmark
-      description: Cursor used to fetch the next page of items
+    query_invite_type:
+      name: invite_type
+      in: query
+      description: Invite type to filter invites by. Only invites of the specified type will be returned.
+      required: false
+      schema:
+        $ref: '#/components/schemas/InviteType'
+    query_page_size:
+      name: page_size
+      description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
       in: query
       required: false
       schema:
-        type: string
-    path_business_user:
+        type: integer
+        minimum: 1
+        maximum: 250
+        default: 25
+    path_business_id:
       name: business_id
       in: path
-      description: Unique identifier of the requesting business.
+      description: Business id
       example: '729090764583391194'
       required: true
       schema:
@@ -2016,34 +2054,10 @@ components:
       schema:
         type: boolean
         default: false
-    query_resource_type:
-      name: asset_type
-      in: query
-      required: false
-      description: A resource type to filter the assets by. Only assets of the specified type will be returned.
-      schema:
-        type: string
-        enum:
-        - AD_ACCOUNT
-        - PROFILE
-        default: AD_ACCOUNT
-        example: AD_ACCOUNT
-    query_business_partner_type:
-      name: partner_type
-      in: query
-      description: 'Specifies whether to fetch internal or external (shared) partners.
-
-        If partner_type=INTERNAL, the asset being queried is for accesses the partner has to your business assets.<br>
-
-        If partner_type=EXTERNAL, the asset being queried is for the accesses you have to the partner''s business asset.'
-      example: INTERNAL
-      required: false
-      schema:
-        $ref: '#/components/schemas/PartnerType'
-    path_asset_id:
-      name: asset_id
+    path_business_partner_user:
+      name: partner_id
       in: path
-      description: Unique identifier of a business asset.
+      description: The partner id to be bound to the Business
       example: '729090764583391194'
       required: true
       schema:
@@ -2051,31 +2065,17 @@ components:
         pattern: ^\d+$
         minLength: 1
         maxLength: 20
-    query_page_size:
-      name: page_size
-      description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
-      in: query
-      required: false
+    path_business_member_user:
+      name: member_id
+      in: path
+      description: The member id to fetch assets for.
+      example: '729090764583391194'
+      required: true
       schema:
-        type: integer
-        minimum: 1
-        maximum: 250
-        default: 25
-    query_is_member:
-      name: is_member
-      description: A boolean field to indicate whether the invite is to create a partnership or a membership.
-      in: query
-      required: false
-      schema:
-        type: boolean
-        default: true
-    query_invite_type:
-      name: invite_type
-      in: query
-      description: Invite type to filter invites by. Only invites of the specified type will be returned.
-      required: false
-      schema:
-        $ref: '#/components/schemas/InviteType'
+        type: string
+        pattern: ^\d+$
+        minLength: 1
+        maxLength: 20
   securitySchemes:
     pinterest_oauth2:
       type: oauth2

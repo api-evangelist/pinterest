@@ -57,34 +57,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    OauthAccessTokenRequest:
-      title: OAuth access token request
-      description: Describes the valid schema for possible OAuth access token requests.
-      type: object
-      discriminator:
-        propertyName: grant_type
-        mapping:
-          authorization_code: '#/components/schemas/OauthAccessTokenRequestCode'
-          refresh_token: '#/components/schemas/OauthAccessTokenRequestRefresh'
-      properties:
-        grant_type:
-          type: string
-          enum:
-          - authorization_code
-          - refresh_token
-      required:
-      - grant_type
-    Error:
-      title: Error
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
     OauthAccessTokenResponse:
       title: OAuth access token response
       description: A successful OAuth access token response.
@@ -116,6 +88,34 @@ components:
       - token_type
       - expires_in
       - scope
+    OauthAccessTokenRequest:
+      title: OAuth access token request
+      description: Describes the valid schema for possible OAuth access token requests.
+      type: object
+      discriminator:
+        propertyName: grant_type
+        mapping:
+          authorization_code: '#/components/schemas/OauthAccessTokenRequestCode'
+          refresh_token: '#/components/schemas/OauthAccessTokenRequestRefresh'
+      properties:
+        grant_type:
+          type: string
+          enum:
+          - authorization_code
+          - refresh_token
+      required:
+      - grant_type
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
   securitySchemes:
     pinterest_oauth2:
       type: oauth2

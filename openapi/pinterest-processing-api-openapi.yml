@@ -96,7 +96,212 @@ paths:
       tags:
       - Processing
 components:
+  parameters:
+    query_page_size:
+      name: page_size
+      description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 250
+        default: 25
+    query_ad_account_id:
+      name: ad_account_id
+      description: Unique identifier of an ad account.
+      in: query
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
+    query_bookmark:
+      name: bookmark
+      description: Cursor used to fetch the next page of items
+      in: query
+      required: false
+      schema:
+        type: string
+    query_catalogs_item_numbers:
+      name: item_numbers
+      in: query
+      description: Item number based on order of appearance in the Catalogs Feed. For example, '0' refers to first item found in a feed that was downloaded from a 'location' specified during feed creation.
+      example:
+      - 1
+      - 5
+      required: false
+      schema:
+        type: array
+        items:
+          type: integer
+    path_catalogs_processing_result_id:
+      description: Unique identifier of a feed processing result. It can be acquired from the "id" field of the "items" array within the response of the [List processing results for a given feed](https://developers.pinterest.com/docs/api/v5/#operation/feed_processing_results/list).
+      name: processing_result_id
+      in: path
+      example: '5224831246441439241'
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
+    query_catalogs_item_validation_issue:
+      name: item_validation_issue
+      in: query
+      description: Filter item validation issues that have a given type of item validation issue.
+      example: TITLE_MISSING
+      required: false
+      schema:
+        $ref: '#/components/schemas/CatalogsItemValidationIssue'
   schemas:
+    NullableCatalogsItemFieldType:
+      description: Product item fields
+      example: TITLE
+      type:
+      - string
+      - 'null'
+      enum:
+      - ITEM_ID
+      - ITEM_GROUP_ID
+      - TITLE
+      - DESCRIPTION
+      - ITEM_LINK
+      - ORGANIC_LINK
+      - IMAGE_LINK
+      - ADWORDS_REDIRECT_LINK
+      - AD_LINK
+      - SIZE
+      - GOOGLE_PRODUCT_CATEGORY
+      - PRODUCT_CATEGORY
+      - CONDITION
+      - AVAILABILITY
+      - GENDER
+      - AGE_GROUP
+      - SIZE_TYPE
+      - SIZE_SYSTEM
+      - ADULT
+      - SHIPPING
+      - SHIPPING_WEIGHT
+      - TAX
+      - MULTIPACK
+      - ADDITIONAL_IMAGE_LINK
+      - PRICE
+      - SALE_PRICE
+      - IS_BUNDLE
+      - EXPIRATION_DATE
+      - SALE_PRICE_EFFECTIVE_DATE
+      - AVAILABILITY_DATE
+      - WEIGHT_UNIT
+      - PRODUCT_TYPE
+      - CUSTOM_LABEL_0
+      - CUSTOM_LABEL_1
+      - CUSTOM_LABEL_2
+      - CUSTOM_LABEL_3
+      - CUSTOM_LABEL_4
+      - MATERIAL
+      - PATTERN
+      - COLOR
+      - BRAND
+      - GTIN
+      - MPN
+      - IOS_DEEP_LINK
+      - ANDROID_DEEP_LINK
+      - FREE_SHIPPING_LABEL
+      - FREE_SHIPPING_LIMIT
+      - AVG_REVIEW_RATING
+      - NUM_RATINGS
+      - NUM_REVIEWS
+      - ALT_TEXT
+      - VARIANT_NAMES
+      - VARIANT_VALUES
+      - MIN_AD_PRICE
+      - SHIPPING_WIDTH
+      - SHIPPING_HEIGHT
+      - null
+    CatalogsItemValidationErrors:
+      type: object
+      properties:
+        ADULT_INVALID:
+          $ref: '#/components/schemas/CatalogsItemValidationDetails'
+          description: Item has an invalid adult value.
+        ADWORDS_FORMAT_INVALID:
+          $ref: '#/components/schemas/CatalogsItemValidationDetails'
+          description: Adword link contains too many characters.
+        AVAILABILITY_INVALID:
+          $ref: '#/components/schemas/CatalogsItemValidationDetails'
+          description: Item is missing availability value in its product metadata, this item will not be published.
+        BLOCKLISTED_IMAGE_SIGNATURE:
+          $ref: '#/components/schemas/CatalogsItemValidationDetails'
+          description: Item will not be published because it doesn't meet Pinterest's Merchant Guidelines.
+        DESCRIPTION_MISSING:
+          $ref: '#/components/schemas/CatalogsItemValidationDetails'
+          description: Item is missing description in its product metadata, this item will not be published.
+        DUPLICATE_PRODUCTS:
+          $ref: '#/components/schemas/CatalogsItemValidationDetails'
+          description: This product is duplicated. The duplicate entry will not be published.
+        IMAGE_LINK_INVALID:
+          $ref: '#/components/schemas/CatalogsItemValidationDetails'
+          description: Image link is invalid.
+        IMAGE_LINK_LENGTH_TOO_LONG:
+          $ref: '#/components/schemas/CatalogsItemValidationDetails'
+          description: Item has image_link URL that contains too many characters, so the item will not be published.
+        IMAGE_LINK_MISSING:
+          $ref: '#/components/schemas/CatalogsItemValidationDetails'
+          description: Item is missing an image link URL in its product metadata, this item will not be published.
+        INVALID_DOMAIN:
+          $ref: '#/components/schemas/CatalogsItemValidationDetails'
+          description: Product link value doesn't match the verified domain associated with this account.
+        ITEMID_MISSING:
+          $ref: '#/components/schemas/CatalogsItemValidationDetails'
+          description: Item is missing item id in its product metadata, this item will not be published.
+        ITEM_MAIN_IMAGE_DOWNLOAD_FAILURE:
+          $ref: '#/components/schemas/CatalogsItemValidationDetails'
+          description: Main image can't be found.
+        LINK_FORMAT_INVALID:
+          $ref: '#/components/schemas/CatalogsItemValidationDetails'
+          description: Link is invalid.
+        LINK_LENGTH_TOO_LONG:
+          $ref: '#/components/schemas/CatalogsItemValidationDetails'
+          description: Product link contains too many characters, this item will not be published.
+        LIST_PRICE_INVALID:
+          $ref: '#/components/schemas/CatalogsItemValidationDetails'
+          description: Item has a list price formatting error, this item will not be published.
+        MAX_ITEMS_PER_ITEM_GROUP_EXCEEDED:
+          $ref: '#/components/schemas/CatalogsItemValidationDetails'
+          description: Item exceed the maximum number of items per item group, this item will not be published.
+        PARSE_LINE_ERROR:
+          $ref: '#/components/schemas/CatalogsItemValidationDetails'
+          description: Item contains formating errors.
+        PINJOIN_CONTENT_UNSAFE:
+          $ref: '#/components/schemas/CatalogsItemValidationDetails'
+          description: Item will not be published because it doesn't meet Pinterest's Merchant Guidelines.
+        PRICE_CANNOT_BE_DETERMINED:
+          $ref: '#/components/schemas/CatalogsItemValidationDetails'
+          description: Item price cannot be determined because the price, list price, and sale price are all different.
+        PRICE_MISSING:
+          $ref: '#/components/schemas/CatalogsItemValidationDetails'
+          description: Product is missing a price, this item will not be published.
+        PRODUCT_LINK_MISSING:
+          $ref: '#/components/schemas/CatalogsItemValidationDetails'
+          description: Item is missing a link URL in its product metadata, this item will not be published.
+        PRODUCT_PRICE_INVALID:
+          $ref: '#/components/schemas/CatalogsItemValidationDetails'
+          description: Item has a price formatting error in its product metadata, this item will not be published.
+        TITLE_MISSING:
+          $ref: '#/components/schemas/CatalogsItemValidationDetails'
+          description: Item is missing title in its product metadata, this item will not be published.
+    CatalogsItemValidationDetails:
+      type: object
+      properties:
+        attribute_name:
+          $ref: '#/components/schemas/NullableCatalogsItemFieldType'
+          description: Attribute that has a validation issue.
+        provided_value:
+          type:
+          - string
+          - 'null'
+          description: Provided value that caused the validation issue.
+      required:
+      - attribute_name
+      - provided_value
     CatalogsItemValidationWarnings:
       type: object
       properties:
@@ -232,202 +437,6 @@ components:
         WEIGHT_UNIT_INVALID:
           $ref: '#/components/schemas/CatalogsItemValidationDetails'
           description: Item has a weight_unit value that is formatted incorrectly, this item will be published without a weight unit.
-    Error:
-      title: Error
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
-    CatalogsItemValidationErrors:
-      type: object
-      properties:
-        ADULT_INVALID:
-          $ref: '#/components/schemas/CatalogsItemValidationDetails'
-          description: Item has an invalid adult value.
-        ADWORDS_FORMAT_INVALID:
-          $ref: '#/components/schemas/CatalogsItemValidationDetails'
-          description: Adword link contains too many characters.
-        AVAILABILITY_INVALID:
-          $ref: '#/components/schemas/CatalogsItemValidationDetails'
-          description: Item is missing availability value in its product metadata, this item will not be published.
-        BLOCKLISTED_IMAGE_SIGNATURE:
-          $ref: '#/components/schemas/CatalogsItemValidationDetails'
-          description: Item will not be published because it doesn't meet Pinterest's Merchant Guidelines.
-        DESCRIPTION_MISSING:
-          $ref: '#/components/schemas/CatalogsItemValidationDetails'
-          description: Item is missing description in its product metadata, this item will not be published.
-        DUPLICATE_PRODUCTS:
-          $ref: '#/components/schemas/CatalogsItemValidationDetails'
-          description: This product is duplicated. The duplicate entry will not be published.
-        IMAGE_LINK_INVALID:
-          $ref: '#/components/schemas/CatalogsItemValidationDetails'
-          description: Image link is invalid.
-        IMAGE_LINK_LENGTH_TOO_LONG:
-          $ref: '#/components/schemas/CatalogsItemValidationDetails'
-          description: Item has image_link URL that contains too many characters, so the item will not be published.
-        IMAGE_LINK_MISSING:
-          $ref: '#/components/schemas/CatalogsItemValidationDetails'
-          description: Item is missing an image link URL in its product metadata, this item will not be published.
-        INVALID_DOMAIN:
-          $ref: '#/components/schemas/CatalogsItemValidationDetails'
-          description: Product link value doesn't match the verified domain associated with this account.
-        ITEMID_MISSING:
-          $ref: '#/components/schemas/CatalogsItemValidationDetails'
-          description: Item is missing item id in its product metadata, this item will not be published.
-        ITEM_MAIN_IMAGE_DOWNLOAD_FAILURE:
-          $ref: '#/components/schemas/CatalogsItemValidationDetails'
-          description: Main image can't be found.
-        LINK_FORMAT_INVALID:
-          $ref: '#/components/schemas/CatalogsItemValidationDetails'
-          description: Link is invalid.
-        LINK_LENGTH_TOO_LONG:
-          $ref: '#/components/schemas/CatalogsItemValidationDetails'
-          description: Product link contains too many characters, this item will not be published.
-        LIST_PRICE_INVALID:
-          $ref: '#/components/schemas/CatalogsItemValidationDetails'
-          description: Item has a list price formatting error, this item will not be published.
-        MAX_ITEMS_PER_ITEM_GROUP_EXCEEDED:
-          $ref: '#/components/schemas/CatalogsItemValidationDetails'
-          description: Item exceed the maximum number of items per item group, this item will not be published.
-        PARSE_LINE_ERROR:
-          $ref: '#/components/schemas/CatalogsItemValidationDetails'
-          description: Item contains formating errors.
-        PINJOIN_CONTENT_UNSAFE:
-          $ref: '#/components/schemas/CatalogsItemValidationDetails'
-          description: Item will not be published because it doesn't meet Pinterest's Merchant Guidelines.
-        PRICE_CANNOT_BE_DETERMINED:
-          $ref: '#/components/schemas/CatalogsItemValidationDetails'
-          description: Item price cannot be determined because the price, list price, and sale price are all different.
-        PRICE_MISSING:
-          $ref: '#/components/schemas/CatalogsItemValidationDetails'
-          description: Product is missing a price, this item will not be published.
-        PRODUCT_LINK_MISSING:
-          $ref: '#/components/schemas/CatalogsItemValidationDetails'
-          description: Item is missing a link URL in its product metadata, this item will not be published.
-        PRODUCT_PRICE_INVALID:
-          $ref: '#/components/schemas/CatalogsItemValidationDetails'
-          description: Item has a price formatting error in its product metadata, this item will not be published.
-        TITLE_MISSING:
-          $ref: '#/components/schemas/CatalogsItemValidationDetails'
-          description: Item is missing title in its product metadata, this item will not be published.
-    NullableCatalogsItemFieldType:
-      description: Product item fields
-      example: TITLE
-      type:
-      - string
-      - 'null'
-      enum:
-      - ITEM_ID
-      - ITEM_GROUP_ID
-      - TITLE
-      - DESCRIPTION
-      - ITEM_LINK
-      - ORGANIC_LINK
-      - IMAGE_LINK
-      - ADWORDS_REDIRECT_LINK
-      - AD_LINK
-      - SIZE
-      - GOOGLE_PRODUCT_CATEGORY
-      - PRODUCT_CATEGORY
-      - CONDITION
-      - AVAILABILITY
-      - GENDER
-      - AGE_GROUP
-      - SIZE_TYPE
-      - SIZE_SYSTEM
-      - ADULT
-      - SHIPPING
-      - SHIPPING_WEIGHT
-      - TAX
-      - MULTIPACK
-      - ADDITIONAL_IMAGE_LINK
-      - PRICE
-      - SALE_PRICE
-      - IS_BUNDLE
-      - EXPIRATION_DATE
-      - SALE_PRICE_EFFECTIVE_DATE
-      - AVAILABILITY_DATE
-      - WEIGHT_UNIT
-      - PRODUCT_TYPE
-      - CUSTOM_LABEL_0
-      - CUSTOM_LABEL_1
-      - CUSTOM_LABEL_2
-      - CUSTOM_LABEL_3
-      - CUSTOM_LABEL_4
-      - MATERIAL
-      - PATTERN
-      - COLOR
-      - BRAND
-      - GTIN
-      - MPN
-      - IOS_DEEP_LINK
-      - ANDROID_DEEP_LINK
-      - FREE_SHIPPING_LABEL
-      - FREE_SHIPPING_LIMIT
-      - AVG_REVIEW_RATING
-      - NUM_RATINGS
-      - NUM_REVIEWS
-      - ALT_TEXT
-      - VARIANT_NAMES
-      - VARIANT_VALUES
-      - MIN_AD_PRICE
-      - SHIPPING_WIDTH
-      - SHIPPING_HEIGHT
-      - null
-    Paginated:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            type: object
-        bookmark:
-          type:
-          - string
-          - 'null'
-      required:
-      - items
-    CatalogsItemValidationIssues:
-      type: object
-      properties:
-        item_number:
-          description: Item number based on order of appearance in the Catalogs Feed. For example, '0' refers to first item found in a feed that was downloaded from a 'location' specified during feed creation.
-          example: 0
-          type: integer
-        item_id:
-          description: The merchant-created unique ID that represents the product.
-          example: DS0294-L
-          type:
-          - string
-          - 'null'
-        errors:
-          $ref: '#/components/schemas/CatalogsItemValidationErrors'
-        warnings:
-          $ref: '#/components/schemas/CatalogsItemValidationWarnings'
-      required:
-      - item_number
-      - item_id
-      - errors
-      - warnings
-    CatalogsItemValidationDetails:
-      type: object
-      properties:
-        attribute_name:
-          $ref: '#/components/schemas/NullableCatalogsItemFieldType'
-          description: Attribute that has a validation issue.
-        provided_value:
-          type:
-          - string
-          - 'null'
-          description: Provided value that caused the validation issue.
-      required:
-      - attribute_name
-      - provided_value
     CatalogsItemValidationIssue:
       type: string
       enum:
@@ -498,61 +507,52 @@ components:
       - TOO_MANY_ADDITIONAL_IMAGE_LINKS
       - UTM_SOURCE_AUTO_CORRECTED
       - WEIGHT_UNIT_INVALID
-  parameters:
-    query_ad_account_id:
-      name: ad_account_id
-      description: Unique identifier of an ad account.
-      in: query
-      schema:
-        type: string
-        pattern: ^\d+$
-        maxLength: 18
-    query_catalogs_item_validation_issue:
-      name: item_validation_issue
-      in: query
-      description: Filter item validation issues that have a given type of item validation issue.
-      example: TITLE_MISSING
-      required: false
-      schema:
-        $ref: '#/components/schemas/CatalogsItemValidationIssue'
-    query_catalogs_item_numbers:
-      name: item_numbers
-      in: query
-      description: Item number based on order of appearance in the Catalogs Feed. For example, '0' refers to first item found in a feed that was downloaded from a 'location' specified during feed creation.
-      example:
-      - 1
-      - 5
-      required: false
-      schema:
-        type: array
+    Paginated:
+      type: object
+      properties:
         items:
+          type: array
+          items:
+            type: object
+        bookmark:
+          type:
+          - string
+          - 'null'
+      required:
+      - items
+    CatalogsItemValidationIssues:
+      type: object
+      properties:
+        item_number:
+          description: Item number based on order of appearance in the Catalogs Feed. For example, '0' refers to first item found in a feed that was downloaded from a 'location' specified during feed creation.
+          example: 0
           type: integer
-    query_page_size:
-      name: page_size
-      description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
-      in: query
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 250
-        default: 25
-    path_catalogs_processing_result_id:
-      description: Unique identifier of a feed processing result. It can be acquired from the "id" field of the "items" array within the response of the [List processing results for a given feed](https://developers.pinterest.com/docs/api/v5/#operation/feed_processing_results/list).
-      name: processing_result_id
-      in: path
-      example: '5224831246441439241'
-      required: true
-      schema:
-        type: string
-        pattern: ^\d+$
-    query_bookmark:
-      name: bookmark
-      description: Cursor used to fetch the next page of items
-      in: query
-      required: false
-      schema:
-        type: string
+        item_id:
+          description: The merchant-created unique ID that represents the product.
+          example: DS0294-L
+          type:
+          - string
+          - 'null'
+        errors:
+          $ref: '#/components/schemas/CatalogsItemValidationErrors'
+        warnings:
+          $ref: '#/components/schemas/CatalogsItemValidationWarnings'
+      required:
+      - item_number
+      - item_id
+      - errors
+      - warnings
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
   securitySchemes:
     pinterest_oauth2:
       type: oauth2

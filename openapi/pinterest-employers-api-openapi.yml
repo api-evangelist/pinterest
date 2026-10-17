@@ -53,17 +53,100 @@ paths:
       - Employers
 components:
   schemas:
-    Error:
-      title: Error
+    BusinessMemberAssetsSummary:
+      type:
+      - object
+      - 'null'
+      description: Ad accounts and profiles the business member/partner has access to.
+      properties:
+        ad_accounts:
+          type: array
+          description: List of ad account IDs and respective permission levels.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Unique identifier of a business ad account.
+                example: '549755885175'
+                pattern: ^\d+$
+                minLength: 1
+                maxLength: 20
+              permissions:
+                $ref: '#/components/schemas/PermissionsResponse'
+        profiles:
+          type: array
+          description: List of profile IDs and respective permission levels.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Unique identifier of a business profile.
+                example: '383791336903426391'
+                pattern: ^\d+$
+                minLength: 1
+                maxLength: 20
+              permissions:
+                $ref: '#/components/schemas/PermissionsResponse'
+    PermissionsResponse:
+      type: array
+      description: Permission levels member or partner has on an asset.
+      example:
+      - FINANCE_MANAGER
+      - CATALOGS_MANAGER
+      - AUDIENCE_MANAGER
+      items:
+        type: string
+    BusinessAccessUserSummary:
+      type: object
+      description: Metadata of the member/partner that has access to the asset.
+      properties:
+        email:
+          description: Email of the business member/partner.
+          example: business0101@business.com
+          type:
+          - string
+          - 'null'
+        id:
+          description: Unique identifier of the business member/partner.
+          example: '383791336903426391'
+          type:
+          - string
+          - 'null'
+          minLength: 1
+          maxLength: 20
+        username:
+          description: Username of the business member/partner.
+          example: business0101
+          type:
+          - string
+          - 'null'
+    BusinessRoleResponse:
+      type: string
+      description: 'The access level a member/partner has to the business. Values are case-sensitive.
+
+        <br> - EMPLOYEE: Can only view and access assets you assign to them.
+
+        They cannot see details about other employees, partners, or other assets.
+
+        <br> - BIZ_ADMIN: Have full control of roles and can add employees or external partners as well as grant asset access.
+
+        <br> - PARTNER: Can only view and access assets you assign them to/or they assign to you.'
+      example: BIZ_ADMIN
+    Paginated:
       type: object
       properties:
-        code:
-          type: integer
-        message:
-          type: string
+        items:
+          type: array
+          items:
+            type: object
+        bookmark:
+          type:
+          - string
+          - 'null'
       required:
-      - code
-      - message
+      - items
     UserBusinessRoleBinding:
       type: object
       properties:
@@ -124,100 +207,17 @@ components:
           description: Metadata for the business member/business partner/employer.
           allOf:
           - $ref: '#/components/schemas/BusinessAccessUserSummary'
-    PermissionsResponse:
-      type: array
-      description: Permission levels member or partner has on an asset.
-      example:
-      - FINANCE_MANAGER
-      - CATALOGS_MANAGER
-      - AUDIENCE_MANAGER
-      items:
-        type: string
-    BusinessMemberAssetsSummary:
-      type:
-      - object
-      - 'null'
-      description: Ad accounts and profiles the business member/partner has access to.
-      properties:
-        ad_accounts:
-          type: array
-          description: List of ad account IDs and respective permission levels.
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-                description: Unique identifier of a business ad account.
-                example: '549755885175'
-                pattern: ^\d+$
-                minLength: 1
-                maxLength: 20
-              permissions:
-                $ref: '#/components/schemas/PermissionsResponse'
-        profiles:
-          type: array
-          description: List of profile IDs and respective permission levels.
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-                description: Unique identifier of a business profile.
-                example: '383791336903426391'
-                pattern: ^\d+$
-                minLength: 1
-                maxLength: 20
-              permissions:
-                $ref: '#/components/schemas/PermissionsResponse'
-    Paginated:
+    Error:
+      title: Error
       type: object
       properties:
-        items:
-          type: array
-          items:
-            type: object
-        bookmark:
-          type:
-          - string
-          - 'null'
+        code:
+          type: integer
+        message:
+          type: string
       required:
-      - items
-    BusinessAccessUserSummary:
-      type: object
-      description: Metadata of the member/partner that has access to the asset.
-      properties:
-        email:
-          description: Email of the business member/partner.
-          example: business0101@business.com
-          type:
-          - string
-          - 'null'
-        id:
-          description: Unique identifier of the business member/partner.
-          example: '383791336903426391'
-          type:
-          - string
-          - 'null'
-          minLength: 1
-          maxLength: 20
-        username:
-          description: Username of the business member/partner.
-          example: business0101
-          type:
-          - string
-          - 'null'
-    BusinessRoleResponse:
-      type: string
-      description: 'The access level a member/partner has to the business. Values are case-sensitive.
-
-        <br> - EMPLOYEE: Can only view and access assets you assign to them.
-
-        They cannot see details about other employees, partners, or other assets.
-
-        <br> - BIZ_ADMIN: Have full control of roles and can add employees or external partners as well as grant asset access.
-
-        <br> - PARTNER: Can only view and access assets you assign them to/or they assign to you.'
-      example: BIZ_ADMIN
+      - code
+      - message
   parameters:
     query_page_size:
       name: page_size

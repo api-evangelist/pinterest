@@ -100,17 +100,6 @@ components:
       items:
         type: string
       type: array
-    Error:
-      title: Error
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
     RelatedTerms:
       type: object
       properties:
@@ -138,6 +127,17 @@ components:
                 example:
                 - shoes
                 - cute clothes
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
   parameters:
     query_list_input_terms:
       description: List of input terms.
@@ -149,14 +149,6 @@ components:
         items:
           type: string
           example: workout
-    query_input_term:
-      description: Input term.
-      in: query
-      name: term
-      example: sports
-      required: true
-      schema:
-        type: string
     query_term_limit:
       description: Max suggested terms to return.
       in: query
@@ -168,6 +160,14 @@ components:
         minimum: 1
         maximum: 10
         default: 4
+    query_input_term:
+      description: Input term.
+      in: query
+      name: term
+      example: sports
+      required: true
+      schema:
+        type: string
   securitySchemes:
     pinterest_oauth2:
       type: oauth2

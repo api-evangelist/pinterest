@@ -145,34 +145,32 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    MediaUploadStatus:
+      description: Media upload status
+      type: string
+      enum:
+      - registered
+      - processing
+      - succeeded
+      - failed
     MediaUploadType:
       type: string
       enum:
       - video
-    Error:
-      title: Error
+    MediaUploadRequest:
+      title: Media upload request
+      description: Media upload request
       type: object
       properties:
-        code:
-          type: integer
-        message:
+        media_type:
+          allOf:
+          - $ref: '#/components/schemas/MediaUploadType'
           type: string
+          writeOnly: true
       required:
-      - code
-      - message
-    Paginated:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            type: object
-        bookmark:
-          type:
-          - string
-          - 'null'
-      required:
-      - items
+      - media_type
+      example:
+        media_type: video
     MediaUploadDetails:
       title: Media upload details
       description: Media upload details
@@ -196,28 +194,6 @@ components:
         media_id: '12345'
         media_type: video
         status: succeeded
-    MediaUploadStatus:
-      description: Media upload status
-      type: string
-      enum:
-      - registered
-      - processing
-      - succeeded
-      - failed
-    MediaUploadRequest:
-      title: Media upload request
-      description: Media upload request
-      type: object
-      properties:
-        media_type:
-          allOf:
-          - $ref: '#/components/schemas/MediaUploadType'
-          type: string
-          writeOnly: true
-      required:
-      - media_type
-      example:
-        media_type: video
     MediaUpload:
       type: object
       title: Media upload
@@ -272,6 +248,30 @@ components:
           x-amz-security-token: IQoJb3JpZ2luX2VjEJr...==
           x-amz-algorithm: AWS4-HMAC-SHA256
           Content-Type: multipart/form-data
+    Paginated:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+        bookmark:
+          type:
+          - string
+          - 'null'
+      required:
+      - items
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
   parameters:
     query_page_size:
       name: page_size
@@ -283,6 +283,13 @@ components:
         minimum: 1
         maximum: 250
         default: 25
+    query_bookmark:
+      name: bookmark
+      description: Cursor used to fetch the next page of items
+      in: query
+      required: false
+      schema:
+        type: string
     path_media_id:
       name: media_id
       description: Media identifier
@@ -291,13 +298,6 @@ components:
       schema:
         type: string
         pattern: ^\d+$
-    query_bookmark:
-      name: bookmark
-      description: Cursor used to fetch the next page of items
-      in: query
-      required: false
-      schema:
-        type: string
   securitySchemes:
     pinterest_oauth2:
       type: oauth2

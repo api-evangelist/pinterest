@@ -673,6 +673,227 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    PinMediaSourcePinURL:
+      title: Pin URL
+      description: Pin URL-based media source for product pin creation. Currently the field is only available to a list of beta users.
+      type: object
+      properties:
+        source_type:
+          type: string
+          enum:
+          - pin_url
+        is_affiliate_link:
+          type: boolean
+          description: This is an affiliate link or sponsored product. The FTC requires disclosure for paid partnerships and affiliate products.
+          default: false
+      required:
+      - source_type
+    PinMedia:
+      title: Pin media
+      type: object
+      description: Pin media objects.
+      discriminator:
+        propertyName: media_type
+        mapping:
+          image: '#/components/schemas/PinMediaWithImage'
+          video: '#/components/schemas/PinMediaWithVideo'
+          multiple_images: '#/components/schemas/PinMediaWithImages'
+          multiple_videos: '#/components/schemas/PinMediaWithVideos'
+          multiple_mixed: '#/components/schemas/PinMediaWithImageAndVideo'
+      properties:
+        media_type:
+          type: string
+    PinMediaSourceImageURL:
+      title: Image URL
+      description: Image URL-based media source
+      type: object
+      properties:
+        source_type:
+          type: string
+          enum:
+          - image_url
+        url:
+          type: string
+        is_standard:
+          type: boolean
+          description: Set the parameter to false to create the new simplified Pin instead of the standard pin. Currently the field is only available to a list of beta users.
+          default: true
+      required:
+      - source_type
+      - url
+    PinMediaSourceImagesURL:
+      title: Images urls
+      description: Multiple images urls-based media source
+      additionalProperties: false
+      properties:
+        source_type:
+          type: string
+          enum:
+          - multiple_image_urls
+        items:
+          items:
+            additionalProperties: false
+            properties:
+              title:
+                type: string
+              description:
+                type: string
+              link:
+                type: string
+                description: Destination link for the image.
+              url:
+                description: URL of image to upload.
+                type: string
+            required:
+            - url
+            type: object
+          minItems: 2
+          maxItems: 5
+          description: Array with image objects.
+          type: array
+        index:
+          type: integer
+          minimum: 0
+      required:
+      - items
+      type: object
+    BoardOwner:
+      title: Board owner
+      type: object
+      properties:
+        username:
+          type: string
+          readOnly: true
+    BoardSection:
+      title: Board section
+      description: Sections help organize pins within a board.
+      type: object
+      properties:
+        id:
+          type: string
+          readOnly: true
+          example: '549755885175'
+        name:
+          type: string
+          example: Salads
+          minLength: 1
+          maxLength: 180
+      required:
+      - name
+    Pin:
+      title: Pin
+      description: Pin
+      type:
+      - object
+      - 'null'
+      properties:
+        id:
+          type: string
+          readOnly: true
+          example: '813744226420795884'
+          pattern: ^\d+$
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2020-01-01T20:10:40-00:00'
+        link:
+          type:
+          - string
+          - 'null'
+          example: https://www.pinterest.com/
+          maxLength: 2048
+        title:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        dominant_color:
+          type:
+          - string
+          - 'null'
+          description: Dominant pin color. Hex number, e.g. \"#6E7874\".
+          example: '#6E7874'
+        alt_text:
+          type:
+          - string
+          - 'null'
+          maxLength: 500
+        creative_type:
+          readOnly: true
+          type:
+          - string
+          - 'null'
+          allOf:
+          - $ref: '#/components/schemas/CreativeType'
+        board_id:
+          description: The board to which this Pin belongs.
+          type: string
+          pattern: ^\d+$
+        board_section_id:
+          description: The board section to which this Pin belongs.
+          type:
+          - string
+          - 'null'
+          pattern: ^\d+$
+        board_owner:
+          allOf:
+          - $ref: '#/components/schemas/BoardOwner'
+          type: object
+          readOnly: true
+        is_owner:
+          description: Whether the "operation user_account" is the Pin owner.
+          type: boolean
+          readOnly: true
+        media:
+          allOf:
+          - $ref: '#/components/schemas/PinMedia'
+          type: object
+          readOnly: true
+        media_source:
+          allOf:
+          - $ref: '#/components/schemas/PinMediaSource'
+          type: object
+          writeOnly: true
+        parent_pin_id:
+          description: The source pin id if this pin was saved from another pin. <a href="https://help.pinterest.com/article/save-pins-on-pinterest">Learn more</a>.
+          type:
+          - string
+          - 'null'
+          pattern: ^\d+$
+        is_standard:
+          description: Whether the Pin is standard or not. See documentation on <a href="https://developers.pinterest.com/docs/content/update/">Changes to Pin creation</a> for more information.
+          type: boolean
+        has_been_promoted:
+          description: Whether the Pin has been promoted or not.
+          type: boolean
+          readOnly: true
+        note:
+          description: Private note for this Pin. <a href="https://help.pinterest.com/en/article/add-notes-to-your-pins">Learn more</a>.
+          type:
+          - string
+          - 'null'
+        pin_metrics:
+          description: Pin metrics with associated time intervals if any.
+          type:
+          - object
+          - 'null'
+          example:
+            pin_metrics:
+            - 90d:
+                pin_click: 7
+                impression: 2
+                clickthrough: 3
+              all_time:
+                pin_click: 7
+                impression: 2
+                clickthrough: 3
+                reaction: 10
+                comment: 2
+            - null
     BoardUpdate:
       title: BoardUpdate
       description: Board fields for updates
@@ -691,6 +912,50 @@ components:
           enum:
           - PUBLIC
           - SECRET
+    PinMediaSource:
+      title: Pin media source
+      description: Pin media source.
+      oneOf:
+      - $ref: '#/components/schemas/PinMediaSourceImageBase64'
+      - $ref: '#/components/schemas/PinMediaSourceImageURL'
+      - $ref: '#/components/schemas/PinMediaSourceVideoID'
+      - $ref: '#/components/schemas/PinMediaSourceImagesBase64'
+      - $ref: '#/components/schemas/PinMediaSourceImagesURL'
+      - $ref: '#/components/schemas/PinMediaSourcePinURL'
+      discriminator:
+        propertyName: source_type
+        mapping:
+          multiple_image_base64: '#/components/schemas/PinMediaSourceImagesBase64'
+          image_base64: '#/components/schemas/PinMediaSourceImageBase64'
+          multiple_image_urls: '#/components/schemas/PinMediaSourceImagesURL'
+          image_url: '#/components/schemas/PinMediaSourceImageURL'
+          video_id: '#/components/schemas/PinMediaSourceVideoID'
+          pin_url: '#/components/schemas/PinMediaSourcePinURL'
+    PinMediaSourceImageBase64:
+      title: Image Base64
+      description: Base64-encoded image media source
+      type: object
+      properties:
+        source_type:
+          type: string
+          enum:
+          - image_base64
+        content_type:
+          type: string
+          enum:
+          - image/jpeg
+          - image/png
+        data:
+          type: string
+          pattern: '[a-zA-Z0-9+\/=]+'
+        is_standard:
+          type: boolean
+          description: Set the parameter to false to create the new simplified Pin instead of the standard pin. Currently the field is only available to a list of beta users.
+          default: true
+      required:
+      - source_type
+      - content_type
+      - data
     Board:
       title: Board
       description: Board
@@ -833,282 +1098,6 @@ components:
       required:
       - items
       type: object
-    PinMediaSourceImageURL:
-      title: Image URL
-      description: Image URL-based media source
-      type: object
-      properties:
-        source_type:
-          type: string
-          enum:
-          - image_url
-        url:
-          type: string
-        is_standard:
-          type: boolean
-          description: Set the parameter to false to create the new simplified Pin instead of the standard pin. Currently the field is only available to a list of beta users.
-          default: true
-      required:
-      - source_type
-      - url
-    PinMediaSourcePinURL:
-      title: Pin URL
-      description: Pin URL-based media source for product pin creation. Currently the field is only available to a list of beta users.
-      type: object
-      properties:
-        source_type:
-          type: string
-          enum:
-          - pin_url
-        is_affiliate_link:
-          type: boolean
-          description: This is an affiliate link or sponsored product. The FTC requires disclosure for paid partnerships and affiliate products.
-          default: false
-      required:
-      - source_type
-    BoardOwner:
-      title: Board owner
-      type: object
-      properties:
-        username:
-          type: string
-          readOnly: true
-    PinMediaSourceImageBase64:
-      title: Image Base64
-      description: Base64-encoded image media source
-      type: object
-      properties:
-        source_type:
-          type: string
-          enum:
-          - image_base64
-        content_type:
-          type: string
-          enum:
-          - image/jpeg
-          - image/png
-        data:
-          type: string
-          pattern: '[a-zA-Z0-9+\/=]+'
-        is_standard:
-          type: boolean
-          description: Set the parameter to false to create the new simplified Pin instead of the standard pin. Currently the field is only available to a list of beta users.
-          default: true
-      required:
-      - source_type
-      - content_type
-      - data
-    PinMediaSource:
-      title: Pin media source
-      description: Pin media source.
-      oneOf:
-      - $ref: '#/components/schemas/PinMediaSourceImageBase64'
-      - $ref: '#/components/schemas/PinMediaSourceImageURL'
-      - $ref: '#/components/schemas/PinMediaSourceVideoID'
-      - $ref: '#/components/schemas/PinMediaSourceImagesBase64'
-      - $ref: '#/components/schemas/PinMediaSourceImagesURL'
-      - $ref: '#/components/schemas/PinMediaSourcePinURL'
-      discriminator:
-        propertyName: source_type
-        mapping:
-          multiple_image_base64: '#/components/schemas/PinMediaSourceImagesBase64'
-          image_base64: '#/components/schemas/PinMediaSourceImageBase64'
-          multiple_image_urls: '#/components/schemas/PinMediaSourceImagesURL'
-          image_url: '#/components/schemas/PinMediaSourceImageURL'
-          video_id: '#/components/schemas/PinMediaSourceVideoID'
-          pin_url: '#/components/schemas/PinMediaSourcePinURL'
-    PinMedia:
-      title: Pin media
-      type: object
-      description: Pin media objects.
-      discriminator:
-        propertyName: media_type
-        mapping:
-          image: '#/components/schemas/PinMediaWithImage'
-          video: '#/components/schemas/PinMediaWithVideo'
-          multiple_images: '#/components/schemas/PinMediaWithImages'
-          multiple_videos: '#/components/schemas/PinMediaWithVideos'
-          multiple_mixed: '#/components/schemas/PinMediaWithImageAndVideo'
-      properties:
-        media_type:
-          type: string
-    PinMediaSourceImagesURL:
-      title: Images urls
-      description: Multiple images urls-based media source
-      additionalProperties: false
-      properties:
-        source_type:
-          type: string
-          enum:
-          - multiple_image_urls
-        items:
-          items:
-            additionalProperties: false
-            properties:
-              title:
-                type: string
-              description:
-                type: string
-              link:
-                type: string
-                description: Destination link for the image.
-              url:
-                description: URL of image to upload.
-                type: string
-            required:
-            - url
-            type: object
-          minItems: 2
-          maxItems: 5
-          description: Array with image objects.
-          type: array
-        index:
-          type: integer
-          minimum: 0
-      required:
-      - items
-      type: object
-    Pin:
-      title: Pin
-      description: Pin
-      type:
-      - object
-      - 'null'
-      properties:
-        id:
-          type: string
-          readOnly: true
-          example: '813744226420795884'
-          pattern: ^\d+$
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
-          example: '2020-01-01T20:10:40-00:00'
-        link:
-          type:
-          - string
-          - 'null'
-          example: https://www.pinterest.com/
-          maxLength: 2048
-        title:
-          type:
-          - string
-          - 'null'
-        description:
-          type:
-          - string
-          - 'null'
-        dominant_color:
-          type:
-          - string
-          - 'null'
-          description: Dominant pin color. Hex number, e.g. \"#6E7874\".
-          example: '#6E7874'
-        alt_text:
-          type:
-          - string
-          - 'null'
-          maxLength: 500
-        creative_type:
-          readOnly: true
-          type:
-          - string
-          - 'null'
-          allOf:
-          - $ref: '#/components/schemas/CreativeType'
-        board_id:
-          description: The board to which this Pin belongs.
-          type: string
-          pattern: ^\d+$
-        board_section_id:
-          description: The board section to which this Pin belongs.
-          type:
-          - string
-          - 'null'
-          pattern: ^\d+$
-        board_owner:
-          allOf:
-          - $ref: '#/components/schemas/BoardOwner'
-          type: object
-          readOnly: true
-        is_owner:
-          description: Whether the "operation user_account" is the Pin owner.
-          type: boolean
-          readOnly: true
-        media:
-          allOf:
-          - $ref: '#/components/schemas/PinMedia'
-          type: object
-          readOnly: true
-        media_source:
-          allOf:
-          - $ref: '#/components/schemas/PinMediaSource'
-          type: object
-          writeOnly: true
-        parent_pin_id:
-          description: The source pin id if this pin was saved from another pin. <a href="https://help.pinterest.com/article/save-pins-on-pinterest">Learn more</a>.
-          type:
-          - string
-          - 'null'
-          pattern: ^\d+$
-        is_standard:
-          description: Whether the Pin is standard or not. See documentation on <a href="https://developers.pinterest.com/docs/content/update/">Changes to Pin creation</a> for more information.
-          type: boolean
-        has_been_promoted:
-          description: Whether the Pin has been promoted or not.
-          type: boolean
-          readOnly: true
-        note:
-          description: Private note for this Pin. <a href="https://help.pinterest.com/en/article/add-notes-to-your-pins">Learn more</a>.
-          type:
-          - string
-          - 'null'
-        pin_metrics:
-          description: Pin metrics with associated time intervals if any.
-          type:
-          - object
-          - 'null'
-          example:
-            pin_metrics:
-            - 90d:
-                pin_click: 7
-                impression: 2
-                clickthrough: 3
-              all_time:
-                pin_click: 7
-                impression: 2
-                clickthrough: 3
-                reaction: 10
-                comment: 2
-            - null
-    BoardSection:
-      title: Board section
-      description: Sections help organize pins within a board.
-      type: object
-      properties:
-        id:
-          type: string
-          readOnly: true
-          example: '549755885175'
-        name:
-          type: string
-          example: Salads
-          minLength: 1
-          maxLength: 180
-      required:
-      - name
-    Error:
-      title: Error
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-      required:
-      - code
-      - message
     Paginated:
       type: object
       properties:
@@ -1153,7 +1142,49 @@ components:
       required:
       - source_type
       - media_id
+    Error:
+      title: Error
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
   parameters:
+    query_ad_account_id:
+      name: ad_account_id
+      description: Unique identifier of an ad account.
+      in: query
+      schema:
+        type: string
+        pattern: ^\d+$
+        maxLength: 18
+    query_pin_metrics:
+      name: pin_metrics
+      description: Specify whether to return 90d and lifetime Pin metrics. Total comments and total reactions are only available with lifetime Pin metrics. If Pin was created before <code>2023-03-20</code> lifetime metrics will only be available for Video and Idea Pin formats. Lifetime metrics are available for all Pin formats since then.
+      in: query
+      required: false
+      schema:
+        type: boolean
+        default: false
+    query_bookmark:
+      name: bookmark
+      description: Cursor used to fetch the next page of items
+      in: query
+      required: false
+      schema:
+        type: string
+    path_board_section_id:
+      name: section_id
+      description: Unique identifier of a board section.
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
     query_creative_types:
       in: query
       name: creative_types
@@ -1173,45 +1204,6 @@ components:
           - SHOP_THE_PIN
           - COLLECTION
           - IDEA
-    query_bookmark:
-      name: bookmark
-      description: Cursor used to fetch the next page of items
-      in: query
-      required: false
-      schema:
-        type: string
-    query_pin_metrics:
-      name: pin_metrics
-      description: Specify whether to return 90d and lifetime Pin metrics. Total comments and total reactions are only available with lifetime Pin metrics. If Pin was created before <code>2023-03-20</code> lifetime metrics will only be available for Video and Idea Pin formats. Lifetime metrics are available for all Pin formats since then.
-      in: query
-      required: false
-      schema:
-        type: boolean
-        default: false
-    path_board_id:
-      name: board_id
-      description: Unique identifier of a board.
-      in: path
-      required: true
-      schema:
-        type: string
-        pattern: ^\d+$
-    path_board_section_id:
-      name: section_id
-      description: Unique identifier of a board section.
-      in: path
-      required: true
-      schema:
-        type: string
-        pattern: ^\d+$
-    query_ad_account_id:
-      name: ad_account_id
-      description: Unique identifier of an ad account.
-      in: query
-      schema:
-        type: string
-        pattern: ^\d+$
-        maxLength: 18
     query_page_size:
       name: page_size
       description: Maximum number of items to include in a single page of the response. See documentation on <a href='/docs/getting-started/pagination/'>Pagination</a> for more information.
@@ -1222,6 +1214,14 @@ components:
         minimum: 1
         maximum: 250
         default: 25
+    path_board_id:
+      name: board_id
+      description: Unique identifier of a board.
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: ^\d+$
   securitySchemes:
     pinterest_oauth2:
       type: oauth2
