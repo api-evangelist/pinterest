@@ -300,6 +300,23 @@ edges:
     detected: '2026-10-21'
   detected_by: sweep-browser-extension-stores.py
   first_seen: '2026-10-21'
+- partner_name: Drupal (own)
+  partner: drupal
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.drupal.org/project/media_entity_pinterest
+  mirror_of: drupal/integrations/drupal-integration-edges.yml
+  apps:
+  - Media entity Pinterest
+  listing_count: 1
+  detected: '2026-10-22'
+  detected_by: mirror-platform-listings.py
+  category: Drupal contributed module
 method: searched
 checked:
 - https://connectors.airbyte.com/files/registries/v0/cloud_registry.json
@@ -324,6 +341,7 @@ checked:
 - https://addons.mozilla.org/api/v5/addons/addon/<slug>/
 - https://addons.mozilla.org/api/v5/addons/search/?type=extension&app=firefox
 - https://chromewebstore.google.com/sitemap
+- drupal/integrations/drupal-integration-edges.yml
 source:
 - https://docs.mparticle.com/integrations/pinterest/audience/
 - https://fivetran.com/docs/activations/destinations/available-destinations/pinterest

@@ -256,3 +256,16 @@
     detected: '2026-10-21'
   status: not-a-workflow
   arazzo: null
+- slug: pinterest-drupal-own
+  label: Drupal (own)
+  partner: drupal
+  partner_name: Drupal (own)
+  category: Drupal contributed module
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.drupal.org/project/media_entity_pinterest
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
