@@ -1,4 +1,4 @@
-# Pinterest (pinterest)
+# Pinterest
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,76 +66,168 @@
 
 Pinterest is an American image sharing and social media service designed to enable saving and discovery of information like recipes, home, style, motivation, and inspiration on the internet using images and, on a smaller scale, animated GIFs and videos, in the form of pinboards.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-search/images/main/_apis/pinterest/apis.md](https://raw.githubusercontent.com/api-search/images/main/_apis/pinterest/apis.md)
+**Areas:** Image · Social Media · Video · Social
 
-## Scope
+## Pinterest on APIs.io
 
-- **Position:** Consuming
-- **Access:** 3rd-Party
+Everything profiled for Pinterest is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/pinterest/](https://apis.io/providers/pinterest/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (23)
 
-- Images
-- Social Media
-- Videos
+- [Pinterest Ad API](https://apis.io/apis/pinterest/pinterest-ad-api/) — The Ad API from Pinterest — 63 operation(s) for ad.
+- [Pinterest Board API](https://apis.io/apis/pinterest/pinterest-board-api/) — The Board API from Pinterest — 5 operation(s) for board.
+- [Pinterest Boards API](https://apis.io/apis/pinterest/pinterest-boards-api/) — The Boards API from Pinterest — 1 operation(s) for boards.
+- [Pinterest Business API](https://apis.io/apis/pinterest/pinterest-business-api/) — The Business API from Pinterest — 13 operation(s) for business.
+- [Pinterest Catalogs API](https://apis.io/apis/pinterest/pinterest-catalogs-api/) — The Catalogs API from Pinterest — 1 operation(s) for catalogs.
+- [Pinterest Employers API](https://apis.io/apis/pinterest/pinterest-employers-api/) — The Employers API from Pinterest — 1 operation(s) for employers.
+- [Pinterest Feeds API](https://apis.io/apis/pinterest/pinterest-feeds-api/) — The Feeds API from Pinterest — 4 operation(s) for feeds.
+- [Pinterest Integrations API](https://apis.io/apis/pinterest/pinterest-integrations-api/) — The Integrations API from Pinterest — 5 operation(s) for integrations.
+- [Pinterest Invites API](https://apis.io/apis/pinterest/pinterest-invites-api/) — The Invites API from Pinterest — 3 operation(s) for invites.
+- [Pinterest Items API](https://apis.io/apis/pinterest/pinterest-items-api/) — The Items API from Pinterest — 3 operation(s) for items.
+- [Pinterest Keywords API](https://apis.io/apis/pinterest/pinterest-keywords-api/) — The Keywords API from Pinterest — 3 operation(s) for keywords.
+- [Pinterest Media API](https://apis.io/apis/pinterest/pinterest-media-api/) — The Media API from Pinterest — 2 operation(s) for media.
+- [Pinterest Pins API](https://apis.io/apis/pinterest/pinterest-pins-api/) — The Pins API from Pinterest — 11 operation(s) for pins.
+- [Pinterest Processing API](https://apis.io/apis/pinterest/pinterest-processing-api/) — The Processing API from Pinterest — 2 operation(s) for processing.
+- [Pinterest Product API](https://apis.io/apis/pinterest/pinterest-product-api/) — The Product API from Pinterest — 10 operation(s) for product.
+- [Pinterest Products API](https://apis.io/apis/pinterest/pinterest-products-api/) — The Products API from Pinterest — 2 operation(s) for products.
+- [Pinterest Reports API](https://apis.io/apis/pinterest/pinterest-reports-api/) — The Reports API from Pinterest — 5 operation(s) for reports.
+- [Pinterest Resources API](https://apis.io/apis/pinterest/pinterest-resources-api/) — The Resources API from Pinterest — 6 operation(s) for resources.
+- [Pinterest Search API](https://apis.io/apis/pinterest/pinterest-search-api/) — The Search API from Pinterest — 3 operation(s) for search.
+- [Pinterest Terms API](https://apis.io/apis/pinterest/pinterest-terms-api/) — The Terms API from Pinterest — 3 operation(s) for terms.
+- [Pinterest Token API](https://apis.io/apis/pinterest/pinterest-token-api/) — The Token API from Pinterest — 1 operation(s) for token.
+- [Pinterest User API](https://apis.io/apis/pinterest/pinterest-user-api/) — The User API from Pinterest — 11 operation(s) for user.
+- [Pinterest Users API](https://apis.io/apis/pinterest/pinterest-users-api/) — The Users API from Pinterest — 1 operation(s) for users.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2023-11-23
-- **Modified:** 2026-05-30
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### GraphQL (1)
 
-### Pinterest API
+GraphQL schemas.
 
-The Pinterest REST API v5 for managing ads, ad groups, ad accounts, audiences, billing, boards, board sections, pins, catalogs, and analytics on Pinterest.
+- [Moved to /providers/pinterest/](https://apis.io/graphqls/pinterest/pinterest-graphql/)
 
-- **Human URL:** [https://developers.pinterest.com/](https://developers.pinterest.com/)
-- **Base URL:** `https://api.pinterest.com/v5`
+#### Collections (117)
 
-#### Tags
+Postman and Open Collection request collections.
 
-- Images
+- [Pinterest Access API](https://apis.io/collections/pinterest/open-pinterest-access-api/)
+- [Pinterest Accounts API](https://apis.io/collections/pinterest/open-pinterest-accounts-api/)
+- [Pinterest Ad API](https://apis.io/collections/pinterest/open-pinterest-ad-api/)
+- [Pinterest Ad_groups API](https://apis.io/collections/pinterest/open-pinterest-ad-groups-api/)
+- [Pinterest Ads API](https://apis.io/collections/pinterest/open-pinterest-ads-api/)
+- [Pinterest Analytics API](https://apis.io/collections/pinterest/open-pinterest-analytics-api/)
+- [Pinterest Assets API](https://apis.io/collections/pinterest/open-pinterest-assets-api/)
+- [Pinterest Webhooks (Lead Ads)](https://apis.io/collections/pinterest/open-pinterest-asyncapi/)
+- [Pinterest Audience API](https://apis.io/collections/pinterest/open-pinterest-audience-api/)
+- [Pinterest Audience_insights API](https://apis.io/collections/pinterest/open-pinterest-audience-insights-api/)
+- [Pinterest Audiences API](https://apis.io/collections/pinterest/open-pinterest-audiences-api/)
+- [Pinterest Batch API](https://apis.io/collections/pinterest/open-pinterest-batch-api/)
+- [Pinterest Bid API](https://apis.io/collections/pinterest/open-pinterest-bid-api/)
+- [Pinterest Billing API](https://apis.io/collections/pinterest/open-pinterest-billing-api/)
+- [Pinterest Board API](https://apis.io/collections/pinterest/open-pinterest-board-api/)
+- [Pinterest Boards API](https://apis.io/collections/pinterest/open-pinterest-boards-api/)
+- [Pinterest Bulk API](https://apis.io/collections/pinterest/open-pinterest-bulk-api/)
+- [Pinterest Business API](https://apis.io/collections/pinterest/open-pinterest-business-api/)
+- [Pinterest Campaigns API](https://apis.io/collections/pinterest/open-pinterest-campaigns-api/)
+- [Pinterest Catalogs API](https://apis.io/collections/pinterest/open-pinterest-catalogs-api/)
+- [Pinterest Commerce API](https://apis.io/collections/pinterest/open-pinterest-commerce-api/)
+- [Pinterest Conversion API](https://apis.io/collections/pinterest/open-pinterest-conversion-api/)
+- [Pinterest Conversions API](https://apis.io/collections/pinterest/open-pinterest-conversions-api/)
+- [Pinterest Countries API](https://apis.io/collections/pinterest/open-pinterest-countries-api/)
+- [Pinterest Counts API](https://apis.io/collections/pinterest/open-pinterest-counts-api/)
+- …and 92 more published on APIs.io
 
-#### Properties
+#### Security (1)
 
-- [Documentation](https://developers.pinterest.com/docs/api/v5/)
-- [OpenAPI](openapi/pinterest-openapi-original.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [AsyncAPI](openapi/pinterest-asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
+Authentication, trust centre, and vulnerability disclosure.
 
-## Common Properties
+- [Pinterest Domain Security](https://apis.io/security/pinterest/pinterest-domain-security/)
 
-- [LinkedIn](https://www.linkedin.com/company/pinterest)
-- [Guidelines](https://www.pinterest.com/_/_/policy/developer-guidelines)
-- [News](https://www.pinterest.com/_/_/newsroom/)
-- [Blog](https://medium.com/pinterest-engineering)
-- [Blog R S S](https://medium.com/feed/pinterest-engineering)
-- [Support](https://help.pinterest.com/contact)
-- [Terms of Service](https://developers.pinterest.com/terms/)
-- [OpenAPI](https://github.com/pinterest/api-description) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Git Hub  Org](https://github.com/pinterest)
-- [Status Page](https://www.pintereststatus.com/)
-- [Portal](https://developers.pinterest.com/)
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Pinterest Plans Pricing](https://apis.io/plans/pinterest/pinterest-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Pinterest Rate Limits](https://apis.io/rate-limits/pinterest/pinterest-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Pinterest Finops](https://apis.io/finops/pinterest/pinterest-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.pinterest.com/)
 - [Documentation](https://developers.pinterest.com/docs/overview/welcome/)
+- [Getting started](https://developers.pinterest.com/docs/getting-started/connect-app/)
+- [Support](https://help.pinterest.com/contact)
 - [Changelog](https://developers.pinterest.com/docs/changelog/changelog/)
-- [Getting Started](https://developers.pinterest.com/docs/getting-started/connect-app/)
-- [Features](https://developers.pinterest.com/docs/api-features/track-conversion-events/)
-- [S D Ks](https://developers.pinterest.com/docs/developer-tools/sdk/)
-- [Sandbox](https://developers.pinterest.com/docs/developer-tools/sandbox/)
-- [Getting Started](https://developers.pinterest.com/docs/developer-tools/quickstart-tools/)
-- [Rate Limits](https://developers.pinterest.com/docs/reference/rate-limits/)
-- [Errors](https://developers.pinterest.com/docs/reference/error-codes/)
-- [Pagination](https://developers.pinterest.com/docs/reference/pagination/)
-- [Support](https://developers.pinterest.com/docs/reference/help-and-feedback/)
-- [Terms of Service](https://developers.pinterest.com/terms/)
-- [Privacy Policy](https://policy.pinterest.com/en/privacy-policy)
-- [Partners](https://business.pinterest.com/pinterest-business-partners/)
-- [Plans](https://example.com/plans)
-- [Rate Limits](https://developers.pinterest.com/docs/reference/rate-limits/)
-- [O Auth Scopes](https://developers.pinterest.com/docs/getting-started/set-up-authentication-and-authorization/#available-scopes)
-- [L L Ms Txt](https://developers.pinterest.com/llms.txt)
+- [Blog](https://medium.com/pinterest-engineering)
+- [Terms of service](https://developers.pinterest.com/terms/)
+- [Privacy policy](https://policy.pinterest.com/en/privacy-policy)
+- [Status](https://www.pintereststatus.com/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 48.5** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 53.9 |
+| Contract governance | 0.0 |
+| Operational transparency | 42.1 |
+| Developer ergonomics | 52.4 |
+| Access clarity | 28.9 |
+
+**Agent readiness 35.6** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | negotiable (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | documented (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 23.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/pinterest/](https://apis.io/providers/pinterest/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Pinterest: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/pinterest/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
